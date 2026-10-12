@@ -13,11 +13,11 @@ public class SwapCommand : ICommand
     }
 
     public void Execute()
-    {
-        if(!BoardLogic.IsValidIndex(_x1, _y1, _board))
+    {        
+        if(!LogicLibrary.BoardLogic.IsValidIndex(_x1, _y1, _board))
             return;
         
-        if(!BoardLogic.IsValidIndex(_x2, _y2, _board))
+        if(!LogicLibrary.BoardLogic.IsValidIndex(_x2, _y2, _board))
             return;
 
         if(_board.IsCellLocked(_x1, _y1))
@@ -26,7 +26,7 @@ public class SwapCommand : ICommand
         if(_board.IsCellLocked(_x2, _y2))
             return;
         
-        if(BoardLogic.IsSwappableIndices(_x1, _y1, _x2, _y2))
+        if(LogicLibrary.BoardLogic.IsSwappableIndices(_x1, _y1, _x2, _y2))
         {
             Piece tempPiece = _board.GetCell(_x1, _y1);
             _board.SetCell(_x1, _y1, _board.GetCell(_x2, _y2));
