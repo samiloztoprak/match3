@@ -29,6 +29,12 @@ namespace LogicLibrary
                 for(int x = 0; x < board.Width; x++)
                 {
                     Piece piece = board.GetCell(x, y);
+
+                    if(piece.Type == PieceType.Empty)
+                    {
+                        continue;
+                    }
+
                     int rleResult = RunRLEHorizontal(x, y, piece.Type, board);
                     int runLength = CalculateRunLength(rleResult, x);
                     if(runLength >= MinMatchLength)
@@ -47,6 +53,12 @@ namespace LogicLibrary
                 for(int y = 0; y < board.Height; y++)
                 {
                     Piece piece = board.GetCell(x, y);
+
+                    if(piece.Type == PieceType.Empty)
+                    {
+                        continue;
+                    }
+
                     int rleResult = RunRLEVertical(x, y, piece.Type, board);
                     int runLength = CalculateRunLength(rleResult, y);
                     if(runLength >= MinMatchLength)
@@ -74,7 +86,7 @@ namespace LogicLibrary
             for(int i = x; i < board.Width; i++)
             {
                 Piece piece = board.GetCell(i, y);
-                if(piece.Type != pieceType)
+                if(piece.Type == PieceType.Empty || piece.Type != pieceType)
                 {
                     return i-1;
                 }
@@ -87,7 +99,7 @@ namespace LogicLibrary
             for(int i = y; i < board.Height; i++)
             {
                 Piece piece = board.GetCell(x, i);
-                if(piece.Type != pieceType)
+                if(piece.Type == PieceType.Empty || piece.Type != pieceType)
                 {
                     return i-1;
                 }
