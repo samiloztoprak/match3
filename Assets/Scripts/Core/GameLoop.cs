@@ -9,6 +9,7 @@ public class GameLoop
         _gameLoopEnvironment = new GameLoopEnvironment();
         _gameLoopEnvironment.board = new Board(5,5);
         _gameLoopEnvironment.pendingCommandSlot = new PendingCommandSlot();
+        _gameLoopEnvironment.pendingPresentationSlot = new PendingPresentationSlot();
         _currentState = new IdleState(_gameLoopEnvironment);
         _currentState.Enter();
     }

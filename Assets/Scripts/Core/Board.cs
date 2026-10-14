@@ -25,4 +25,9 @@ public class Board
     {
         return false;
     }
+
+    public void ClearCell(int x, int y)
+    {
+        SetCell(x, y, new Piece(PieceType.Empty));
+    }
 }

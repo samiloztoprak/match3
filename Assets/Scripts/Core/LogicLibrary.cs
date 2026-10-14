@@ -107,4 +107,40 @@ namespace LogicLibrary
             return board.Height-1;
         }
     }
+
+    public static class OrganizationLogic
+    {
+        public static List<(int, int, int, int)> FillEmpties(Board board)
+        {
+            List<(int, int, int, int)> collectedMovement = new List<(int, int, int, int)>();
+            for(int x = 0; x < board.Width; x++)
+            {
+                List<(Piece, int)> collected = new List<(Piece, int)>(); 
+                for(int y = board.Height - 1; y >= 0; y--)
+                {
+                    Piece piece = board.GetCell(x, y);
+                    if(piece.Type != PieceType.Empty)
+                    {
+                        collected.Add((piece, y));
+                    }
+                }
+
+                int writeY = board.Height - 1;
+                foreach (var (piece, y) in collected)
+                {
+                    board.SetCell(x, writeY, piece);
+                    if(Math.Abs(y - writeY) > 0)
+                        collectedMovement.Add((x, y, x, writeY));
+                    writeY--;
+                }
+
+                while (writeY >= 0)
+                {
+                    board.SetCell(x, writeY, new Piece(PieceType.Empty));
+                    writeY--;
+                }
+            }
+            return collectedMovement;
+        }
+    }
 }

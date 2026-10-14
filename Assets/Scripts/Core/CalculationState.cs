@@ -5,7 +5,6 @@ public class CalculationState : IGameState
     private GameLoopEnvironment _gameLoopEnvironment;
     private ICommand _command;
 
-
     public CalculationState(GameLoopEnvironment gameLoopEnvironment, ICommand command)
     {
         _gameLoopEnvironment = gameLoopEnvironment;
@@ -22,7 +21,12 @@ public class CalculationState : IGameState
         HashSet<(int, int)> matchSet = LogicLibrary.MatchLogic.FindMatches(_gameLoopEnvironment.board);
         if(matchSet.Count > 0)
         {
-            return null; // This line for new state explosion or drop like that.
+            foreach (var (x, y) in matchSet)
+            {
+                 _gameLoopEnvironment.board.ClearCell(x, y);
+            }
+            
+            return new DropfallState(_gameLoopEnvironment);
         }
         _command.Execute();
         return new IdleState(_gameLoopEnvironment); 
