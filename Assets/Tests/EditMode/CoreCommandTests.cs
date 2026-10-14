@@ -60,4 +60,64 @@ public class NewTestScript
         Assert.AreEqual(matchSet.Contains((2,2)), true);
         Assert.AreEqual(matchSet.Contains((2,3)), true);
     }
+
+    [Test]
+    public void TestStateMachine()
+    {
+        GameLoopEnvironment _gameLoopEnvironment = new GameLoopEnvironment();
+        _gameLoopEnvironment.board = new Board(4,4);
+        _gameLoopEnvironment.board.SetCell(0, 0, new Piece(PieceType.Blue));
+        _gameLoopEnvironment.board.SetCell(0, 1, new Piece(PieceType.Blue));
+        _gameLoopEnvironment.board.SetCell(0, 2, new Piece(PieceType.Green));
+        _gameLoopEnvironment.board.SetCell(0, 3, new Piece(PieceType.Green));
+
+        _gameLoopEnvironment.board.SetCell(1, 0, new Piece(PieceType.Blue));
+        _gameLoopEnvironment.board.SetCell(1, 1, new Piece(PieceType.Green));
+        _gameLoopEnvironment.board.SetCell(1, 2, new Piece(PieceType.Yellow));
+        _gameLoopEnvironment.board.SetCell(1, 3, new Piece(PieceType.Blue));
+
+        _gameLoopEnvironment.board.SetCell(2, 0, new Piece(PieceType.Red));
+        _gameLoopEnvironment.board.SetCell(2, 1, new Piece(PieceType.Green));
+        _gameLoopEnvironment.board.SetCell(2, 2, new Piece(PieceType.Red));
+        _gameLoopEnvironment.board.SetCell(2, 3, new Piece(PieceType.Red));
+
+        _gameLoopEnvironment.board.SetCell(3, 0, new Piece(PieceType.Blue));
+        _gameLoopEnvironment.board.SetCell(3, 1, new Piece(PieceType.Red));
+        _gameLoopEnvironment.board.SetCell(3, 2, new Piece(PieceType.Yellow));
+        _gameLoopEnvironment.board.SetCell(3, 3, new Piece(PieceType.Green));
+
+        _gameLoopEnvironment.pendingCommandSlot = new PendingCommandSlot();
+        _gameLoopEnvironment.pendingPresentationSlot = new PendingPresentationSlot();
+        IGameState _currentState = new IdleState(_gameLoopEnvironment);
+        _currentState.Enter();
+        _gameLoopEnvironment.pendingCommandSlot.Submit(new SwapCommand(_gameLoopEnvironment.board, 3, 1, 2, 1));
+        int i = 0;
+        int s = 0;
+        while(i < 999)
+        {
+            if(_currentState != null)
+            {
+                IGameState _nextState = _currentState.Execute();
+                if(_nextState != null)
+                {
+                    _currentState.Exit();
+                    _currentState = _nextState;
+                    _currentState.Enter();
+                }
+                if (_currentState is WaitingForPresentationState)
+                {
+                    s++;
+                    if(s > 10)
+                    {
+                        s = 0;
+                        _gameLoopEnvironment.pendingPresentationSlot.MarkComplete();
+                    }
+                }
+            }
+            i++;
+        }
+        for (int x = 0; x < 4; x++)
+            for (int y = 0; y < 4; y++)
+                Assert.AreNotEqual(PieceType.Empty, _gameLoopEnvironment.board.GetCell(x, y).Type);
+    }
 }

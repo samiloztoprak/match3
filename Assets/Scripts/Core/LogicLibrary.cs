@@ -142,5 +142,42 @@ namespace LogicLibrary
             }
             return collectedMovement;
         }
+        
+        static Random _R = new Random ();
+        static T RandomEnumValue<T> ()
+        {
+            var v = Enum.GetValues (typeof (T));
+            return (T) v.GetValue (_R.Next(v.Length));
+        }
+
+        public static List<(int, int, int, int)> GetNewPieceToEmpty(Board board)
+        {
+            List<(int, int, int, int)> collectedMovement = new List<(int, int, int, int)>();
+            for(int x = 0; x < board.Width; x++)
+            {
+                List<(Piece, int)> collected = new List<(Piece, int)>(); 
+                for(int y = board.Height - 1; y >= 0; y--)
+                {
+                    Piece piece = board.GetCell(x, y);
+                    if(piece.Type == PieceType.Empty)
+                    {
+                        PieceType newPieceType = PieceType.Empty;
+                        while(newPieceType == PieceType.Empty)
+                        {
+                            newPieceType = RandomEnumValue<PieceType>();
+                        }
+                        collected.Add((new Piece(newPieceType), y));
+                    }
+                }
+                
+                foreach (var (piece, y) in collected)
+                {
+                    board.SetCell(x, y, piece);
+                    collectedMovement.Add((x, -1, x, y));
+                }
+            }
+            return collectedMovement;
+        }
+        
     }
 }

@@ -28,7 +28,10 @@ public class CalculationState : IGameState
             
             return new DropfallState(_gameLoopEnvironment);
         }
-        _command.Execute();
+
+        if(_command != null)
+            _command.Execute();
+            
         return new IdleState(_gameLoopEnvironment); 
     }
     

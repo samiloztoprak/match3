@@ -5,12 +5,18 @@ public class PendingPresentationSlot
     private List<(int, int, int, int)> _movementList;
     private bool bPresentationDone = false;
 
-    public void Submit(List<(int,int,int,int)> movementList) 
+    public PendingPresentationSlot()
     {
-        _movementList = movementList;
+        _movementList = new List<(int, int, int, int)>();
     }
 
-    public List<(int,int,int,int)> GetMoves() 
+    public void Submit(List<(int, int, int, int)> movementList) 
+    {
+        _movementList = movementList;
+        bPresentationDone = false;
+    }
+
+    public List<(int, int, int, int)> GetMoves() 
     { 
         return _movementList;
     }

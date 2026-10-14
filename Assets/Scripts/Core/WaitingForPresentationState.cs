@@ -20,7 +20,8 @@ public class WaitingForPresentationState : IGameState
     {
         if(_gameLoopEnvironment.pendingPresentationSlot.IsComplete())
         {
-            return new IdleState(_gameLoopEnvironment); 
+            _gameLoopEnvironment.pendingPresentationSlot.Reset();
+            return new RefreshState(_gameLoopEnvironment); 
         }
         return null;
     }
