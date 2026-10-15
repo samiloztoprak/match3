@@ -2,6 +2,9 @@
 public class Board
 {
     private readonly Piece[,] _cells;
+    
+    private int _nextId;
+    public int NextId() => _nextId++;
 
     public int Width => _cells.GetLength(0);
     public int Height => _cells.GetLength(1);
@@ -28,6 +31,6 @@ public class Board
 
     public void ClearCell(int x, int y)
     {
-        SetCell(x, y, new Piece(PieceType.Empty));
+        SetCell(x, y, null);
     }
 }

@@ -7,3 +7,4 @@ public enum PieceType
     Blue,
     Green
 }
+

@@ -30,12 +30,12 @@ namespace LogicLibrary
                 {
                     Piece piece = board.GetCell(x, y);
 
-                    if(piece.Type == PieceType.Empty)
+                    if(piece == null || (piece.Flags & PieceFlags.CanMatch) == 0)
                     {
                         continue;
                     }
 
-                    int rleResult = RunRLEHorizontal(x, y, piece.Type, board);
+                    int rleResult = RunRLEHorizontal(x, y, piece, board);
                     int runLength = CalculateRunLength(rleResult, x);
                     if(runLength >= MinMatchLength)
                     {
@@ -54,12 +54,12 @@ namespace LogicLibrary
                 {
                     Piece piece = board.GetCell(x, y);
 
-                    if(piece.Type == PieceType.Empty)
+                    if(piece == null || (piece.Flags & PieceFlags.CanMatch) == 0)
                     {
                         continue;
                     }
 
-                    int rleResult = RunRLEVertical(x, y, piece.Type, board);
+                    int rleResult = RunRLEVertical(x, y, piece, board);
                     int runLength = CalculateRunLength(rleResult, y);
                     if(runLength >= MinMatchLength)
                     {
@@ -81,12 +81,12 @@ namespace LogicLibrary
         }
 
         //Run Length Encoding
-        public static int RunRLEHorizontal(int x, int y, PieceType pieceType, Board board)
+        public static int RunRLEHorizontal(int x, int y, Piece piece, Board board)
         {
             for(int i = x; i < board.Width; i++)
             {
-                Piece piece = board.GetCell(i, y);
-                if(piece.Type == PieceType.Empty || piece.Type != pieceType)
+                Piece _piece = board.GetCell(i, y);
+                if(_piece == null || (_piece.Flags & PieceFlags.CanMatch) == 0 || _piece.Color != piece.Color)
                 {
                     return i-1;
                 }
@@ -94,12 +94,12 @@ namespace LogicLibrary
             return board.Width-1;
         }
 
-        public static int RunRLEVertical(int x, int y, PieceType pieceType, Board board)
+        public static int RunRLEVertical(int x, int y, Piece piece, Board board)
         {
             for(int i = y; i < board.Height; i++)
             {
-                Piece piece = board.GetCell(x, i);
-                if(piece.Type == PieceType.Empty || piece.Type != pieceType)
+                Piece _piece = board.GetCell(x, i);
+                if(_piece == null || (_piece.Flags & PieceFlags.CanMatch) == 0 || _piece.Color != piece.Color)
                 {
                     return i-1;
                 }
@@ -119,7 +119,7 @@ namespace LogicLibrary
                 for(int y = board.Height - 1; y >= 0; y--)
                 {
                     Piece piece = board.GetCell(x, y);
-                    if(piece.Type != PieceType.Empty)
+                    if(piece != null)
                     {
                         collected.Add((piece, y));
                     }
@@ -136,7 +136,7 @@ namespace LogicLibrary
 
                 while (writeY >= 0)
                 {
-                    board.SetCell(x, writeY, new Piece(PieceType.Empty));
+                    board.SetCell(x, writeY, null);
                     writeY--;
                 }
             }
@@ -159,25 +159,25 @@ namespace LogicLibrary
                 for(int y = board.Height - 1; y >= 0; y--)
                 {
                     Piece piece = board.GetCell(x, y);
-                    if(piece.Type == PieceType.Empty)
+                    if(piece == null)
                     {
                         PieceType newPieceType = PieceType.Empty;
                         while(newPieceType == PieceType.Empty)
                         {
                             newPieceType = RandomEnumValue<PieceType>();
                         }
-                        collected.Add((new Piece(newPieceType), y));
+                        collected.Add((new ColoredPiece(board.NextId(), newPieceType), y));
                     }
                 }
                 
                 foreach (var (piece, y) in collected)
                 {
                     board.SetCell(x, y, piece);
+                    //-1 decrase to every new piece for this clounm.
                     collectedMovement.Add((x, -1, x, y));
                 }
             }
             return collectedMovement;
         }
-        
     }
 }
