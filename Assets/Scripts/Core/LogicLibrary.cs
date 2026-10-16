@@ -150,9 +150,9 @@ namespace LogicLibrary
             return (T) v.GetValue (_R.Next(v.Length));
         }
 
-        public static List<(int, int, int)> GetNewPieceToEmpty(Board board)
+        public static List<(int, PieceType, int, int)> GetNewPieceToEmpty(Board board)
         {
-            List<(int, int, int)> collectedMovement = new List<(int, int, int)>();
+            List<(int, PieceType, int, int)> collectedMovement = new List<(int, PieceType, int, int)>();
             for(int x = 0; x < board.Width; x++)
             {
                 List<(Piece, int)> collected = new List<(Piece, int)>(); 
@@ -174,7 +174,7 @@ namespace LogicLibrary
                 {
                     board.SetCell(x, y, piece);
                     //-1 decrase to every new piece for this clounm.
-                    collectedMovement.Add((piece.Id, x, y));
+                    collectedMovement.Add((piece.Id, piece.Color, x, y));
                 }
             }
             return collectedMovement;

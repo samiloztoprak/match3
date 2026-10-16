@@ -1,22 +1,44 @@
+using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Pool;
 using UnityEngine.InputSystem;
 
 public class BoardController : MonoBehaviour
 {
     [SerializeField] private PieceView _piecePrefab;
     [SerializeField] private float _cellSize = 1f;
+    [SerializeField] private float _stepDuration = 0.2f;
+    [SerializeField] private float _swapDuration = 0.15f;
     
     private Dictionary<int, PieceView> _pieceById = new Dictionary<int, PieceView>();
 
     private bool _hasStart;
+    private bool _isResolving;
     private int _startX, _startY;
     private Vector3 _startWorldPos;
+    private ObjectPool<PieceView> _pool;
     
     private Board _board;
     void Start()
     {
         _board = new Board(5, 5);
+
+        Vector3 defaultScale = _piecePrefab.transform.localScale;
+        _pool = new ObjectPool<PieceView>(
+            createFunc: () =>Instantiate(_piecePrefab, transform),
+            actionOnGet: view => view.gameObject.SetActive(true),
+            actionOnRelease: view =>
+            {
+                view.gameObject.SetActive(false);
+                view.transform.localScale = defaultScale;
+            },
+            actionOnDestroy: view => Destroy(view.gameObject),
+            collectionCheck: true,
+            defaultCapacity: _board !=  null ? _board.Width * _board.Height : 25,
+            maxSize: 200);
+        
         LogicLibrary.OrganizationLogic.GetNewPieceToEmpty(_board);
         
         float offsetX = (_board.Width - 1) / 2f;
@@ -26,8 +48,8 @@ public class BoardController : MonoBehaviour
         {
             for (int y = 0; y < _board.Height; y++)
             {
-                Vector3 worldPos = new Vector3((x - offsetX) * _cellSize, (y - offsetY) * _cellSize, 0);
-                PieceView instance = Instantiate(_piecePrefab, worldPos, Quaternion.identity, transform);
+                PieceView instance = _pool.Get();
+                instance.transform.SetPositionAndRotation(CellToWorld(x, y), Quaternion.identity);
                 Piece piece = _board.GetCell(x, y);
                 instance.Setup(piece);
                 _pieceById[piece.Id] = instance;
@@ -58,46 +80,124 @@ public class BoardController : MonoBehaviour
             if (Mathf.Abs(delta.x) > Mathf.Abs(delta.y))
                 targetX += delta.x > 0 ? 1 : -1;
             else
-                targetY += delta.y > 0 ? 1 : -1;
+                targetY += delta.y > 0 ? -1 : 1;
 
-            if (!LogicLibrary.BoardLogic.IsValidIndex(_startX, _startY, _board))
-            {
-                Debug.Log("Invalid index 1");
-                return;
-            }
-            
-            if (!LogicLibrary.BoardLogic.IsValidIndex(targetX, targetY, _board))
-            {
-                Debug.Log("Invalid index 2");
-                return;
-            }
-            
-            var command = new SwapCommand(_board, _startX, _startY, targetX, targetY);
-            var result = TurnResolver.Resolve(_board, command);
-
-            foreach (var pieceView in _pieceById)
-            {
-                Destroy(pieceView.Value);
-            }
-            _pieceById.Clear();
-            
-            float offsetX = (_board.Width - 1) / 2f;
-            float offsetY = (_board.Height - 1) / 2f;
-        
-            for (int x = 0; x < _board.Width; x++)
-            {
-                for (int y = 0; y < _board.Height; y++)
-                {
-                    Vector3 worldPos = new Vector3((x - offsetX) * _cellSize, (y - offsetY) * _cellSize, 0);
-                    PieceView instance = Instantiate(_piecePrefab, worldPos, Quaternion.identity, transform);
-                    Piece piece = _board.GetCell(x, y);
-                    instance.Setup(piece);
-                    _pieceById[piece.Id] = instance;
-                }
-            }
-            
+            TrySwap(_startX, _startY, targetX, targetY);
             _hasStart = false;
         }
+    }
+
+    public void TrySwap(int x1, int y1, int x2, int y2)
+    {
+        if (_isResolving)
+        {
+            Debug.Log("Still resolving previous turn, ignoring this swap");
+            return;
+        }
+
+        if (!LogicLibrary.BoardLogic.IsValidIndex(x1, y1, _board))
+        {
+            Debug.Log("Invalid index 1");
+            return;
+        }
+
+        if (!LogicLibrary.BoardLogic.IsValidIndex(x2, y2, _board))
+        {
+            Debug.Log("Invalid index 2");
+            return;
+        }
+
+        Piece piece1 = _board.GetCell(x1, y1);
+        Piece piece2 =  _board.GetCell(x2, y2);
+        
+        var command = new SwapCommand(_board, x1, y1, x2, y2);
+        var result = TurnResolver.Resolve(_board, command);
+
+        StartCoroutine(PlayTurn(piece1.Id, piece2.Id, x1, y1, x2, y2, result));
+    }
+
+    private IEnumerator PlayTurn(int piece1Id, int piece2Id, int x1, int y1, int x2, int y2, List<TurnStepData> steps)
+    {
+        _isResolving = true;
+
+        if(_pieceById.TryGetValue(piece1Id, out PieceView view1))
+        {
+            view1.MoveTo(CellToWorld(x2, y2), _swapDuration);
+        }     
+        
+        if(_pieceById.TryGetValue(piece2Id, out PieceView view2))
+        {
+            view2.MoveTo(CellToWorld(x1, y1), _swapDuration);
+        }        
+        yield return new WaitForSeconds(_swapDuration);
+
+        if (steps.Count == 0)
+        {
+            if (_pieceById.TryGetValue(piece1Id, out PieceView backView1))
+            {
+                backView1.MoveTo(CellToWorld(x1, y1), _swapDuration);
+            }
+
+            if (_pieceById.TryGetValue(piece2Id, out PieceView backView2))
+            {
+                backView2.MoveTo(CellToWorld(x2, y2), _swapDuration);
+            }
+            yield return new WaitForSeconds(_swapDuration);
+            
+            _isResolving = false;
+            yield break;
+        }
+        
+        foreach (var step in steps)
+        {
+            if (step is ClearPieceData clearStep)
+            {
+                foreach (int pieceId in clearStep.PieceIds)
+                {
+                    if (_pieceById.TryGetValue(pieceId, out PieceView view))
+                    {
+                        view.ShrinkAndRelease(_stepDuration, v => _pool.Release(v));
+                        _pieceById.Remove(pieceId);
+                    }
+                }
+                yield return new WaitForSeconds(_stepDuration);
+            }
+            else if (step is FallStepData fallStep)
+            {
+                foreach (var (pieceId, toX, toY) in fallStep.Moves)
+                {
+                    if (_pieceById.TryGetValue(pieceId, out PieceView view))
+                    {
+                        view.MoveTo(CellToWorld(toX, toY), _stepDuration, Ease.InQuad);
+                    }
+                }
+                yield return new WaitForSeconds(_stepDuration);
+            }
+            else if (step is RefillStepData refillStep)
+            {
+                Dictionary<int, int> spawnOffsetByColumn = new Dictionary<int, int>();
+                
+                foreach (var (pieceId, color, toX, toY) in refillStep.Moves)
+                {
+                    if (!spawnOffsetByColumn.ContainsKey(toX))
+                    {
+                        spawnOffsetByColumn[toX] = 0;
+                    }
+                    spawnOffsetByColumn[toX]++;
+                    
+                    Vector3 spawnPos = CellToWorld(toX, -spawnOffsetByColumn[toX]);
+                    PieceView instance = _pool.Get();
+                    instance.transform.SetPositionAndRotation(spawnPos, Quaternion.identity);
+                    instance.Setup(new ColoredPiece(pieceId, color));
+                    _pieceById[pieceId] = instance;
+                    
+                    instance.MoveTo(CellToWorld(toX, toY), _stepDuration, Ease.InQuad);
+                }
+                yield return new WaitForSeconds(_stepDuration);
+            }
+        }
+
+        _isResolving = false;
     }
     
     private (int, int) WorldToCell(Vector3 worldPos)
@@ -106,7 +206,14 @@ public class BoardController : MonoBehaviour
         float offsetY = (_board.Height - 1) / 2f;
 
         int x = Mathf.RoundToInt(worldPos.x / _cellSize + offsetX);
-        int y = Mathf.RoundToInt(worldPos.y / _cellSize + offsetY);
+        int y = Mathf.RoundToInt(offsetY - worldPos.y / _cellSize);
         return (x, y);
+    }
+    
+    private Vector3 CellToWorld(int x, int y)
+    {
+        float offsetX = (_board.Width - 1) / 2f;
+        float offsetY = (_board.Height - 1) / 2f;
+        return new Vector3((x - offsetX) * _cellSize, -(y - offsetY) * _cellSize, 0);
     }
 }

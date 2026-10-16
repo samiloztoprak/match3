@@ -44,7 +44,7 @@ public static class TurnResolver
             }
             result.Add(fallStepData);
             
-            List<(int, int, int)> newPieces = OrganizationLogic.GetNewPieceToEmpty(board);
+            List<(int, PieceType, int, int)> newPieces = OrganizationLogic.GetNewPieceToEmpty(board);
             RefillStepData refillStepData = new RefillStepData();
             foreach (var piece in newPieces)
             {
