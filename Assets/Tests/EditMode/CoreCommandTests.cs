@@ -82,7 +82,7 @@ public class NewTestScript
         bool bHasRefilStepData = false;
         foreach (var turnStepData in result)
         {
-            if (turnStepData is ClearStepData)
+            if (turnStepData is ClearPieceData)
             {
                 bHasTurnStepData = true;
             }

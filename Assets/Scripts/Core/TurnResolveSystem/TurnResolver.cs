@@ -27,15 +27,16 @@ public static class TurnResolver
                 break;
             }
 
-            ClearStepData clearStepData = new ClearStepData();
+            ClearPieceData clearStepData = new ClearPieceData();
             foreach (var match in matchSet)
             {
+                Piece piece = board.GetCell(match.Item1, match.Item2);
+                clearStepData.PieceIds.Add(piece.Id);
                 board.ClearCell(match.Item1, match.Item2);
-                clearStepData.Cells.Add((match.Item1, match.Item2));
             }
             result.Add(clearStepData);
 
-            List<(int, int, int, int)> fillPieces = OrganizationLogic.FillEmpties(board);
+            List<(int, int, int)> fillPieces = OrganizationLogic.FillEmpties(board);
             FallStepData fallStepData = new FallStepData();
             foreach (var piece in fillPieces)
             {
@@ -43,7 +44,7 @@ public static class TurnResolver
             }
             result.Add(fallStepData);
             
-            List<(int, int, int, int)> newPieces = OrganizationLogic.GetNewPieceToEmpty(board);
+            List<(int, int, int)> newPieces = OrganizationLogic.GetNewPieceToEmpty(board);
             RefillStepData refillStepData = new RefillStepData();
             foreach (var piece in newPieces)
             {

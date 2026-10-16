@@ -110,9 +110,9 @@ namespace LogicLibrary
 
     public static class OrganizationLogic
     {
-        public static List<(int, int, int, int)> FillEmpties(Board board)
+        public static List<(int, int, int)> FillEmpties(Board board)
         {
-            List<(int, int, int, int)> collectedMovement = new List<(int, int, int, int)>();
+            List<(int, int, int)> collectedMovement = new List<(int, int, int)>();
             for(int x = 0; x < board.Width; x++)
             {
                 List<(Piece, int)> collected = new List<(Piece, int)>(); 
@@ -130,7 +130,7 @@ namespace LogicLibrary
                 {
                     board.SetCell(x, writeY, piece);
                     if(Math.Abs(y - writeY) > 0)
-                        collectedMovement.Add((x, y, x, writeY));
+                        collectedMovement.Add((piece.Id, x, writeY));
                     writeY--;
                 }
 
@@ -150,9 +150,9 @@ namespace LogicLibrary
             return (T) v.GetValue (_R.Next(v.Length));
         }
 
-        public static List<(int, int, int, int)> GetNewPieceToEmpty(Board board)
+        public static List<(int, int, int)> GetNewPieceToEmpty(Board board)
         {
-            List<(int, int, int, int)> collectedMovement = new List<(int, int, int, int)>();
+            List<(int, int, int)> collectedMovement = new List<(int, int, int)>();
             for(int x = 0; x < board.Width; x++)
             {
                 List<(Piece, int)> collected = new List<(Piece, int)>(); 
@@ -174,7 +174,7 @@ namespace LogicLibrary
                 {
                     board.SetCell(x, y, piece);
                     //-1 decrase to every new piece for this clounm.
-                    collectedMovement.Add((x, -1, x, y));
+                    collectedMovement.Add((piece.Id, x, y));
                 }
             }
             return collectedMovement;
