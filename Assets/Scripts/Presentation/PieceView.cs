@@ -18,9 +18,17 @@ public class PieceView : MonoBehaviour
         _spriteRenderer.sprite = visualConfig.GetSprite(piece.Color);
     }
 
-    public void MoveTo(Vector3 targetPos, float duration, Ease ease = Ease.OutQuad)
+    public void MoveTo(Vector3 targetPos, float duration, Ease ease = Ease.OutQuad, bool bounceOnLand = false)
     {
-        transform.DOMove(targetPos, duration).SetEase(ease);
+        Tween moveTween = transform.DOMove(targetPos, duration).SetEase(ease);
+
+        if (bounceOnLand)
+        {
+            moveTween.OnComplete((() =>
+            {
+                transform.DOPunchPosition(Vector3.up * 0.15f, 0.25f, 1, 0.3f);
+            }));
+        }
     }
 
     public void ShrinkAndRelease(float duration, System.Action<PieceView> onComplete)

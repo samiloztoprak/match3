@@ -12,6 +12,7 @@ public class BoardController : MonoBehaviour
     [SerializeField] private float _stepDuration = 0.2f;
     [SerializeField] private float _swapDuration = 0.15f;
     [SerializeField] private PieceVisualConfig _visualConfig;
+    [SerializeField] private ParticleSystem _breakEffectPrefab;
     
     private Dictionary<int, PieceView> _pieceById = new Dictionary<int, PieceView>();
 
@@ -19,7 +20,8 @@ public class BoardController : MonoBehaviour
     private bool _isResolving;
     private int _startX, _startY;
     private Vector3 _startWorldPos;
-    private ObjectPool<PieceView> _pool;
+    private ObjectPool<PieceView> _pieceViewPool;
+    private ObjectPool<ParticleSystem> _breakEffectPool;
     
     private Board _board;
     void Start()
@@ -27,7 +29,7 @@ public class BoardController : MonoBehaviour
         _board = new Board(5, 5);
 
         Vector3 defaultScale = _piecePrefab.transform.localScale;
-        _pool = new ObjectPool<PieceView>(
+        _pieceViewPool = new ObjectPool<PieceView>(
             createFunc: () =>Instantiate(_piecePrefab, transform),
             actionOnGet: view => view.gameObject.SetActive(true),
             actionOnRelease: view =>
@@ -39,6 +41,15 @@ public class BoardController : MonoBehaviour
             collectionCheck: true,
             defaultCapacity: _board !=  null ? _board.Width * _board.Height : 25,
             maxSize: 200);
+
+        _breakEffectPool = new ObjectPool<ParticleSystem>(
+            createFunc: () => Instantiate(_breakEffectPrefab, transform),
+            actionOnGet: effect => effect.gameObject.SetActive(true),
+            actionOnRelease: effect => effect.gameObject.SetActive(false),
+            actionOnDestroy: effect => Destroy(effect.gameObject),
+            collectionCheck: true,
+            defaultCapacity: 10,
+            maxSize: 50);
         
         LogicLibrary.OrganizationLogic.GetNewPieceToEmpty(_board);
         
@@ -49,7 +60,7 @@ public class BoardController : MonoBehaviour
         {
             for (int y = 0; y < _board.Height; y++)
             {
-                PieceView instance = _pool.Get();
+                PieceView instance = _pieceViewPool.Get();
                 instance.transform.SetPositionAndRotation(CellToWorld(x, y), Quaternion.identity);
                 Piece piece = _board.GetCell(x, y);
                 instance.Setup(piece, _visualConfig);
@@ -157,7 +168,8 @@ public class BoardController : MonoBehaviour
                 {
                     if (_pieceById.TryGetValue(pieceId, out PieceView view))
                     {
-                        view.ShrinkAndRelease(_stepDuration, v => _pool.Release(v));
+                        SpawnBreakEffect(view.transform.position);
+                        view.ShrinkAndRelease(_stepDuration, v => _pieceViewPool.Release(v));
                         _pieceById.Remove(pieceId);
                     }
                 }
@@ -169,7 +181,7 @@ public class BoardController : MonoBehaviour
                 {
                     if (_pieceById.TryGetValue(pieceId, out PieceView view))
                     {
-                        view.MoveTo(CellToWorld(toX, toY), _stepDuration, Ease.InQuad);
+                        view.MoveTo(CellToWorld(toX, toY), _stepDuration, Ease.InQuad, true);
                     }
                 }
                 yield return new WaitForSeconds(_stepDuration);
@@ -187,12 +199,12 @@ public class BoardController : MonoBehaviour
                     spawnOffsetByColumn[toX]++;
                     
                     Vector3 spawnPos = CellToWorld(toX, -spawnOffsetByColumn[toX]);
-                    PieceView instance = _pool.Get();
+                    PieceView instance = _pieceViewPool.Get();
                     instance.transform.SetPositionAndRotation(spawnPos, Quaternion.identity);
                     instance.Setup(new ColoredPiece(pieceId, color), _visualConfig);
                     _pieceById[pieceId] = instance;
                     
-                    instance.MoveTo(CellToWorld(toX, toY), _stepDuration, Ease.InQuad);
+                    instance.MoveTo(CellToWorld(toX, toY), _stepDuration, Ease.InQuad, true);
                 }
                 yield return new WaitForSeconds(_stepDuration);
             }
@@ -216,5 +228,19 @@ public class BoardController : MonoBehaviour
         float offsetX = (_board.Width - 1) / 2f;
         float offsetY = (_board.Height - 1) / 2f;
         return new Vector3((x - offsetX) * _cellSize, -(y - offsetY) * _cellSize, 0);
+    }
+
+    private void SpawnBreakEffect(Vector3 position)
+    {
+        ParticleSystem effect = _breakEffectPool.Get();
+        effect.transform.position = position;
+        effect.Play();
+        StartCoroutine(ReleaseBreakAfterPlay(effect));
+    }
+
+    private IEnumerator ReleaseBreakAfterPlay(ParticleSystem effect)
+    {
+        yield return new WaitForSeconds(effect.main.duration + effect.main.startLifetime.constantMax);
+        _breakEffectPool.Release(effect);
     }
 }

@@ -12,4 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36a01f883ffdb104ba665275881f2b76, type: 3}
   m_Name: PieceVisualConfig
   m_EditorClassIdentifier: Assembly-CSharp::PieceVisualConfig
-  _entries: []
+  _entries:
+  - Type: 1
+    Sprite: {fileID: 1873641541859010181, guid: 24905d3ca7ef92444bb4772a7456767b, type: 3}
+  - Type: 2
+    Sprite: {fileID: -5647203800983064944, guid: f61e0a1f0e9180a488b8ab2dff351dfa, type: 3}
+  - Type: 3
+    Sprite: {fileID: 6614058041668039157, guid: bf84fff607c1c9944b5cae2ed69c2d43, type: 3}
+  - Type: 4
+    Sprite: {fileID: 7667899967157830142, guid: 91c62faf1fef9f84188abe10bbdb494a, type: 3}
