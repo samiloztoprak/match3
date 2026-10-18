@@ -28,6 +28,23 @@ public static class TurnResolver
             }
 
             ClearPieceData clearStepData = new ClearPieceData();
+            DamagePieceData damageData = new DamagePieceData();
+            List<(Piece, int, int)> damageablePieces = MatchLogic.FindNearlyDamageable(board, matchSet);
+            foreach (var (piece, x, y) in damageablePieces)
+            {
+                bool broken = piece.ApplyDamage(1);
+                if (broken)
+                {
+                    clearStepData.PieceIds.Add(piece.Id);
+                    board.ClearCell(x, y);
+                }
+                else
+                {
+                    damageData.PieceIds.Add(piece.Id);
+                }
+            }
+            result.Add(damageData);
+            
             foreach (var match in matchSet)
             {
                 Piece piece = board.GetCell(match.Item1, match.Item2);
@@ -44,7 +61,7 @@ public static class TurnResolver
             }
             result.Add(fallStepData);
             
-            List<(int, PieceType, int, int)> newPieces = OrganizationLogic.GetNewPieceToEmpty(board);
+            List<(int, PieceColor, int, int)> newPieces = OrganizationLogic.GetNewPieceToEmpty(board);
             RefillStepData refillStepData = new RefillStepData();
             foreach (var piece in newPieces)
             {

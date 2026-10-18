@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 
 public class BoardController : MonoBehaviour
 {
+    [SerializeField] private Vector2Int _boardSize;
     [SerializeField] private PieceView _piecePrefab;
     [SerializeField] private float _cellSize = 1f;
     [SerializeField] private float _stepDuration = 0.2f;
@@ -26,7 +27,7 @@ public class BoardController : MonoBehaviour
     private Board _board;
     void Start()
     {
-        _board = new Board(5, 5);
+        _board = new Board(_boardSize.x, _boardSize.y);
 
         Vector3 defaultScale = _piecePrefab.transform.localScale;
         _pieceViewPool = new ObjectPool<PieceView>(
@@ -52,6 +53,7 @@ public class BoardController : MonoBehaviour
             maxSize: 50);
         
         LogicLibrary.OrganizationLogic.GetNewPieceToEmpty(_board);
+        _board.SetCell(2, 2, new BoxPiece(_board.NextId(), PieceColor.Empty));
         
         float offsetX = (_board.Width - 1) / 2f;
         float offsetY = (_board.Height - 1) / 2f;
@@ -122,6 +124,13 @@ public class BoardController : MonoBehaviour
         Piece piece1 = _board.GetCell(x1, y1);
         Piece piece2 =  _board.GetCell(x2, y2);
         
+        if (!piece1.Flags.HasFlag(PieceFlags.Movable) || !piece2.Flags.HasFlag(PieceFlags.Movable))
+        {
+            Debug.Log("One of the pieces is not movable");
+            return;
+        }
+
+        
         var command = new SwapCommand(_board, x1, y1, x2, y2);
         var result = TurnResolver.Resolve(_board, command);
 
@@ -171,6 +180,18 @@ public class BoardController : MonoBehaviour
                         SpawnBreakEffect(view.transform.position);
                         view.ShrinkAndRelease(_stepDuration, v => _pieceViewPool.Release(v));
                         _pieceById.Remove(pieceId);
+                    }
+                }
+                yield return new WaitForSeconds(_stepDuration);
+            }
+            else if (step is DamagePieceData damagePiece)
+            {
+                foreach (int pieceId in damagePiece.PieceIds)
+                {
+                    if (_pieceById.TryGetValue(pieceId, out PieceView view))
+                    {
+                        SpawnBreakEffect(view.transform.position);
+                        view.RefreshSprite(_visualConfig);
                     }
                 }
                 yield return new WaitForSeconds(_stepDuration);

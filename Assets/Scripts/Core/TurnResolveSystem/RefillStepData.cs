@@ -4,8 +4,8 @@ public sealed class RefillStepData :  TurnStepData
 {
     public RefillStepData()
     {
-        Moves = new List<(int, PieceType, int, int)>();
+        Moves = new List<(int, PieceColor, int, int)>();
     }
     
-    public List<(int pieceId, PieceType color, int toX, int toY)> Moves;
+    public List<(int pieceId, PieceColor color, int toX, int toY)> Moves;
 }

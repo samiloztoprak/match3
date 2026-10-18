@@ -1,5 +1,5 @@
 
-public enum PieceType
+public enum PieceColor
 {
     Empty,
     Red,

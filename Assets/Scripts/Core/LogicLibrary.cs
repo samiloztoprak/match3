@@ -5,7 +5,7 @@ namespace LogicLibrary
 {
     public static class BoardLogic
     {
-        public static bool IsSwappableIndices(int x1, int y1, int x2, int y2)
+        public static bool IsSwappableIndexes(int x1, int y1, int x2, int y2)
         {
             return Math.Abs(x1-x2) + Math.Abs(y1 - y2) == 1;
         }
@@ -30,7 +30,7 @@ namespace LogicLibrary
                 {
                     Piece piece = board.GetCell(x, y);
 
-                    if(piece == null || (piece.Flags & PieceFlags.CanMatch) == 0)
+                    if(piece == null || !piece.Flags.HasFlag(PieceFlags.CanMatch))
                     {
                         continue;
                     }
@@ -54,7 +54,7 @@ namespace LogicLibrary
                 {
                     Piece piece = board.GetCell(x, y);
 
-                    if(piece == null || (piece.Flags & PieceFlags.CanMatch) == 0)
+                    if(piece == null || !piece.Flags.HasFlag(PieceFlags.CanMatch))
                     {
                         continue;
                     }
@@ -86,7 +86,7 @@ namespace LogicLibrary
             for(int i = x; i < board.Width; i++)
             {
                 Piece _piece = board.GetCell(i, y);
-                if(_piece == null || (_piece.Flags & PieceFlags.CanMatch) == 0 || _piece.Color != piece.Color)
+                if(_piece == null || !_piece.Flags.HasFlag(PieceFlags.CanMatch) || _piece.Color != piece.Color)
                 {
                     return i-1;
                 }
@@ -99,12 +99,40 @@ namespace LogicLibrary
             for(int i = y; i < board.Height; i++)
             {
                 Piece _piece = board.GetCell(x, i);
-                if(_piece == null || (_piece.Flags & PieceFlags.CanMatch) == 0 || _piece.Color != piece.Color)
+                if(_piece == null || !_piece.Flags.HasFlag(PieceFlags.CanMatch) || _piece.Color != piece.Color)
                 {
                     return i-1;
                 }
             }
             return board.Height-1;
+        }
+
+        public static List<(Piece, int, int)> FindNearlyDamageable(Board board, HashSet<(int, int)> matchSet)
+        {
+            List<(Piece, int, int)> damageablePieces = new List<(Piece, int, int)>();
+            (int dx, int dy)[] directions = { (1, 0), (-1, 0), (0, 1), (0, -1) };
+            
+            foreach (var match in matchSet)
+            {
+                foreach (var (directionX, directionY) in directions)
+                {
+                    int newX = match.Item1 + directionX;
+                    int newY = match.Item2 + directionY;
+
+                    if (!BoardLogic.IsValidIndex(newX, newY, board))
+                    {
+                        continue;
+                    }
+                    
+                    Piece piece = board.GetCell(newX, newY);
+                    if (piece != null && piece.Flags.HasFlag(PieceFlags.DamageableByNeighbor))
+                    {
+                        damageablePieces.Add((piece, newX, newY));
+                    }
+                }
+            }
+
+            return damageablePieces;
         }
     }
 
@@ -113,34 +141,49 @@ namespace LogicLibrary
         public static List<(int, int, int)> FillEmpties(Board board)
         {
             List<(int, int, int)> collectedMovement = new List<(int, int, int)>();
+            
             for(int x = 0; x < board.Width; x++)
             {
-                List<(Piece, int)> collected = new List<(Piece, int)>(); 
+                int segmentBottom = board.Height - 1;
+                List<(Piece piece, int y)> collected = new List<(Piece, int)>(); 
                 for(int y = board.Height - 1; y >= 0; y--)
                 {
                     Piece piece = board.GetCell(x, y);
                     if(piece != null)
                     {
+                        if(!piece.Flags.HasFlag(PieceFlags.Movable))
+                        {
+                            CompactSegment(board, x, segmentBottom, y + 1, collected,
+                                collectedMovement);
+                            collected.Clear();
+                            segmentBottom = y - 1;
+                            continue;
+                        }
                         collected.Add((piece, y));
                     }
                 }
-
-                int writeY = board.Height - 1;
-                foreach (var (piece, y) in collected)
-                {
-                    board.SetCell(x, writeY, piece);
-                    if(Math.Abs(y - writeY) > 0)
-                        collectedMovement.Add((piece.Id, x, writeY));
-                    writeY--;
-                }
-
-                while (writeY >= 0)
-                {
-                    board.SetCell(x, writeY, null);
-                    writeY--;
-                }
+                CompactSegment(board, x, segmentBottom, 0, collected, collectedMovement);
             }
             return collectedMovement;
+        }
+
+        private static void CompactSegment(Board board, int x, int segmentBottom, int segmentTop,
+            List<(Piece piece, int y)> collected, List<(int, int, int)> collectedMovement)
+        {
+            int writeY = segmentBottom;
+            foreach (var (piece, y) in collected)
+            {
+                board.SetCell(x, writeY, piece);
+                if(Math.Abs(y - writeY) > 0)
+                    collectedMovement.Add((piece.Id, x, writeY));
+                writeY--;
+            }
+
+            while (writeY >= segmentTop)
+            {
+                board.SetCell(x, writeY, null);
+                writeY--;
+            }
         }
         
         static Random _R = new Random ();
@@ -150,31 +193,31 @@ namespace LogicLibrary
             return (T) v.GetValue (_R.Next(v.Length));
         }
 
-        public static List<(int, PieceType, int, int)> GetNewPieceToEmpty(Board board)
+        public static List<(int, PieceColor, int, int)> GetNewPieceToEmpty(Board board)
         {
-            List<(int, PieceType, int, int)> collectedMovement = new List<(int, PieceType, int, int)>();
+            List<(int, PieceColor, int, int)> collectedMovement = new List<(int, PieceColor, int, int)>();
             for(int x = 0; x < board.Width; x++)
             {
-                List<(Piece, int)> collected = new List<(Piece, int)>(); 
-                for(int y = board.Height - 1; y >= 0; y--)
+                for(int y = 0; y < board.Height; y++)
                 {
                     Piece piece = board.GetCell(x, y);
+
+                    if (piece != null && !piece.Flags.HasFlag(PieceFlags.Movable))
+                    {
+                        break;
+                    }
+                    
                     if(piece == null)
                     {
-                        PieceType newPieceType = PieceType.Empty;
-                        while(newPieceType == PieceType.Empty)
+                        PieceColor newPieceColor = PieceColor.Empty;
+                        while(newPieceColor == PieceColor.Empty)
                         {
-                            newPieceType = RandomEnumValue<PieceType>();
+                            newPieceColor = RandomEnumValue<PieceColor>();
                         }
-                        collected.Add((new ColoredPiece(board.NextId(), newPieceType), y));
+                        Piece newPiece = new ColoredPiece(board.NextId(), newPieceColor);
+                        board.SetCell(x, y, newPiece);
+                        collectedMovement.Add((newPiece.Id, newPiece.Color, x, y));
                     }
-                }
-                
-                foreach (var (piece, y) in collected)
-                {
-                    board.SetCell(x, y, piece);
-                    //-1 decrase to every new piece for this clounm.
-                    collectedMovement.Add((piece.Id, piece.Color, x, y));
                 }
             }
             return collectedMovement;

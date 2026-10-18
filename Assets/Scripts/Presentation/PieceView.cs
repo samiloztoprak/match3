@@ -4,8 +4,8 @@ using UnityEngine;
 public class PieceView : MonoBehaviour
 {
     private SpriteRenderer _spriteRenderer;
-    private int _pieceId;
-    public int PieceId => _pieceId;
+    private Piece _piece;
+    public Piece Piece => _piece;
     
     void Awake()
     {
@@ -14,10 +14,15 @@ public class PieceView : MonoBehaviour
 
     public void Setup(Piece piece, PieceVisualConfig visualConfig)
     {
-        _pieceId = piece.Id;
-        _spriteRenderer.sprite = visualConfig.GetSprite(piece.Color);
+        _piece = piece;
+        RefreshSprite(visualConfig);
     }
 
+    public void RefreshSprite(PieceVisualConfig visualConfig)
+    {
+        _spriteRenderer.sprite = visualConfig.GetSprite(_piece);
+    }
+    
     public void MoveTo(Vector3 targetPos, float duration, Ease ease = Ease.OutQuad, bool bounceOnLand = false)
     {
         Tween moveTween = transform.DOMove(targetPos, duration).SetEase(ease);

@@ -2,27 +2,46 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PieceVisualConfig", menuName = "Scriptable Objects/PieceViewConfig")]
+[CreateAssetMenu(fileName = "PieceVisualConfig", menuName = "Match3/PieceViewConfig")]
 public class PieceVisualConfig : ScriptableObject
 {
     [Serializable]
     private struct Entry
     {
-        public PieceType Type;
+        public PieceColor Color;
         public Sprite Sprite;
     }
     
     [SerializeField]
     private List<Entry> _entries;
 
-    public Sprite GetSprite(PieceType type)
+    public Sprite GetSprite(Piece piece)
     {
-        foreach (var entry in _entries)
+        if(piece.VisualType == PieceVisualType.Standard)
         {
-            if (entry.Type == type)
+            foreach (var entry in _entries)
             {
-                return entry.Sprite;
+                if (entry.Color == piece.Color)
+                {
+                    return entry.Sprite;
+                }
             }
+        }
+        else if (piece.VisualType == PieceVisualType.Box)
+        {
+            return GetBoxSprite(piece);
+        }
+        return null;
+    }
+    
+    [SerializeField] 
+    private BoxVisualConfig _boxVisualConfig;
+
+    public Sprite GetBoxSprite(Piece piece)
+    {
+        if (piece is BoxPiece)
+        {
+            return _boxVisualConfig.GetSprite(piece.Health);
         }
         return null;
     }
