@@ -12,27 +12,10 @@ public class PieceView : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    public void Setup(Piece piece)
+    public void Setup(Piece piece, PieceVisualConfig visualConfig)
     {
         _pieceId = piece.Id;
-
-        switch (piece.Color)
-        {
-            case PieceType.Blue:
-                _spriteRenderer.color = Color.blue;
-                break;
-            case PieceType.Red:
-                _spriteRenderer.color = Color.red;
-                break;
-            case PieceType.Yellow:
-                _spriteRenderer.color = Color.yellow;
-                break;
-            case PieceType.Green:
-                _spriteRenderer.color = Color.green;
-                break;
-            default:
-                break;
-        }
+        _spriteRenderer.sprite = visualConfig.GetSprite(piece.Color);
     }
 
     public void MoveTo(Vector3 targetPos, float duration, Ease ease = Ease.OutQuad)

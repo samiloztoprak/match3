@@ -11,6 +11,7 @@ public class BoardController : MonoBehaviour
     [SerializeField] private float _cellSize = 1f;
     [SerializeField] private float _stepDuration = 0.2f;
     [SerializeField] private float _swapDuration = 0.15f;
+    [SerializeField] private PieceVisualConfig _visualConfig;
     
     private Dictionary<int, PieceView> _pieceById = new Dictionary<int, PieceView>();
 
@@ -51,7 +52,7 @@ public class BoardController : MonoBehaviour
                 PieceView instance = _pool.Get();
                 instance.transform.SetPositionAndRotation(CellToWorld(x, y), Quaternion.identity);
                 Piece piece = _board.GetCell(x, y);
-                instance.Setup(piece);
+                instance.Setup(piece, _visualConfig);
                 _pieceById[piece.Id] = instance;
             }
         }
@@ -188,7 +189,7 @@ public class BoardController : MonoBehaviour
                     Vector3 spawnPos = CellToWorld(toX, -spawnOffsetByColumn[toX]);
                     PieceView instance = _pool.Get();
                     instance.transform.SetPositionAndRotation(spawnPos, Quaternion.identity);
-                    instance.Setup(new ColoredPiece(pieceId, color));
+                    instance.Setup(new ColoredPiece(pieceId, color), _visualConfig);
                     _pieceById[pieceId] = instance;
                     
                     instance.MoveTo(CellToWorld(toX, toY), _stepDuration, Ease.InQuad);
