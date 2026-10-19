@@ -2,5 +2,6 @@
 public enum PieceVisualType
 {
     Standard,
-    Box
+    Box,
+    Lock
 }

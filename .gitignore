@@ -48,6 +48,9 @@
 # Visual Studio cache directory
 .vs/
 
+# Visual Studio project upgrade report (auto-generated, not source)
+UpgradeLog.htm
+
 # Gradle cache directory
 .gradle/
 

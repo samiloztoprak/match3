@@ -1,7 +1,10 @@
 
+using System.Collections.Generic;
+
 public class Board
 {
     private readonly Piece[,] _cells;
+    private readonly List<OverlayPiece> _overlayPieces = new List<OverlayPiece>();
     
     private int _nextId;
     public int NextId() => _nextId++;
@@ -24,13 +27,31 @@ public class Board
         _cells[x,y] = value;
     }
 
-    public bool IsCellLocked(int x, int y)
-    {
-        return false;
-    }
-
     public void ClearCell(int x, int y)
     {
         SetCell(x, y, null);
     }
+
+    public void AddOverlayPiece(OverlayPiece overlayPiece)
+    {
+        _overlayPieces.Add(overlayPiece);
+    }
+
+    public void RemoveOverlayPiece(OverlayPiece overlayPiece)
+    {
+        _overlayPieces.Remove(overlayPiece);
+    }
+
+    public OverlayPiece GetOverlayPieceAt(int x, int y)
+    {
+        foreach (var overlay in _overlayPieces)
+        {
+            if (overlay.CoveredCells.Contains((x, y)))
+            {
+                return overlay;
+            }
+        }
+        return null;
+    }
 }
+

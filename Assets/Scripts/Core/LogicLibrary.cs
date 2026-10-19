@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using NUnit.Framework;
 
 namespace LogicLibrary
 {
@@ -13,6 +14,26 @@ namespace LogicLibrary
         public static bool IsValidIndex(int x1, int y1, Board board)
         {
             return !(x1 < 0 || y1 < 0 || x1 >= board.Width || y1 >= board.Height);
+        }
+
+        public static bool IsPieceLocked(Piece piece)
+        {
+            return piece.Flags.HasFlag(PieceFlags.Locked);
+        }
+        
+        public static bool IsPieceMoveable(Piece piece)
+        {
+            return piece.Flags.HasFlag(PieceFlags.Movable);
+        }
+
+        public static void AddFlag(Piece piece, PieceFlags flags)
+        {
+            piece.Flags |= flags;
+        }
+
+        public static void RemoveFlag(Piece piece, PieceFlags flags)
+        {
+            piece.Flags &= ~flags;
         }
     }
 
@@ -54,7 +75,8 @@ namespace LogicLibrary
                 {
                     Piece piece = board.GetCell(x, y);
 
-                    if(piece == null || !piece.Flags.HasFlag(PieceFlags.CanMatch))
+                    if(piece == null || !piece.Flags.HasFlag(PieceFlags.CanMatch) 
+                    || piece.Flags.HasFlag(PieceFlags.Locked))
                     {
                         continue;
                     }
@@ -112,12 +134,12 @@ namespace LogicLibrary
             List<(Piece, int, int)> damageablePieces = new List<(Piece, int, int)>();
             (int dx, int dy)[] directions = { (1, 0), (-1, 0), (0, 1), (0, -1) };
             
-            foreach (var match in matchSet)
+            foreach (var (matchX, matchY)  in matchSet)
             {
                 foreach (var (directionX, directionY) in directions)
                 {
-                    int newX = match.Item1 + directionX;
-                    int newY = match.Item2 + directionY;
+                    int newX = matchX + directionX;
+                    int newY = matchY + directionY;
 
                     if (!BoardLogic.IsValidIndex(newX, newY, board))
                     {
@@ -133,6 +155,33 @@ namespace LogicLibrary
             }
 
             return damageablePieces;
+        }
+
+        public static List<OverlayPiece> FindNearlyDamageableOverlays(Board board, HashSet<(int, int)> matchSet)
+        {
+            List<OverlayPiece> damageableOverlays = new List<OverlayPiece>();
+            (int damegableX, int damegableY)[] directions = { (1, 0), (-1, 0), (0, 1), (0, -1) };
+
+            foreach (var (matchX, matchY) in matchSet)
+            {
+                foreach (var (directionX, directionY) in directions)
+                {
+                    int newX = matchX + directionX;
+                    int newY = matchY + directionY;
+
+                    if (!BoardLogic.IsValidIndex(newX, newY, board))
+                    {
+                        continue;
+                    }
+
+                    OverlayPiece overlayPiece = board.GetOverlayPieceAt(newX, newY);
+                    if (overlayPiece != null && overlayPiece.Flags.HasFlag(PieceFlags.DamageableByNeighbor))
+                    {
+                        damageableOverlays.Add(overlayPiece);
+                    }
+                }
+            }
+            return  damageableOverlays;
         }
     }
 
@@ -151,7 +200,7 @@ namespace LogicLibrary
                     Piece piece = board.GetCell(x, y);
                     if(piece != null)
                     {
-                        if(!piece.Flags.HasFlag(PieceFlags.Movable))
+                        if(!BoardLogic.IsPieceMoveable(piece) || BoardLogic.IsPieceLocked(piece))
                         {
                             CompactSegment(board, x, segmentBottom, y + 1, collected,
                                 collectedMovement);
@@ -201,8 +250,8 @@ namespace LogicLibrary
                 for(int y = 0; y < board.Height; y++)
                 {
                     Piece piece = board.GetCell(x, y);
-
-                    if (piece != null && !piece.Flags.HasFlag(PieceFlags.Movable))
+                    
+                    if (piece != null && (!BoardLogic.IsPieceMoveable(piece) || BoardLogic.IsPieceLocked(piece)))
                     {
                         break;
                     }

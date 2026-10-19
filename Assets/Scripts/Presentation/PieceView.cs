@@ -22,6 +22,11 @@ public class PieceView : MonoBehaviour
     {
         _spriteRenderer.sprite = visualConfig.GetSprite(_piece);
     }
+
+    public void SetSortingOrder(int order)
+    {
+        _spriteRenderer.sortingOrder = order;
+    }
     
     public void MoveTo(Vector3 targetPos, float duration, Ease ease = Ease.OutQuad, bool bounceOnLand = false)
     {

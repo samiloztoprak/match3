@@ -31,6 +31,10 @@ public class PieceVisualConfig : ScriptableObject
         {
             return GetBoxSprite(piece);
         }
+        else if (piece.VisualType == PieceVisualType.Lock)
+        {
+            return GetLockSprite(piece);
+        }
         return null;
     }
     
@@ -42,6 +46,18 @@ public class PieceVisualConfig : ScriptableObject
         if (piece is BoxPiece)
         {
             return _boxVisualConfig.GetSprite(piece.Health);
+        }
+        return null;
+    }
+    
+    [SerializeField] 
+    private LockVisualConfig _lockVisualConfig;
+
+    public Sprite GetLockSprite(Piece piece)
+    {
+        if (piece is LockPiece)
+        {
+            return _lockVisualConfig.GetSprite(piece.Health);
         }
         return null;
     }

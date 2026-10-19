@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using LogicLibrary;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.InputSystem;
@@ -69,6 +70,24 @@ public class BoardController : MonoBehaviour
                 _pieceById[piece.Id] = instance;
             }
         }
+
+        HashSet<(int x, int y)> overlayCells = new HashSet<(int x, int y)> { (1, 1) };
+        LockPiece  lockPiece = new LockPiece (_board.NextId(), overlayCells);
+        _board.AddOverlayPiece(lockPiece);
+        foreach (var (x, y) in overlayCells)
+        {
+            Piece covered = _board.GetCell(x, y);
+            if (covered != null)
+            {
+                BoardLogic.AddFlag(covered, PieceFlags.Locked);
+            }
+            
+            PieceView lockView = _pieceViewPool.Get();
+            lockView.transform.SetPositionAndRotation(CellToWorld(x, y), Quaternion.identity);
+            lockView.Setup(lockPiece, _visualConfig);
+            lockView.SetSortingOrder(1);
+            _pieceById[lockPiece.Id] = lockView;
+        }
     }
 
     void Update()
@@ -109,13 +128,13 @@ public class BoardController : MonoBehaviour
             return;
         }
 
-        if (!LogicLibrary.BoardLogic.IsValidIndex(x1, y1, _board))
+        if (!BoardLogic.IsValidIndex(x1, y1, _board))
         {
             Debug.Log("Invalid index 1");
             return;
         }
 
-        if (!LogicLibrary.BoardLogic.IsValidIndex(x2, y2, _board))
+        if (!BoardLogic.IsValidIndex(x2, y2, _board))
         {
             Debug.Log("Invalid index 2");
             return;
@@ -123,13 +142,18 @@ public class BoardController : MonoBehaviour
 
         Piece piece1 = _board.GetCell(x1, y1);
         Piece piece2 =  _board.GetCell(x2, y2);
-        
-        if (!piece1.Flags.HasFlag(PieceFlags.Movable) || !piece2.Flags.HasFlag(PieceFlags.Movable))
+
+        if (BoardLogic.IsPieceLocked(piece1) || BoardLogic.IsPieceLocked(piece2))
         {
-            Debug.Log("One of the pieces is not movable");
+            Debug.Log("One of the pieces is not movable, has locked flag");
             return;
         }
-
+        
+        if (!BoardLogic.IsPieceMoveable(piece1) || !BoardLogic.IsPieceMoveable(piece2))
+        {
+            Debug.Log("One of the pieces is not movable, has not moveable flag");
+            return;
+        }
         
         var command = new SwapCommand(_board, x1, y1, x2, y2);
         var result = TurnResolver.Resolve(_board, command);
@@ -140,7 +164,18 @@ public class BoardController : MonoBehaviour
     private IEnumerator PlayTurn(int piece1Id, int piece2Id, int x1, int y1, int x2, int y2, List<TurnStepData> steps)
     {
         _isResolving = true;
+        try
+        {
+            yield return PlayTurnSteps(piece1Id, piece2Id, x1, y1, x2, y2, steps);
+        }
+        finally
+        {
+            _isResolving = false;
+        }
+    }
 
+    private IEnumerator PlayTurnSteps(int piece1Id, int piece2Id, int x1, int y1, int x2, int y2, List<TurnStepData> steps)
+    {
         if(_pieceById.TryGetValue(piece1Id, out PieceView view1))
         {
             view1.MoveTo(CellToWorld(x2, y2), _swapDuration);
@@ -164,8 +199,7 @@ public class BoardController : MonoBehaviour
                 backView2.MoveTo(CellToWorld(x2, y2), _swapDuration);
             }
             yield return new WaitForSeconds(_swapDuration);
-            
-            _isResolving = false;
+
             yield break;
         }
         
@@ -196,6 +230,19 @@ public class BoardController : MonoBehaviour
                 }
                 yield return new WaitForSeconds(_stepDuration);
             }
+            else if (step is ClearOverlayData clearOverlayStep)
+            {
+                foreach (int pieceId in clearOverlayStep.PieceIds)
+                {
+                    if (_pieceById.TryGetValue(pieceId, out PieceView view))
+                    {
+                        SpawnBreakEffect(view.transform.position);
+                        view.ShrinkAndRelease(_stepDuration, v => _pieceViewPool.Release(v));
+                        _pieceById.Remove(pieceId);
+                    }
+                }
+                yield return new WaitForSeconds(_stepDuration);
+            }
             else if (step is FallStepData fallStep)
             {
                 foreach (var (pieceId, toX, toY) in fallStep.Moves)
@@ -209,31 +256,31 @@ public class BoardController : MonoBehaviour
             }
             else if (step is RefillStepData refillStep)
             {
-                Dictionary<int, int> spawnOffsetByColumn = new Dictionary<int, int>();
-                
+                Dictionary<int, int> totalPerColumn = new Dictionary<int, int>();
                 foreach (var (pieceId, color, toX, toY) in refillStep.Moves)
                 {
-                    if (!spawnOffsetByColumn.ContainsKey(toX))
+                    if (!totalPerColumn.ContainsKey(toX))
                     {
-                        spawnOffsetByColumn[toX] = 0;
+                        totalPerColumn[toX] = 0;
                     }
-                    spawnOffsetByColumn[toX]++;
-                    
-                    Vector3 spawnPos = CellToWorld(toX, -spawnOffsetByColumn[toX]);
+                    totalPerColumn[toX]++;
+                }
+
+                foreach (var (pieceId, color, toX, toY) in refillStep.Moves)
+                {
+                    Vector3 spawnPos = CellToWorld(toX, toY - totalPerColumn[toX]);
                     PieceView instance = _pieceViewPool.Get();
                     instance.transform.SetPositionAndRotation(spawnPos, Quaternion.identity);
                     instance.Setup(new ColoredPiece(pieceId, color), _visualConfig);
                     _pieceById[pieceId] = instance;
-                    
+
                     instance.MoveTo(CellToWorld(toX, toY), _stepDuration, Ease.InQuad, true);
                 }
                 yield return new WaitForSeconds(_stepDuration);
             }
         }
-
-        _isResolving = false;
     }
-    
+
     private (int, int) WorldToCell(Vector3 worldPos)
     {
         float offsetX = (_board.Width - 1) / 2f;

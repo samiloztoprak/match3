@@ -43,13 +43,69 @@ public static class TurnResolver
                     damageData.PieceIds.Add(piece.Id);
                 }
             }
+            
+            Dictionary<(int, int), OverlayPiece> lockedMatchedCells = new Dictionary<(int, int), OverlayPiece>();
+            foreach (var match in matchSet)
+            {
+                OverlayPiece overlay = board.GetOverlayPieceAt(match.Item1, match.Item2);
+                if (overlay != null)
+                {
+                    lockedMatchedCells[match] = overlay;
+                }
+            }
+            
+            ClearOverlayData clearOverlayData = new ClearOverlayData();
+            List<OverlayPiece> damageableOverlays = MatchLogic.FindNearlyDamageableOverlays(board, matchSet);
+            foreach (OverlayPiece overlay in damageableOverlays)
+            {
+                bool broken = overlay.ApplyDamage(1);
+                if (broken)
+                {
+                    clearOverlayData.PieceIds.Add(overlay.Id);
+                    board.RemoveOverlayPiece(overlay);
+                    foreach (var (x, y) in overlay.CoveredCells)
+                    {
+                        Piece coveredPiece = board.GetCell(x, y);
+                        if (coveredPiece != null)
+                        {
+                            BoardLogic.RemoveFlag(coveredPiece, PieceFlags.Locked);
+                        }
+                    }
+                }
+                else
+                {
+                    damageData.PieceIds.Add(overlay.Id);
+                }
+            }
+            
             result.Add(damageData);
+            result.Add(clearOverlayData);
             
             foreach (var match in matchSet)
             {
                 Piece piece = board.GetCell(match.Item1, match.Item2);
-                clearStepData.PieceIds.Add(piece.Id);
-                board.ClearCell(match.Item1, match.Item2);
+                if (lockedMatchedCells.TryGetValue(match, out OverlayPiece overlayPiece))
+                {
+                    if (board.GetOverlayPieceAt(match.Item1, match.Item2) == overlayPiece)
+                    {
+                        bool broken = overlayPiece.ApplyDamage(1);
+                        if(broken)
+                        {
+                            clearOverlayData.PieceIds.Add(overlayPiece.Id);
+                            board.RemoveOverlayPiece(overlayPiece);
+                            BoardLogic.RemoveFlag(piece, PieceFlags.Locked);
+                        }
+                        else
+                        {
+                            damageData.PieceIds.Add(overlayPiece.Id);
+                        }
+                    }
+                }
+                else
+                {
+                    clearStepData.PieceIds.Add(piece.Id);
+                    board.ClearCell(match.Item1, match.Item2);
+                }
             }
             result.Add(clearStepData);
 

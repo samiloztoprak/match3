@@ -1,10 +1,11 @@
 
 public abstract class Piece
-{
-    protected Piece(int id, PieceColor color)
+{ 
+    protected Piece(int id, PieceColor color, PieceFlags defaultFlags)
     {
         Id = id;
         Color = color;
+        Flags = defaultFlags;
     }
 
     public int Id { get; }
@@ -17,6 +18,6 @@ public abstract class Piece
         Health -= amount;
         return Health <= 0;
     }
-    
+ 
     public PieceVisualType VisualType { get; internal set;}
 }

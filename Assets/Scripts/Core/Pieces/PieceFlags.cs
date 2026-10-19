@@ -6,5 +6,6 @@ public enum PieceFlags
     None = 0,
     Movable = 1 << 0,
     CanMatch = 1 << 1,
-    DamageableByNeighbor = 1 << 2
+    DamageableByNeighbor = 1 << 2,
+    Locked = 1 << 3
 }

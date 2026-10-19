@@ -23,12 +23,6 @@ public class SwapCommand : ICommand
         if(!LogicLibrary.BoardLogic.IsSwappableIndexes(_x1, _y1, _x2, _y2))
             return;
         
-        if(_board.IsCellLocked(_x1, _y1))
-            return;
-
-        if(_board.IsCellLocked(_x2, _y2))
-            return;
-        
         Piece piece1 = _board.GetCell(_x1, _y1);
         if(piece1 == null)
             return;
@@ -37,7 +31,16 @@ public class SwapCommand : ICommand
         if(piece2 == null)
             return;
         
-        if(!piece1.Flags.HasFlag(PieceFlags.Movable) || !piece2.Flags.HasFlag(PieceFlags.Movable))
+        if(LogicLibrary.BoardLogic.IsPieceLocked(piece1))
+            return;
+
+        if(LogicLibrary.BoardLogic.IsPieceLocked(piece2))
+            return;
+        
+        if(!LogicLibrary.BoardLogic.IsPieceMoveable(piece1))
+            return;
+
+        if(!LogicLibrary.BoardLogic.IsPieceMoveable(piece2))
             return;
         
         _board.SetCell(_x1, _y1, piece2);
