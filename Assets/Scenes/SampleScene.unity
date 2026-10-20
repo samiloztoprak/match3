@@ -372,7 +372,7 @@ MonoBehaviour:
   _boardSize: {x: 5, y: 5}
   _piecePrefab: {fileID: 4093109827346939760, guid: 783826b51c210b44898c69377c31f864, type: 3}
   _cellSize: 1
-  _stepDuration: 0.2
+  _stepDuration: 0.1
   _swapDuration: 0.2
   _visualConfig: {fileID: 11400000, guid: 09d110696ffca734986e68c988cb8450, type: 2}
   _breakEffectPrefab: {fileID: 3731488670092309079, guid: 7c3af47023e6c514ca14030b4e35e4e2, type: 3}

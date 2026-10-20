@@ -94,4 +94,57 @@ public class NewTestScript
         Assert.AreEqual(bHasTurnStepData, true);
         Assert.AreEqual(bHasRefilStepData, true);
     }
+
+    [Test]
+    public void TestFindClustersConnectedCells()
+    {
+        Board board = new Board(3,3);
+        board.SetCell(0, 0, new ColoredPiece(board.NextId(), PieceColor.Green));
+        board.SetCell(0, 1, new ColoredPiece(board.NextId(), PieceColor.Green));
+        board.SetCell(0, 2, new ColoredPiece(board.NextId(), PieceColor.Green));
+        
+        board.SetCell(1, 0, new ColoredPiece(board.NextId(), PieceColor.Blue));
+        board.SetCell(1, 1, new ColoredPiece(board.NextId(), PieceColor.Green));
+        board.SetCell(1, 2, new ColoredPiece(board.NextId(), PieceColor.Blue));
+        
+        board.SetCell(2, 0, new ColoredPiece(board.NextId(), PieceColor.Blue));
+        board.SetCell(2, 1, new ColoredPiece(board.NextId(), PieceColor.Green));
+        board.SetCell(2, 2, new ColoredPiece(board.NextId(), PieceColor.Blue));
+        
+        HashSet<(int,int)> matchSet = new HashSet<(int,int)>() {(0,0),(1,0),(2,0),(1,1),(1,2)};
+        List<HashSet<(int, int)>> result = LogicLibrary.MatchLogic.FindClusters(board, matchSet);
+        
+        Assert.AreEqual(1, result.Count);
+        if (result.Count == 1)
+        {
+            Assert.AreEqual(5, result[0].Count);
+        }
+    }
+    
+    [Test]
+    public void TestFindClustersDisconnectedGroups()
+    {
+        Board board = new Board(3,3);
+        board.SetCell(0, 0, new ColoredPiece(board.NextId(), PieceColor.Green));
+        board.SetCell(0, 1, new ColoredPiece(board.NextId(), PieceColor.Green));
+        board.SetCell(0, 2, new ColoredPiece(board.NextId(), PieceColor.Green));
+        
+        board.SetCell(1, 0, new ColoredPiece(board.NextId(), PieceColor.Blue));
+        board.SetCell(1, 1, new ColoredPiece(board.NextId(), PieceColor.Green));
+        board.SetCell(1, 2, new ColoredPiece(board.NextId(), PieceColor.Blue));
+        
+        board.SetCell(2, 0, new ColoredPiece(board.NextId(), PieceColor.Blue));
+        board.SetCell(2, 1, new ColoredPiece(board.NextId(), PieceColor.Blue));
+        board.SetCell(2, 2, new ColoredPiece(board.NextId(), PieceColor.Blue));
+        
+        HashSet<(int, int)> matchSet = LogicLibrary.MatchLogic.FindMatches(board);
+        List<HashSet<(int, int)>> result = LogicLibrary.MatchLogic.FindClusters(board, matchSet);
+        
+        Assert.AreEqual(2, result.Count);
+        if (result.Count == 2)
+        {
+            Assert.AreEqual(3, result[0].Count);
+            Assert.AreEqual(3, result[1].Count);
+        }
+    }
 }

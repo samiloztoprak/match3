@@ -39,8 +39,74 @@ namespace LogicLibrary
 
     public static class MatchLogic
     {
-        private const int MinMatchLength = 3; 
+        private const int MinMatchLength = 3;
 
+        public static List<HashSet<(int, int)>> FindClusters(Board board, HashSet<(int, int)> matchSet)
+        {
+            List<HashSet<(int, int)>> clusters = new List<HashSet<(int, int)>>();
+            HashSet<(int,int)> visited = new HashSet<(int, int)>();
+            (int directionX, int directionY)[] directions = { (1, 0),  (-1, 0), (0, 1), (0, -1) };
+
+            foreach (var cell in matchSet)
+            {
+                if (visited.Contains(cell))
+                {
+                    continue;
+                }
+                
+                HashSet<(int, int)> cluster = new HashSet<(int, int)>();
+                Queue<(int, int)> queue = new Queue<(int, int)>();
+                queue.Enqueue(cell);
+                visited.Add(cell);
+
+                while (queue.Count > 0)
+                {
+                    var current = queue.Dequeue();
+                    cluster.Add(current);
+
+                    foreach (var (directionX, directionY) in directions)
+                    {
+                        var neighbor = (current.Item1 + directionX, current.Item2 + directionY);
+                        if (matchSet.Contains(neighbor) && !visited.Contains(neighbor))
+                        {
+                            visited.Add(neighbor);
+                            queue.Enqueue(neighbor);
+                        }
+                    }
+                }
+                clusters.Add(cluster);
+            }
+            return  clusters;
+        }
+
+        public static ShapeTemplate FindBestShapeMatch(HashSet<(int, int)> clusterCells)
+        {
+            HashSet<(int, int)> normalizedCluster = ShapeTemplate.Normalize(clusterCells);
+            ShapeTemplate bestMatch = null;
+
+            foreach (var template in ShapeRegistry.Templates)
+            {
+                foreach (var rotation in template.GetAllRotations())
+                {
+                    if (rotation.Count != normalizedCluster.Count)
+                    {
+                        continue;
+                    }
+
+                    if (rotation.SetEquals(normalizedCluster))
+                    {
+                        if (bestMatch == null || template.Priority > bestMatch.Priority)
+                        {
+                            bestMatch = template;
+                        }
+                        break;
+                    }
+                }
+            }
+
+            return bestMatch;
+        }
+        
         public static HashSet<(int, int)> FindMatches(Board board)
         {
             HashSet<(int, int)> matchSet = new HashSet<(int, int)>();
