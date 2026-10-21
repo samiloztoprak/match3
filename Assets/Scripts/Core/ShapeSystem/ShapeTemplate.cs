@@ -7,12 +7,14 @@ public sealed class ShapeTemplate
     public string Name { get; set; }
     public int Priority { get; set; }
     public HashSet<(int, int)> Cells { get; set; }
+    public List<HashSet<(int, int)>> Rotations { get; }
     
     public ShapeTemplate(string name, int priority, bool[,] matrix)
     {
         Name = name.ToLower();
         Priority = priority;
         Cells = Normalize(MatrixToCells(matrix));
+        Rotations = ComputeAllRotations();
     }
 
     private static HashSet<(int, int)> MatrixToCells(bool[,] matrix)
@@ -63,7 +65,7 @@ public sealed class ShapeTemplate
         return Normalize(rotated);
     }
 
-    public List<HashSet<(int, int)>> GetAllRotations()
+    public List<HashSet<(int, int)>> ComputeAllRotations()
     {
         List<HashSet<(int, int)>> rotations = new List<HashSet<(int, int)>>();
         HashSet<(int, int)> current = Cells;

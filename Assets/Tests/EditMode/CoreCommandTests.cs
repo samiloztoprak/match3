@@ -35,7 +35,7 @@ public class NewTestScript
         board.SetCell(1, 0, new ColoredPiece(board.NextId(), PieceColor.Green));
         board.SetCell(1, 1, new ColoredPiece(board.NextId(), PieceColor.Yellow));
         board.SetCell(1, 2, new ColoredPiece(board.NextId(), PieceColor.Yellow));
-        board.SetCell(1, 3, new ColoredPiece(board.NextId(), PieceColor.Blue));
+        board.SetCell(1, 3, new ColoredPiece(board.NextId(), PieceColor.Green));
 
         board.SetCell(2, 0, new ColoredPiece(board.NextId(), PieceColor.Red));
         board.SetCell(2, 1, new ColoredPiece(board.NextId(), PieceColor.Green));
@@ -48,11 +48,11 @@ public class NewTestScript
         Assert.AreEqual(matchSet.Contains((0,0)), true);
         Assert.AreEqual(matchSet.Contains((0,1)), true);
         Assert.AreEqual(matchSet.Contains((0,2)), true);
-        Assert.AreEqual(matchSet.Contains((0,3)), false);
+        Assert.AreEqual(matchSet.Contains((0,3)), true);
         Assert.AreEqual(matchSet.Contains((1,0)), false);
         Assert.AreEqual(matchSet.Contains((1,1)), false);
         Assert.AreEqual(matchSet.Contains((1,2)), false);
-        Assert.AreEqual(matchSet.Contains((1,3)), false);
+        Assert.AreEqual(matchSet.Contains((1,3)), true);
         Assert.AreEqual(matchSet.Contains((2,0)), false);
         Assert.AreEqual(matchSet.Contains((2,1)), true);
         Assert.AreEqual(matchSet.Contains((2,2)), true);

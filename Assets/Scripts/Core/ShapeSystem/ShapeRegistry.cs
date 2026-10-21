@@ -15,5 +15,6 @@ public static class ShapeRegistry
     public static void RegisterTemplate(ShapeTemplate template)
     {
         _templates.Add(template);
+        _templates.Sort((a, b) => b.Priority.CompareTo(a.Priority));
     }
 }

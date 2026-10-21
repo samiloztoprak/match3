@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using NUnit.Framework;
 
 namespace LogicLibrary
 {
@@ -24,6 +23,11 @@ namespace LogicLibrary
         public static bool IsPieceMoveable(Piece piece)
         {
             return piece.Flags.HasFlag(PieceFlags.Movable);
+        }
+        
+        public static bool IsPieceMatchable(Piece piece)
+        {
+            return piece.Flags.HasFlag(PieceFlags.CanMatch);
         }
 
         public static void AddFlag(Piece piece, PieceFlags flags)
@@ -86,7 +90,12 @@ namespace LogicLibrary
 
             foreach (var template in ShapeRegistry.Templates)
             {
-                foreach (var rotation in template.GetAllRotations())
+                if (template.Cells.Count > clusterCells.Count)
+                {
+                    continue;
+                }
+                
+                foreach (var rotation in template.Rotations)
                 {
                     if (rotation.Count != normalizedCluster.Count)
                     {
@@ -110,91 +119,169 @@ namespace LogicLibrary
         public static HashSet<(int, int)> FindMatches(Board board)
         {
             HashSet<(int, int)> matchSet = new HashSet<(int, int)>();
+            HashSet<(int, int)> visited = new HashSet<(int, int)>();
+            (int directionX, int  directionY)[] directions = { (1, 0), (-1, 0), (0, 1), (0, -1) };
 
-            for(int y = 0; y < board.Height; y++)
+            for (int y = 0; y < board.Height; y++)
             {
-                for(int x = 0; x < board.Width; x++)
+                for (int x = 0; x < board.Width; x++)
                 {
                     Piece piece = board.GetCell(x, y);
-
-                    if(piece == null || !piece.Flags.HasFlag(PieceFlags.CanMatch))
+                    if (piece == null || !BoardLogic.IsPieceMatchable(piece) || BoardLogic.IsPieceLocked(piece))
                     {
                         continue;
                     }
 
-                    int rleResult = RunRLEHorizontal(x, y, piece, board);
-                    int runLength = CalculateRunLength(rleResult, x);
-                    if(runLength >= MinMatchLength)
-                    {
-                        for(int xMatch = x; xMatch <= rleResult; xMatch++)
-                        {
-                            matchSet.Add((xMatch, y));
-                        }
-                        x = rleResult+1;
-                    }
-                }
-            }
-            
-            for(int x = 0; x < board.Width; x++)
-            {
-                for(int y = 0; y < board.Height; y++)
-                {
-                    Piece piece = board.GetCell(x, y);
-
-                    if(piece == null || !piece.Flags.HasFlag(PieceFlags.CanMatch) 
-                    || piece.Flags.HasFlag(PieceFlags.Locked))
+                    if (visited.Contains((x, y)))
                     {
                         continue;
                     }
+                    
+                    HashSet<(int, int)> region = new HashSet<(int, int)>();
+                    Queue<(int, int)> queue = new Queue<(int, int)>();
+                    queue.Enqueue((x, y));
+                    visited.Add((x, y));
 
-                    int rleResult = RunRLEVertical(x, y, piece, board);
-                    int runLength = CalculateRunLength(rleResult, y);
-                    if(runLength >= MinMatchLength)
+                    while (queue.Count > 0)
                     {
-                        for(int yMatch = y; yMatch <= rleResult; yMatch++)
+                        var current = queue.Dequeue();
+                        region.Add(current);
+
+                        foreach (var (directionX, directionY) in directions)
                         {
-                            matchSet.Add((x, yMatch));
+                            var neighbor = (current.Item1 + directionX, current.Item2 + directionY);
+
+                            if (!BoardLogic.IsValidIndex(neighbor.Item1, neighbor.Item2, board) ||
+                                visited.Contains(neighbor))
+                            {
+                                continue;
+                            }
+                            
+                            Piece neighborPiece = board.GetCell(neighbor.Item1, neighbor.Item2);
+                            if(neighborPiece == null || !BoardLogic.IsPieceMatchable(neighborPiece)
+                                                     || BoardLogic.IsPieceLocked(neighborPiece))
+                            {
+                                continue;
+                            }
+
+                            if (neighborPiece.Color != piece.Color)
+                            {
+                                continue;
+                            }
+                            
+                            visited.Add(neighbor);
+                            queue.Enqueue(neighbor);
                         }
-                        y = rleResult+1;
+                    }
+                    List<(ShapeTemplate template, HashSet<(int, int)> cells)> matchedShape = FindAllShapeMatchesInRegion(region);
+                    foreach (var (template, cells) in matchedShape)
+                    {
+                        foreach (var cell in cells)
+                        {
+                            matchSet.Add(cell);
+                        }
                     }
                 }
             }
-
             return matchSet;
         }
 
-        public static int CalculateRunLength(int index1, int index2)
+        public static bool TemplateFitsAtOffset(HashSet<(int, int)> templateCells, int offsetX, int offsetY,
+            HashSet<(int, int)> cells)
         {
-            return index1 - index2 + 1;
-        }
-
-        //Run Length Encoding
-        public static int RunRLEHorizontal(int x, int y, Piece piece, Board board)
-        {
-            for(int i = x; i < board.Width; i++)
+            foreach (var (templateX, templateY) in templateCells)
             {
-                Piece _piece = board.GetCell(i, y);
-                if(_piece == null || !_piece.Flags.HasFlag(PieceFlags.CanMatch) || _piece.Color != piece.Color)
+                if (!cells.Contains((templateX + offsetX, templateY + offsetY)))
                 {
-                    return i-1;
+                    return false;
                 }
             }
-            return board.Width-1;
+            return true;
         }
 
-        public static int RunRLEVertical(int x, int y, Piece piece, Board board)
+        public static (ShapeTemplate template, HashSet<(int, int)> matchedCells) FindBestShapeMatchWithPosition(
+            HashSet<(int, int)> cells)
         {
-            for(int i = y; i < board.Height; i++)
+            if (cells.Count == 0)
             {
-                Piece _piece = board.GetCell(x, i);
-                if(_piece == null || !_piece.Flags.HasFlag(PieceFlags.CanMatch) || _piece.Color != piece.Color)
+                return (null, null);
+            }
+            
+            int minX = int.MaxValue;
+            int minY = int.MaxValue;
+            int maxX = int.MinValue;
+            int maxY = int.MinValue;
+
+            foreach (var (x, y) in cells)
+            {
+                minX = Math.Min(minX, x);
+                minY = Math.Min(minY, y);
+                maxX = Math.Max(maxX, x);
+                maxY = Math.Max(maxY, y);
+            }
+            
+            List<ShapeTemplate> templates = new List<ShapeTemplate>(ShapeRegistry.Templates);
+
+            foreach (var template in templates)
+            {
+                foreach (var rotation in template.Rotations)
                 {
-                    return i-1;
+                    int rotMaxX = 0;
+                    int rotMaxY = 0;
+
+                    foreach (var (rotX, rotY) in rotation)
+                    {
+                        rotMaxX = Math.Max(rotMaxX, rotX);
+                        rotMaxY = Math.Max(rotMaxY, rotY);
+                    }
+
+                    for (int offsetX = minX; offsetX <= maxX - rotMaxX; offsetX++)
+                    {
+                        for (int offsetY =  minY; offsetY <= maxY - rotMaxY; offsetY++)
+                        {
+                            if (TemplateFitsAtOffset(rotation, offsetX, offsetY, cells))
+                            {
+                                HashSet<(int, int)> matchedCells = new HashSet<(int, int)>();
+                                foreach (var (rotX, rotY) in rotation)
+                                {
+                                    matchedCells.Add((rotX + offsetX, rotY + offsetY));
+                                }
+                                return (template, matchedCells);
+                            }
+                        }
+                    }
                 }
             }
-            return board.Height-1;
+            return (null, null);
         }
 
+        public static List<(ShapeTemplate template, HashSet<(int, int)> cells)> FindAllShapeMatchesInRegion(
+            HashSet<(int, int)> region)
+        {
+            List<(ShapeTemplate template, HashSet<(int, int)> cells)> matches = new List<(ShapeTemplate, HashSet<(int, int)>)>();
+            HashSet<(int, int)> remaining = new HashSet<(int, int)>(region);
+
+            int maxIteration = region.Count;
+            int iteration = 0;
+            while (iteration < maxIteration)
+            {
+                var (template, matchedCells) = FindBestShapeMatchWithPosition(remaining);
+                if (template == null)
+                {
+                    break;
+                }
+                
+                matches.Add((template, matchedCells));
+                foreach (var cell in matchedCells)
+                {
+                    remaining.Remove(cell);
+                }
+
+                iteration++;
+            }
+            return  matches;
+        }
+        
         public static List<(Piece, int, int)> FindNearlyDamageable(Board board, HashSet<(int, int)> matchSet)
         {
             List<(Piece, int, int)> damageablePieces = new List<(Piece, int, int)>();
