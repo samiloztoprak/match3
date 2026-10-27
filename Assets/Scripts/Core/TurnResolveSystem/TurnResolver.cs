@@ -44,16 +44,6 @@ public static class TurnResolver
                 }
             }
             
-            Dictionary<(int, int), OverlayPiece> lockedMatchedCells = new Dictionary<(int, int), OverlayPiece>();
-            foreach (var match in matchSet)
-            {
-                OverlayPiece overlay = board.GetOverlayPieceAt(match.Item1, match.Item2);
-                if (overlay != null)
-                {
-                    lockedMatchedCells[match] = overlay;
-                }
-            }
-            
             ClearOverlayData clearOverlayData = new ClearOverlayData();
             List<OverlayPiece> damageableOverlays = MatchLogic.FindNearlyDamageableOverlays(board, matchSet);
             foreach (OverlayPiece overlay in damageableOverlays)
@@ -84,28 +74,8 @@ public static class TurnResolver
             foreach (var match in matchSet)
             {
                 Piece piece = board.GetCell(match.Item1, match.Item2);
-                if (lockedMatchedCells.TryGetValue(match, out OverlayPiece overlayPiece))
-                {
-                    if (board.GetOverlayPieceAt(match.Item1, match.Item2) == overlayPiece)
-                    {
-                        bool broken = overlayPiece.ApplyDamage(1);
-                        if(broken)
-                        {
-                            clearOverlayData.PieceIds.Add(overlayPiece.Id);
-                            board.RemoveOverlayPiece(overlayPiece);
-                            BoardLogic.RemoveFlag(piece, PieceFlags.Locked);
-                        }
-                        else
-                        {
-                            damageData.PieceIds.Add(overlayPiece.Id);
-                        }
-                    }
-                }
-                else
-                {
-                    clearStepData.PieceIds.Add(piece.Id);
-                    board.ClearCell(match.Item1, match.Item2);
-                }
+                clearStepData.PieceIds.Add(piece.Id);
+                board.ClearCell(match.Item1, match.Item2);
             }
             result.Add(clearStepData);
 
