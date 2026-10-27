@@ -2,7 +2,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 
 
-public class NewTestScript
+public class CoreCommandTests
 {
     [Test]
     public void TestSwappOnBoad()
@@ -146,5 +146,74 @@ public class NewTestScript
             Assert.AreEqual(3, result[0].Count);
             Assert.AreEqual(3, result[1].Count);
         }
+    }
+    
+    [Test]
+    [Timeout(2000)]
+    public void FindBestShapeMatchWithPosition_EmptyCells_ReturnsNullImmediately()
+    {
+        var result = LogicLibrary.MatchLogic.FindBestShapeMatchWithPosition(new HashSet<(int, int)>());
+        Assert.IsNull(result.template);
+    }
+
+    [Test]
+    public void TestFindMatches_TShape_MatchesExactly()
+    {
+        Board board = new Board(3,3);
+        
+        board.SetCell(0, 0, new ColoredPiece(board.NextId(), PieceColor.Green));
+        board.SetCell(0, 1, new ColoredPiece(board.NextId(), PieceColor.Red));
+        board.SetCell(0, 2, new ColoredPiece(board.NextId(), PieceColor.Blue));
+        
+        board.SetCell(1, 0, new ColoredPiece(board.NextId(), PieceColor.Green));
+        board.SetCell(1, 1, new ColoredPiece(board.NextId(), PieceColor.Green));
+        board.SetCell(1, 2, new ColoredPiece(board.NextId(), PieceColor.Green));
+
+        board.SetCell(2, 0, new ColoredPiece(board.NextId(), PieceColor.Green));
+        board.SetCell(2, 1, new ColoredPiece(board.NextId(), PieceColor.Yellow));
+        board.SetCell(2, 2, new ColoredPiece(board.NextId(), PieceColor.Blue));
+        
+        HashSet<(int, int)> matchSet = LogicLibrary.MatchLogic.FindMatches(board);
+
+        Assert.AreEqual(5, matchSet.Count);
+        Assert.IsTrue(matchSet.Contains((0, 0)));
+        Assert.IsTrue(matchSet.Contains((1, 0)));
+        Assert.IsTrue(matchSet.Contains((1, 1)));
+        Assert.IsTrue(matchSet.Contains((1, 2)));
+        Assert.IsTrue(matchSet.Contains((2, 0)));
+    }
+
+    [Test]
+    public void TestFindMatches_Line5_MatchesAsOneShape()
+    {
+        Board board = new Board(5,1);
+        for (int x = 0; x < 5; x++)
+        {
+            board.SetCell(x, 0, new ColoredPiece(board.NextId(), PieceColor.Green));
+        }
+        
+        HashSet<(int, int)> matchSet = LogicLibrary.MatchLogic.FindMatches(board);
+        Assert.AreEqual(5, matchSet.Count);
+    }
+    
+    [Test]
+    public void TestFindMatches_UnregisteredStaircase_DoesNotMatch()
+    {
+        Board board = new Board(3,3);
+        
+        board.SetCell(0, 0, new ColoredPiece(board.NextId(), PieceColor.Green));
+        board.SetCell(0, 1, new ColoredPiece(board.NextId(), PieceColor.Red));
+        board.SetCell(0, 2, new ColoredPiece(board.NextId(), PieceColor.Blue));
+        
+        board.SetCell(1, 0, new ColoredPiece(board.NextId(), PieceColor.Green));
+        board.SetCell(1, 1, new ColoredPiece(board.NextId(), PieceColor.Green));
+        board.SetCell(1, 2, new ColoredPiece(board.NextId(), PieceColor.Yellow));
+
+        board.SetCell(2, 0, new ColoredPiece(board.NextId(), PieceColor.Red));
+        board.SetCell(2, 1, new ColoredPiece(board.NextId(), PieceColor.Green));
+        board.SetCell(2, 2, new ColoredPiece(board.NextId(), PieceColor.Green));
+
+        HashSet<(int, int)> matchSet = LogicLibrary.MatchLogic.FindMatches(board);
+        Assert.AreEqual(0, matchSet.Count);
     }
 }

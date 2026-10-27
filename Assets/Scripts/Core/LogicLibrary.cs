@@ -202,6 +202,8 @@ namespace LogicLibrary
         public static (ShapeTemplate template, HashSet<(int, int)> matchedCells) FindBestShapeMatchWithPosition(
             HashSet<(int, int)> cells)
         {
+            
+            // If cells is empty, min/max stay at int sentinel values and overflow happens, freezing the editor (see commit 3352c82)
             if (cells.Count == 0)
             {
                 return (null, null);
