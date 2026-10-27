@@ -1,5 +1,6 @@
 
 using System.Collections.Generic;
+using System.Linq;
 using LogicLibrary;
 
 public static class TurnResolver
@@ -15,8 +16,8 @@ public static class TurnResolver
         int iteration = 0;
         while (true)
         {
-            HashSet<(int, int)> matchSet = MatchLogic.FindMatches(board);
-            if (matchSet.Count == 0)
+            List<(ShapeTemplate template, HashSet<(int, int)> cells)> matches = MatchLogic.FindMatches(board);
+            if (matches.Count == 0)
             {
                 if(iteration == 0)
                 {
@@ -27,6 +28,11 @@ public static class TurnResolver
                 break;
             }
 
+            HashSet<(int, int)> matchSet = new HashSet<(int, int)>();
+            foreach (var (template, cells) in matches)
+            foreach (var cell in cells)
+                matchSet.Add(cell);
+            
             ClearPieceData clearStepData = new ClearPieceData();
             DamagePieceData damageData = new DamagePieceData();
             List<(Piece, int, int)> damageablePieces = MatchLogic.FindNearlyDamageable(board, matchSet);
@@ -71,11 +77,68 @@ public static class TurnResolver
             result.Add(damageData);
             result.Add(clearOverlayData);
             
-            foreach (var match in matchSet)
+            (int x, int y)? anchorHint = null;
+            if (iteration == 0 && command is SwapCommand swapCommand)
             {
-                Piece piece = board.GetCell(match.Item1, match.Item2);
-                clearStepData.PieceIds.Add(piece.Id);
-                board.ClearCell(match.Item1, match.Item2);
+                anchorHint = swapCommand.TargetPosition;
+            }
+            
+            foreach (var (template, cells) in matches)
+            {
+                bool producesSpecial = template.Produces != PieceKind.Normal;
+                if (!producesSpecial)
+                {
+                    foreach (var cell in cells)
+                    {
+                        Piece piece = board.GetCell(cell.Item1, cell.Item2);
+                        clearStepData.PieceIds.Add(piece.Id);
+                        board.ClearCell(cell.Item1, cell.Item2);
+                    }
+                }
+                else
+                {
+                    (int, int) anchor = (anchorHint.HasValue && cells.Contains(anchorHint.Value))
+                        ? anchorHint.Value
+                        : cells.First();
+
+                    List<int> mergedIds = new List<int>();
+                    
+                    foreach (var cell in cells)
+                    {
+                        Piece piece = board.GetCell(cell.Item1, cell.Item2);
+                        mergedIds.Add(piece.Id);
+                        
+                        if(cell == anchor)
+                            continue;
+                        
+                        clearStepData.PieceIds.Add(piece.Id);
+                        board.ClearCell(cell.Item1, cell.Item2);
+                    }
+                    
+                    Piece anchorPiece = board.GetCell(anchor.Item1, anchor.Item2);
+                    clearStepData.PieceIds.Add(anchorPiece.Id);
+                    board.ClearCell(anchor.Item1, anchor.Item2);
+                    
+                    Piece newSpecial;
+                    if (template.Produces == PieceKind.Rocket)
+                    {
+                        newSpecial = new RocketPiece(board.NextId(), MatchLogic.ResolveRocketDirection(cells));
+                    }
+                    else
+                    {
+                        newSpecial = new SpecialPiece(board.NextId(), template.Produces);
+                    }
+                    board.SetCell(anchor.Item1, anchor.Item2, newSpecial);
+
+                    result.Add(new SpecialCreatedData
+                    {
+                        PieceId = newSpecial.Id,
+                        Kind = template.Produces,
+                        X = anchor.Item1,
+                        Y = anchor.Item2,
+                        MergedIds = mergedIds
+                    });
+                }
             }
             result.Add(clearStepData);
 

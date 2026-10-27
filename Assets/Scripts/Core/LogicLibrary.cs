@@ -81,9 +81,9 @@ namespace LogicLibrary
             return  clusters;
         }
         
-        public static HashSet<(int, int)> FindMatches(Board board)
+        public static List<(ShapeTemplate template, HashSet<(int, int)> cells)> FindMatches(Board board)
         {
-            HashSet<(int, int)> matchSet = new HashSet<(int, int)>();
+            List<(ShapeTemplate template, HashSet<(int, int)> cells)> allMatches = new List<(ShapeTemplate, HashSet<(int, int)>)>();
             HashSet<(int, int)> visited = new HashSet<(int, int)>();
             (int directionX, int  directionY)[] directions = { (1, 0), (-1, 0), (0, 1), (0, -1) };
 
@@ -139,16 +139,10 @@ namespace LogicLibrary
                         }
                     }
                     List<(ShapeTemplate template, HashSet<(int, int)> cells)> matchedShape = FindAllShapeMatchesInRegion(region);
-                    foreach (var (template, cells) in matchedShape)
-                    {
-                        foreach (var cell in cells)
-                        {
-                            matchSet.Add(cell);
-                        }
-                    }
+                    allMatches.AddRange(matchedShape);
                 }
             }
-            return matchSet;
+            return allMatches;
         }
 
         public static bool TemplateFitsAtOffset(HashSet<(int, int)> templateCells, int offsetX, int offsetY,
@@ -299,6 +293,24 @@ namespace LogicLibrary
                 }
             }
             return  damageableOverlays;
+        }
+
+        public static RocketDirection ResolveRocketDirection(HashSet<(int, int)> matchedCells)
+        {
+            int minX = int.MaxValue;
+            int maxX = int.MinValue;
+            int minY = int.MaxValue;
+            int maxY = int.MinValue;
+
+            foreach (var (x, y) in matchedCells)
+            {
+                minX = Math.Min(minX, x);
+                maxX = Math.Max(maxX, x);
+                minY = Math.Min(minY, y);
+                maxY = Math.Max(maxY, y);
+            }
+            bool isHorizontalMatch = (maxX - minX) > (maxY - minY);
+            return isHorizontalMatch ? RocketDirection.Horizontal : RocketDirection.Vertical;
         }
     }
 

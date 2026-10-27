@@ -42,8 +42,15 @@ public class CoreCommandTests
         board.SetCell(2, 2, new ColoredPiece(board.NextId(), PieceColor.Green));
         board.SetCell(2, 3, new ColoredPiece(board.NextId(), PieceColor.Green));
 
+        List<(ShapeTemplate template, HashSet<(int, int)> cells)> matches = LogicLibrary.MatchLogic.FindMatches(board);
         HashSet<(int, int)> matchSet = new HashSet<(int, int)>();
-        matchSet = LogicLibrary.MatchLogic.FindMatches(board);
+        foreach (var (template, cells) in matches)
+        {
+            foreach (var cell in cells)
+            {
+                matchSet.Add(cell);
+            }
+        }
         
         Assert.AreEqual(matchSet.Contains((0,0)), true);
         Assert.AreEqual(matchSet.Contains((0,1)), true);
@@ -137,7 +144,17 @@ public class CoreCommandTests
         board.SetCell(2, 1, new ColoredPiece(board.NextId(), PieceColor.Blue));
         board.SetCell(2, 2, new ColoredPiece(board.NextId(), PieceColor.Blue));
         
-        HashSet<(int, int)> matchSet = LogicLibrary.MatchLogic.FindMatches(board);
+        List<(ShapeTemplate template, HashSet<(int, int)> cells)> matches = LogicLibrary.MatchLogic.FindMatches(board);
+        HashSet<(int, int)> matchSet = new HashSet<(int, int)>();
+        
+        foreach (var (template, cells) in matches)
+        {
+            foreach (var cell in cells)
+            {
+                matchSet.Add(cell);
+            }
+        }
+        
         List<HashSet<(int, int)>> result = LogicLibrary.MatchLogic.FindClusters(board, matchSet);
         
         Assert.AreEqual(2, result.Count);
@@ -173,14 +190,16 @@ public class CoreCommandTests
         board.SetCell(2, 1, new ColoredPiece(board.NextId(), PieceColor.Yellow));
         board.SetCell(2, 2, new ColoredPiece(board.NextId(), PieceColor.Blue));
         
-        HashSet<(int, int)> matchSet = LogicLibrary.MatchLogic.FindMatches(board);
+        List<(ShapeTemplate template, HashSet<(int, int)> cells)> matches = LogicLibrary.MatchLogic.FindMatches(board);
 
-        Assert.AreEqual(5, matchSet.Count);
-        Assert.IsTrue(matchSet.Contains((0, 0)));
-        Assert.IsTrue(matchSet.Contains((1, 0)));
-        Assert.IsTrue(matchSet.Contains((1, 1)));
-        Assert.IsTrue(matchSet.Contains((1, 2)));
-        Assert.IsTrue(matchSet.Contains((2, 0)));
+        Assert.AreEqual(1, matches.Count);
+        Assert.AreEqual("t-shape", matches[0].template.Name);
+        Assert.AreEqual(5, matches[0].cells.Count);
+        Assert.IsTrue(matches[0].cells.Contains((0, 0)));
+        Assert.IsTrue(matches[0].cells.Contains((1, 0)));
+        Assert.IsTrue(matches[0].cells.Contains((1, 1)));
+        Assert.IsTrue(matches[0].cells.Contains((1, 2)));
+        Assert.IsTrue(matches[0].cells.Contains((2, 0)));
     }
 
     [Test]
@@ -192,8 +211,11 @@ public class CoreCommandTests
             board.SetCell(x, 0, new ColoredPiece(board.NextId(), PieceColor.Green));
         }
         
-        HashSet<(int, int)> matchSet = LogicLibrary.MatchLogic.FindMatches(board);
-        Assert.AreEqual(5, matchSet.Count);
+        List<(ShapeTemplate template, HashSet<(int, int)> cells)> matches = LogicLibrary.MatchLogic.FindMatches(board);
+
+        Assert.AreEqual(1, matches.Count);
+        Assert.AreEqual("line5-shape", matches[0].template.Name);
+        Assert.AreEqual(5, matches[0].cells.Count);
     }
     
     [Test]
@@ -213,7 +235,7 @@ public class CoreCommandTests
         board.SetCell(2, 1, new ColoredPiece(board.NextId(), PieceColor.Green));
         board.SetCell(2, 2, new ColoredPiece(board.NextId(), PieceColor.Green));
 
-        HashSet<(int, int)> matchSet = LogicLibrary.MatchLogic.FindMatches(board);
-        Assert.AreEqual(0, matchSet.Count);
+        List<(ShapeTemplate template, HashSet<(int, int)> cells)> matches = LogicLibrary.MatchLogic.FindMatches(board);
+        Assert.AreEqual(0, matches.Count);
     }
 }

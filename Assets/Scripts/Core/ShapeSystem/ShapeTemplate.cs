@@ -7,6 +7,7 @@ public sealed class ShapeTemplate
     public string Name { get; }
     public int Priority { get; }
     public HashSet<(int, int)> Cells { get; }
+    public PieceKind Produces { get; set; }
     public List<HashSet<(int, int)>> Rotations { get; }
     public List<(int maxX, int maxY)> RotationBounds { get; }
     
