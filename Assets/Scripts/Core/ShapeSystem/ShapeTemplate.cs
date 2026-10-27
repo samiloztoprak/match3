@@ -4,10 +4,11 @@ using System.Collections.Generic;
 
 public sealed class ShapeTemplate
 {
-    public string Name { get; set; }
-    public int Priority { get; set; }
-    public HashSet<(int, int)> Cells { get; set; }
+    public string Name { get; }
+    public int Priority { get; }
+    public HashSet<(int, int)> Cells { get; }
     public List<HashSet<(int, int)>> Rotations { get; }
+    public List<(int maxX, int maxY)> RotationBounds { get; }
     
     public ShapeTemplate(string name, int priority, bool[,] matrix)
     {
@@ -15,6 +16,7 @@ public sealed class ShapeTemplate
         Priority = priority;
         Cells = Normalize(MatrixToCells(matrix));
         Rotations = ComputeAllRotations();
+        RotationBounds = ComputeRotationBounds();
     }
 
     private static HashSet<(int, int)> MatrixToCells(bool[,] matrix)
@@ -77,4 +79,23 @@ public sealed class ShapeTemplate
         }
         return rotations;
     }
+
+    private List<(int maxX, int maxY)> ComputeRotationBounds()
+    {
+        List<(int maxX, int maxY)> bounds = new List<(int, int)>();
+
+        foreach (var rotation in Rotations)
+        {
+            int maxX = 0;
+            int maxY = 0;
+            foreach (var (x, y) in rotation)
+            {
+                maxX = Math.Max(maxX, x);
+                maxY = Math.Max(maxY, y);
+            }
+            bounds.Add((maxX, maxY));
+        }
+        return bounds;
+    }
+    
 }

@@ -107,16 +107,19 @@ public class BoardController : MonoBehaviour
             Vector3 endWorldPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, 0));
             Vector3 delta = endWorldPos - _startWorldPos;
 
-            int targetX = _startX;
-            int targetY = _startY;
+            if(delta.magnitude > .5f)
+            {
+                int targetX = _startX;
+                int targetY = _startY;
 
-            if (Mathf.Abs(delta.x) > Mathf.Abs(delta.y))
-                targetX += delta.x > 0 ? 1 : -1;
-            else
-                targetY += delta.y > 0 ? -1 : 1;
+                if (Mathf.Abs(delta.x) > Mathf.Abs(delta.y))
+                    targetX += delta.x > 0 ? 1 : -1;
+                else
+                    targetY += delta.y > 0 ? -1 : 1;
 
-            TrySwap(_startX, _startY, targetX, targetY);
-            _hasStart = false;
+                TrySwap(_startX, _startY, targetX, targetY);
+                _hasStart = false;
+            }
         }
     }
 
@@ -143,6 +146,12 @@ public class BoardController : MonoBehaviour
         Piece piece1 = _board.GetCell(x1, y1);
         Piece piece2 =  _board.GetCell(x2, y2);
 
+        if (piece1 == null || piece2 == null)
+        {
+            Debug.Log("One or Two pieces is null");
+            return;
+        }
+        
         if (BoardLogic.IsPieceLocked(piece1) || BoardLogic.IsPieceLocked(piece2))
         {
             Debug.Log("One of the pieces is not movable, has locked flag");

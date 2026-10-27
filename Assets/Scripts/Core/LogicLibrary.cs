@@ -43,8 +43,6 @@ namespace LogicLibrary
 
     public static class MatchLogic
     {
-        private const int MinMatchLength = 3;
-
         public static List<HashSet<(int, int)>> FindClusters(Board board, HashSet<(int, int)> matchSet)
         {
             List<HashSet<(int, int)>> clusters = new List<HashSet<(int, int)>>();
@@ -81,39 +79,6 @@ namespace LogicLibrary
                 clusters.Add(cluster);
             }
             return  clusters;
-        }
-
-        public static ShapeTemplate FindBestShapeMatch(HashSet<(int, int)> clusterCells)
-        {
-            HashSet<(int, int)> normalizedCluster = ShapeTemplate.Normalize(clusterCells);
-            ShapeTemplate bestMatch = null;
-
-            foreach (var template in ShapeRegistry.Templates)
-            {
-                if (template.Cells.Count > clusterCells.Count)
-                {
-                    continue;
-                }
-                
-                foreach (var rotation in template.Rotations)
-                {
-                    if (rotation.Count != normalizedCluster.Count)
-                    {
-                        continue;
-                    }
-
-                    if (rotation.SetEquals(normalizedCluster))
-                    {
-                        if (bestMatch == null || template.Priority > bestMatch.Priority)
-                        {
-                            bestMatch = template;
-                        }
-                        break;
-                    }
-                }
-            }
-
-            return bestMatch;
         }
         
         public static HashSet<(int, int)> FindMatches(Board board)
@@ -222,21 +187,13 @@ namespace LogicLibrary
                 maxY = Math.Max(maxY, y);
             }
             
-            List<ShapeTemplate> templates = new List<ShapeTemplate>(ShapeRegistry.Templates);
-
-            foreach (var template in templates)
+            foreach (var template in ShapeRegistry.Templates)
             {
-                foreach (var rotation in template.Rotations)
+                for (int i = 0; i < template.Rotations.Count; i++)
                 {
-                    int rotMaxX = 0;
-                    int rotMaxY = 0;
-
-                    foreach (var (rotX, rotY) in rotation)
-                    {
-                        rotMaxX = Math.Max(rotMaxX, rotX);
-                        rotMaxY = Math.Max(rotMaxY, rotY);
-                    }
-
+                    var rotation = template.Rotations[i];
+                    var (rotMaxX, rotMaxY) = template.RotationBounds[i];
+                    
                     for (int offsetX = minX; offsetX <= maxX - rotMaxX; offsetX++)
                     {
                         for (int offsetY =  minY; offsetY <= maxY - rotMaxY; offsetY++)
@@ -277,6 +234,11 @@ namespace LogicLibrary
                 foreach (var cell in matchedCells)
                 {
                     remaining.Remove(cell);
+                }
+                
+                if (remaining.Count == 0)
+                {
+                    break;
                 }
 
                 iteration++;
