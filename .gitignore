@@ -118,3 +118,14 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# Unity AI asset generation cache/history (project-root, not Assets/GeneratedAssets)
+/GeneratedAssets/
+
+# Intermediate sprite-sheet working files (final sprites already moved to Assets/Sprites)
+/[Aa]ssets/GeneratedAssets/
+/[Aa]ssets/GeneratedAssets.meta
+
+# Unity scene auto-recovery backups
+/[Aa]ssets/_Recovery/
+/[Aa]ssets/_Recovery.meta
