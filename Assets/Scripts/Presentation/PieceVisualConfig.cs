@@ -71,11 +71,8 @@ public class PieceVisualConfig : ScriptableObject
 
     public Sprite GetSpecialSprite(Piece piece)
     {
-        Debug.Log("piece");
         if (piece is SpecialPiece)
         {
-            Debug.Log("piece22222222");
-
             return _specialVisualConfig.GetSprite(piece);
         }
         return null;
