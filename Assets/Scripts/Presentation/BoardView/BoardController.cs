@@ -289,6 +289,18 @@ public class BoardController : MonoBehaviour
             }
             else if (step is SpecialCreatedData specialCreatedStep)
             {
+                Vector3 anchorPos = CellToWorld(specialCreatedStep.X, specialCreatedStep.Y);
+                
+                foreach (int mergedId in specialCreatedStep.MergedIds)
+                {
+                    if (_pieceById.TryGetValue(mergedId, out PieceView mergedView))
+                    {
+                        mergedView.MoveTo(anchorPos, _stepDuration);
+                    }
+                }
+                
+                yield return new WaitForSeconds(_stepDuration);
+                
                 PieceView instance = _pieceViewPool.Get();
                 instance.transform.SetPositionAndRotation(
                     CellToWorld(specialCreatedStep.X, specialCreatedStep.Y), Quaternion.identity);

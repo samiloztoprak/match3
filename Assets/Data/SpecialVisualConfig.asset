@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f09a0c3ceb0ccc442ad3d8cc1e0d147f, type: 3}
   m_Name: SpecialVisualConfig
   m_EditorClassIdentifier: Assembly-CSharp::SpecialVisualConfig
-  _tntSprite: {fileID: 0}
-  _propellerSprite: {fileID: 0}
-  _lightBallSprite: {fileID: 0}
-  _rocketHorizontalSprite: {fileID: 0}
-  _rocketVerticalSprite: {fileID: 0}
+  _tntSprite: {fileID: 1753149496497909692, guid: c836d8409af48f14dad02fec715466bb, type: 3}
+  _propellerSprite: {fileID: 3977123142835054643, guid: c100566beba405e4aa250707951364e7, type: 3}
+  _lightBallSprite: {fileID: 4844800476900902195, guid: b012334eee50754438730c9e9c1e10e3, type: 3}
+  _rocketHorizontalSprite: {fileID: 9217732827612796332, guid: 237b34df013ab8f44a1b47a8a8ebc7e7, type: 3}
+  _rocketVerticalSprite: {fileID: 3160224056650343688, guid: a401a2877f08af346b154c70b1326512, type: 3}

@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PieceVisualConfig
   _entries:
   - Color: 1
-    Sprite: {fileID: 1873641541859010181, guid: 24905d3ca7ef92444bb4772a7456767b, type: 3}
+    Sprite: {fileID: -205270267638800340, guid: b00e2405fe7e2004195e9fea592d0a41, type: 3}
   - Color: 2
-    Sprite: {fileID: -5647203800983064944, guid: f61e0a1f0e9180a488b8ab2dff351dfa, type: 3}
+    Sprite: {fileID: 4836361109424975145, guid: c7c8310f0adf27047b9b15f6bd7d47c2, type: 3}
   - Color: 3
-    Sprite: {fileID: 6614058041668039157, guid: bf84fff607c1c9944b5cae2ed69c2d43, type: 3}
+    Sprite: {fileID: 7101892040042406491, guid: e73ffacba2808dc4e8bb35ba6d1c7f31, type: 3}
   - Color: 4
-    Sprite: {fileID: 7667899967157830142, guid: 91c62faf1fef9f84188abe10bbdb494a, type: 3}
+    Sprite: {fileID: 2770481529611924880, guid: e78d5b19d269ef446bea7cb6b480dc76, type: 3}
   _boxVisualConfig: {fileID: 11400000, guid: 13423f7a170112b49bfeabb78802aa29, type: 2}
   _lockVisualConfig: {fileID: 11400000, guid: 2dbbfc0d25c360042b01bf2d50f93adb, type: 2}
+  _specialVisualConfig: {fileID: 11400000, guid: ef519b749221e1e40b03aa4ce81a9f9b, type: 2}
