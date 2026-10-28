@@ -8,6 +8,7 @@ public sealed class SpecialCreatedData : TurnStepData
         MergedIds = new List<int>();
     }
     
+    public Piece Piece;
     public int PieceId;
     public PieceKind Kind;
     public int X;

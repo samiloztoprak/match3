@@ -132,6 +132,7 @@ public static class TurnResolver
 
                     result.Add(new SpecialCreatedData
                     {
+                        Piece = newSpecial,
                         PieceId = newSpecial.Id,
                         Kind = template.Produces,
                         X = anchor.Item1,

@@ -1,5 +1,5 @@
 
-public sealed class SpecialPiece : Piece
+public class SpecialPiece : Piece
 {
     public PieceKind Kind { get; }
 
@@ -8,5 +8,6 @@ public sealed class SpecialPiece : Piece
     {
         Kind = kind;
         Health = 1;
+        VisualType = PieceVisualType.Special;
     }
 }

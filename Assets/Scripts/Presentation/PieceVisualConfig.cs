@@ -35,6 +35,10 @@ public class PieceVisualConfig : ScriptableObject
         {
             return GetLockSprite(piece);
         }
+        else if (piece.VisualType == PieceVisualType.Special)
+        {
+            return GetSpecialSprite(piece);
+        }
         return null;
     }
     
@@ -58,6 +62,21 @@ public class PieceVisualConfig : ScriptableObject
         if (piece is LockPiece)
         {
             return _lockVisualConfig.GetSprite(piece.Health);
+        }
+        return null;
+    }
+    
+    [SerializeField] 
+    private SpecialVisualConfig _specialVisualConfig;
+
+    public Sprite GetSpecialSprite(Piece piece)
+    {
+        Debug.Log("piece");
+        if (piece is SpecialPiece)
+        {
+            Debug.Log("piece22222222");
+
+            return _specialVisualConfig.GetSprite(piece);
         }
         return null;
     }

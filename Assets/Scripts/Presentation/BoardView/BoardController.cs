@@ -287,6 +287,15 @@ public class BoardController : MonoBehaviour
                 }
                 yield return new WaitForSeconds(_stepDuration);
             }
+            else if (step is SpecialCreatedData specialCreatedStep)
+            {
+                PieceView instance = _pieceViewPool.Get();
+                instance.transform.SetPositionAndRotation(
+                    CellToWorld(specialCreatedStep.X, specialCreatedStep.Y), Quaternion.identity);
+                instance.Setup(specialCreatedStep.Piece, _visualConfig);
+                _pieceById[specialCreatedStep.Piece.Id] = instance;
+                yield return new WaitForSeconds(_stepDuration);
+            }
         }
     }
 

@@ -1,12 +1,11 @@
 
-public sealed class RocketPiece : Piece
+public sealed class RocketPiece : SpecialPiece
 {
     public RocketDirection Direction { get; }
 
     public RocketPiece(int id, RocketDirection direction)
-        : base(id, PieceColor.Empty, PieceFlags.Movable)
+        : base(id, PieceKind.Rocket)
     {
         Direction = direction;
-        Health = 1;
     }
 }
