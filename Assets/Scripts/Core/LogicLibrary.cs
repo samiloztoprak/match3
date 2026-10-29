@@ -244,7 +244,7 @@ namespace LogicLibrary
         {
             List<(Piece, int, int)> damageablePieces = new List<(Piece, int, int)>();
             (int dx, int dy)[] directions = { (1, 0), (-1, 0), (0, 1), (0, -1) };
-            
+            HashSet<Piece> addedPieces = new HashSet<Piece>();
             foreach (var (matchX, matchY)  in matchSet)
             {
                 foreach (var (directionX, directionY) in directions)
@@ -258,8 +258,9 @@ namespace LogicLibrary
                     }
                     
                     Piece piece = board.GetCell(newX, newY);
-                    if (piece != null && piece.Flags.HasFlag(PieceFlags.DamageableByNeighbor))
+                    if (piece != null && piece.Flags.HasFlag(PieceFlags.DamageableByNeighbor) && !addedPieces.Contains(piece))
                     {
+                        addedPieces.Add(piece);
                         damageablePieces.Add((piece, newX, newY));
                     }
                 }
@@ -286,7 +287,7 @@ namespace LogicLibrary
                     }
 
                     OverlayPiece overlayPiece = board.GetOverlayPieceAt(newX, newY);
-                    if (overlayPiece != null && overlayPiece.Flags.HasFlag(PieceFlags.DamageableByNeighbor))
+                    if (overlayPiece != null && overlayPiece.Flags.HasFlag(PieceFlags.DamageableByNeighbor) && !damageableOverlays.Contains(overlayPiece))
                     {
                         damageableOverlays.Add(overlayPiece);
                     }
