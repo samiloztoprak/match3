@@ -88,10 +88,19 @@ public class BoardController : MonoBehaviour
             lockView.SetSortingOrder(1);
             _pieceById[lockPiece.Id] = lockView;
         }
+
+        // TODO(level-editor): Temporary. Kicks off a turn so matches on the random
+        // starting board are resolved. Remove once levels come from the editor.
+        // Breaks if (0,0) or (0,1) is locked or immovable: TrySwap returns early.
+        // If the board has matches, the swap is not reverted.
+        TrySwap(0, 0, 0, 1);
     }
 
     void Update()
     {
+        // TODO(android-input): Mouse only. Mouse.current is null on touch devices,
+        // so this throws every frame on Android. Switch to touch or an Input Action.
+        
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
             Vector2 screenPos = Mouse.current.position.ReadValue();
