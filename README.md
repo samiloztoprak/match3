@@ -17,7 +17,7 @@ A swap-based match-3 game for Android, built in Unity 6 (C#).
 - Core game logic is plain C#, no Unity references. Fully unit tested (EditMode tests).
 - Turn resolution is synchronous: one swap resolves the whole cascade at once, then the Presentation layer plays it back step by step.
 - Obstacles (Box, Lock) are driven by flags on a shared `Piece` type, not separate classes per mechanic.
-- Pieces and effects are object-pooled. No per-turn GC allocation.
+- Piece views and effects are object-pooled. No GC allocation while the board is idle.
 
 ## Status
 
