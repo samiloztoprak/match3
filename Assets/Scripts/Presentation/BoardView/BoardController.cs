@@ -38,6 +38,7 @@ public class BoardController : MonoBehaviour
             {
                 view.gameObject.SetActive(false);
                 view.transform.localScale = defaultScale;
+                view.SetSortingOrder(0);
             },
             actionOnDestroy: view => Destroy(view.gameObject),
             collectionCheck: true,
@@ -71,23 +72,37 @@ public class BoardController : MonoBehaviour
             }
         }
 
-        HashSet<(int x, int y)> overlayCells = new HashSet<(int x, int y)> { (1, 1) };
-        LockPiece  lockPiece = new LockPiece (_board.NextId(), overlayCells);
+        HashSet<(int x, int y)> overlayCells = new HashSet<(int x, int y)> { (1, 1), (1,0), (2, 1), (2, 0)};
+        LockPiece lockPiece = new LockPiece (_board.NextId(), overlayCells);
         _board.AddOverlayPiece(lockPiece);
+        int minX = int.MaxValue;
+        int minY = int.MaxValue;
+        int maxX = int.MinValue;
+        int maxY = int.MinValue;
+
+        Vector3 overlayCenter = new Vector3(0,0,0);
         foreach (var (x, y) in overlayCells)
         {
+            overlayCenter += CellToWorld(x, y);
+            minX = Mathf.Min(minX, x);      
+            minY = Mathf.Min(minY, y);
+            maxX = Mathf.Max(maxX, x);
+            maxY = Mathf.Max(maxY, y);
+
             Piece covered = _board.GetCell(x, y);
             if (covered != null)
             {
                 BoardLogic.AddFlag(covered, PieceFlags.Locked);
             }
-            
-            PieceView lockView = _pieceViewPool.Get();
-            lockView.transform.SetPositionAndRotation(CellToWorld(x, y), Quaternion.identity);
-            lockView.Setup(lockPiece, _visualConfig);
-            lockView.SetSortingOrder(1);
-            _pieceById[lockPiece.Id] = lockView;
         }
+        overlayCenter /= overlayCells.Count;
+        
+        PieceView lockView = _pieceViewPool.Get();
+        lockView.transform.SetPositionAndRotation(overlayCenter, Quaternion.identity);
+        lockView.Setup(lockPiece, _visualConfig);
+        lockView.SetSizeInCells(maxX - minX + 1, maxY - minY + 1);
+        lockView.SetSortingOrder(1);
+        _pieceById[lockPiece.Id] = lockView;
 
         // TODO(level-editor): Temporary. Kicks off a turn so matches on the random
         // starting board are resolved. Remove once levels come from the editor.

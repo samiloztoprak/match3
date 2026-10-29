@@ -6,10 +6,12 @@ public class PieceView : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private Piece _piece;
     public Piece Piece => _piece;
-    
+    private Vector3 _baseScale;
+
     void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _baseScale = transform.localScale;
     }
 
     public void Setup(Piece piece, PieceVisualConfig visualConfig)
@@ -26,6 +28,11 @@ public class PieceView : MonoBehaviour
     public void SetSortingOrder(int order)
     {
         _spriteRenderer.sortingOrder = order;
+    }
+
+    public void SetSizeInCells(int width, int height)
+    {
+        transform.localScale = new Vector3(_baseScale.x * width, _baseScale.y * height, _baseScale.z);
     }
     
     public void MoveTo(Vector3 targetPos, float duration, Ease ease = Ease.OutQuad, bool bounceOnLand = false)
