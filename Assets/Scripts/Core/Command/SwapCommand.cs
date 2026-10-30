@@ -2,6 +2,7 @@ public class SwapCommand : ICommand
 {
     private readonly Board _board;
     private readonly int _x1, _y1, _x2, _y2;
+    public (int x, int y) SourcePosition => (_x1, _y1);
     public (int x, int y) TargetPosition => (_x2, _y2);
     
     public SwapCommand(Board board, int x1, int y1, int x2, int y2)

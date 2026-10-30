@@ -12,6 +12,32 @@ public static class TurnResolver
         
         if(command != null)
             command.Execute();
+
+        bool specialActivated = false;
+        if (command is SwapCommand swapCmd)
+        {
+            Piece atSource = board.GetCell(swapCmd.SourcePosition.x, swapCmd.SourcePosition.y);
+            Piece atTarget = board.GetCell(swapCmd.TargetPosition.x, swapCmd.TargetPosition.y);
+
+            bool sourceIsSpecial = atSource != null && atSource.VisualType == PieceVisualType.Special;
+            bool targetIsSpecial = atTarget != null && atTarget.VisualType == PieceVisualType.Special;
+
+            if (sourceIsSpecial && targetIsSpecial)
+            {
+                // combo
+            }
+            else if (sourceIsSpecial)
+            {
+                ActivateSpecial(board, atSource, swapCmd.SourcePosition.x, swapCmd.SourcePosition.y, atTarget, result);
+                specialActivated = true;
+            }
+            else if (targetIsSpecial)
+            {
+                ActivateSpecial(board, atTarget, swapCmd.TargetPosition.x, swapCmd.TargetPosition.y, atSource, result);
+                specialActivated = true;
+            }
+        }
+        
         
         int iteration = 0;
         while (true)
@@ -19,13 +45,17 @@ public static class TurnResolver
             List<(ShapeTemplate template, HashSet<(int, int)> cells)> matches = MatchLogic.FindMatches(board);
             if (matches.Count == 0)
             {
-                if(iteration == 0)
+                bool skipBreakForActivation = specialActivated && iteration == 0;
+                if (!skipBreakForActivation)
                 {
-                    //Restore execution.
-                    if (command != null)
-                        command.Execute();
+                    if (iteration == 0)
+                    {
+                        //Restore execution.
+                        if (command != null)
+                            command.Execute();
+                    }
+                    break;
                 }
-                break;
             }
 
             HashSet<(int, int)> matchSet = new HashSet<(int, int)>();
@@ -164,5 +194,29 @@ public static class TurnResolver
                 break;
         }
         return  result;
+    }
+    
+    private static void ActivateSpecial(Board board, Piece piece, int x, int y, Piece partner, List<TurnStepData> result)
+    {
+        var affected = SpecialActivationLogic.GetAffectedCells(board, piece, x, y, partner);
+
+        ClearPieceData clearStepData = new ClearPieceData();
+        foreach (var (cx, cy) in affected)
+        {
+            Piece p = board.GetCell(cx, cy);
+            if (p == null) continue;
+            clearStepData.PieceIds.Add(p.Id);
+            board.ClearCell(cx, cy);
+        }
+
+        result.Add(new SpecialActivatedData { PieceId = piece.Id, Kind = GetKind(piece), X = x, Y = y });
+        result.Add(clearStepData);
+    }
+    
+    private static PieceKind GetKind(Piece piece)
+    {
+        if (piece is RocketPiece) return PieceKind.Rocket;
+        if (piece is SpecialPiece sp) return sp.Kind;
+        return PieceKind.Normal;
     }
 }

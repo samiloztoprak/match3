@@ -402,4 +402,83 @@ namespace LogicLibrary
             return collectedMovement;
         }
     }
+    
+    public static class SpecialActivationLogic
+    {
+        private static readonly Random _random = new Random();
+        
+        public static HashSet<(int x, int y)> GetAffectedCells(Board board, Piece piece, int x, int y, Piece partner)
+        {
+            var cells = new HashSet<(int x, int y)>();
+
+            if (piece is RocketPiece rocket)
+            {
+                if (rocket.Direction == RocketDirection.Horizontal)
+                {
+                    for (int cx = 0; cx < board.Width; cx++)
+                    {
+                        cells.Add((cx, y));
+                    }
+                }
+                else
+                {
+                    for (int cy = 0; cy < board.Height; cy++)
+                    {
+                        cells.Add((x, cy));
+                    }
+                }
+                return cells;
+            }
+
+            if (piece is SpecialPiece sp)
+            {
+                if (sp.Kind == PieceKind.Tnt)
+                {
+                    for (int cx = x - 1; cx <= x + 1; cx++)
+                    {
+                        for (int cy = y - 1; cy <= y + 1; cy++)
+                        {
+                            if (cx < 0 || cx >= board.Width || cy < 0 || cy >= board.Height) continue;
+                            {
+                                cells.Add((cx, cy));
+                            }
+                        }
+                    }
+                    return cells;
+                }
+
+                if (sp.Kind == PieceKind.Propeller)
+                {
+                    int targetX = _random.Next(board.Width);
+                    int targetY = _random.Next(board.Height);
+                    cells.Add((targetX, targetY));
+                    cells.Add((x, y));
+                    return cells;
+                }
+
+                if (sp.Kind == PieceKind.LightBall)
+                {
+                    if (partner != null && partner.VisualType == PieceVisualType.Standard && partner.Color != PieceColor.Empty)
+                    {
+                        for (int cx = 0; cx < board.Width; cx++)
+                        {
+                            for (int cy = 0; cy < board.Height; cy++)
+                            {
+                                Piece p = board.GetCell(cx, cy);
+                                if (p != null && p.VisualType == PieceVisualType.Standard && p.Color == partner.Color)
+                                {
+                                    cells.Add((cx, cy));
+                                }
+                            }
+                        }
+                    }
+                    cells.Add((x, y));
+                    return cells;
+                }
+            }
+
+            cells.Add((x, y));
+            return cells;
+        }
+    }
 }
