@@ -45,6 +45,7 @@ public class PropellerFlyViewCommand : IViewCommand
                 Vector3 flatPos = Vector3.Lerp(start, end, progress) + perpendicular * (sideways * arcFactor);
                 t.position = flatPos + Vector3.up * (arcHeight * arcFactor);
                 t.localScale = baseScale * (1f + arcFactor * (_config.PeakScale - 1f));
+                t.rotation = Quaternion.Euler(0f, 0f, t.rotation.eulerAngles.z + 100f);
             })
             .OnComplete(() =>
             {

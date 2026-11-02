@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c100566beba405e4aa250707951364e7
+guid: 80e613370e49e6e4182195ea7f246d7b
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 1500
+  spritePixelsToUnits: 1000
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -129,10 +129,10 @@ TextureImporter:
       name: special_propeller_0
       rect:
         serializedVersion: 2
-        x: 10
-        y: 11
-        width: 305
-        height: 228
+        x: 8
+        y: 10
+        width: 179
+        height: 165
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
