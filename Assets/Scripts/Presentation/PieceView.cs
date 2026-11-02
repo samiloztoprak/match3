@@ -37,6 +37,7 @@ public class PieceView : MonoBehaviour
     
     public void MoveTo(Vector3 targetPos, float duration, Ease ease = Ease.OutQuad, bool bounceOnLand = false)
     {
+        transform.DOKill();
         Tween moveTween = transform.DOMove(targetPos, duration).SetEase(ease);
 
         if (bounceOnLand)
@@ -51,5 +52,10 @@ public class PieceView : MonoBehaviour
     public void ShrinkAndRelease(float duration, System.Action<PieceView> onComplete)
     {
         transform.DOScale(Vector3.zero, duration).OnComplete(() => onComplete(this));
+    }
+    
+    public void RefreshSprite(PieceVisualConfig visualConfig, int healthOverride)
+    {
+        _spriteRenderer.sprite = visualConfig.GetSprite(_piece, healthOverride);
     }
 }

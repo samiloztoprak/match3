@@ -3,7 +3,7 @@ public static class ShapeDefinitions
 {
     public static void RegisterAll()
     {
-        ShapeRegistry.RegisterTemplate(new ShapeTemplate("T-Shape", priority: 20, 
+        ShapeRegistry.RegisterTemplate(new ShapeTemplate("T-Shape", priority: 40, 
             matrix: new bool[,]
             {
                 { true, true, true},
@@ -14,7 +14,7 @@ public static class ShapeDefinitions
             Produces = PieceKind.Tnt 
         });
         
-        ShapeRegistry.RegisterTemplate(new ShapeTemplate("L1-Shape", priority: 30, 
+        ShapeRegistry.RegisterTemplate(new ShapeTemplate("L1-Shape", priority: 40, 
             matrix: new bool[,]
             {
                 { true, true, true},
@@ -25,7 +25,7 @@ public static class ShapeDefinitions
             Produces = PieceKind.Tnt 
         });
         
-        ShapeRegistry.RegisterTemplate(new ShapeTemplate("L2-Shape", priority: 30, 
+        ShapeRegistry.RegisterTemplate(new ShapeTemplate("L2-Shape", priority: 40, 
             matrix: new bool[,]
             {
                 { true, true, true},
@@ -36,7 +36,7 @@ public static class ShapeDefinitions
             Produces = PieceKind.Tnt 
         });
         
-        ShapeRegistry.RegisterTemplate(new ShapeTemplate("Square-Shape", priority: 15, 
+        ShapeRegistry.RegisterTemplate(new ShapeTemplate("Square-Shape", priority: 30, 
             matrix: new bool[,]
             {
                 { true, true},
@@ -55,7 +55,7 @@ public static class ShapeDefinitions
             Produces = PieceKind.Normal 
         });
 
-        ShapeRegistry.RegisterTemplate(new ShapeTemplate("Line4-Shape", priority: 5, 
+        ShapeRegistry.RegisterTemplate(new ShapeTemplate("Line4-Shape", priority: 20, 
             matrix: new bool[,]
             {
                 { true, true, true, true }
@@ -64,7 +64,7 @@ public static class ShapeDefinitions
             Produces = PieceKind.Rocket 
         });
 
-        ShapeRegistry.RegisterTemplate(new ShapeTemplate("Line5-Shape", priority: 10, 
+        ShapeRegistry.RegisterTemplate(new ShapeTemplate("Line5-Shape", priority: 50, 
             matrix: new bool[,]
             {
                 { true, true, true, true, true }

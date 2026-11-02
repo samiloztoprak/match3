@@ -407,7 +407,14 @@ namespace LogicLibrary
     {
         private static readonly Random _random = new Random();
         
-        public static HashSet<(int x, int y)> GetAffectedCells(Board board, Piece piece, int x, int y, Piece partner)
+        public struct ActivationEffect
+        {
+            public HashSet<(int x, int y)> Cells;
+            public (int x, int y)? FlightTarget;
+            public List<(int x, int y)> NeighborCells;
+        }
+        
+        public static ActivationEffect GetAffectedCells(Board board, Piece piece, int x, int y, Piece partner)
         {
             var cells = new HashSet<(int x, int y)>();
 
@@ -427,7 +434,7 @@ namespace LogicLibrary
                         cells.Add((x, cy));
                     }
                 }
-                return cells;
+                return new ActivationEffect { Cells = cells, FlightTarget = null };
             }
 
             if (piece is SpecialPiece sp)
@@ -444,7 +451,7 @@ namespace LogicLibrary
                             }
                         }
                     }
-                    return cells;
+                    return new ActivationEffect { Cells = cells, FlightTarget = null };
                 }
 
                 if (sp.Kind == PieceKind.Propeller)
@@ -454,8 +461,8 @@ namespace LogicLibrary
                     cells.Add((targetX, targetY));
                     cells.Add((x, y));
                     
-                    AddNeighbors(board, x, y, cells);
-                    return cells;
+                    var neighborCells = AddNeighbors(board, x, y, cells);
+                    return new ActivationEffect { Cells = cells, FlightTarget = (targetX, targetY), NeighborCells = neighborCells };
                 }
 
                 if (sp.Kind == PieceKind.LightBall)
@@ -477,12 +484,12 @@ namespace LogicLibrary
                         }
                     }
                     cells.Add((x, y));
-                    return cells;
+                    return new ActivationEffect { Cells = cells, FlightTarget = null };
                 }
             }
 
             cells.Add((x, y));
-            return cells;
+            return new ActivationEffect { Cells = cells, FlightTarget = null };
         }
 
         public static HashSet<(int x, int y)> GetComboAffectedCells(Board board, PieceKind kindA, PieceKind kindB, int x, int y, RocketDirection? rocketDirection)
@@ -593,8 +600,9 @@ namespace LogicLibrary
             }
         }
         
-        private static void AddNeighbors(Board board, int x, int y, HashSet<(int x, int y)> cells)
+        private static List<(int x, int y)> AddNeighbors(Board board, int x, int y, HashSet<(int x, int y)> cells)
         {
+            var neighbors = new List<(int x, int y)>();
             (int dx, int dy)[] directions = { (1, 0), (-1, 0), (0, 1), (0, -1) };
             foreach (var (dx, dy) in directions)
             {
@@ -605,7 +613,9 @@ namespace LogicLibrary
                     continue;
                 }
                 cells.Add((nx, ny));
+                neighbors.Add((nx, ny));
             }
+            return neighbors;
         }
         
         private static void AddDirectional(Board board, int x, int y, RocketDirection direction, HashSet<(int x, int y)> cells)

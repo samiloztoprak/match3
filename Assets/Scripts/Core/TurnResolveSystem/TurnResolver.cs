@@ -123,15 +123,21 @@ public static class TurnResolver
                 continue;
             }
 
-            var affected = SpecialActivationLogic.GetAffectedCells(board, activation.Piece, activation.X,
+            var effect = SpecialActivationLogic.GetAffectedCells(board, activation.Piece, activation.X,
                 activation.Y, activation.Partner);
             var consumed = new HashSet<int> { activation.Piece.Id };
 
             result.Add(new SpecialActivatedData
             {
-                PieceId = activation.Piece.Id, Kind = GetKind(activation.Piece), X = activation.X, Y = activation.Y
+                PieceId = activation.Piece.Id,
+                Kind = GetKind(activation.Piece),
+                X = activation.X,
+                Y = activation.Y,
+                TargetX = effect.FlightTarget?.x,
+                TargetY = effect.FlightTarget?.y,
+                NeighborCells = effect.NeighborCells
             });
-            result.Add(ClearCellsAndEnqueueChains(board, affected, pending, consumed));
+            result.Add(ClearCellsAndEnqueueChains(board, effect.Cells, pending, consumed));
             specialActivated = true;
         }
 
@@ -174,7 +180,7 @@ public static class TurnResolver
                 }
                 else
                 {
-                    damageData.PieceIds.Add(piece.Id);
+                    damageData.Hits.Add((piece.Id, piece.Health));
                 }
             }
             
@@ -198,7 +204,7 @@ public static class TurnResolver
                 }
                 else
                 {
-                    damageData.PieceIds.Add(overlay.Id);
+                    damageData.Hits.Add((overlay.Id, overlay.Health));
                 }
             }
             

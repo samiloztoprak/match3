@@ -286,7 +286,7 @@ namespace Tests.EditMode
                 }
                 else
                 {
-                    damageData.PieceIds.Add(piece.Id);
+                    damageData.Hits.Add((piece.Id, piece.Health));
                 }
             }
 
@@ -324,12 +324,15 @@ namespace Tests.EditMode
 
             HashSet<(int, int)> matchSet = new HashSet<(int, int)>();
             foreach (var (template, cells) in matches)
-            foreach (var cell in cells)
-                matchSet.Add(cell);
+            {
+                foreach (var cell in cells)
+                {
+                    matchSet.Add(cell);
+                }
+            }
 
-            ClearPieceData clearStepData = new ClearPieceData();
-            List<OverlayPiece> damageableOverlays =
-                LogicLibrary.MatchLogic.FindNearlyDamageableOverlays(board, matchSet);
+            List<OverlayPiece> damageableOverlays = LogicLibrary.MatchLogic.FindNearlyDamageableOverlays(board, matchSet);
+            
             int lockCount = 0;
             foreach (OverlayPiece overlay in damageableOverlays)
             {

@@ -42,6 +42,19 @@ public class PieceVisualConfig : ScriptableObject
         return null;
     }
     
+    public Sprite GetSprite(Piece piece, int healthOverride)
+    {
+        if (piece.VisualType == PieceVisualType.Box)
+        {
+            return _boxVisualConfig.GetSprite(healthOverride);
+        }
+        if (piece.VisualType == PieceVisualType.Lock)
+        {
+            return _lockVisualConfig.GetSprite(healthOverride);
+        }
+        return GetSprite(piece);
+    }
+    
     [SerializeField] 
     private BoxVisualConfig _boxVisualConfig;
 
