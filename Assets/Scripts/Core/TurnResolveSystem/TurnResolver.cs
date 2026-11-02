@@ -5,6 +5,22 @@ using LogicLibrary;
 
 public static class TurnResolver
 {
+    private readonly struct PendingActivation
+    {
+        public readonly Piece Piece;
+        public readonly int X;
+        public readonly int Y;
+        public readonly Piece Partner;
+
+        public PendingActivation(Piece piece, int x, int y, Piece partner)
+        {
+            Piece = piece;
+            X = x;
+            Y = y;
+            Partner = partner;
+        }
+    }
+    
     private static readonly int MaxIteration = 100;
     public static List<TurnStepData> Resolve(Board board, ICommand command)
     {
@@ -14,6 +30,8 @@ public static class TurnResolver
             command.Execute();
 
         bool specialActivated = false;
+        var pending = new Queue<PendingActivation>();
+
         if (command is SwapCommand swapCmd)
         {
             Piece atSource = board.GetCell(swapCmd.SourcePosition.x, swapCmd.SourcePosition.y);
@@ -24,21 +42,101 @@ public static class TurnResolver
 
             if (sourceIsSpecial && targetIsSpecial)
             {
-                // combo
+                PieceKind kindA = GetKind(atSource);
+                PieceKind kindB = GetKind(atTarget);
+
+                int comboX = swapCmd.TargetPosition.x;
+                int comboY = swapCmd.TargetPosition.y;
+
+                var consumed = new HashSet<int> { atSource.Id, atTarget.Id };
+                var ownCells = new HashSet<(int x, int y)> { swapCmd.SourcePosition, (comboX, comboY) };
+
+                bool exactlyOneIsLightBall =
+                    (kindA == PieceKind.LightBall) != (kindB == PieceKind.LightBall);
+
+                if (exactlyOneIsLightBall)
+                {
+                    PieceKind otherKind =
+                        kindA == PieceKind.LightBall ? kindB : kindA;
+
+                    var transformed = SpecialActivationLogic.TransformMostCommonColorToKind(board, otherKind);
+                    var transformClear = new ClearPieceData();
+
+                    foreach (var (oldPiece, newPiece, tx, ty) in transformed)
+                    {
+                        transformClear.PieceIds.Add(oldPiece.Id);
+                        pending.Enqueue(new PendingActivation(newPiece, tx, ty, null));
+                    }
+
+                    result.Add(transformClear);
+                }
+                else
+                {
+                    RocketDirection? rocketDirection = null;
+                    if (atSource is RocketPiece rocketA)
+                    {
+                        rocketDirection = rocketA.Direction;
+                    }
+                    else if (atTarget is RocketPiece rocketB)
+                    {
+                        rocketDirection = rocketB.Direction;
+                    }
+                    
+                    var affected = SpecialActivationLogic.GetComboAffectedCells(board, kindA, kindB, comboX, comboY, rocketDirection);
+                    ownCells.UnionWith(affected);
+                }
+
+                result.Add(new SpecialActivatedData { PieceId = atTarget.Id, Kind = kindB, X = comboX, Y = comboY });
+                result.Add(ClearCellsAndEnqueueChains(board, ownCells, pending, consumed));
+                specialActivated = true;
             }
             else if (sourceIsSpecial)
             {
-                ActivateSpecial(board, atSource, swapCmd.SourcePosition.x, swapCmd.SourcePosition.y, atTarget, result);
-                specialActivated = true;
+                pending.Enqueue(new PendingActivation(atSource, swapCmd.SourcePosition.x, swapCmd.SourcePosition.y,
+                    atTarget));
             }
             else if (targetIsSpecial)
             {
-                ActivateSpecial(board, atTarget, swapCmd.TargetPosition.x, swapCmd.TargetPosition.y, atSource, result);
-                specialActivated = true;
+                pending.Enqueue(new PendingActivation(atTarget, swapCmd.TargetPosition.x, swapCmd.TargetPosition.y,
+                    atSource));
             }
         }
-        
-        
+        else if (command is TapCommand tapCommand)
+        {
+            Piece atTap = board.GetCell(tapCommand.SourcePosition.x, tapCommand.SourcePosition.y);
+            bool tapIsSpecial = atTap != null
+                                && atTap.VisualType == PieceVisualType.Special
+                                && !BoardLogic.IsPieceLocked(atTap);
+
+            if (tapIsSpecial)
+            {
+                pending.Enqueue(new PendingActivation(atTap, tapCommand.SourcePosition.x, tapCommand.SourcePosition.y, null));
+            }
+        }
+
+        while (pending.Count > 0)
+        {
+            PendingActivation activation = pending.Dequeue();
+
+            if (board.GetCell(activation.X, activation.Y) != activation.Piece)
+            {
+                continue;
+            }
+
+            var affected = SpecialActivationLogic.GetAffectedCells(board, activation.Piece, activation.X,
+                activation.Y, activation.Partner);
+            var consumed = new HashSet<int> { activation.Piece.Id };
+
+            result.Add(new SpecialActivatedData
+            {
+                PieceId = activation.Piece.Id, Kind = GetKind(activation.Piece), X = activation.X, Y = activation.Y
+            });
+            result.Add(ClearCellsAndEnqueueChains(board, affected, pending, consumed));
+            specialActivated = true;
+        }
+
+
+
         int iteration = 0;
         while (true)
         {
@@ -196,27 +294,31 @@ public static class TurnResolver
         return  result;
     }
     
-    private static void ActivateSpecial(Board board, Piece piece, int x, int y, Piece partner, List<TurnStepData> result)
-    {
-        var affected = SpecialActivationLogic.GetAffectedCells(board, piece, x, y, partner);
-
-        ClearPieceData clearStepData = new ClearPieceData();
-        foreach (var (cx, cy) in affected)
-        {
-            Piece p = board.GetCell(cx, cy);
-            if (p == null) continue;
-            clearStepData.PieceIds.Add(p.Id);
-            board.ClearCell(cx, cy);
-        }
-
-        result.Add(new SpecialActivatedData { PieceId = piece.Id, Kind = GetKind(piece), X = x, Y = y });
-        result.Add(clearStepData);
-    }
-    
     private static PieceKind GetKind(Piece piece)
     {
         if (piece is RocketPiece) return PieceKind.Rocket;
         if (piece is SpecialPiece sp) return sp.Kind;
         return PieceKind.Normal;
+    }
+
+    private static ClearPieceData ClearCellsAndEnqueueChains(Board board, IEnumerable<(int x, int y)> cells, Queue<PendingActivation> pending, HashSet<int> excludeFromChain)
+    {
+        var clearPieceData = new ClearPieceData();
+        foreach (var (cx, cy) in cells)
+        {
+            Piece piece = board.GetCell(cx, cy);
+            if (piece == null) continue;
+
+            bool isChainTarget = piece.VisualType == PieceVisualType.Special && !excludeFromChain.Contains(piece.Id);
+            if (isChainTarget)
+            {
+                pending.Enqueue(new PendingActivation(piece, cx, cy, null));
+                continue;
+            }
+
+            clearPieceData.PieceIds.Add(piece.Id);
+            board.ClearCell(cx, cy);
+        }
+        return clearPieceData;
     }
 }

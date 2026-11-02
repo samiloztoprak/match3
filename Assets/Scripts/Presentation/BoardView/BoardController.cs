@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -142,8 +143,12 @@ public class BoardController : MonoBehaviour
                     targetY += delta.y > 0 ? -1 : 1;
 
                 TrySwap(_startX, _startY, targetX, targetY);
-                _hasStart = false;
             }
+            else
+            {
+                TryActivate(_startX, _startY);
+            }
+            _hasStart = false;
         }
     }
 
@@ -194,6 +199,50 @@ public class BoardController : MonoBehaviour
         StartCoroutine(PlayTurn(piece1.Id, piece2.Id, x1, y1, x2, y2, result));
     }
 
+    public void TryActivate(int x, int y)
+    {
+        if (_isResolving)
+        {
+            Debug.Log("Still resolving previous turn, ignoring this tap");
+            return;
+        }
+
+        if (!BoardLogic.IsValidIndex(x, y, _board))
+        {
+            return;
+        }
+        
+        Piece piece = _board.GetCell(x, y);
+        if (piece == null || piece.VisualType != PieceVisualType.Special)
+        {
+            return;
+        }
+
+        if (BoardLogic.IsPieceLocked(piece))
+        {
+            Debug.Log("One of the pieces is not movable, has locked flag");
+            return;
+        }
+        
+        var command = new TapCommand(x, y);
+        var result = TurnResolver.Resolve(_board, command);
+
+        StartCoroutine(PlayTap(result));
+    }
+
+    private IEnumerator PlayTap(List<TurnStepData> steps)
+    {
+        _isResolving = true;
+        try
+        {
+            yield return PlaySteps(steps);
+        }
+        finally
+        {
+            _isResolving = false;
+        }
+    }
+    
     private IEnumerator PlayTurn(int piece1Id, int piece2Id, int x1, int y1, int x2, int y2, List<TurnStepData> steps)
     {
         _isResolving = true;
@@ -207,35 +256,8 @@ public class BoardController : MonoBehaviour
         }
     }
 
-    private IEnumerator PlayTurnSteps(int piece1Id, int piece2Id, int x1, int y1, int x2, int y2, List<TurnStepData> steps)
+    private IEnumerator PlaySteps(List<TurnStepData> steps)
     {
-        if(_pieceById.TryGetValue(piece1Id, out PieceView view1))
-        {
-            view1.MoveTo(CellToWorld(x2, y2), _swapDuration);
-        }     
-        
-        if(_pieceById.TryGetValue(piece2Id, out PieceView view2))
-        {
-            view2.MoveTo(CellToWorld(x1, y1), _swapDuration);
-        }        
-        yield return new WaitForSeconds(_swapDuration);
-
-        if (steps.Count == 0)
-        {
-            if (_pieceById.TryGetValue(piece1Id, out PieceView backView1))
-            {
-                backView1.MoveTo(CellToWorld(x1, y1), _swapDuration);
-            }
-
-            if (_pieceById.TryGetValue(piece2Id, out PieceView backView2))
-            {
-                backView2.MoveTo(CellToWorld(x2, y2), _swapDuration);
-            }
-            yield return new WaitForSeconds(_swapDuration);
-
-            yield break;
-        }
-        
         foreach (var step in steps)
         {
             if (step is ClearPieceData clearStep)
@@ -333,6 +355,38 @@ public class BoardController : MonoBehaviour
                 yield return new WaitForSeconds(_stepDuration);
             }
         }
+    }
+    
+    private IEnumerator PlayTurnSteps(int piece1Id, int piece2Id, int x1, int y1, int x2, int y2, List<TurnStepData> steps)
+    {
+        if(_pieceById.TryGetValue(piece1Id, out PieceView view1))
+        {
+            view1.MoveTo(CellToWorld(x2, y2), _swapDuration);
+        }     
+        
+        if(_pieceById.TryGetValue(piece2Id, out PieceView view2))
+        {
+            view2.MoveTo(CellToWorld(x1, y1), _swapDuration);
+        }        
+        yield return new WaitForSeconds(_swapDuration);
+
+        if (steps.Count == 0)
+        {
+            if (_pieceById.TryGetValue(piece1Id, out PieceView backView1))
+            {
+                backView1.MoveTo(CellToWorld(x1, y1), _swapDuration);
+            }
+
+            if (_pieceById.TryGetValue(piece2Id, out PieceView backView2))
+            {
+                backView2.MoveTo(CellToWorld(x2, y2), _swapDuration);
+            }
+            yield return new WaitForSeconds(_swapDuration);
+
+            yield break;
+        }
+
+        yield return PlaySteps(steps);
     }
 
     private (int, int) WorldToCell(Vector3 worldPos)
