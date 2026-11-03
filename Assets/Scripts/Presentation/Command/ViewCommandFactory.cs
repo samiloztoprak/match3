@@ -56,6 +56,10 @@ public class ViewCommandFactory
                     commands.Add(new SpecialActivationFlashViewCommand(activatedStep.PieceId, activatedStep.X, activatedStep.Y, player, stepDuration));
                 }
             }
+            else if (step is ShuffleStepData shuffleStep)
+            {
+                commands.Add(new ShuffleViewCommand(shuffleStep.Moves, player, 0.5f));
+            }
         }
 
         return commands;

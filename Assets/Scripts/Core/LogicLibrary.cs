@@ -317,6 +317,68 @@ namespace LogicLibrary
 
     public static class OrganizationLogic
     {
+        public static (int pieceId, int toX, int toY)? FillOneDiagonalStep(Board board, IRandom random)
+        {
+            for (int y = 0; y < board.Height; y++)
+            {
+                for (int x = 0; x < board.Width; x++)
+                {
+                    if (board.GetCell(x, y) != null)
+                    {
+                        continue;
+                    }
+
+                    if (!HasBlockedPathToTop(board, x, y))
+                    {
+                        continue;
+                    }
+
+                    int firstDx = random.Next(2) == 0 ? -1 : 1;
+                    int secondDx = -firstDx;
+
+                    Piece moved = TryDiagonalMove(board, x, y, firstDx) ?? TryDiagonalMove(board, x, y, secondDx);
+                    if (moved != null)
+                    {
+                        return (moved.Id, x, y);
+                    }
+                }
+            }
+            return null;
+        }
+        
+        private static bool HasBlockedPathToTop(Board board, int x, int y)
+        {
+            for (int cy = y - 1; cy >= 0; cy--)
+            {
+                Piece piece = board.GetCell(x, cy);
+                if (piece != null && (!BoardLogic.IsPieceMoveable(piece) || BoardLogic.IsPieceLocked(piece)))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        
+        private static Piece TryDiagonalMove(Board board, int targetX, int targetY, int dx)
+        {
+            int sourceX = targetX + dx;
+            int sourceY = targetY - 1;
+            if (!BoardLogic.IsValidIndex(sourceX, sourceY, board))
+            {
+                return null;
+            }
+
+            Piece source = board.GetCell(sourceX, sourceY);
+            if (source == null || !BoardLogic.IsPieceMoveable(source) || BoardLogic.IsPieceLocked(source))
+            {
+                return null;
+            }
+
+            board.SetCell(targetX, targetY, source);
+            board.ClearCell(sourceX, sourceY);
+            return source;
+        }
+        
         public static List<(int, int, int)> FillEmpties(Board board)
         {
             List<(int, int, int)> collectedMovement = new List<(int, int, int)>();
@@ -364,15 +426,15 @@ namespace LogicLibrary
                 writeY--;
             }
         }
-        
+
         static Random _R = new Random ();
-        static T RandomEnumValue<T> ()
+        static T RandomEnumValue<T>(IRandom random)
         {
-            var v = Enum.GetValues (typeof (T));
-            return (T) v.GetValue (_R.Next(v.Length));
+            var v = Enum.GetValues(typeof(T));
+            return (T)v.GetValue(random.Next(v.Length));
         }
 
-        public static List<(int, PieceColor, int, int)> GetNewPieceToEmpty(Board board)
+        public static List<(int, PieceColor, int, int)> GetNewPieceToEmpty(Board board, IRandom random)
         {
             List<(int, PieceColor, int, int)> collectedMovement = new List<(int, PieceColor, int, int)>();
             for(int x = 0; x < board.Width; x++)
@@ -391,7 +453,7 @@ namespace LogicLibrary
                         PieceColor newPieceColor = PieceColor.Empty;
                         while(newPieceColor == PieceColor.Empty)
                         {
-                            newPieceColor = RandomEnumValue<PieceColor>();
+                            newPieceColor = RandomEnumValue<PieceColor>(random);
                         }
                         Piece newPiece = new ColoredPiece(board.NextId(), newPieceColor);
                         board.SetCell(x, y, newPiece);
@@ -405,8 +467,6 @@ namespace LogicLibrary
     
     public static class SpecialActivationLogic
     {
-        private static readonly Random _random = new Random();
-        
         public struct ActivationEffect
         {
             public HashSet<(int x, int y)> Cells;
@@ -414,7 +474,7 @@ namespace LogicLibrary
             public List<(int x, int y)> NeighborCells;
         }
         
-        public static ActivationEffect GetAffectedCells(Board board, Piece piece, int x, int y, Piece partner)
+        public static ActivationEffect GetAffectedCells(Board board, Piece piece, int x, int y, Piece partner, IRandom random)
         {
             var cells = new HashSet<(int x, int y)>();
 
@@ -456,8 +516,8 @@ namespace LogicLibrary
 
                 if (sp.Kind == PieceKind.Propeller)
                 {
-                    int targetX = _random.Next(board.Width);
-                    int targetY = _random.Next(board.Height);
+                    int targetX = random.Next(board.Width);
+                    int targetY = random.Next(board.Height);
                     cells.Add((targetX, targetY));
                     cells.Add((x, y));
                     
@@ -492,7 +552,7 @@ namespace LogicLibrary
             return new ActivationEffect { Cells = cells, FlightTarget = null };
         }
 
-        public static HashSet<(int x, int y)> GetComboAffectedCells(Board board, PieceKind kindA, PieceKind kindB, int x, int y, RocketDirection? rocketDirection)
+        public static HashSet<(int x, int y)> GetComboAffectedCells(Board board, PieceKind kindA, PieceKind kindB, int x, int y, RocketDirection? rocketDirection, IRandom random)
         {
             var cells = new HashSet<(int x, int y)>();
 
@@ -510,19 +570,19 @@ namespace LogicLibrary
             }
             else if (IsPair(kindA, kindB, PieceKind.Rocket, PieceKind.Propeller))
             {
-                var (rx, ry) = RandomCell(board);
+                var (rx, ry) = RandomCell(board, random);
                 AddDirectional(board, rx, ry, rocketDirection ?? RocketDirection.Horizontal, cells);
             }
             else if (IsPair(kindA, kindB, PieceKind.Tnt, PieceKind.Propeller))
             {
-                var (rx, ry) = RandomCell(board);
+                var (rx, ry) = RandomCell(board, random);
                 AddArea(board, rx, ry, 1, cells);
             }
             else if (IsPair(kindA, kindB, PieceKind.Propeller, PieceKind.Propeller))
             {
                 for (int i = 0; i < 3; i++)
                 {
-                    cells.Add(RandomCell(board));
+                    cells.Add(RandomCell(board, random));
                 }            
             }
             else if (IsPair(kindA, kindB, PieceKind.LightBall, PieceKind.LightBall))
@@ -636,9 +696,9 @@ namespace LogicLibrary
             }
         }
         
-        private static (int x, int y) RandomCell(Board board)
+        private static (int x, int y) RandomCell(Board board, IRandom random)
         {
-            return (_random.Next(board.Width), _random.Next(board.Height));
+            return (random.Next(board.Width), random.Next(board.Height));
         }
         
         private static PieceColor GetMostCommonColor(Board board)
@@ -672,7 +732,7 @@ namespace LogicLibrary
             return best;
         }
         
-        public static List<(Piece oldPiece, Piece newPiece, int x, int y)> TransformMostCommonColorToKind(Board board, PieceKind kind)
+        public static List<(Piece oldPiece, Piece newPiece, int x, int y)> TransformMostCommonColorToKind(Board board, PieceKind kind, IRandom random)
         {
             var result = new List<(Piece oldPiece, Piece newPiece, int x, int y)>();
             PieceColor color = GetMostCommonColor(board);
@@ -691,7 +751,7 @@ namespace LogicLibrary
                         continue;
                     }
 
-                    Piece newPiece = CreateSpecial(board, kind);
+                    Piece newPiece = CreateSpecial(board, kind, random);
                     board.SetCell(cx, cy, newPiece);
                     result.Add((p, newPiece, cx, cy));
                 }
@@ -700,14 +760,128 @@ namespace LogicLibrary
             return result;
         }
         
-        private static Piece CreateSpecial(Board board, PieceKind kind)
+        private static Piece CreateSpecial(Board board, PieceKind kind, IRandom random)
         {
             if (kind == PieceKind.Rocket)
             {
-                RocketDirection direction = _random.Next(2) == 0 ? RocketDirection.Horizontal : RocketDirection.Vertical;
+                RocketDirection direction = random.Next(2) == 0 ? RocketDirection.Horizontal : RocketDirection.Vertical;
                 return new RocketPiece(board.NextId(), direction);
             }
             return new SpecialPiece(board.NextId(), kind);
+        }
+    }
+    
+    public static class MoveLogic
+    {
+        public static bool HasAvailableMove(Board board)
+        {
+            for (int x = 0; x < board.Width; x++)
+            {
+                for (int y = 0; y < board.Height; y++)
+                {
+                    if (TryNeighborSwap(board, x, y, x + 1, y) || TryNeighborSwap(board, x, y, x, y + 1))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        private static bool TryNeighborSwap(Board board, int x1, int y1, int x2, int y2)
+        {
+            if (!BoardLogic.IsValidIndex(x2, y2, board))
+            {
+                return false;
+            }
+
+            Piece p1 = board.GetCell(x1, y1);
+            Piece p2 = board.GetCell(x2, y2);
+            if (p1 == null || p2 == null)
+            {
+                return false;
+            }
+            if (BoardLogic.IsPieceLocked(p1) || BoardLogic.IsPieceLocked(p2))
+            {
+                return false;
+            }
+            if (!BoardLogic.IsPieceMoveable(p1) || !BoardLogic.IsPieceMoveable(p2))
+            {
+                return false;
+            }
+
+            if (p1.VisualType == PieceVisualType.Special || p2.VisualType == PieceVisualType.Special)
+            {
+                return true;
+            }
+
+            board.SetCell(x1, y1, p2);
+            board.SetCell(x2, y2, p1);
+
+            bool producesMatch = MatchLogic.FindMatches(board).Count > 0;
+
+            board.SetCell(x1, y1, p1);
+            board.SetCell(x2, y2, p2);
+
+            return producesMatch;
+        }
+    }
+    
+    public static class ShuffleLogic
+    {
+        private const int MaxAttempts = 80;
+
+        public static List<(int pieceId, int toX, int toY)> Shuffle(Board board, IRandom random)
+        {
+            List<(int x, int y)> positions = new List<(int, int)>();
+            List<Piece> pieces = new List<Piece>();
+
+            for (int x = 0; x < board.Width; x++)
+            {
+                for (int y = 0; y < board.Height; y++)
+                {
+                    Piece piece = board.GetCell(x, y);
+                    if (piece != null && BoardLogic.IsPieceMoveable(piece) && !BoardLogic.IsPieceLocked(piece))
+                    {
+                        positions.Add((x, y));
+                        pieces.Add(piece);
+                    }
+                }
+            }
+
+            for (int attempt = 0; attempt < MaxAttempts; attempt++)
+            {
+                ShuffleListInPlace(pieces, random);
+
+                for (int i = 0; i < positions.Count; i++)
+                {
+                    board.SetCell(positions[i].x, positions[i].y, pieces[i]);
+                }
+
+                bool createsMatch = MatchLogic.FindMatches(board).Count > 0;
+                bool hasMove = MoveLogic.HasAvailableMove(board);
+
+                if (!createsMatch && hasMove)
+                {
+                    break;
+                }
+            }
+
+            var moves = new List<(int pieceId, int toX, int toY)>();
+            for (int i = 0; i < positions.Count; i++)
+            {
+                moves.Add((pieces[i].Id, positions[i].x, positions[i].y));
+            }
+            return moves;
+        }
+
+        private static void ShuffleListInPlace(List<Piece> pieces, IRandom random)
+        {
+            for (int i = pieces.Count - 1; i > 0; i--)
+            {
+                int j = random.Next(i + 1);
+                (pieces[i], pieces[j]) = (pieces[j], pieces[i]);
+            }
         }
     }
 }

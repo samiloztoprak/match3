@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: LockVisualConfig
   m_EditorClassIdentifier: Assembly-CSharp::LockVisualConfig
   _damageSprites:
-  - {fileID: -4781060103131546821, guid: 7e04f83cd4bbd9b4383b48e682d96213, type: 3}
+  - {fileID: 1244476889673583485, guid: 3cb4844b2a214224196a6b5f4f77882d, type: 3}

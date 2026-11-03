@@ -5,6 +5,8 @@ using LogicLibrary;
 
 public static class TurnResolver
 {
+    private static readonly IRandom DefaultRandom = new SystemRandom();
+    
     private readonly struct PendingActivation
     {
         public readonly Piece Piece;
@@ -21,10 +23,35 @@ public static class TurnResolver
         }
     }
     
-    private static readonly int MaxIteration = 100;
-    public static List<TurnStepData> Resolve(Board board, ICommand command)
+    public static List<TurnStepData> ResolveShuffle(Board board, IRandom random = null)
     {
+        if (random == null)
+        {
+            random = DefaultRandom;
+        }
+
+        var moves = ShuffleLogic.Shuffle(board, random);
+
+        var shuffleStepData = new ShuffleStepData();
+        shuffleStepData.Moves.AddRange(moves);
+
+        return new List<TurnStepData> { shuffleStepData };
+    }
+    
+    private static readonly int MaxIteration = 100;
+    public static List<TurnStepData> Resolve(Board board, ICommand command, IRandom random = null)
+    {
+        if (random == null)
+        {
+            random = DefaultRandom;
+        }
+        
         var result = new List<TurnStepData>();
+        
+        if (command is SwapCommand swapCmd0 && !swapCmd0.Validate(board))
+        {
+            return result;
+        }
         
         if(command != null)
             command.Execute();
@@ -59,7 +86,7 @@ public static class TurnResolver
                     PieceKind otherKind =
                         kindA == PieceKind.LightBall ? kindB : kindA;
 
-                    var transformed = SpecialActivationLogic.TransformMostCommonColorToKind(board, otherKind);
+                    var transformed = SpecialActivationLogic.TransformMostCommonColorToKind(board, otherKind, random);
                     var transformClear = new ClearPieceData();
 
                     foreach (var (oldPiece, newPiece, tx, ty) in transformed)
@@ -82,12 +109,17 @@ public static class TurnResolver
                         rocketDirection = rocketB.Direction;
                     }
                     
-                    var affected = SpecialActivationLogic.GetComboAffectedCells(board, kindA, kindB, comboX, comboY, rocketDirection);
+                    var affected = SpecialActivationLogic.GetComboAffectedCells(board, kindA, kindB, comboX, comboY, rocketDirection, random);
                     ownCells.UnionWith(affected);
                 }
 
+                var comboDamageData = new DamagePieceData();
+                var comboClearOverlayData = new ClearOverlayData();
+                var comboClearData = ClearCellsAndEnqueueChains(board, ownCells, pending, consumed, comboDamageData, comboClearOverlayData);
                 result.Add(new SpecialActivatedData { PieceId = atTarget.Id, Kind = kindB, X = comboX, Y = comboY });
-                result.Add(ClearCellsAndEnqueueChains(board, ownCells, pending, consumed));
+                result.Add(comboDamageData);
+                result.Add(comboClearOverlayData);
+                result.Add(comboClearData);
                 specialActivated = true;
             }
             else if (sourceIsSpecial)
@@ -124,9 +156,13 @@ public static class TurnResolver
             }
 
             var effect = SpecialActivationLogic.GetAffectedCells(board, activation.Piece, activation.X,
-                activation.Y, activation.Partner);
+                activation.Y, activation.Partner, random);
             var consumed = new HashSet<int> { activation.Piece.Id };
 
+            var chainDamageData = new DamagePieceData();
+            var chainClearOverlayData = new ClearOverlayData();
+            var chainClearData = ClearCellsAndEnqueueChains(board, effect.Cells, pending, consumed, chainDamageData, chainClearOverlayData);
+            
             result.Add(new SpecialActivatedData
             {
                 PieceId = activation.Piece.Id,
@@ -137,7 +173,9 @@ public static class TurnResolver
                 TargetY = effect.FlightTarget?.y,
                 NeighborCells = effect.NeighborCells
             });
-            result.Add(ClearCellsAndEnqueueChains(board, effect.Cells, pending, consumed));
+            result.Add(chainDamageData);
+            result.Add(chainClearOverlayData);
+            result.Add(chainClearData);
             specialActivated = true;
         }
 
@@ -152,11 +190,9 @@ public static class TurnResolver
                 bool skipBreakForActivation = specialActivated && iteration == 0;
                 if (!skipBreakForActivation)
                 {
-                    if (iteration == 0)
+                    if (iteration == 0 && command is IUndoableCommand undoable)
                     {
-                        //Restore execution.
-                        if (command != null)
-                            command.Execute();
+                        undoable.Undo();
                     }
                     break;
                 }
@@ -277,27 +313,71 @@ public static class TurnResolver
             }
             result.Add(clearStepData);
 
-            List<(int, int, int)> fillPieces = OrganizationLogic.FillEmpties(board);
             FallStepData fallStepData = new FallStepData();
-            foreach (var piece in fillPieces)
+            RefillStepData refillStepData = new RefillStepData();
+            HashSet<int> refilledThisTurn = new HashSet<int>();
+            
+            int fillIteration = 0;
+            const int maxFillIteration = 500;
+            while (true)
             {
-                fallStepData.Moves.Add(piece);
+                List<(int, int, int)> verticalMoves = OrganizationLogic.FillEmpties(board);
+                foreach (var move in verticalMoves)
+                {
+                    RecordFallMove(fallStepData, refillStepData, refilledThisTurn, move);
+                }
+
+                var diagonalMove = OrganizationLogic.FillOneDiagonalStep(board, random);
+                if (diagonalMove != null)
+                {
+                    RecordFallMove(fallStepData, refillStepData, refilledThisTurn, diagonalMove.Value);
+                    fillIteration++;
+                    if (fillIteration > maxFillIteration) break;
+                    continue;
+                }
+
+                List<(int, PieceColor, int, int)> newPieces = OrganizationLogic.GetNewPieceToEmpty(board, random);
+                if (newPieces.Count > 0)
+                {
+                    foreach (var piece in newPieces)
+                    {
+                        refillStepData.Moves.Add(piece);
+                        refilledThisTurn.Add(piece.Item1);
+                    }
+                    fillIteration++;
+                    if (fillIteration > maxFillIteration) break;
+                    continue;
+                }
+
+                break;
             }
             result.Add(fallStepData);
-            
-            List<(int, PieceColor, int, int)> newPieces = OrganizationLogic.GetNewPieceToEmpty(board);
-            RefillStepData refillStepData = new RefillStepData();
-            foreach (var piece in newPieces)
-            {
-                refillStepData.Moves.Add(piece);
-            }
             result.Add(refillStepData);
-            
             iteration++;
-            if(iteration > MaxIteration)
+            if (iteration > MaxIteration)
+            {
                 break;
+            }
         }
         return  result;
+    }
+    
+    private static void RecordFallMove(FallStepData fallStepData, RefillStepData refillStepData, HashSet<int> refilledThisTurn, (int pieceId, int toX, int toY) move)
+    {
+        if (refilledThisTurn.Contains(move.pieceId))
+        {
+            for (int i = 0; i < refillStepData.Moves.Count; i++)
+            {
+                if (refillStepData.Moves[i].pieceId == move.pieceId)
+                {
+                    var entry = refillStepData.Moves[i];
+                    refillStepData.Moves[i] = (entry.pieceId, entry.color, move.toX, move.toY);
+                    return;
+                }
+            }
+        }
+
+        fallStepData.Moves.Add(move);
     }
     
     private static PieceKind GetKind(Piece piece)
@@ -307,7 +387,8 @@ public static class TurnResolver
         return PieceKind.Normal;
     }
 
-    private static ClearPieceData ClearCellsAndEnqueueChains(Board board, IEnumerable<(int x, int y)> cells, Queue<PendingActivation> pending, HashSet<int> excludeFromChain)
+    private static ClearPieceData ClearCellsAndEnqueueChains(Board board, IEnumerable<(int x, int y)> cells, Queue<PendingActivation> pending, HashSet<int> excludeFromChain, DamagePieceData damageData,
+        ClearOverlayData clearOverlayData)
     {
         var clearPieceData = new ClearPieceData();
         foreach (var (cx, cy) in cells)
@@ -322,6 +403,45 @@ public static class TurnResolver
                 continue;
             }
 
+            OverlayPiece overlay = board.GetOverlayPieceAt(cx, cy);
+            if (overlay != null)
+            {
+                bool overlayBroken = overlay.ApplyDamage(1);
+                if (overlayBroken)
+                {
+                    clearOverlayData.PieceIds.Add(overlay.Id);
+                    board.RemoveOverlayPiece(overlay);
+                    foreach (var (ox, oy) in overlay.CoveredCells)
+                    {
+                        Piece covered = board.GetCell(ox, oy);
+                        if (covered != null)
+                        {
+                            BoardLogic.RemoveFlag(covered, PieceFlags.Locked);
+                        }
+                    }
+                }
+                else
+                {
+                    damageData.Hits.Add((overlay.Id, overlay.Health));
+                }
+                continue;
+            }
+            
+            if (piece.Flags.HasFlag(PieceFlags.DamageableByNeighbor))
+            {
+                bool broken = piece.ApplyDamage(1);
+                if (broken)
+                {
+                    clearPieceData.PieceIds.Add(piece.Id);
+                    board.ClearCell(cx, cy);
+                }
+                else
+                {
+                    damageData.Hits.Add((piece.Id, piece.Health));
+                }
+                continue;
+            }
+            
             clearPieceData.PieceIds.Add(piece.Id);
             board.ClearCell(cx, cy);
         }

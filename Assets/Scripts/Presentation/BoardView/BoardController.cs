@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using LogicLibrary;
 using UnityEngine;
@@ -18,7 +19,7 @@ public class BoardController : MonoBehaviour
         _board = new Board(_boardSize.x, _boardSize.y);
         _turnPlayer.Init(_board);
 
-        OrganizationLogic.GetNewPieceToEmpty(_board);
+        OrganizationLogic.GetNewPieceToEmpty(_board, new SystemRandom());
         _board.SetCell(2, 2, new BoxPiece(_board.NextId(), PieceColor.Empty));
 
         for (int x = 0; x < _board.Width; x++)
@@ -115,7 +116,7 @@ public class BoardController : MonoBehaviour
         var command = new SwapCommand(_board, x1, y1, x2, y2);
         var result = TurnResolver.Resolve(_board, command);
 
-        StartCoroutine(_turnPlayer.PlaySwapTurn(piece1.Id, piece2.Id, x1, y1, x2, y2, result));
+        StartCoroutine(PlayTurnAndCheckShuffle(_turnPlayer.PlaySwapTurn(piece1.Id, piece2.Id, x1, y1, x2, y2, result)));
     }
     
     public void TryActivate(int x, int y)
@@ -135,6 +136,17 @@ public class BoardController : MonoBehaviour
         var command = new TapCommand(x, y);
         var result = TurnResolver.Resolve(_board, command);
 
-        StartCoroutine(_turnPlayer.PlayTapTurn(result));
+        StartCoroutine(PlayTurnAndCheckShuffle(_turnPlayer.PlayTapTurn(result)));
+    }
+    
+    private IEnumerator PlayTurnAndCheckShuffle(IEnumerator turnRoutine)
+    {
+        yield return StartCoroutine(turnRoutine);
+
+        if (!MoveLogic.HasAvailableMove(_board))
+        {
+            var shuffleSteps = TurnResolver.ResolveShuffle(_board, new SystemRandom());
+            yield return StartCoroutine(_turnPlayer.PlayShuffleTurn(shuffleSteps));
+        }
     }
 }

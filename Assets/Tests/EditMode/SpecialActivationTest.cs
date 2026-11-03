@@ -14,7 +14,7 @@ namespace Tests.EditMode
                 {
                     break;
                 }
-            
+
                 if (step is ClearPieceData clear)
                 {
                     foreach (int id in clear.PieceIds)
@@ -23,6 +23,7 @@ namespace Tests.EditMode
                     }
                 }
             }
+
             return ids;
         }
 
@@ -63,7 +64,7 @@ namespace Tests.EditMode
             Assert.IsFalse(clearedIds.Contains(p00.Id));
             Assert.IsFalse(clearedIds.Contains(p02.Id));
         }
-    
+
         [Test]
         public void Tnt_SwapActivation_Clears3x3Area()
         {
@@ -76,7 +77,7 @@ namespace Tests.EditMode
             board.SetCell(3, 0, new ColoredPiece(board.NextId(), PieceColor.Yellow));
             board.SetCell(4, 0, new ColoredPiece(board.NextId(), PieceColor.Red));
             board.SetCell(0, 1, new ColoredPiece(board.NextId(), PieceColor.Green));
-        
+
             var p11 = new ColoredPiece(board.NextId(), PieceColor.Yellow);
             board.SetCell(1, 1, p11);
             board.SetCell(2, 1, new ColoredPiece(board.NextId(), PieceColor.Red));
@@ -151,6 +152,7 @@ namespace Tests.EditMode
 
             Assert.IsFalse(clearedIds.Contains(p00.Id));
         }
+
         [Test]
         public void Combo_TntTnt_ClearsRadius4Area()
         {
@@ -223,7 +225,7 @@ namespace Tests.EditMode
             var p00 = new ColoredPiece(board.NextId(), PieceColor.Red);
             board.SetCell(0, 0, p00);
             board.SetCell(1, 0, new ColoredPiece(board.NextId(), PieceColor.Blue));
-        
+
             var p20 = new ColoredPiece(board.NextId(), PieceColor.Green);
             board.SetCell(2, 0, p20);
             board.SetCell(3, 0, new ColoredPiece(board.NextId(), PieceColor.Yellow));
@@ -302,7 +304,7 @@ namespace Tests.EditMode
             board.SetCell(1, 3, new ColoredPiece(board.NextId(), PieceColor.Yellow));
             board.SetCell(2, 3, new ColoredPiece(board.NextId(), PieceColor.Red));
             board.SetCell(3, 3, new ColoredPiece(board.NextId(), PieceColor.Blue));
-        
+
             var originalIds = new List<int>();
             for (int x = 0; x < board.Width; x++)
             {
@@ -321,7 +323,7 @@ namespace Tests.EditMode
                 Assert.IsTrue(clearedIds.Contains(id), $"piece {id} should be cleared by LightBall+LightBall");
             }
         }
-    
+
         [Test]
         public void ChainActivation_RocketBlastHitsTnt_TntAlsoActivates()
         {
@@ -392,9 +394,10 @@ namespace Tests.EditMode
                     activationCount++;
                 }
             }
+
             Assert.AreEqual(2, activationCount);
         }
-    
+
         [Test]
         public void TapCommand_OnSpecialPiece_ActivatesWithoutSwap()
         {
@@ -443,6 +446,78 @@ namespace Tests.EditMode
 
             Assert.IsFalse(clearedIds.Contains(p00.Id));
             Assert.IsFalse(clearedIds.Contains(p44.Id));
+        }
+
+        [Test]
+        public void Resolve_SameSeed_ProducesSamePropellerTarget()
+        {
+            Board board1 = BuildPropellerSeedTestBoard();
+            Board board2 = BuildPropellerSeedTestBoard();
+
+            var result1 = TurnResolver.Resolve(board1, new TapCommand(2, 2), new SystemRandom(42));
+            var result2 = TurnResolver.Resolve(board2, new TapCommand(2, 2), new SystemRandom(42));
+
+            SpecialActivatedData activated1 = null;
+            foreach (var step in result1)
+            {
+                if (step is SpecialActivatedData data)
+                {
+                    activated1 = data;
+                    break;
+                }
+            }
+
+            SpecialActivatedData activated2 = null;
+            foreach (var step in result2)
+            {
+                if (step is SpecialActivatedData data)
+                {
+                    activated2 = data;
+                    break;
+                }
+            }
+
+            Assert.IsNotNull(activated1);
+            Assert.IsNotNull(activated2);
+            Assert.AreEqual(activated1.TargetX, activated2.TargetX);
+            Assert.AreEqual(activated1.TargetY, activated2.TargetY);
+        }
+
+        private static Board BuildPropellerSeedTestBoard()
+        {
+            Board board = new Board(5, 5);
+
+            board.SetCell(0, 0, new ColoredPiece(board.NextId(), PieceColor.Red));
+            board.SetCell(1, 0, new ColoredPiece(board.NextId(), PieceColor.Blue));
+            board.SetCell(2, 0, new ColoredPiece(board.NextId(), PieceColor.Green));
+            board.SetCell(3, 0, new ColoredPiece(board.NextId(), PieceColor.Yellow));
+            board.SetCell(4, 0, new ColoredPiece(board.NextId(), PieceColor.Red));
+
+            board.SetCell(0, 1, new ColoredPiece(board.NextId(), PieceColor.Green));
+            board.SetCell(1, 1, new ColoredPiece(board.NextId(), PieceColor.Yellow));
+            board.SetCell(2, 1, new ColoredPiece(board.NextId(), PieceColor.Red));
+            board.SetCell(3, 1, new ColoredPiece(board.NextId(), PieceColor.Blue));
+            board.SetCell(4, 1, new ColoredPiece(board.NextId(), PieceColor.Green));
+
+            board.SetCell(0, 2, new ColoredPiece(board.NextId(), PieceColor.Red));
+            board.SetCell(1, 2, new ColoredPiece(board.NextId(), PieceColor.Blue));
+            board.SetCell(2, 2, new SpecialPiece(board.NextId(), PieceKind.Propeller));
+            board.SetCell(3, 2, new ColoredPiece(board.NextId(), PieceColor.Yellow));
+            board.SetCell(4, 2, new ColoredPiece(board.NextId(), PieceColor.Red));
+
+            board.SetCell(0, 3, new ColoredPiece(board.NextId(), PieceColor.Green));
+            board.SetCell(1, 3, new ColoredPiece(board.NextId(), PieceColor.Yellow));
+            board.SetCell(2, 3, new ColoredPiece(board.NextId(), PieceColor.Red));
+            board.SetCell(3, 3, new ColoredPiece(board.NextId(), PieceColor.Blue));
+            board.SetCell(4, 3, new ColoredPiece(board.NextId(), PieceColor.Green));
+
+            board.SetCell(0, 4, new ColoredPiece(board.NextId(), PieceColor.Red));
+            board.SetCell(1, 4, new ColoredPiece(board.NextId(), PieceColor.Blue));
+            board.SetCell(2, 4, new ColoredPiece(board.NextId(), PieceColor.Green));
+            board.SetCell(3, 4, new ColoredPiece(board.NextId(), PieceColor.Yellow));
+            board.SetCell(4, 4, new ColoredPiece(board.NextId(), PieceColor.Red));
+
+            return board;
         }
     }
 }

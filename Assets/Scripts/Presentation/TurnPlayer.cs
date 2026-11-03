@@ -154,6 +154,19 @@ public class TurnPlayer : MonoBehaviour
         }
     }
     
+    public IEnumerator PlayShuffleTurn(List<TurnStepData> steps)
+    {
+        IsBusy = true;
+        try
+        {
+            yield return PlayCommands(ViewCommandFactory.Build(steps, this, _stepDuration));
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+    }
+    
     private IEnumerator PlayCommands(List<IViewCommand> commands)
     {
         foreach (var command in commands)
