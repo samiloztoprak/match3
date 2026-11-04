@@ -11,6 +11,7 @@ public sealed class LightBallActivation : ISpecialActivation
             ? partner.Color
             : CellPatterns.GetMostCommonColor(board);
 
+        var targets = new List<(int x, int y)>();
         if (targetColor != PieceColor.Empty)
         {
             for (int cx = 0; cx < board.Width; cx++)
@@ -20,12 +21,35 @@ public sealed class LightBallActivation : ISpecialActivation
                     Piece p = board.GetCell(cx, cy);
                     if (p != null && p.VisualType == PieceVisualType.Standard && p.Color == targetColor)
                     {
-                        cells.Add((cx, cy, 0f));
+                        targets.Add((cx, cy));
                     }
                 }
             }
         }
-        cells.Add((x, y, 0f));
+
+        targets.Sort((a, b) =>
+        {
+            int da = (a.x - x) * (a.x - x) + (a.y - y) * (a.y - y);
+            int db = (b.x - x) * (b.x - x) + (b.y - y) * (b.y - y);
+            if (da != db)
+            {
+                return da.CompareTo(db);
+            }
+            if (a.x != b.x)
+            {
+                return a.x.CompareTo(b.x);
+            }
+            return a.y.CompareTo(b.y);
+        });
+
+        float lastMs = 0f;
+        for (int i = 0; i < targets.Count; i++)
+        {
+            lastMs = ActivationTiming.LightBallStartMs + ActivationTiming.LightBallStepMs * i;
+            cells.Add((targets[i].x, targets[i].y, lastMs));
+        }
+
+        cells.Add((x, y, lastMs));
         return new ActivationEffect { Cells = cells, FlightTarget = null };
     }
 }

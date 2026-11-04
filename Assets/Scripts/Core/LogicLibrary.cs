@@ -133,8 +133,7 @@ namespace LogicLibrary
                             }
                             
                             Piece neighborPiece = board.GetCell(neighbor.Item1, neighbor.Item2);
-                            if(neighborPiece == null || !BoardLogic.IsPieceMatchable(neighborPiece)
-                                                     || BoardLogic.IsPieceLocked(neighborPiece))
+                            if(neighborPiece == null || !BoardLogic.IsPieceMatchable(neighborPiece) || BoardLogic.IsPieceLocked(neighborPiece))
                             {
                                 continue;
                             }
@@ -171,8 +170,6 @@ namespace LogicLibrary
         public static (ShapeTemplate template, HashSet<(int, int)> matchedCells) FindBestShapeMatchWithPosition(
             HashSet<(int, int)> cells)
         {
-            
-            // If cells is empty, min/max stay at int sentinel values and overflow happens, freezing the editor (see commit 3352c82)
             if (cells.Count == 0)
             {
                 return (null, null);
@@ -491,9 +488,57 @@ namespace LogicLibrary
                 }
             }
 
+            if (CreatesSquareMatchAt(board, x, y, color))
+            {
+                return true;
+            }
+            
             return false;
         }
 
+        private static bool CreatesSquareMatchAt(Board board, int x, int y, PieceColor color)
+        {
+            for (int blockX = x - 1; blockX <= x; blockX++)
+            {
+                for (int blockY = y - 1; blockY <= y; blockY++)
+                {
+                    if (SquareIsUniform(board, blockX, blockY, x, y, color))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        
+        private static bool SquareIsUniform(Board board, int blockX, int blockY, int skipX, int skipY, PieceColor color)
+        {
+            for (int ox = 0; ox <= 1; ox++)
+            {
+                for (int oy = 0; oy <= 1; oy++)
+                {
+                    int cx = blockX + ox;
+                    int cy = blockY + oy;
+
+                    if (cx == skipX && cy == skipY)
+                    {
+                        continue;
+                    }
+                    if (!BoardLogic.IsValidIndex(cx, cy, board))
+                    {
+                        return false;
+                    }
+
+                    Piece piece = board.GetCell(cx, cy);
+                    if (piece == null || piece.Color != color)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        
         private static PieceColor PickNonMatchingColor(Board board, int x, int y, IRandom random)
         {
             const int maxAttempts = 20;

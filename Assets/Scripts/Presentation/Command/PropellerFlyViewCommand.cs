@@ -7,22 +7,25 @@ public class PropellerFlyViewCommand : IViewCommand
     private readonly Vector3 _targetPos;
     private readonly TurnPlayer _player;
     private readonly PropellerAnimationConfig _config;
+    private readonly float _flightDuration;
     
-    public PropellerFlyViewCommand(int pieceId, Vector3 targetPos, TurnPlayer player, PropellerAnimationConfig config)
+    public PropellerFlyViewCommand(int pieceId, Vector3 targetPos, TurnPlayer player, PropellerAnimationConfig config, float flightDuration)
     {
         _pieceId = pieceId;
         _targetPos = targetPos;
         _player = player;
         _config = config;
+        _flightDuration = flightDuration;
     }
     
-    public float Duration => _config.FlightDuration;
+    public float Duration => _flightDuration;
     
     public void Execute()
     {
         PieceView view = _player.GetView(_pieceId);
         if (view == null) return;
 
+        view.transform.DOKill();
         view.SetSortingOrder(_config.FlightSortingOrder);
 
         Transform t = view.transform;
@@ -37,8 +40,9 @@ public class PropellerFlyViewCommand : IViewCommand
         float arcHeight = Mathf.Max(toTarget.magnitude * _config.ArcHeightFactor, _config.MinArcHeight);
 
         float progress = 0f;
-        DOTween.To(() => progress, p => progress = p, 1f, _config.FlightDuration)
+        DOTween.To(() => progress, p => progress = p, 1f, _flightDuration)
             .SetEase(Ease.Linear)
+            .SetTarget(t)
             .OnUpdate(() =>
             {
                 float arcFactor = Mathf.Sin(progress * Mathf.PI);

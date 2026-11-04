@@ -106,7 +106,7 @@ public static class TurnResolver
                         {
                             goalProgress.ClearedColors.Add(oldPiece.Color);
                         }
-                        pending.Enqueue(new PendingActivation(newPiece, tx, ty, null, ActivationTiming.SwapActivationMs));
+                        pending.Enqueue(new PendingActivation(newPiece, tx, ty, null, 0f));
                     }
                     result.Add(transformClear);
                 }
@@ -122,8 +122,8 @@ public static class TurnResolver
                 }
                 var comboDamageData = new DamagePieceData();
                 var comboClearOverlayData = new ClearOverlayData();
-                var comboClearData = ClearCellsAndEnqueueChains(board, ownCellsTimed, pending, consumed, comboDamageData, comboClearOverlayData, goalProgress, ActivationTiming.SwapActivationMs);
-                result.Add(new SpecialActivatedData { PieceId = atTarget.Id, Kind = kindB, X = comboX, Y = comboY });
+                var comboClearData = ClearCellsAndEnqueueChains(board, ownCellsTimed, pending, consumed, comboDamageData, comboClearOverlayData, goalProgress, 0f);
+                result.Add(new SpecialActivatedData { PieceId = atTarget.Id, Kind = kindB, X = comboX, Y = comboY, TimeMs = 0f });
                 result.Add(comboDamageData);
                 result.Add(comboClearOverlayData);
                 result.Add(comboClearData);
@@ -131,13 +131,11 @@ public static class TurnResolver
             }
             else if (sourceIsSpecial)
             {
-                pending.Enqueue(new PendingActivation(atSource, swapCmd.SourcePosition.x, swapCmd.SourcePosition.y,
-                    atTarget, ActivationTiming.SwapActivationMs));
+                pending.Enqueue(new PendingActivation(atSource, swapCmd.SourcePosition.x, swapCmd.SourcePosition.y, atTarget, 0f));
             }
             else if (targetIsSpecial)
             {
-                pending.Enqueue(new PendingActivation(atTarget, swapCmd.TargetPosition.x, swapCmd.TargetPosition.y,
-                    atSource, ActivationTiming.SwapActivationMs));
+                pending.Enqueue(new PendingActivation(atTarget, swapCmd.TargetPosition.x, swapCmd.TargetPosition.y, atSource, 0f));
             }
         }
         else if (command is TapCommand tapCommand)
@@ -149,7 +147,7 @@ public static class TurnResolver
 
             if (tapIsSpecial)
             {
-                pending.Enqueue(new PendingActivation(atTap, tapCommand.SourcePosition.x, tapCommand.SourcePosition.y, null, ActivationTiming.SwapActivationMs));
+                pending.Enqueue(new PendingActivation(atTap, tapCommand.SourcePosition.x, tapCommand.SourcePosition.y, null, ActivationTiming.TapActivationMs));
             }
         }
 
@@ -177,7 +175,8 @@ public static class TurnResolver
                 Y = activation.Y,
                 TargetX = effect.FlightTarget?.x,
                 TargetY = effect.FlightTarget?.y,
-                NeighborCells = effect.NeighborCells
+                NeighborCells = effect.NeighborCells,
+                TimeMs = activation.TimeMs
             });
             result.Add(chainDamageData);
             result.Add(chainClearOverlayData);
@@ -365,7 +364,10 @@ public static class TurnResolver
             }
         }
         
-        result.Add(goalProgress);
+        if (result.Count > 0)
+        {
+            result.Add(goalProgress);
+        }
         return  result;
     }
     
@@ -415,8 +417,9 @@ public static class TurnResolver
             OverlayPiece overlay = board.GetOverlayPieceAt(cx, cy);
             if (overlay != null)
             {
+                bool wasLocked = BoardLogic.IsPieceLocked(piece);
                 TryBreakOverlay(board, overlay, cx, cy, absoluteTimeMs, clearOverlayData, damageData, goalProgress);
-                if (BoardLogic.IsPieceLocked(piece))
+                if (wasLocked)
                 {
                     continue;
                 }

@@ -72,7 +72,7 @@ public class BoardController : MonoBehaviour
         
         var initialResult = TurnResolver.Resolve(_board, null);
         ApplyTurnResult(initialResult, false);
-        StartCoroutine(_turnPlayer.PlayTapTurn(initialResult));
+        StartCoroutine(PlayInitialTurn(initialResult));
     }
 
     void Update()
@@ -129,6 +129,12 @@ public class BoardController : MonoBehaviour
         }
     }
     
+    private IEnumerator PlayInitialTurn(List<TurnStepData> result)
+    {
+        yield return StartCoroutine(_turnPlayer.PlayTapTurn(result));
+        ShowEndGameIfNeeded();
+    }
+    
     private void ApplyTurnResult(List<TurnStepData> result, bool consumesMove)
     {
         if (result.Count == 0)
@@ -152,7 +158,10 @@ public class BoardController : MonoBehaviour
 
         _hud.SetMoves(_movesRemaining);
         _hud.SetGoals(_goalTracker);
-        
+    }
+    
+    private void ShowEndGameIfNeeded()
+    {
         if (_goalTracker.IsComplete())
         {
             _levelEnded = true;
@@ -225,6 +234,12 @@ public class BoardController : MonoBehaviour
     {
         yield return StartCoroutine(turnRoutine);
 
+        ShowEndGameIfNeeded();
+        if (_levelEnded)
+        {
+            yield break;
+        }
+        
         if (!MoveLogic.HasAvailableMove(_board))
         {
             var shuffleSteps = TurnResolver.ResolveShuffle(_board, new SystemRandom());

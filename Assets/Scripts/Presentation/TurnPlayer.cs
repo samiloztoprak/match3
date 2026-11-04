@@ -9,12 +9,19 @@ public class TurnPlayer : MonoBehaviour
 {
     [SerializeField] private PieceView _piecePrefab;
     [SerializeField] private float _cellSize = 1f;
-    [SerializeField] private float _stepDuration = 0.2f;
+    [SerializeField] private float _stepDuration = 0.2f;  
     [SerializeField] private float _swapDuration = 0.15f;
+    [SerializeField] private float _fallDuration = 0.2f;
+    [SerializeField] private float _fallDelay = 0.06f;
+    [SerializeField] private float _mergeDuration = 0.16f;
     [SerializeField] private PieceVisualConfig _visualConfig;
     [SerializeField] private ParticleSystem _breakEffectPrefab;
     [SerializeField] private PropellerAnimationConfig _propellerConfig;
     public PropellerAnimationConfig PropellerConfig => _propellerConfig;
+    public float PopDuration => _stepDuration;
+    public float FallDuration => _fallDuration;
+    public float FallDelay => _fallDelay;
+    public float MergeDuration => _mergeDuration;
     
     
     private Dictionary<int, PieceView> _pieceById = new Dictionary<int, PieceView>();
@@ -129,7 +136,7 @@ public class TurnPlayer : MonoBehaviour
             }
             yield return new WaitForSeconds(_swapDuration);
 
-            List<(float startTime, IViewCommand command)> commands = ViewCommandFactory.Build(steps, this, _stepDuration);
+            List<(float startTime, IViewCommand command)> commands = ViewCommandFactory.Build(steps, this);
             
             if (commands.Count == 0)
             {
@@ -158,7 +165,7 @@ public class TurnPlayer : MonoBehaviour
         IsBusy = true;
         try
         {
-            yield return PlayCommands(ViewCommandFactory.Build(steps, this, _stepDuration));
+            yield return PlayCommands(ViewCommandFactory.Build(steps, this));
         }
         finally
         {
@@ -171,7 +178,7 @@ public class TurnPlayer : MonoBehaviour
         IsBusy = true;
         try
         {
-            yield return PlayCommands(ViewCommandFactory.Build(steps, this, _stepDuration));
+            yield return PlayCommands(ViewCommandFactory.Build(steps, this));
         }
         finally
         {

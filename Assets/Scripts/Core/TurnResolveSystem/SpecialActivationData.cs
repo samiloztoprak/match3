@@ -10,4 +10,6 @@ public sealed class SpecialActivatedData : TurnStepData
     public int? TargetX;
     public int? TargetY;
     public List<(int x, int y)> NeighborCells;
+
+    public float TimeMs;
 }
