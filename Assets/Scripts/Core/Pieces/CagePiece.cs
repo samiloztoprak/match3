@@ -6,6 +6,7 @@ public sealed class CagePiece : OverlayPiece
         : base(id, PieceColor.Empty, PieceFlags.DamageableByNeighbor, BuildCoveredCells(x, y))
     {
         VisualType = PieceVisualType.Cage;
+        GoalKind = GoalType.ClearCage;
         Health = 2;
     }
     

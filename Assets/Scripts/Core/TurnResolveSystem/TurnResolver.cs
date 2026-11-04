@@ -217,7 +217,7 @@ public static class TurnResolver
                 {
                     clearStepData.Hits.Add(new HitData(piece.Id, x, y, 0f));
                     board.ClearCell(x, y);
-                    goalProgress.ClearedBoxCount++;
+                    goalProgress.Increment(piece.GoalKind);
                 }
                 else
                 {
@@ -429,7 +429,7 @@ public static class TurnResolver
                 {
                     clearPieceData.Hits.Add(new HitData(piece.Id, cx, cy, absoluteTimeMs));
                     board.ClearCell(cx, cy);
-                    goalProgress.ClearedBoxCount++;
+                    goalProgress.Increment(piece.GoalKind);
                 }
                 else
                 {
@@ -455,19 +455,7 @@ public static class TurnResolver
         if (broken)
         {
             clearOverlayData.Hits.Add(new HitData(overlay.Id, x, y, timeMs));
-
-            if (overlay is LockPiece)
-            {
-                goalProgress.ClearedLockCount++;
-            }
-            else if (overlay is GrassPiece)
-            {
-                goalProgress.ClearedGrassCount++;
-            }
-            else if (overlay is CagePiece)
-            {
-                goalProgress.ClearedCageCount++;
-            }
+            goalProgress.Increment(overlay.GoalKind);
 
             board.RemoveOverlayPiece(overlay);
             foreach (var (ox, oy) in overlay.CoveredCells)

@@ -5,6 +5,7 @@ public class Board
 {
     private readonly Piece[,] _cells;
     private readonly List<OverlayPiece> _overlayPieces = new List<OverlayPiece>();
+    public IReadOnlyList<OverlayPiece> OverlayPieces => _overlayPieces;
     
     private int _nextId;
     public int NextId() => _nextId++;

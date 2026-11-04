@@ -72,7 +72,7 @@ public class BoardController : MonoBehaviour
             SpawnCageOverlay(obstacle.Cells[0]);
         }
         
-        _goalTracker = new GoalTracker(_level.Goals);
+        _goalTracker = new GoalTracker(_board, _level.Goals);
         _movesRemaining = _level.MoveLimit;
         _hud.SetMoves(_movesRemaining);
         _hud.SetGoals(_goalTracker);

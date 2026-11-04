@@ -7,6 +7,7 @@ public sealed class GrassPiece : OverlayPiece
         : base(id, PieceColor.Empty, PieceFlags.DamageableByNeighbor, new HashSet<(int x, int y)> { (x, y) })
     {
         VisualType = PieceVisualType.Grass;
+        GoalKind = GoalType.ClearGrass;
         Health = 1;
     }
 }

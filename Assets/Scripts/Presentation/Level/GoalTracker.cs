@@ -9,14 +9,54 @@ public class GoalTracker : ITargetPriority
     public event Action OnProgressChanged;
     public event Action OnAllGoalsComplete;
     
-    public GoalTracker(List<LevelGoal> goals)
+    public GoalTracker(Board board, List<LevelGoal> goals)
     {
-        _goals = goals;
-        _remaining = new int[goals.Count];
-        for (int i = 0; i < goals.Count; i++)
+        _goals = new List<LevelGoal>(goals);
+
+        var authoredTypes = new HashSet<GoalType>();
+        foreach (var goal in _goals)
         {
-            _remaining[i] = goals[i].TargetCount;
+            authoredTypes.Add(goal.Type);
         }
+
+        foreach (var kvp in CountGoalKinds(board))
+        {
+            if (authoredTypes.Contains(kvp.Key))
+            {
+                continue;
+            }
+            _goals.Add(new LevelGoal { Type = kvp.Key, TargetCount = kvp.Value });
+        }
+
+        _remaining = new int[_goals.Count];
+        for (int i = 0; i < _goals.Count; i++)
+        {
+            _remaining[i] = _goals[i].TargetCount;
+        }
+    }
+    
+    private static Dictionary<GoalType, int> CountGoalKinds(Board board)
+    {
+        var counts = new Dictionary<GoalType, int>();
+        for (int x = 0; x < board.Width; x++)
+        {
+            for (int y = 0; y < board.Height; y++)
+            {
+                IncrementCount(counts, board.GetCell(x, y)?.GoalKind);
+            }
+        }
+        foreach (var overlay in board.OverlayPieces)
+        {
+            IncrementCount(counts, overlay.GoalKind);
+        }
+        return counts;
+    }
+    
+    private static void IncrementCount(Dictionary<GoalType, int> counts, GoalType? kind)
+    {
+        if (kind == null) return;
+        counts.TryGetValue(kind.Value, out int count);
+        counts[kind.Value] = count + 1;
     }
     
     public IReadOnlyList<LevelGoal> Goals => _goals;
@@ -42,29 +82,19 @@ public class GoalTracker : ITargetPriority
             }
 
             int consumed = 0;
-            switch (_goals[i].Type)
+            if (_goals[i].Type == GoalType.CollectColor)
             {
-                case GoalType.CollectColor:
-                    foreach (var color in progress.ClearedColors)
+                foreach (var color in progress.ClearedColors)
+                {
+                    if (color == _goals[i].Color)
                     {
-                        if (color == _goals[i].Color)
-                        {
-                            consumed++;
-                        }
+                        consumed++;
                     }
-                    break;
-                case GoalType.ClearBox:
-                    consumed = progress.ClearedBoxCount;
-                    break;
-                case GoalType.ClearLock:
-                    consumed = progress.ClearedLockCount;
-                    break;
-                case GoalType.ClearGrass:
-                    consumed = progress.ClearedGrassCount;
-                    break;
-                case GoalType.ClearCage:
-                    consumed = progress.ClearedCageCount;
-                    break;
+                }
+            }
+            else
+            {
+                consumed = progress.GetCount(_goals[i].Type);
             }
 
             if (consumed > 0)
@@ -101,21 +131,13 @@ public class GoalTracker : ITargetPriority
     {
         Piece piece = board.GetCell(x, y);
 
-        if (piece != null && piece.VisualType == PieceVisualType.Box && IsGoalActive(GoalType.ClearBox, null))
+        if (piece != null && piece.GoalKind.HasValue && IsGoalActive(piece.GoalKind.Value, null))
         {
             return 2;
         }
 
         OverlayPiece overlay = board.GetOverlayPieceAt(x, y);
-        if (overlay is LockPiece && IsGoalActive(GoalType.ClearLock, null))
-        {
-            return 2;
-        }
-        if (overlay is GrassPiece && IsGoalActive(GoalType.ClearGrass, null))
-        {
-            return 2;
-        }
-        if (overlay is CagePiece && IsGoalActive(GoalType.ClearCage, null))
+        if (overlay != null && overlay.GoalKind.HasValue && IsGoalActive(overlay.GoalKind.Value, null))
         {
             return 2;
         }

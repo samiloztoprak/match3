@@ -12,7 +12,8 @@ public abstract class Piece
     public PieceColor Color { get; }
     public PieceFlags Flags { get; internal set;}
     public int Health { get; internal set;}
-
+    public GoalType? GoalKind { get; protected set; }
+    
     public bool ApplyDamage(int amount)
     {
         Health -= amount;

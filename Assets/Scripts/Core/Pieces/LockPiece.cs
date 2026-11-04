@@ -7,6 +7,7 @@ public sealed class LockPiece : OverlayPiece
         : base(id, PieceColor.Empty, PieceFlags.DamageableByNeighbor, new HashSet<(int x, int y)> { (x, y) })
     {
         VisualType = PieceVisualType.Lock;
+        GoalKind = GoalType.ClearLock;
         Health = 1;
     }
 }
