@@ -229,42 +229,12 @@ public static class TurnResolver
             List<OverlayPiece> damageableOverlays = MatchLogic.FindNearlyDamageableOverlays(board, matchSet);
             foreach (OverlayPiece overlay in damageableOverlays)
             {
-                bool broken = overlay.ApplyDamage(1);
-                if (broken)
+                int overlayX = 0, overlayY = 0;
+                foreach (var cell in overlay.CoveredCells)
                 {
-                    int overlayX = 0, overlayY = 0;
-                    foreach (var cell in overlay.CoveredCells)
-                    {
-                        overlayX = cell.x; overlayY = cell.y; break;
-                    }
-                    clearOverlayData.Hits.Add(new HitData(overlay.Id, overlayX, overlayY, 0f));
-                    
-                    if (overlay is LockPiece)
-                    {
-                        goalProgress.ClearedLockCount++;
-                    }
-                    else if (overlay is GrassPiece)
-                    {
-                        goalProgress.ClearedGrassCount++;
-                    }
-                    else if (overlay is CagePiece)
-                    {
-                        goalProgress.ClearedCageCount++;
-                    }
-                    board.RemoveOverlayPiece(overlay);
-                    foreach (var (x, y) in overlay.CoveredCells)
-                    {
-                        Piece coveredPiece = board.GetCell(x, y);
-                        if (coveredPiece != null)
-                        {
-                            BoardLogic.RemoveFlag(coveredPiece, PieceFlags.Locked);
-                        }
-                    }
+                    overlayX = cell.x; overlayY = cell.y; break;
                 }
-                else
-                {
-                    damageData.Hits.Add((overlay.Id, overlay.Health, 0f));
-                }
+                TryBreakOverlay(board, overlay, overlayX, overlayY, 0f, clearOverlayData, damageData, goalProgress);
             }
             
             result.Add(damageData);
@@ -377,7 +347,10 @@ public static class TurnResolver
                         refilledThisTurn.Add(piece.Item1);
                     }
                     fillIteration++;
-                    if (fillIteration > maxFillIteration) break;
+                    if (fillIteration > maxFillIteration)
+                    {
+                        break;
+                    }
                     continue;
                 }
 
@@ -442,36 +415,7 @@ public static class TurnResolver
             OverlayPiece overlay = board.GetOverlayPieceAt(cx, cy);
             if (overlay != null)
             {
-                bool overlayBroken = overlay.ApplyDamage(1);
-                if (overlayBroken)
-                {
-                    clearOverlayData.Hits.Add(new HitData(overlay.Id, cx, cy, absoluteTimeMs));
-                    if (overlay is LockPiece)
-                    {
-                        goalProgress.ClearedLockCount++;
-                    }
-                    else if (overlay is GrassPiece)
-                    {
-                        goalProgress.ClearedGrassCount++;
-                    }
-                    else if (overlay is CagePiece)
-                    {
-                        goalProgress.ClearedCageCount++;
-                    }
-                    board.RemoveOverlayPiece(overlay);
-                    foreach (var (ox, oy) in overlay.CoveredCells)
-                    {
-                        Piece covered = board.GetCell(ox, oy);
-                        if (covered != null)
-                        {
-                            BoardLogic.RemoveFlag(covered, PieceFlags.Locked);
-                        }
-                    }
-                }
-                else
-                {
-                    damageData.Hits.Add((overlay.Id, overlay.Health, absoluteTimeMs));
-                }
+                TryBreakOverlay(board, overlay, cx, cy, absoluteTimeMs, clearOverlayData, damageData, goalProgress);
                 if (BoardLogic.IsPieceLocked(piece))
                 {
                     continue;
@@ -502,5 +446,42 @@ public static class TurnResolver
             board.ClearCell(cx, cy);
         }
         return clearPieceData;
+    }
+    
+    private static void TryBreakOverlay(Board board, OverlayPiece overlay, int x, int y, float timeMs,
+        ClearOverlayData clearOverlayData, DamagePieceData damageData, GoalProgressData goalProgress)
+    {
+        bool broken = overlay.ApplyDamage(1);
+        if (broken)
+        {
+            clearOverlayData.Hits.Add(new HitData(overlay.Id, x, y, timeMs));
+
+            if (overlay is LockPiece)
+            {
+                goalProgress.ClearedLockCount++;
+            }
+            else if (overlay is GrassPiece)
+            {
+                goalProgress.ClearedGrassCount++;
+            }
+            else if (overlay is CagePiece)
+            {
+                goalProgress.ClearedCageCount++;
+            }
+
+            board.RemoveOverlayPiece(overlay);
+            foreach (var (ox, oy) in overlay.CoveredCells)
+            {
+                Piece covered = board.GetCell(ox, oy);
+                if (covered != null)
+                {
+                    BoardLogic.RemoveFlag(covered, PieceFlags.Locked);
+                }
+            }
+        }
+        else
+        {
+            damageData.Hits.Add((overlay.Id, overlay.Health, timeMs));
+        }
     }
 }
