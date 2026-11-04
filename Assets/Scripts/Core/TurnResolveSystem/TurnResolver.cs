@@ -81,18 +81,25 @@ public static class TurnResolver
                 var consumed = new HashSet<int> { atSource.Id, atTarget.Id };
                 var ownCells = new HashSet<(int x, int y)> { swapCmd.SourcePosition, (comboX, comboY) };
 
-                bool exactlyOneIsLightBall =
-                    (kindA == PieceKind.LightBall) != (kindB == PieceKind.LightBall);
-
-                if (exactlyOneIsLightBall)
+                RocketDirection? rocketDirection = null;
+                if (atSource is RocketPiece rocketA)
                 {
-                    PieceKind otherKind =
-                        kindA == PieceKind.LightBall ? kindB : kindA;
+                    rocketDirection = rocketA.Direction;
+                }
+                else if (atTarget is RocketPiece rocketB)
+                {
+                    rocketDirection = rocketB.Direction;
+                }
 
-                    var transformed = SpecialActivationLogic.TransformMostCommonColorToKind(board, otherKind, random);
+                IComboActivation combo = ComboActivationRegistry.Get(kindA, kindB);
+                ComboEffect comboEffect = combo != null
+                    ? combo.GetEffect(board, kindA, kindB, comboX, comboY, rocketDirection, random, targetPriority)
+                    : default;
+
+                if (comboEffect.Transformed != null)
+                {
                     var transformClear = new ClearPieceData();
-
-                    foreach (var (oldPiece, newPiece, tx, ty) in transformed)
+                    foreach (var (oldPiece, newPiece, tx, ty) in comboEffect.Transformed)
                     {
                         transformClear.Hits.Add(new HitData(oldPiece.Id, tx, ty, 0f));
                         if (oldPiece.VisualType == PieceVisualType.Standard)
@@ -101,25 +108,12 @@ public static class TurnResolver
                         }
                         pending.Enqueue(new PendingActivation(newPiece, tx, ty, null, ActivationTiming.SwapActivationMs));
                     }
-
                     result.Add(transformClear);
                 }
-                else
+                else if (comboEffect.Cells != null)
                 {
-                    RocketDirection? rocketDirection = null;
-                    if (atSource is RocketPiece rocketA)
-                    {
-                        rocketDirection = rocketA.Direction;
-                    }
-                    else if (atTarget is RocketPiece rocketB)
-                    {
-                        rocketDirection = rocketB.Direction;
-                    }
-                    
-                    var affected = SpecialActivationLogic.GetComboAffectedCells(board, kindA, kindB, comboX, comboY, rocketDirection, random, targetPriority);
-                    ownCells.UnionWith(affected);
+                    ownCells.UnionWith(comboEffect.Cells);
                 }
-
                 
                 var ownCellsTimed = new List<(int x, int y, float timeMs)>();
                 foreach (var (cx, cy) in ownCells)
@@ -190,9 +184,7 @@ public static class TurnResolver
             result.Add(chainClearData);
             specialActivated = true;
         }
-
-
-
+        
         int iteration = 0;
         while (true)
         {

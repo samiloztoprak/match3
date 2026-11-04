@@ -533,59 +533,6 @@ namespace LogicLibrary
             var cells = new List<(int x, int y, float timeMs)> { (x, y, 0f) };
             return new ActivationEffect { Cells = cells, FlightTarget = null };
         }
-
-        public static HashSet<(int x, int y)> GetComboAffectedCells(Board board, PieceKind kindA, PieceKind kindB, int x, int y, RocketDirection? rocketDirection, IRandom random, ITargetPriority targetPriority = null)
-        {
-            var cells = new HashSet<(int x, int y)>();
-
-            if (IsPair(kindA, kindB, PieceKind.Rocket, PieceKind.Rocket))
-            {
-                CellPatterns.AddRowAndColumn(board, x, y, cells);
-            }
-            else if (IsPair(kindA, kindB, PieceKind.Rocket, PieceKind.Tnt))
-            {
-                CellPatterns.AddThickCross(board, x, y, 1, cells);
-            }
-            else if (IsPair(kindA, kindB, PieceKind.Tnt, PieceKind.Tnt))
-            {
-                CellPatterns.AddArea(board, x, y, 4, cells);
-            }
-            else if (IsPair(kindA, kindB, PieceKind.Rocket, PieceKind.Propeller))
-            {
-                var (rx, ry) = CellPatterns.PickTarget(board, random, targetPriority);
-                CellPatterns.AddDirectional(board, rx, ry, rocketDirection ?? RocketDirection.Horizontal, cells);
-            }
-            else if (IsPair(kindA, kindB, PieceKind.Tnt, PieceKind.Propeller))
-            {
-                var (rx, ry) = CellPatterns.PickTarget(board, random, targetPriority);
-                CellPatterns.AddArea(board, rx, ry, 1, cells);
-            }
-            else if (IsPair(kindA, kindB, PieceKind.Propeller, PieceKind.Propeller))
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    cells.Add(CellPatterns.PickTarget(board, random, targetPriority));
-                }            
-            }
-            else if (IsPair(kindA, kindB, PieceKind.LightBall, PieceKind.LightBall))
-            {
-                for (int cx = 0; cx < board.Width; cx++)
-                {
-                    for (int cy = 0; cy < board.Height; cy++)
-                    {
-                        cells.Add((cx, cy));
-                    }
-                }
-            }
-    
-            cells.Add((x, y));
-            return cells;
-        }
-        
-        private static bool IsPair(PieceKind a, PieceKind b, PieceKind x, PieceKind y)
-        {
-            return (a == x && b == y) || (a == y && b == x);
-        }
         
         public static List<(Piece oldPiece, Piece newPiece, int x, int y)> TransformMostCommonColorToKind(Board board, PieceKind kind, IRandom random)
         {
