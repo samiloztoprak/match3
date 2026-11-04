@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 208bc51e2861d5a4fa48e1d0bf9cfbd0, type: 3}
   m_Name: CageVisualConfig
   m_EditorClassIdentifier: Assembly-CSharp::CageVisualConfig
-  _damageSprites: []
+  _damageSprites:
+  - {fileID: 2833798427395953237, guid: e9a696cc758a44f48af6d6bb22e50153, type: 3}
+  - {fileID: 586176187890799734, guid: 8d2b1689473c61b459f8cbf92427af10, type: 3}

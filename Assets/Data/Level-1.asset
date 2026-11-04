@@ -27,7 +27,7 @@ MonoBehaviour:
     TargetCount: 1
   - Type: 3
     Color: 0
-    TargetCount: 1
+    TargetCount: 2
   - Type: 4
     Color: 0
     TargetCount: 1
