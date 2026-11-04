@@ -9,6 +9,8 @@ public class EndGameController : MonoBehaviour
     [SerializeField] private TMP_Text _messageText;
     [SerializeField] private Button _restartButton;
 
+    private bool _isWin;
+    
     private void Awake()
     {
         _panel.SetActive(false);
@@ -19,16 +21,22 @@ public class EndGameController : MonoBehaviour
     {
         _messageText.text = "Level Complete!";
         _panel.SetActive(true);
+        _isWin = true;
     }
 
     public void ShowLose()
     {
         _messageText.text = "Out of Moves";
         _panel.SetActive(true);
+        _isWin = false;
     }
 
     public void Restart()
     {
+        if (_isWin)
+        {
+            LevelProgress.CurrentIndex++;
+        }
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

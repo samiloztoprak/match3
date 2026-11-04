@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f53db27989fc9164ea8dce9d01c5a2cf, type: 3}
   m_Name: PropellerAnimationConfig
   m_EditorClassIdentifier: Assembly-CSharp::PropellerAnimationConfig
-  FlightDuration: 0.7
-  PeakScale: 3
+  FlightDuration: 0.55
+  PeakScale: 1.6
   WeaveFactor: 0.25
   MinWeaveAmount: 0.1
   ArcHeightFactor: 0.3

@@ -6,11 +6,15 @@ using UnityEngine.InputSystem;
 
 public class BoardController : MonoBehaviour
 {
-    [SerializeField] private LevelDefinition _level;
+    [SerializeField] private LevelDefinition[] _levels;
     [SerializeField] private TurnPlayer _turnPlayer;
     [SerializeField] private HudController _hud;
     [SerializeField] private EndGameController _endGame;
     [SerializeField] private float _idleHintDelay = 6f;
+    [SerializeField] private SpriteRenderer _background;
+    [SerializeField] private float _cameraMargin = 1f;
+    
+    private LevelDefinition _level;
     
     private bool _hasStart;
     private int _startX, _startY;
@@ -26,9 +30,12 @@ public class BoardController : MonoBehaviour
     
     void Start()
     {
+        int index = Mathf.Clamp(LevelProgress.CurrentIndex, 0, _levels.Length - 1);
+        _level = _levels[index];
         _board = new Board(_level.Width, _level.Height);
         _turnPlayer.Init(_board);
-
+        FitCameraToBoard();
+            
         OrganizationLogic.GetNewPieceToEmpty(_board, new SystemRandom());
 
         foreach (var obstacle in _level.Obstacles)
@@ -300,5 +307,21 @@ public class BoardController : MonoBehaviour
         _hintView2?.StopHintPulse();
         _hintView1 = null;
         _hintView2 = null;
+    }
+    
+    private void FitCameraToBoard()
+    {
+        Camera cam = Camera.main;
+        float aspect = cam.aspect;
+
+        float heightNeeded = (_level.Height + _cameraMargin) / 2f;
+        float widthNeeded = (_level.Width + _cameraMargin) / (2f * aspect);
+        cam.orthographicSize = Mathf.Max(heightNeeded, widthNeeded);
+
+        float visibleHeight = cam.orthographicSize * 2f;
+        float visibleWidth = visibleHeight * aspect;
+
+        Vector2 nativeSize = _background.sprite.bounds.size;
+        _background.transform.localScale = new Vector3(visibleWidth / nativeSize.x, visibleHeight / nativeSize.y, 1f);
     }
 }

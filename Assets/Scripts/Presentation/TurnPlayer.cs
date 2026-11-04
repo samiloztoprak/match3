@@ -129,7 +129,7 @@ public class TurnPlayer : MonoBehaviour
             }
             yield return new WaitForSeconds(_swapDuration);
 
-            List<IViewCommand> commands = ViewCommandFactory.Build(steps, this, _stepDuration);
+            List<(float startTime, IViewCommand command)> commands = ViewCommandFactory.Build(steps, this, _stepDuration);
             
             if (commands.Count == 0)
             {
@@ -179,12 +179,23 @@ public class TurnPlayer : MonoBehaviour
         }
     }
     
-    private IEnumerator PlayCommands(List<IViewCommand> commands)
+    private IEnumerator PlayCommands(List<(float startTime, IViewCommand command)> commands)
     {
-        foreach (var command in commands)
+        if (commands.Count == 0)
         {
-            command.Execute();
-            yield return new WaitForSeconds(command.Duration);
+            yield break;
         }
+
+        Sequence sequence = DOTween.Sequence();
+        float totalDuration = 0f;
+        foreach (var (startTime, command) in commands)
+        {
+            IViewCommand c = command;
+            sequence.InsertCallback(startTime, () => c.Execute());
+            totalDuration = Mathf.Max(totalDuration, startTime + c.Duration);
+        }
+        sequence.InsertCallback(totalDuration, () => { });
+
+        yield return sequence.WaitForCompletion();
     }
 }

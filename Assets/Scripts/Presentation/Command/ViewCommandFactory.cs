@@ -3,37 +3,55 @@ using UnityEngine;
 
 public class ViewCommandFactory
 {
-    public static List<IViewCommand> Build(List<TurnStepData> steps, TurnPlayer player, float stepDuration)
+    public static List<(float startTime, IViewCommand command)> Build(List<TurnStepData> steps, TurnPlayer player, float stepDuration)
     {
-        var commands = new List<IViewCommand>();
+        var result = new List<(float, IViewCommand)>();
+        float time = 0f;
+        float clearPhaseStartTime = 0f;
 
         foreach (var step in steps)
         {
             if (step is ClearPieceData clearStep)
             {
-                commands.Add(new ClearPiecesViewCommand(clearStep.PieceIds, player, stepDuration));
+                var cmd = new ClearPiecesViewCommand(clearStep.PieceIds, player, stepDuration);
+                clearPhaseStartTime = time;
+                result.Add((time, cmd));
+                time += cmd.Duration;
             }
             else if (step is DamagePieceData damageStep)
             {
-                commands.Add(new DamageViewCommand(damageStep.Hits, player, stepDuration));
+                var cmd = new DamageViewCommand(damageStep.Hits, player, stepDuration);
+                result.Add((time, cmd));
+                time += cmd.Duration;
             }
             else if (step is ClearOverlayData clearOverlayStep)
             {
-                commands.Add(new ClearPiecesViewCommand(clearOverlayStep.PieceIds, player, stepDuration));
+                var cmd = new ClearPiecesViewCommand(clearOverlayStep.PieceIds, player, stepDuration);
+                result.Add((time, cmd));
+                time += cmd.Duration;
             }
             else if (step is FallStepData fallStep)
             {
-                commands.Add(new FallViewCommand(fallStep.Moves, player, stepDuration));
+                var cmd = new FallViewCommand(fallStep.Moves, player, stepDuration);
+                result.Add((clearPhaseStartTime, cmd));
+                time = Mathf.Max(time, clearPhaseStartTime + cmd.Duration);
             }
             else if (step is RefillStepData refillStep)
             {
-                commands.Add(new RefillViewCommand(refillStep.Moves, player, stepDuration));
+                var cmd = new RefillViewCommand(refillStep.Moves, player, stepDuration);
+                result.Add((clearPhaseStartTime, cmd));
+                time = Mathf.Max(time, clearPhaseStartTime + cmd.Duration);
             }
             else if (step is SpecialCreatedData specialCreatedStep)
             {
                 Vector3 anchorPos = player.CellToWorld(specialCreatedStep.X, specialCreatedStep.Y);
-                commands.Add(new MergeToAnchorViewCommand(specialCreatedStep.MergedIds, anchorPos, player, stepDuration));
-                commands.Add(new SpawnSpecialViewCommand(specialCreatedStep.Piece, anchorPos, player, stepDuration));
+                var mergeCmd = new MergeToAnchorViewCommand(specialCreatedStep.MergedIds, anchorPos, player, stepDuration);
+                result.Add((time, mergeCmd));
+                time += mergeCmd.Duration;
+
+                var spawnCmd = new SpawnSpecialViewCommand(specialCreatedStep.Piece, anchorPos, player, stepDuration);
+                result.Add((time, spawnCmd));
+                time += spawnCmd.Duration;
             }
             else if (step is SpecialActivatedData activatedStep)
             {
@@ -45,23 +63,34 @@ public class ViewCommandFactory
                     Vector3 targetPos = player.CellToWorld(activatedStep.TargetX.Value, activatedStep.TargetY.Value);
                     var propellerConfig = player.PropellerConfig;
 
-                    commands.Add(new AreaDamageViewCommand(activatedStep.NeighborCells, player, 0f));
-                    commands.Add(new PropellerFlyViewCommand(activatedStep.PieceId, targetPos, player, propellerConfig));
-                    commands.Add(new AreaDamageViewCommand(
+                    var neighborCmd = new AreaDamageViewCommand(activatedStep.NeighborCells, player, 0f);
+                    result.Add((time, neighborCmd));
+
+                    var flyCmd = new PropellerFlyViewCommand(activatedStep.PieceId, targetPos, player, propellerConfig);
+                    result.Add((time, flyCmd));
+                    time += flyCmd.Duration;
+
+                    var impactCmd = new AreaDamageViewCommand(
                         new List<(int x, int y)> { (activatedStep.TargetX.Value, activatedStep.TargetY.Value) },
-                        player, propellerConfig.ImpactFlashDuration));
+                        player, propellerConfig.ImpactFlashDuration);
+                    result.Add((time, impactCmd));
+                    time += impactCmd.Duration;
                 }
                 else
                 {
-                    commands.Add(new SpecialActivationFlashViewCommand(activatedStep.PieceId, activatedStep.X, activatedStep.Y, player, stepDuration));
+                    var cmd = new SpecialActivationFlashViewCommand(activatedStep.PieceId, activatedStep.X, activatedStep.Y, player, stepDuration);
+                    result.Add((time, cmd));
+                    time += cmd.Duration;
                 }
             }
             else if (step is ShuffleStepData shuffleStep)
             {
-                commands.Add(new ShuffleViewCommand(shuffleStep.Moves, player, 0.5f));
+                var cmd = new ShuffleViewCommand(shuffleStep.Moves, player, 0.5f);
+                result.Add((time, cmd));
+                time += cmd.Duration;
             }
         }
 
-        return commands;
+        return result;
     }
 }
