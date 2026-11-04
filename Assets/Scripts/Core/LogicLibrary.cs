@@ -518,87 +518,19 @@ namespace LogicLibrary
     
     public static class SpecialActivationLogic
     {
-        public struct ActivationEffect
-        {
-            public HashSet<(int x, int y)> Cells;
-            public (int x, int y)? FlightTarget;
-            public List<(int x, int y)> NeighborCells;
-        }
-        
         public static ActivationEffect GetAffectedCells(Board board, Piece piece, int x, int y, Piece partner, IRandom random, ITargetPriority targetPriority = null)
         {
-            var cells = new HashSet<(int x, int y)>();
+            PieceKind kind = piece is RocketPiece ? PieceKind.Rocket
+                : piece is SpecialPiece sp ? sp.Kind
+                : PieceKind.Normal;
 
-            if (piece is RocketPiece rocket)
+            ISpecialActivation activation = SpecialActivationRegistry.Get(kind);
+            if (activation != null)
             {
-                if (rocket.Direction == RocketDirection.Horizontal)
-                {
-                    for (int cx = 0; cx < board.Width; cx++)
-                    {
-                        cells.Add((cx, y));
-                    }
-                }
-                else
-                {
-                    for (int cy = 0; cy < board.Height; cy++)
-                    {
-                        cells.Add((x, cy));
-                    }
-                }
-                return new ActivationEffect { Cells = cells, FlightTarget = null };
+                return activation.GetAffectedCells(board, piece, x, y, partner, random, targetPriority);
             }
 
-            if (piece is SpecialPiece sp)
-            {
-                if (sp.Kind == PieceKind.Tnt)
-                {
-                    for (int cx = x - 1; cx <= x + 1; cx++)
-                    {
-                        for (int cy = y - 1; cy <= y + 1; cy++)
-                        {
-                            if (cx < 0 || cx >= board.Width || cy < 0 || cy >= board.Height) continue;
-                            {
-                                cells.Add((cx, cy));
-                            }
-                        }
-                    }
-                    return new ActivationEffect { Cells = cells, FlightTarget = null };
-                }
-
-                if (sp.Kind == PieceKind.Propeller)
-                {
-                    var (targetX, targetY) = PickTarget(board, random, targetPriority);
-                    cells.Add((targetX, targetY));
-                    cells.Add((x, y));
-    
-                    var neighborCells = AddNeighbors(board, x, y, cells);
-                    return new ActivationEffect { Cells = cells, FlightTarget = (targetX, targetY), NeighborCells = neighborCells };
-                }
-
-                if (sp.Kind == PieceKind.LightBall)
-                {
-                    PieceColor targetColor = (partner != null && partner.VisualType == PieceVisualType.Standard && partner.Color != PieceColor.Empty)
-                        ? partner.Color
-                        : GetMostCommonColor(board);
-
-                    if (targetColor != PieceColor.Empty)
-                    {
-                        for (int cx = 0; cx < board.Width; cx++)
-                        {
-                            for (int cy = 0; cy < board.Height; cy++)
-                            {
-                                Piece p = board.GetCell(cx, cy);
-                                if (p != null && p.VisualType == PieceVisualType.Standard && p.Color == targetColor)
-                                    cells.Add((cx, cy));
-                            }
-                        }
-                    }
-                    cells.Add((x, y));
-                    return new ActivationEffect { Cells = cells, FlightTarget = null };
-                }
-            }
-
-            cells.Add((x, y));
+            var cells = new List<(int x, int y, float timeMs)> { (x, y, 0f) };
             return new ActivationEffect { Cells = cells, FlightTarget = null };
         }
 
@@ -608,31 +540,31 @@ namespace LogicLibrary
 
             if (IsPair(kindA, kindB, PieceKind.Rocket, PieceKind.Rocket))
             {
-                AddRowAndColumn(board, x, y, cells);
+                CellPatterns.AddRowAndColumn(board, x, y, cells);
             }
             else if (IsPair(kindA, kindB, PieceKind.Rocket, PieceKind.Tnt))
             {
-                AddThickCross(board, x, y, 1, cells);
+                CellPatterns.AddThickCross(board, x, y, 1, cells);
             }
             else if (IsPair(kindA, kindB, PieceKind.Tnt, PieceKind.Tnt))
             {
-                AddArea(board, x, y, 4, cells);
+                CellPatterns.AddArea(board, x, y, 4, cells);
             }
             else if (IsPair(kindA, kindB, PieceKind.Rocket, PieceKind.Propeller))
             {
-                var (rx, ry) = PickTarget(board, random, targetPriority);
-                AddDirectional(board, rx, ry, rocketDirection ?? RocketDirection.Horizontal, cells);
+                var (rx, ry) = CellPatterns.PickTarget(board, random, targetPriority);
+                CellPatterns.AddDirectional(board, rx, ry, rocketDirection ?? RocketDirection.Horizontal, cells);
             }
             else if (IsPair(kindA, kindB, PieceKind.Tnt, PieceKind.Propeller))
             {
-                var (rx, ry) = PickTarget(board, random, targetPriority);
-                AddArea(board, rx, ry, 1, cells);
+                var (rx, ry) = CellPatterns.PickTarget(board, random, targetPriority);
+                CellPatterns.AddArea(board, rx, ry, 1, cells);
             }
             else if (IsPair(kindA, kindB, PieceKind.Propeller, PieceKind.Propeller))
             {
                 for (int i = 0; i < 3; i++)
                 {
-                    cells.Add(PickTarget(board, random, targetPriority));
+                    cells.Add(CellPatterns.PickTarget(board, random, targetPriority));
                 }            
             }
             else if (IsPair(kindA, kindB, PieceKind.LightBall, PieceKind.LightBall))
@@ -645,45 +577,9 @@ namespace LogicLibrary
                     }
                 }
             }
-            
+    
             cells.Add((x, y));
             return cells;
-        }
-        
-        private static (int x, int y) PickTarget(Board board, IRandom random, ITargetPriority targetPriority)
-        {
-            if (targetPriority != null)
-            {
-                List<(int x, int y)> bestCells = new List<(int x, int y)>();
-                int bestPriority = 0;
-
-                for (int cx = 0; cx < board.Width; cx++)
-                {
-                    for (int cy = 0; cy < board.Height; cy++)
-                    {
-                        int priority = targetPriority.GetPriority(board, cx, cy);
-                        if (priority <= 0)
-                        {
-                            continue;
-                        }
-                        if (priority > bestPriority)
-                        {
-                            bestPriority = priority;
-                            bestCells.Clear();
-                        }
-                        if (priority == bestPriority)
-                        {
-                            bestCells.Add((cx, cy));
-                        }
-                    }
-                }
-
-                if (bestCells.Count > 0)
-                {
-                    return bestCells[random.Next(bestCells.Count)];
-                }
-            }
-            return RandomCell(board, random);
         }
         
         private static bool IsPair(PieceKind a, PieceKind b, PieceKind x, PieceKind y)
@@ -691,137 +587,10 @@ namespace LogicLibrary
             return (a == x && b == y) || (a == y && b == x);
         }
         
-        private static void AddRowAndColumn(Board board, int x, int y, HashSet<(int x, int y)> cells)
-        {
-            for (int cx = 0; cx < board.Width; cx++)
-            {
-                cells.Add((cx, y));
-            }
-            for (int cy = 0; cy < board.Height; cy++)
-            {
-                cells.Add((x, cy));
-            }
-        }
-        
-        private static void AddArea(Board board, int x, int y, int radius, HashSet<(int x, int y)> cells)
-        {
-            for (int cx = x - radius; cx <= x + radius; cx++)
-            {
-                for (int cy = y - radius; cy <= y + radius; cy++)
-                {
-                    if (cx < 0 || cx >= board.Width || cy < 0 || cy >= board.Height)
-                    {
-                        continue;
-                    }
-                    cells.Add((cx, cy));
-                }
-            }
-        }
-        
-        private static void AddThickCross(Board board, int x, int y, int thickness, HashSet<(int x, int y)> cells)
-        {
-            for (int oy = -thickness; oy <= thickness; oy++)
-            {
-                int ry = y + oy;
-                if (ry < 0 || ry >= board.Height)
-                {
-                    continue;
-                }
-                for (int cx = 0; cx < board.Width; cx++)
-                {
-                    cells.Add((cx, ry));
-                }
-            }
-            for (int ox = -thickness; ox <= thickness; ox++)
-            {
-                int rx = x + ox;
-                if (rx < 0 || rx >= board.Width)
-                {
-                    continue;
-                }
-                for (int cy = 0; cy < board.Height; cy++)
-                {
-                    cells.Add((rx, cy));
-                }
-            }
-        }
-        
-        private static List<(int x, int y)> AddNeighbors(Board board, int x, int y, HashSet<(int x, int y)> cells)
-        {
-            var neighbors = new List<(int x, int y)>();
-            (int dx, int dy)[] directions = { (1, 0), (-1, 0), (0, 1), (0, -1) };
-            foreach (var (dx, dy) in directions)
-            {
-                int nx = x + dx;
-                int ny = y + dy;
-                if (nx < 0 || nx >= board.Width || ny < 0 || ny >= board.Height)
-                {
-                    continue;
-                }
-                cells.Add((nx, ny));
-                neighbors.Add((nx, ny));
-            }
-            return neighbors;
-        }
-        
-        private static void AddDirectional(Board board, int x, int y, RocketDirection direction, HashSet<(int x, int y)> cells)
-        {
-            if (direction == RocketDirection.Horizontal)
-            {
-                for (int cx = 0; cx < board.Width; cx++)
-                {
-                    cells.Add((cx, y));
-                }
-            }
-            else
-            {
-                for (int cy = 0; cy < board.Height; cy++)
-                {
-                    cells.Add((x, cy));
-                }
-            }
-        }
-        
-        private static (int x, int y) RandomCell(Board board, IRandom random)
-        {
-            return (random.Next(board.Width), random.Next(board.Height));
-        }
-        
-        private static PieceColor GetMostCommonColor(Board board)
-        {
-            var counts = new Dictionary<PieceColor, int>();
-            for (int cx = 0; cx < board.Width; cx++)
-            {
-                for (int cy = 0; cy < board.Height; cy++)
-                {
-                    Piece p = board.GetCell(cx, cy);
-                    if (p == null || p.VisualType != PieceVisualType.Standard)
-                    {
-                        continue;
-                    }
-
-                    counts.TryGetValue(p.Color, out int count);
-                    counts[p.Color] = count + 1;
-                }
-            }
-
-            PieceColor best = PieceColor.Empty;
-            int bestCount = 0;
-            foreach (var kvp in counts)
-            {
-                if (kvp.Value > bestCount)
-                {
-                    best = kvp.Key;
-                    bestCount = kvp.Value;
-                }
-            }
-            return best;
-        }
-        
         public static List<(Piece oldPiece, Piece newPiece, int x, int y)> TransformMostCommonColorToKind(Board board, PieceKind kind, IRandom random)
         {
             var result = new List<(Piece oldPiece, Piece newPiece, int x, int y)>();
-            PieceColor color = GetMostCommonColor(board);
+            PieceColor color = CellPatterns.GetMostCommonColor(board);
             if (color == PieceColor.Empty)
             {
                 return result;

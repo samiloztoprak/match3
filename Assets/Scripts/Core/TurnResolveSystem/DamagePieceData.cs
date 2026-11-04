@@ -5,8 +5,8 @@ public class DamagePieceData : TurnStepData
 {
     public DamagePieceData()
     {
-        Hits = new List<(int pieceId, int healthAfter)>();
+        Hits = new List<(int pieceId, int healthAfter, float timeMs)>();
     }
-
-    public List<(int pieceId, int healthAfter)> Hits;
+    
+    public List<(int pieceId, int healthAfter, float timeMs)> Hits;
 }

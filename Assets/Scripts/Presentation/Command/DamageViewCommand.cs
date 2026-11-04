@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class DamageViewCommand : IViewCommand
 {
-    private readonly List<(int pieceId, int healthAfter)> _hits;
+    private readonly List<(int pieceId, int healthAfter, float timeMs)> _hits;
     private readonly TurnPlayer _player;
     private readonly float _duration;
     
-    public DamageViewCommand(List<(int pieceId, int healthAfter)> hits, TurnPlayer player, float duration)
+    public DamageViewCommand(List<(int pieceId, int healthAfter, float timeMs)> hits, TurnPlayer player, float duration)
     {
         _hits = hits;
         _player = player;
@@ -18,7 +18,7 @@ public class DamageViewCommand : IViewCommand
     
     public void Execute()
     {
-        foreach (var (pieceId, healthAfter) in _hits)
+        foreach (var (pieceId, healthAfter, _) in _hits)
         {
             PieceView view = _player.GetView(pieceId);
             if (view == null) continue;

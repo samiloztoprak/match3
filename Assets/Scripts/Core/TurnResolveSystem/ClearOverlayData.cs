@@ -5,8 +5,8 @@ public class ClearOverlayData : TurnStepData
 {
     public ClearOverlayData()
     {
-        PieceIds = new List<int>();
+        Hits = new List<HitData>();
     }
     
-    public List<int> PieceIds;
+    public List<HitData> Hits;
 }

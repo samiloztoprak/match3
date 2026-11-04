@@ -281,12 +281,12 @@ namespace Tests.EditMode
                 bool broken = piece.ApplyDamage(1);
                 if (broken)
                 {
-                    clearStepData.PieceIds.Add(piece.Id);
+                    clearStepData.Hits.Add(new HitData(piece.Id, x, y, 0f));
                     board.ClearCell(x, y);
                 }
                 else
                 {
-                    damageData.Hits.Add((piece.Id, piece.Health));
+                    damageData.Hits.Add((piece.Id, piece.Health, 0f));
                 }
             }
 

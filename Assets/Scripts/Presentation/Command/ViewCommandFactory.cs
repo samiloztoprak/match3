@@ -13,7 +13,12 @@ public class ViewCommandFactory
         {
             if (step is ClearPieceData clearStep)
             {
-                var cmd = new ClearPiecesViewCommand(clearStep.PieceIds, player, stepDuration);
+                var ids = new List<int>();
+                foreach (var hit in clearStep.Hits)
+                {
+                    ids.Add(hit.PieceId);
+                }
+                var cmd = new ClearPiecesViewCommand(ids, player, stepDuration);
                 clearPhaseStartTime = time;
                 result.Add((time, cmd));
                 time += cmd.Duration;
@@ -26,7 +31,12 @@ public class ViewCommandFactory
             }
             else if (step is ClearOverlayData clearOverlayStep)
             {
-                var cmd = new ClearPiecesViewCommand(clearOverlayStep.PieceIds, player, stepDuration);
+                var ids = new List<int>();
+                foreach (var hit in clearOverlayStep.Hits)
+                {
+                    ids.Add(hit.PieceId);
+                }
+                var cmd = new ClearPiecesViewCommand(ids, player, stepDuration);
                 result.Add((time, cmd));
                 time += cmd.Duration;
             }

@@ -17,9 +17,9 @@ namespace Tests.EditMode
 
                 if (step is ClearPieceData clear)
                 {
-                    foreach (int id in clear.PieceIds)
+                    foreach (var hit in clear.Hits)
                     {
-                        ids.Add(id);
+                        ids.Add(hit.PieceId);
                     }
                 }
             }
