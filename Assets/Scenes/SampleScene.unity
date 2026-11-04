@@ -965,11 +965,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 809db103f7e5e8944a5402561aeff999, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BoardController
-  _level: {fileID: 11400000, guid: 820f9c90ba60be942821ad9d0e390e42, type: 2}
+  _levels:
+  - {fileID: 11400000, guid: 820f9c90ba60be942821ad9d0e390e42, type: 2}
+  - {fileID: 11400000, guid: 2d1bb39e11ff06d43916e6c279ad864b, type: 2}
+  - {fileID: 11400000, guid: b91f756c37f073f49b24af8ac3bbf725, type: 2}
+  - {fileID: 11400000, guid: 20cf780b82713744f8c988a23db46565, type: 2}
+  - {fileID: 11400000, guid: 666d941d04f1ba347b3f9f421d0766b9, type: 2}
+  - {fileID: 11400000, guid: 66126c68fe81edd4894f007bbb6ab922, type: 2}
+  - {fileID: 11400000, guid: 318a4ce46b241b84497ec1d674b534f5, type: 2}
+  - {fileID: 11400000, guid: 135300bf1a68fb6409f973bb45e47e64, type: 2}
+  - {fileID: 11400000, guid: 6df24a80ac8935d4db2ed24a5eafc794, type: 2}
+  - {fileID: 11400000, guid: e46326d4df642e740bd3219a2b639dd5, type: 2}
   _turnPlayer: {fileID: 1077321448}
   _hud: {fileID: 1872247925}
   _endGame: {fileID: 1394509476}
   _idleHintDelay: 6
+  _background: {fileID: 2085060684}
+  _cameraMargin: 1
 --- !u!4 &1077321447
 Transform:
   m_ObjectHideFlags: 0
