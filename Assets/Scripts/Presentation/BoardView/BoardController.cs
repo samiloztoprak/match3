@@ -40,9 +40,11 @@ public class BoardController : MonoBehaviour
 
         foreach (var obstacle in _level.Obstacles)
         {
-            if (obstacle.Type != ObstacleType.Box) continue;
-            Vector2Int cell = obstacle.Cells[0];
-            _board.SetCell(cell.x, cell.y, new BoxPiece(_board.NextId(), PieceColor.Empty));
+            IObstacleSpawner spawner = ObstacleSpawnerRegistry.Get(obstacle.Type);
+            if (spawner != null && spawner.Phase == ObstacleSpawnPhase.BeforeFill)
+            {
+                spawner.Spawn(_board, _turnPlayer, obstacle);
+            }
         }
 
         for (int x = 0; x < _board.Width; x++)
@@ -53,23 +55,14 @@ public class BoardController : MonoBehaviour
                 _turnPlayer.SpawnPieceView(piece, _turnPlayer.CellToWorld(x, y));
             }
         }
-        
+
         foreach (var obstacle in _level.Obstacles)
         {
-            if (obstacle.Type != ObstacleType.Lock) continue;
-            SpawnLockOverlay(obstacle.Cells[0]);
-        }
-        
-        foreach (var obstacle in _level.Obstacles)
-        {
-            if (obstacle.Type != ObstacleType.Grass) continue;
-            SpawnGrassOverlay(obstacle.Cells[0]);
-        }
-        
-        foreach (var obstacle in _level.Obstacles)
-        {
-            if (obstacle.Type != ObstacleType.Cage) continue;
-            SpawnCageOverlay(obstacle.Cells[0]);
+            IObstacleSpawner spawner = ObstacleSpawnerRegistry.Get(obstacle.Type);
+            if (spawner != null && spawner.Phase == ObstacleSpawnPhase.AfterFill)
+            {
+                spawner.Spawn(_board, _turnPlayer, obstacle);
+            }
         }
         
         _goalTracker = new GoalTracker(_board, _level.Goals);
@@ -134,53 +127,6 @@ public class BoardController : MonoBehaviour
             }
             _hasStart = false;
         }
-    }
-    
-    private void SpawnLockOverlay(Vector2Int cell)
-    {
-        LockPiece lockPiece = new LockPiece(_board.NextId(), cell.x, cell.y);
-        _board.AddOverlayPiece(lockPiece);
-
-        Piece covered = _board.GetCell(cell.x, cell.y);
-        if (covered != null)
-        {
-            BoardLogic.AddFlag(covered, PieceFlags.Locked);
-        }
-
-        PieceView lockView = _turnPlayer.SpawnPieceView(lockPiece, _turnPlayer.CellToWorld(cell.x, cell.y));
-        lockView.SetSortingOrder(1);
-    }
-    
-    private void SpawnGrassOverlay(Vector2Int cell)
-    {
-        GrassPiece grassPiece = new GrassPiece(_board.NextId(), cell.x, cell.y);
-        _board.AddOverlayPiece(grassPiece);
-
-        PieceView grassView = _turnPlayer.SpawnPieceView(grassPiece, _turnPlayer.CellToWorld(cell.x, cell.y));
-        grassView.SetSortingOrder(1);
-    }
-    
-    private void SpawnCageOverlay(Vector2Int anchorCell)
-    {
-        CagePiece cagePiece = new CagePiece(_board.NextId(), anchorCell.x, anchorCell.y);
-        _board.AddOverlayPiece(cagePiece);
-
-        foreach (var (x, y) in cagePiece.CoveredCells)
-        {
-            Piece covered = _board.GetCell(x, y);
-            if (covered != null)
-            {
-                BoardLogic.AddFlag(covered, PieceFlags.Locked);
-            }
-        }
-
-        Vector3 topLeft = _turnPlayer.CellToWorld(anchorCell.x, anchorCell.y);
-        Vector3 bottomRight = _turnPlayer.CellToWorld(anchorCell.x + 1, anchorCell.y + 1);
-        Vector3 center = (topLeft + bottomRight) / 2f;
-
-        PieceView cageView = _turnPlayer.SpawnPieceView(cagePiece, center);
-        cageView.SetSizeInCells(2, 2);
-        cageView.SetSortingOrder(1);
     }
     
     private void ApplyTurnResult(List<TurnStepData> result, bool consumesMove)
