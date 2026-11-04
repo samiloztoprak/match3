@@ -36,14 +36,14 @@ public static class ShapeDefinitions
             Produces = PieceKind.Tnt 
         });
         
-        ShapeRegistry.RegisterTemplate(new ShapeTemplate("Square-Shape", priority: 30, 
+        ShapeRegistry.RegisterTemplate(new ShapeTemplate("Square-Shape", priority: 20, 
             matrix: new bool[,]
             {
                 { true, true},
                 { true, true},
             })
         {
-            Produces = PieceKind.Propeller 
+            Produces = PieceKind.Propeller  
         });
         
         ShapeRegistry.RegisterTemplate(new ShapeTemplate("Line3-Shape", priority: 1, 
@@ -55,7 +55,7 @@ public static class ShapeDefinitions
             Produces = PieceKind.Normal 
         });
 
-        ShapeRegistry.RegisterTemplate(new ShapeTemplate("Line4-Shape", priority: 20, 
+        ShapeRegistry.RegisterTemplate(new ShapeTemplate("Line4-Shape", priority: 30, 
             matrix: new bool[,]
             {
                 { true, true, true, true }

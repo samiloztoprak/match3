@@ -29,7 +29,17 @@ namespace LogicLibrary
         {
             return piece.Flags.HasFlag(PieceFlags.CanMatch);
         }
-
+        
+        public static bool IsCellSwapBlocked(Board board, int x, int y)
+        {
+            Piece piece = board.GetCell(x, y);
+            if (piece != null && IsPieceLocked(piece))
+            {
+                return true;
+            }
+            return board.GetOverlayPieceAt(x, y) is GrassPiece;
+        }
+        
         public static void AddFlag(Piece piece, PieceFlags flags)
         {
             piece.Flags |= flags;
@@ -427,7 +437,6 @@ namespace LogicLibrary
             }
         }
 
-        static Random _R = new Random ();
         static T RandomEnumValue<T>(IRandom random)
         {
             var v = Enum.GetValues(typeof(T));
@@ -450,11 +459,7 @@ namespace LogicLibrary
                     
                     if(piece == null)
                     {
-                        PieceColor newPieceColor = PieceColor.Empty;
-                        while(newPieceColor == PieceColor.Empty)
-                        {
-                            newPieceColor = RandomEnumValue<PieceColor>(random);
-                        }
+                        PieceColor newPieceColor = PickNonMatchingColor(board, x, y, random);
                         Piece newPiece = new ColoredPiece(board.NextId(), newPieceColor);
                         board.SetCell(x, y, newPiece);
                         collectedMovement.Add((newPiece.Id, newPiece.Color, x, y));
@@ -462,6 +467,52 @@ namespace LogicLibrary
                 }
             }
             return collectedMovement;
+        }
+        
+        private static bool CreatesMatchAt(Board board, int x, int y, PieceColor color)
+        {
+            if (x >= 2)
+            {
+                Piece left1 = board.GetCell(x - 1, y);
+                Piece left2 = board.GetCell(x - 2, y);
+                if (left1 != null && left1.Color == color && left2 != null && left2.Color == color)
+                {
+                    return true;
+                }
+            }
+
+            if (y >= 2)
+            {
+                Piece up1 = board.GetCell(x, y - 1);
+                Piece up2 = board.GetCell(x, y - 2);
+                if (up1 != null && up1.Color == color && up2 != null && up2.Color == color)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private static PieceColor PickNonMatchingColor(Board board, int x, int y, IRandom random)
+        {
+            const int maxAttempts = 20;
+            PieceColor color = PieceColor.Empty;
+            for (int attempt = 0; attempt < maxAttempts; attempt++)
+            {
+                PieceColor candidate = PieceColor.Empty;
+                while (candidate == PieceColor.Empty)
+                {
+                    candidate = RandomEnumValue<PieceColor>(random);
+                }
+
+                color = candidate;
+                if (!CreatesMatchAt(board, x, y, candidate))
+                {
+                    break;
+                }
+            }
+            return color;
         }
     }
     
@@ -474,7 +525,7 @@ namespace LogicLibrary
             public List<(int x, int y)> NeighborCells;
         }
         
-        public static ActivationEffect GetAffectedCells(Board board, Piece piece, int x, int y, Piece partner, IRandom random)
+        public static ActivationEffect GetAffectedCells(Board board, Piece piece, int x, int y, Piece partner, IRandom random, ITargetPriority targetPriority = null)
         {
             var cells = new HashSet<(int x, int y)>();
 
@@ -516,11 +567,10 @@ namespace LogicLibrary
 
                 if (sp.Kind == PieceKind.Propeller)
                 {
-                    int targetX = random.Next(board.Width);
-                    int targetY = random.Next(board.Height);
+                    var (targetX, targetY) = PickTarget(board, random, targetPriority);
                     cells.Add((targetX, targetY));
                     cells.Add((x, y));
-                    
+    
                     var neighborCells = AddNeighbors(board, x, y, cells);
                     return new ActivationEffect { Cells = cells, FlightTarget = (targetX, targetY), NeighborCells = neighborCells };
                 }
@@ -552,7 +602,7 @@ namespace LogicLibrary
             return new ActivationEffect { Cells = cells, FlightTarget = null };
         }
 
-        public static HashSet<(int x, int y)> GetComboAffectedCells(Board board, PieceKind kindA, PieceKind kindB, int x, int y, RocketDirection? rocketDirection, IRandom random)
+        public static HashSet<(int x, int y)> GetComboAffectedCells(Board board, PieceKind kindA, PieceKind kindB, int x, int y, RocketDirection? rocketDirection, IRandom random, ITargetPriority targetPriority = null)
         {
             var cells = new HashSet<(int x, int y)>();
 
@@ -570,19 +620,19 @@ namespace LogicLibrary
             }
             else if (IsPair(kindA, kindB, PieceKind.Rocket, PieceKind.Propeller))
             {
-                var (rx, ry) = RandomCell(board, random);
+                var (rx, ry) = PickTarget(board, random, targetPriority);
                 AddDirectional(board, rx, ry, rocketDirection ?? RocketDirection.Horizontal, cells);
             }
             else if (IsPair(kindA, kindB, PieceKind.Tnt, PieceKind.Propeller))
             {
-                var (rx, ry) = RandomCell(board, random);
+                var (rx, ry) = PickTarget(board, random, targetPriority);
                 AddArea(board, rx, ry, 1, cells);
             }
             else if (IsPair(kindA, kindB, PieceKind.Propeller, PieceKind.Propeller))
             {
                 for (int i = 0; i < 3; i++)
                 {
-                    cells.Add(RandomCell(board, random));
+                    cells.Add(PickTarget(board, random, targetPriority));
                 }            
             }
             else if (IsPair(kindA, kindB, PieceKind.LightBall, PieceKind.LightBall))
@@ -598,6 +648,42 @@ namespace LogicLibrary
             
             cells.Add((x, y));
             return cells;
+        }
+        
+        private static (int x, int y) PickTarget(Board board, IRandom random, ITargetPriority targetPriority)
+        {
+            if (targetPriority != null)
+            {
+                List<(int x, int y)> bestCells = new List<(int x, int y)>();
+                int bestPriority = 0;
+
+                for (int cx = 0; cx < board.Width; cx++)
+                {
+                    for (int cy = 0; cy < board.Height; cy++)
+                    {
+                        int priority = targetPriority.GetPriority(board, cx, cy);
+                        if (priority <= 0)
+                        {
+                            continue;
+                        }
+                        if (priority > bestPriority)
+                        {
+                            bestPriority = priority;
+                            bestCells.Clear();
+                        }
+                        if (priority == bestPriority)
+                        {
+                            bestCells.Add((cx, cy));
+                        }
+                    }
+                }
+
+                if (bestCells.Count > 0)
+                {
+                    return bestCells[random.Next(bestCells.Count)];
+                }
+            }
+            return RandomCell(board, random);
         }
         
         private static bool IsPair(PieceKind a, PieceKind b, PieceKind x, PieceKind y)
@@ -775,17 +861,26 @@ namespace LogicLibrary
     {
         public static bool HasAvailableMove(Board board)
         {
+            return FindAvailableMove(board) != null;
+        }
+        
+        public static (int x1, int y1, int x2, int y2)? FindAvailableMove(Board board)
+        {
             for (int x = 0; x < board.Width; x++)
             {
                 for (int y = 0; y < board.Height; y++)
                 {
-                    if (TryNeighborSwap(board, x, y, x + 1, y) || TryNeighborSwap(board, x, y, x, y + 1))
+                    if (TryNeighborSwap(board, x, y, x + 1, y))
                     {
-                        return true;
+                        return (x, y, x + 1, y);
+                    }
+                    if (TryNeighborSwap(board, x, y, x, y + 1))
+                    {
+                        return (x, y, x, y + 1);
                     }
                 }
             }
-            return false;
+            return null;
         }
 
         private static bool TryNeighborSwap(Board board, int x1, int y1, int x2, int y2)
@@ -801,7 +896,7 @@ namespace LogicLibrary
             {
                 return false;
             }
-            if (BoardLogic.IsPieceLocked(p1) || BoardLogic.IsPieceLocked(p2))
+            if (BoardLogic.IsCellSwapBlocked(board, x1, y1) || BoardLogic.IsCellSwapBlocked(board, x2, y2))
             {
                 return false;
             }

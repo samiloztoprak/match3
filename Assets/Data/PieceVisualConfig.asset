@@ -24,3 +24,5 @@ MonoBehaviour:
   _boxVisualConfig: {fileID: 11400000, guid: 13423f7a170112b49bfeabb78802aa29, type: 2}
   _lockVisualConfig: {fileID: 11400000, guid: 2dbbfc0d25c360042b01bf2d50f93adb, type: 2}
   _specialVisualConfig: {fileID: 11400000, guid: ef519b749221e1e40b03aa4ce81a9f9b, type: 2}
+  _grassVisualConfig: {fileID: 11400000, guid: 75190af909b80b54ab382215b1c13906, type: 2}
+  _cageVisualConfig: {fileID: 0}

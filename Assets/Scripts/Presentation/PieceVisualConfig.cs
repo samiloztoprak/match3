@@ -39,6 +39,14 @@ public class PieceVisualConfig : ScriptableObject
         {
             return GetSpecialSprite(piece);
         }
+        else if (piece.VisualType == PieceVisualType.Grass)
+        {
+            return GetGrassSprite(piece);
+        }
+        else if (piece.VisualType == PieceVisualType.Cage)
+        {
+            return GetCageSprite(piece);
+        }
         return null;
     }
     
@@ -51,6 +59,14 @@ public class PieceVisualConfig : ScriptableObject
         if (piece.VisualType == PieceVisualType.Lock)
         {
             return _lockVisualConfig.GetSprite(healthOverride);
+        }
+        if (piece.VisualType == PieceVisualType.Grass)
+        {
+            return _grassVisualConfig.GetSprite(healthOverride);
+        }
+        if (piece.VisualType == PieceVisualType.Cage)
+        {
+            return _cageVisualConfig.GetSprite(healthOverride);
         }
         return GetSprite(piece);
     }
@@ -87,6 +103,30 @@ public class PieceVisualConfig : ScriptableObject
         if (piece is SpecialPiece)
         {
             return _specialVisualConfig.GetSprite(piece);
+        }
+        return null;
+    }
+    
+    [SerializeField] 
+    private GrassVisualConfig _grassVisualConfig;
+
+    public Sprite GetGrassSprite(Piece piece)
+    {
+        if (piece is GrassPiece)
+        {
+            return _grassVisualConfig.GetSprite(piece.Health);
+        }
+        return null;
+    }
+    
+    [SerializeField] 
+    private CageVisualConfig _cageVisualConfig;
+
+    public Sprite GetCageSprite(Piece piece)
+    {
+        if (piece is CagePiece)
+        {
+            return _cageVisualConfig.GetSprite(piece.Health);
         }
         return null;
     }

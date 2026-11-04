@@ -40,11 +40,11 @@ public class SwapCommand : ICommand, IUndoableCommand
             return false;
         }
 
-        if (LogicLibrary.BoardLogic.IsPieceLocked(piece1))
+        if (LogicLibrary.BoardLogic.IsCellSwapBlocked(board, _x1, _y1))
         {
             return false;
         }
-        if (LogicLibrary.BoardLogic.IsPieceLocked(piece2))
+        if (LogicLibrary.BoardLogic.IsCellSwapBlocked(board, _x2, _y2))
         {
             return false;
         }

@@ -7,7 +7,10 @@ public class PieceView : MonoBehaviour
     private Piece _piece;
     public Piece Piece => _piece;
     private Vector3 _baseScale;
-
+    private Tween _hintTween;
+    private Vector3 _preHintScale;
+    
+    
     void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -57,5 +60,28 @@ public class PieceView : MonoBehaviour
     public void RefreshSprite(PieceVisualConfig visualConfig, int healthOverride)
     {
         _spriteRenderer.sprite = visualConfig.GetSprite(_piece, healthOverride);
+    }
+    
+    public void PlayHintPulse()
+    {
+        if (_hintTween != null)
+        {
+            return;
+        }
+        _preHintScale = transform.localScale;
+        _hintTween = transform.DOScale(_preHintScale * 1.15f, 0.4f)
+            .SetLoops(-1, LoopType.Yoyo)
+            .SetEase(Ease.InOutSine);
+    }
+
+    public void StopHintPulse()
+    {
+        if (_hintTween == null)
+        {
+            return;
+        }
+        _hintTween.Kill();
+        _hintTween = null;
+        transform.localScale = _preHintScale;
     }
 }

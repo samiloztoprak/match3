@@ -312,8 +312,7 @@ namespace Tests.EditMode
             board.SetCell(2, 2, new ColoredPiece(board.NextId(), PieceColor.Red));
 
 
-            HashSet<(int x, int y)> overlayCells = new HashSet<(int x, int y)> { (1, 0) };
-            LockPiece lockPiece = new LockPiece(board.NextId(), overlayCells);
+            LockPiece lockPiece = new LockPiece(board.NextId(), 1, 0);
             board.AddOverlayPiece(lockPiece);
 
             Piece lockedPiece = board.GetCell(1, 0);

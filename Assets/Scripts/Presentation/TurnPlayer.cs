@@ -1,6 +1,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -34,6 +35,7 @@ public class TurnPlayer : MonoBehaviour
             actionOnGet: view => view.gameObject.SetActive(true),
             actionOnRelease: view =>
             {
+                view.transform.DOKill();
                 view.gameObject.SetActive(false);
                 view.transform.localScale = defaultScale;
                 view.SetSortingOrder(0);
@@ -118,22 +120,32 @@ public class TurnPlayer : MonoBehaviour
         try
         {
             if (_pieceById.TryGetValue(piece1Id, out PieceView view1))
+            {
                 view1.MoveTo(CellToWorld(x2, y2), _swapDuration);
+            }
             if (_pieceById.TryGetValue(piece2Id, out PieceView view2))
+            {
                 view2.MoveTo(CellToWorld(x1, y1), _swapDuration);
+            }
             yield return new WaitForSeconds(_swapDuration);
 
-            if (steps.Count == 0)
+            List<IViewCommand> commands = ViewCommandFactory.Build(steps, this, _stepDuration);
+            
+            if (commands.Count == 0)
             {
                 if (_pieceById.TryGetValue(piece1Id, out PieceView backView1))
+                {
                     backView1.MoveTo(CellToWorld(x1, y1), _swapDuration);
+                }
                 if (_pieceById.TryGetValue(piece2Id, out PieceView backView2))
+                {
                     backView2.MoveTo(CellToWorld(x2, y2), _swapDuration);
+                }
                 yield return new WaitForSeconds(_swapDuration);
                 yield break;
             }
 
-            yield return PlayCommands(ViewCommandFactory.Build(steps, this, _stepDuration));
+            yield return PlayCommands(commands);
         }
         finally
         {

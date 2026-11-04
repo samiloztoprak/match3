@@ -4,5 +4,7 @@ public enum PieceVisualType
     Standard,
     Box,
     Lock,
-    Special
+    Special,
+    Grass,
+    Cage
 }

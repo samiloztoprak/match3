@@ -39,7 +39,7 @@ public static class TurnResolver
     }
     
     private static readonly int MaxIteration = 100;
-    public static List<TurnStepData> Resolve(Board board, ICommand command, IRandom random = null)
+    public static List<TurnStepData> Resolve(Board board, ICommand command, IRandom random = null, ITargetPriority targetPriority = null)
     {
         if (random == null)
         {
@@ -47,6 +47,7 @@ public static class TurnResolver
         }
         
         var result = new List<TurnStepData>();
+        var goalProgress = new GoalProgressData();
         
         if (command is SwapCommand swapCmd0 && !swapCmd0.Validate(board))
         {
@@ -92,6 +93,10 @@ public static class TurnResolver
                     foreach (var (oldPiece, newPiece, tx, ty) in transformed)
                     {
                         transformClear.PieceIds.Add(oldPiece.Id);
+                        if (oldPiece.VisualType == PieceVisualType.Standard)
+                        {
+                            goalProgress.ClearedColors.Add(oldPiece.Color);
+                        }
                         pending.Enqueue(new PendingActivation(newPiece, tx, ty, null));
                     }
 
@@ -109,13 +114,13 @@ public static class TurnResolver
                         rocketDirection = rocketB.Direction;
                     }
                     
-                    var affected = SpecialActivationLogic.GetComboAffectedCells(board, kindA, kindB, comboX, comboY, rocketDirection, random);
+                    var affected = SpecialActivationLogic.GetComboAffectedCells(board, kindA, kindB, comboX, comboY, rocketDirection, random, targetPriority);
                     ownCells.UnionWith(affected);
                 }
 
                 var comboDamageData = new DamagePieceData();
                 var comboClearOverlayData = new ClearOverlayData();
-                var comboClearData = ClearCellsAndEnqueueChains(board, ownCells, pending, consumed, comboDamageData, comboClearOverlayData);
+                var comboClearData = ClearCellsAndEnqueueChains(board, ownCells, pending, consumed, comboDamageData, comboClearOverlayData, goalProgress);
                 result.Add(new SpecialActivatedData { PieceId = atTarget.Id, Kind = kindB, X = comboX, Y = comboY });
                 result.Add(comboDamageData);
                 result.Add(comboClearOverlayData);
@@ -155,13 +160,12 @@ public static class TurnResolver
                 continue;
             }
 
-            var effect = SpecialActivationLogic.GetAffectedCells(board, activation.Piece, activation.X,
-                activation.Y, activation.Partner, random);
+            var effect = SpecialActivationLogic.GetAffectedCells(board, activation.Piece, activation.X, activation.Y, activation.Partner, random, targetPriority);
             var consumed = new HashSet<int> { activation.Piece.Id };
 
             var chainDamageData = new DamagePieceData();
             var chainClearOverlayData = new ClearOverlayData();
-            var chainClearData = ClearCellsAndEnqueueChains(board, effect.Cells, pending, consumed, chainDamageData, chainClearOverlayData);
+            var chainClearData = ClearCellsAndEnqueueChains(board, effect.Cells, pending, consumed, chainDamageData, chainClearOverlayData, goalProgress);
             
             result.Add(new SpecialActivatedData
             {
@@ -213,6 +217,7 @@ public static class TurnResolver
                 {
                     clearStepData.PieceIds.Add(piece.Id);
                     board.ClearCell(x, y);
+                    goalProgress.ClearedBoxCount++;
                 }
                 else
                 {
@@ -228,6 +233,18 @@ public static class TurnResolver
                 if (broken)
                 {
                     clearOverlayData.PieceIds.Add(overlay.Id);
+                    if (overlay is LockPiece)
+                    {
+                        goalProgress.ClearedLockCount++;
+                    }
+                    else if (overlay is GrassPiece)
+                    {
+                        goalProgress.ClearedGrassCount++;
+                    }
+                    else if (overlay is CagePiece)
+                    {
+                        goalProgress.ClearedCageCount++;
+                    }
                     board.RemoveOverlayPiece(overlay);
                     foreach (var (x, y) in overlay.CoveredCells)
                     {
@@ -262,6 +279,10 @@ public static class TurnResolver
                     {
                         Piece piece = board.GetCell(cell.Item1, cell.Item2);
                         clearStepData.PieceIds.Add(piece.Id);
+                        if (piece.VisualType == PieceVisualType.Standard)
+                        {
+                            goalProgress.ClearedColors.Add(piece.Color);
+                        }
                         board.ClearCell(cell.Item1, cell.Item2);
                     }
                 }
@@ -277,6 +298,11 @@ public static class TurnResolver
                     {
                         Piece piece = board.GetCell(cell.Item1, cell.Item2);
                         mergedIds.Add(piece.Id);
+                        
+                        if (piece.VisualType == PieceVisualType.Standard)
+                        {
+                            goalProgress.ClearedColors.Add(piece.Color);
+                        }
                         
                         if(cell == anchor)
                             continue;
@@ -359,6 +385,8 @@ public static class TurnResolver
                 break;
             }
         }
+        
+        result.Add(goalProgress);
         return  result;
     }
     
@@ -388,7 +416,7 @@ public static class TurnResolver
     }
 
     private static ClearPieceData ClearCellsAndEnqueueChains(Board board, IEnumerable<(int x, int y)> cells, Queue<PendingActivation> pending, HashSet<int> excludeFromChain, DamagePieceData damageData,
-        ClearOverlayData clearOverlayData)
+        ClearOverlayData clearOverlayData, GoalProgressData goalProgress)
     {
         var clearPieceData = new ClearPieceData();
         foreach (var (cx, cy) in cells)
@@ -410,6 +438,18 @@ public static class TurnResolver
                 if (overlayBroken)
                 {
                     clearOverlayData.PieceIds.Add(overlay.Id);
+                    if (overlay is LockPiece)
+                    {
+                        goalProgress.ClearedLockCount++;
+                    }
+                    else if (overlay is GrassPiece)
+                    {
+                        goalProgress.ClearedGrassCount++;
+                    }
+                    else if (overlay is CagePiece)
+                    {
+                        goalProgress.ClearedCageCount++;
+                    }
                     board.RemoveOverlayPiece(overlay);
                     foreach (var (ox, oy) in overlay.CoveredCells)
                     {
@@ -424,7 +464,10 @@ public static class TurnResolver
                 {
                     damageData.Hits.Add((overlay.Id, overlay.Health));
                 }
-                continue;
+                if (BoardLogic.IsPieceLocked(piece))
+                {
+                    continue;
+                }
             }
             
             if (piece.Flags.HasFlag(PieceFlags.DamageableByNeighbor))
@@ -434,12 +477,17 @@ public static class TurnResolver
                 {
                     clearPieceData.PieceIds.Add(piece.Id);
                     board.ClearCell(cx, cy);
+                    goalProgress.ClearedBoxCount++;
                 }
                 else
                 {
                     damageData.Hits.Add((piece.Id, piece.Health));
                 }
                 continue;
+            }
+            if (piece.VisualType == PieceVisualType.Standard)
+            {
+                goalProgress.ClearedColors.Add(piece.Color);
             }
             
             clearPieceData.PieceIds.Add(piece.Id);
