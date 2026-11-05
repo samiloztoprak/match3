@@ -105,30 +105,8 @@ public static class ViewCommandFactory
                 case SpecialActivatedData activated:
                 {
                     float t = At(activated.TimeMs);
-                    bool isPropellerFlight = activated.Kind == PieceKind.Propeller
-                        && activated.TargetX.HasValue && activated.TargetY.HasValue;
-
-                    if (isPropellerFlight)
-                    {
-                        float flight = ActivationTiming.PropellerFlightMs / 1000f;
-                        Vector3 targetPos = player.CellToWorld(activated.TargetX.Value, activated.TargetY.Value);
-                        var config = player.PropellerConfig;
-
-                        if (activated.NeighborCells != null && activated.NeighborCells.Count > 0)
-                        {
-                            result.Add((t, new AreaDamageViewCommand(activated.NeighborCells, player, 0f)));
-                        }
-                        result.Add((t, new PropellerFlyViewCommand(activated.PieceId, targetPos, player, config, flight)));
-                        result.Add((t + flight, new AreaDamageViewCommand(
-                            new List<(int x, int y)> { (activated.TargetX.Value, activated.TargetY.Value) },
-                            player, config.ImpactFlashDuration)));
-                        MarkHit(t + flight);
-                    }
-                    else
-                    {
-                        result.Add((t, new SpecialActivationFlashViewCommand(activated.PieceId, activated.X, activated.Y, player, 0f)));
-                        MarkHit(t);
-                    }
+                    IActivationPresenter presenter = ActivationPresenterRegistry.Get(activated.Kind);
+                    MarkHit(presenter.Present(activated, t, player, result));
                     break;
                 }
 
