@@ -129,3 +129,5 @@ InitTestScene*.unity*
 # Unity scene auto-recovery backups
 /[Aa]ssets/_Recovery/
 /[Aa]ssets/_Recovery.meta
+Assets/_Recovery/
+Assets/_Recovery.meta
