@@ -8,10 +8,10 @@ public sealed class GrassObstacleSpawner : IObstacleSpawner
     public void Spawn(Board board, TurnPlayer turnPlayer, ObstaclePlacement obstacle)
     {
         Vector2Int cell = obstacle.Cells[0];
-        GrassPiece grassPiece = new GrassPiece(board.NextId(), cell.x, cell.y);
-        board.AddOverlayPiece(grassPiece);
+        GrassPiece grassPiece = new GrassPiece(board.NextId());
+        board.SetFloor(cell.x, cell.y, grassPiece);
 
         PieceView grassView = turnPlayer.SpawnPieceView(grassPiece, turnPlayer.CellToWorld(cell.x, cell.y));
-        grassView.SetSortingOrder(1);
+        grassView.SetSortingOrder(SortingOrders.Floor);
     }
 }

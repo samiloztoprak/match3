@@ -45,7 +45,7 @@ public class TurnPlayer : MonoBehaviour
                 view.transform.DOKill();
                 view.gameObject.SetActive(false);
                 view.transform.localScale = defaultScale;
-                view.SetSortingOrder(0);
+                view.SetSortingOrder(SortingOrders.Piece);
             },
             actionOnDestroy: view => Destroy(view.gameObject),
             collectionCheck: true,

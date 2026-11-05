@@ -27,6 +27,6 @@ public sealed class CageObstacleSpawner : IObstacleSpawner
 
         PieceView cageView = turnPlayer.SpawnPieceView(cagePiece, center);
         cageView.SetSizeInCells(2, 2);
-        cageView.SetSortingOrder(1);
+        cageView.SetSortingOrder(SortingOrders.Overlay);
     }
 }

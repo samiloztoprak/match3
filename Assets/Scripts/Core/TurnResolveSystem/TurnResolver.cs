@@ -259,6 +259,7 @@ public static class TurnResolver
                             goalProgress.ClearedColors.Add(piece.Color);
                         }
                         board.ClearCell(cell.Item1, cell.Item2);
+                        TryBreakFloor(board, cell.Item1, cell.Item2, 0f, clearOverlayData, damageData, goalProgress);
                     }
                 }
                 else
@@ -284,11 +285,13 @@ public static class TurnResolver
                         
                         clearStepData.Hits.Add(new HitData(piece.Id, cell.Item1, cell.Item2, 0f));
                         board.ClearCell(cell.Item1, cell.Item2);
+                        TryBreakFloor(board, cell.Item1, cell.Item2, 0f, clearOverlayData, damageData, goalProgress);
                     }
                     
                     Piece anchorPiece = board.GetCell(anchor.Item1, anchor.Item2);
                     clearStepData.Hits.Add(new HitData(anchorPiece.Id, anchor.Item1, anchor.Item2, 0f));
                     board.ClearCell(anchor.Item1, anchor.Item2);
+                    TryBreakFloor(board, anchor.Item1, anchor.Item2, 0f, clearOverlayData, damageData, goalProgress);
                     
                     Piece newSpecial;
                     if (template.Produces == PieceKind.Rocket)
@@ -402,10 +405,14 @@ public static class TurnResolver
         var clearPieceData = new ClearPieceData();
         foreach (var (cx, cy, localTimeMs) in cells)
         {
-            Piece piece = board.GetCell(cx, cy);
-            if (piece == null) continue;
-
             float absoluteTimeMs = baseTimeMs + localTimeMs;
+            
+            Piece piece = board.GetCell(cx, cy);
+            if (piece == null)
+            {
+                TryBreakFloor(board, cx, cy, absoluteTimeMs, clearOverlayData, damageData, goalProgress);
+                continue;
+            }
             
             bool isChainTarget = piece.VisualType == PieceVisualType.Special && !excludeFromChain.Contains(piece.Id);
             if (isChainTarget)
@@ -433,6 +440,7 @@ public static class TurnResolver
                     clearPieceData.Hits.Add(new HitData(piece.Id, cx, cy, absoluteTimeMs));
                     board.ClearCell(cx, cy);
                     goalProgress.Increment(piece.GoalKind);
+                    TryBreakFloor(board, cx, cy, absoluteTimeMs, clearOverlayData, damageData, goalProgress);
                 }
                 else
                 {
@@ -447,6 +455,7 @@ public static class TurnResolver
             
             clearPieceData.Hits.Add(new HitData(piece.Id, cx, cy, absoluteTimeMs));
             board.ClearCell(cx, cy);
+            TryBreakFloor(board, cx, cy, absoluteTimeMs, clearOverlayData, damageData, goalProgress);
         }
         return clearPieceData;
     }
@@ -473,6 +482,23 @@ public static class TurnResolver
         else
         {
             damageData.Hits.Add((overlay.Id, overlay.Health, timeMs));
+        }
+    }
+    
+    private static void TryBreakFloor(Board board, int x, int y, float timeMs, ClearOverlayData clearOverlayData, DamagePieceData damageData, GoalProgressData goalProgress)
+    {
+        FloorPiece floor = board.GetFloor(x, y);
+        if (floor == null) return;
+
+        if (floor.ApplyDamage(1))
+        {
+            clearOverlayData.Hits.Add(new HitData(floor.Id, x, y, timeMs));
+            goalProgress.Increment(floor.GoalKind);
+            board.ClearFloor(x, y);
+        }
+        else
+        {
+            damageData.Hits.Add((floor.Id, floor.Health, timeMs));
         }
     }
 }

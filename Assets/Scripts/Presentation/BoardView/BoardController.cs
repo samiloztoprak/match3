@@ -284,5 +284,6 @@ public class BoardController : MonoBehaviour
 
         Vector2 nativeSize = _background.sprite.bounds.size;
         _background.transform.localScale = new Vector3(visibleWidth / nativeSize.x, visibleHeight / nativeSize.y, 1f);
+        _background.sortingOrder = SortingOrders.Background;
     }
 }

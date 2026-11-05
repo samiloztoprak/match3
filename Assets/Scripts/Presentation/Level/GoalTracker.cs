@@ -43,6 +43,7 @@ public class GoalTracker : ITargetPriority
             for (int y = 0; y < board.Height; y++)
             {
                 IncrementCount(counts, board.GetCell(x, y)?.GoalKind);
+                IncrementCount(counts, board.GetFloor(x, y)?.GoalKind);
             }
         }
         foreach (var overlay in board.OverlayPieces)
@@ -142,6 +143,12 @@ public class GoalTracker : ITargetPriority
             return 2;
         }
 
+        FloorPiece floor = board.GetFloor(x, y);
+        if (floor != null && floor.GoalKind.HasValue && IsGoalActive(floor.GoalKind.Value, null))
+        {
+            return 2;
+        }
+        
         if (piece != null && piece.VisualType == PieceVisualType.Standard && IsGoalActive(GoalType.CollectColor, piece.Color))
         {
             return 1;

@@ -4,8 +4,10 @@ using System.Collections.Generic;
 public class Board
 {
     private readonly Piece[,] _cells;
-    private readonly List<OverlayPiece> _overlayPieces = new List<OverlayPiece>();
+    private readonly List<OverlayPiece> _overlayPieces;
     public IReadOnlyList<OverlayPiece> OverlayPieces => _overlayPieces;
+    
+    private readonly FloorPiece[,] _floor;
     
     private int _nextId;
     public int NextId() => _nextId++;
@@ -15,7 +17,9 @@ public class Board
 
     public Board(int width, int height)
     {
+        _floor =  new FloorPiece[width, height];
         _cells = new Piece[width, height];
+        _overlayPieces =  new List<OverlayPiece>();
     } 
     
     public Piece GetCell(int x, int y)
@@ -53,6 +57,21 @@ public class Board
             }
         }
         return null;
+    }
+    
+    public void SetFloor(int x, int y, FloorPiece floor)
+    {
+        _floor[x, y] = floor;
+    }
+    
+    public FloorPiece GetFloor(int x, int y)
+    {
+        return _floor[x, y];
+    }
+    
+    public void ClearFloor(int x, int y)
+    {
+        _floor[x, y] = null;
     }
 }
 

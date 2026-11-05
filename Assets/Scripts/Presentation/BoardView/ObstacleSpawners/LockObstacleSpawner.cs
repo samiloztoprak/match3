@@ -19,6 +19,6 @@ public sealed class LockObstacleSpawner : IObstacleSpawner
         }
 
         PieceView lockView = turnPlayer.SpawnPieceView(lockPiece, turnPlayer.CellToWorld(cell.x, cell.y));
-        lockView.SetSortingOrder(1);
+        lockView.SetSortingOrder(SortingOrders.Overlay);
     }
 }

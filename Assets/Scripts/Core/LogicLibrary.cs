@@ -37,7 +37,8 @@ namespace LogicLibrary
             {
                 return true;
             }
-            return board.GetOverlayPieceAt(x, y) is GrassPiece;
+
+            return false;
         }
         
         public static void AddFlag(Piece piece, PieceFlags flags)

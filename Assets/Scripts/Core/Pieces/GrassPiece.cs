@@ -1,10 +1,7 @@
 
-using System.Collections.Generic;
-
-public sealed class GrassPiece : OverlayPiece
+public sealed class GrassPiece : FloorPiece
 {
-    public GrassPiece(int id, int x, int y)
-        : base(id, PieceColor.Empty, PieceFlags.DamageableByNeighbor, new HashSet<(int x, int y)> { (x, y) })
+    public GrassPiece(int id) : base(id)
     {
         VisualType = PieceVisualType.Grass;
         GoalKind = GoalType.ClearGrass;
