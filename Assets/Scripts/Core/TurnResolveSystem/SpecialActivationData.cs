@@ -12,4 +12,6 @@ public sealed class SpecialActivatedData : TurnStepData
     public List<(int x, int y)> NeighborCells;
 
     public float TimeMs;
+    public RocketDirection? Direction;
+    public bool IsCombo; 
 }

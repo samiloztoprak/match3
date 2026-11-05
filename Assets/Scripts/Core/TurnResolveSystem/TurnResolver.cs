@@ -123,7 +123,10 @@ public static class TurnResolver
                 var comboDamageData = new DamagePieceData();
                 var comboClearOverlayData = new ClearOverlayData();
                 var comboClearData = ClearCellsAndEnqueueChains(board, ownCellsTimed, pending, consumed, comboDamageData, comboClearOverlayData, goalProgress, 0f);
-                result.Add(new SpecialActivatedData { PieceId = atTarget.Id, Kind = kindB, X = comboX, Y = comboY, TimeMs = 0f });
+                result.Add(new SpecialActivatedData
+                {
+                    PieceId = atTarget.Id, Kind = kindB, X = comboX, Y = comboY, TimeMs = 0f, IsCombo = true 
+                });
                 result.Add(comboDamageData);
                 result.Add(comboClearOverlayData);
                 result.Add(comboClearData);
@@ -176,8 +179,10 @@ public static class TurnResolver
                 TargetX = effect.FlightTarget?.x,
                 TargetY = effect.FlightTarget?.y,
                 NeighborCells = effect.NeighborCells,
-                TimeMs = activation.TimeMs
+                TimeMs = activation.TimeMs,
+                Direction = (activation.Piece as RocketPiece)?.Direction
             });
+            
             result.Add(chainDamageData);
             result.Add(chainClearOverlayData);
             result.Add(chainClearData);
