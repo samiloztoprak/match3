@@ -54,6 +54,7 @@ public class PieceView : MonoBehaviour
 
     public void ShrinkAndRelease(float duration, System.Action<PieceView> onComplete)
     {
+        transform.DOKill();
         transform.DOScale(Vector3.zero, duration).OnComplete(() => onComplete(this));
     }
     

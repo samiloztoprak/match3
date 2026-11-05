@@ -17,17 +17,31 @@ public class TurnPlayer : MonoBehaviour
     [SerializeField] private PieceVisualConfig _visualConfig;
     [SerializeField] private ParticleSystem _breakEffectPrefab;
     [SerializeField] private PropellerAnimationConfig _propellerConfig;
+    [SerializeField] private RocketActivationView _rocketActivationPrefab;
+    [SerializeField] private EffectSpawner _effects;
+    [SerializeField] private CameraShake _cameraShake;
+    [SerializeField] private ExplosionView _tntExplosionPrefab;
+    
     public PropellerAnimationConfig PropellerConfig => _propellerConfig;
+    public EffectSpawner Effects => _effects;
+    public CameraShake CameraShake => _cameraShake;
+    public ExplosionView TntExplosionPrefab => _tntExplosionPrefab;
+    
     public float PopDuration => _stepDuration;
     public float FallDuration => _fallDuration;
     public float FallDelay => _fallDelay;
     public float MergeDuration => _mergeDuration;
-    
+
+
     
     private Dictionary<int, PieceView> _pieceById = new Dictionary<int, PieceView>();
     private ObjectPool<PieceView> _pieceViewPool;
     private ObjectPool<ParticleSystem> _breakEffectPool;
     private Board _board;
+    
+    public int BoardWidth => _board.Width;
+    public int BoardHeight => _board.Height;
+    public float CellSize => _cellSize;
     
     public bool IsBusy { get; private set; }
     public PieceVisualConfig VisualConfig => _visualConfig;
@@ -119,6 +133,16 @@ public class TurnPlayer : MonoBehaviour
     {
         yield return new WaitForSeconds(effect.main.duration + effect.main.startLifetime.constantMax);
         _breakEffectPool.Release(effect);
+    }
+    
+    public RocketActivationView SpawnRocketActivation(Vector3 position)
+    {
+        return _effects.Spawn(_rocketActivationPrefab, position);
+    }
+
+    public void ReleaseRocketActivation(RocketActivationView view)
+    {
+        _effects.Release(view);
     }
     
     public IEnumerator PlaySwapTurn(int piece1Id, int piece2Id, int x1, int y1, int x2, int y2, List<TurnStepData> steps)
