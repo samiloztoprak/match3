@@ -542,6 +542,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -667,6 +668,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8b6f7ec355c3154792c643447baf329, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraShake
+  _maxOffset: 0.25
+  _decayPerSecond: 2.2
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -946,6 +961,7 @@ GameObject:
   - component: {fileID: 1077321447}
   - component: {fileID: 1077321446}
   - component: {fileID: 1077321448}
+  - component: {fileID: 1077321449}
   m_Layer: 0
   m_Name: BoardController
   m_TagString: Untagged
@@ -1013,9 +1029,28 @@ MonoBehaviour:
   _cellSize: 1
   _stepDuration: 0.1
   _swapDuration: 0.15
+  _fallDuration: 0.2
+  _fallDelay: 0.06
+  _mergeDuration: 0.16
   _visualConfig: {fileID: 11400000, guid: 09d110696ffca734986e68c988cb8450, type: 2}
   _breakEffectPrefab: {fileID: 3731488670092309079, guid: 7c3af47023e6c514ca14030b4e35e4e2, type: 3}
   _propellerConfig: {fileID: 11400000, guid: bef7f603029ea74488ec9facf12fccdb, type: 2}
+  _rocketActivationPrefab: {fileID: 2151119278267167874, guid: 89f0e678dd15dc740b17efb4b64b5ee3, type: 3}
+  _effects: {fileID: 1077321449}
+  _cameraShake: {fileID: 519420033}
+  _tntExplosionPrefab: {fileID: 6683318824054819131, guid: 3f74d0a9958f84d4996f9b723f75322c, type: 3}
+--- !u!114 &1077321449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1077321445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3b33cbec8f68744abb2726422048b63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EffectSpawner
 --- !u!1 &1394509474
 GameObject:
   m_ObjectHideFlags: 0
