@@ -9,7 +9,8 @@ public class PieceView : MonoBehaviour
     private Vector3 _baseScale;
     private Tween _hintTween;
     private Vector3 _preHintScale;
-    
+    private Tween _moveTween;
+    private Tween _scaleTween;
     
     void Awake()
     {
@@ -40,22 +41,31 @@ public class PieceView : MonoBehaviour
     
     public void MoveTo(Vector3 targetPos, float duration, Ease ease = Ease.OutQuad, bool bounceOnLand = false)
     {
-        transform.DOKill();
-        Tween moveTween = transform.DOMove(targetPos, duration).SetEase(ease);
+        _moveTween?.Kill();
 
-        if (bounceOnLand)
+        if (!bounceOnLand)
         {
-            moveTween.OnComplete((() =>
-            {
-                transform.DOPunchPosition(Vector3.up * 0.15f, 0.25f, 1, 0.3f);
-            }));
+            _moveTween = transform.DOMove(targetPos, duration).SetEase(ease);
+            return;
         }
+
+        Sequence seq = DOTween.Sequence();
+        seq.Append(transform.DOMove(targetPos, duration).SetEase(ease));
+        seq.Append(transform.DOPunchPosition(Vector3.up * 0.15f, 0.25f, 1, 0.3f));
+        seq.SetTarget(transform);
+        _moveTween = seq;
     }
 
+    public void ScaleTo(Vector3 scale, float duration, Ease ease = Ease.OutQuad)
+    {
+        _scaleTween?.Kill();
+        _scaleTween = transform.DOScale(scale, duration).SetEase(ease);
+    }
+    
     public void ShrinkAndRelease(float duration, System.Action<PieceView> onComplete)
     {
-        transform.DOKill();
-        transform.DOScale(Vector3.zero, duration).OnComplete(() => onComplete(this));
+        _scaleTween?.Kill();
+        _scaleTween = transform.DOScale(Vector3.zero, duration).OnComplete(() => onComplete(this));
     }
     
     public void RefreshSprite(PieceVisualConfig visualConfig, int healthOverride)
@@ -84,5 +94,13 @@ public class PieceView : MonoBehaviour
         _hintTween.Kill();
         _hintTween = null;
         transform.localScale = _preHintScale;
+    }
+    
+    public void KillTweens()
+    {
+        _moveTween?.Kill();  _moveTween = null;
+        _scaleTween?.Kill(); _scaleTween = null;
+        _hintTween?.Kill();  _hintTween = null;
+        transform.DOKill();
     }
 }

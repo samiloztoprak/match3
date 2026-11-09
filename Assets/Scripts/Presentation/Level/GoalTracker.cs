@@ -140,7 +140,8 @@ public class GoalTracker : ITargetPriority
         OverlayPiece overlay = board.GetOverlayPieceAt(x, y);
         if (overlay != null && overlay.GoalKind.HasValue && IsGoalActive(overlay.GoalKind.Value, null))
         {
-            return 2;
+            bool specialOnly = overlay.Flags.HasFlag(PieceFlags.DamageableBySpecial) && !overlay.Flags.HasFlag(PieceFlags.DamageableByNeighbor);
+            return specialOnly ? 3 : 2;
         }
 
         FloorPiece floor = board.GetFloor(x, y);

@@ -325,7 +325,7 @@ namespace LogicLibrary
 
     public static class OrganizationLogic
     {
-        public static (int pieceId, int toX, int toY)? FillOneDiagonalStep(Board board, IRandom random)
+        public static (int pieceId, int toX, int toY, int fromY)? FillOneDiagonalStep(Board board, IRandom random)
         {
             for (int y = 0; y < board.Height; y++)
             {
@@ -347,7 +347,7 @@ namespace LogicLibrary
                     Piece moved = TryDiagonalMove(board, x, y, firstDx) ?? TryDiagonalMove(board, x, y, secondDx);
                     if (moved != null)
                     {
-                        return (moved.Id, x, y);
+                        return (moved.Id, x, y, y - 1);
                     }
                 }
             }
@@ -387,9 +387,9 @@ namespace LogicLibrary
             return source;
         }
         
-        public static List<(int, int, int)> FillEmpties(Board board)
+        public static List<(int, int, int, int)> FillEmpties(Board board)
         {
-            List<(int, int, int)> collectedMovement = new List<(int, int, int)>();
+            List<(int, int, int, int)> collectedMovement = new List<(int, int, int, int)>();
             
             for(int x = 0; x < board.Width; x++)
             {
@@ -417,14 +417,14 @@ namespace LogicLibrary
         }
 
         private static void CompactSegment(Board board, int x, int segmentBottom, int segmentTop,
-            List<(Piece piece, int y)> collected, List<(int, int, int)> collectedMovement)
+            List<(Piece piece, int y)> collected, List<(int, int, int, int)> collectedMovement)
         {
             int writeY = segmentBottom;
             foreach (var (piece, y) in collected)
             {
                 board.SetCell(x, writeY, piece);
-                if(Math.Abs(y - writeY) > 0)
-                    collectedMovement.Add((piece.Id, x, writeY));
+                if (Math.Abs(y - writeY) > 0)
+                    collectedMovement.Add((piece.Id, x, writeY, y));   // 4. eleman: fromY
                 writeY--;
             }
 

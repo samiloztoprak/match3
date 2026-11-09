@@ -4,8 +4,8 @@ public sealed class FallStepData : TurnStepData
 {
     public FallStepData()
     {
-        Moves = new List<(int, int, int)>();
+        Moves = new List<(int, int, int, int)>();
     }
     
-    public List<(int pieceId, int toX, int toY)> Moves;
+    public List<(int pieceId, int toX, int toY, int fromY)> Moves;
 }

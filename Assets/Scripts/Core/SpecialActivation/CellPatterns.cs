@@ -93,12 +93,82 @@ public static class CellPatterns
         }
     }
     
-    public static (int x, int y) RandomCell(Board board, IRandom random)
+    public static List<(int x, int y, float timeMs)> AddRowAndColumnTimed(Board board, int x, int y)
     {
-        return (random.Next(board.Width), random.Next(board.Height));
+        var map = new Dictionary<(int x, int y), float>();
+        for (int cx = 0; cx < board.Width; cx++)
+        {
+            map[(cx, y)] = ActivationTiming.RocketMsPerCell * System.Math.Abs(cx - x);
+        }
+        for (int cy = 0; cy < board.Height; cy++)
+        {
+            float t = ActivationTiming.RocketMsPerCell * System.Math.Abs(cy - y);
+            if (!map.TryGetValue((x, cy), out float existing) || t < existing)
+            {
+                map[(x, cy)] = t;
+            }
+        }
+        var result = new List<(int x, int y, float timeMs)>();
+        foreach (var kvp in map) result.Add((kvp.Key.x, kvp.Key.y, kvp.Value));
+        return result;
+    }
+
+    public static List<(int x, int y, float timeMs)> AddThickCrossTimed(Board board, int x, int y, int thickness)
+    {
+        var map = new Dictionary<(int x, int y), float>();
+        for (int oy = -thickness; oy <= thickness; oy++)
+        {
+            int ry = y + oy;
+            if (ry < 0 || ry >= board.Height) continue;
+            for (int cx = 0; cx < board.Width; cx++)
+            {
+                float t = ActivationTiming.RocketMsPerCell * System.Math.Abs(cx - x);
+                if (!map.TryGetValue((cx, ry), out float existing) || t < existing) map[(cx, ry)] = t;
+            }
+        }
+        for (int ox = -thickness; ox <= thickness; ox++)
+        {
+            int rx = x + ox;
+            if (rx < 0 || rx >= board.Width) continue;
+            for (int cy = 0; cy < board.Height; cy++)
+            {
+                float t = ActivationTiming.RocketMsPerCell * System.Math.Abs(cy - y);
+                if (!map.TryGetValue((rx, cy), out float existing) || t < existing) map[(rx, cy)] = t;
+            }
+        }
+        var result = new List<(int x, int y, float timeMs)>();
+        foreach (var kvp in map) result.Add((kvp.Key.x, kvp.Key.y, kvp.Value));
+        return result;
     }
     
-    public static (int x, int y) PickTarget(Board board, IRandom random, ITargetPriority targetPriority)
+    public static (int x, int y) RandomCell(Board board, IRandom random, HashSet<(int x, int y)> exclude = null)
+    {
+        var candidates = new List<(int x, int y)>();
+        for (int cx = 0; cx < board.Width; cx++)
+        {
+            for (int cy = 0; cy < board.Height; cy++)
+            {
+                if (board.GetCell(cx, cy) == null)
+                {
+                    continue;
+                }
+                if (exclude != null && exclude.Contains((cx, cy)))
+                {
+                    continue;
+                }
+                candidates.Add((cx, cy));
+            }
+        }
+
+        if (candidates.Count == 0)
+        {
+            return (random.Next(board.Width), random.Next(board.Height));
+        }
+
+        return candidates[random.Next(candidates.Count)];
+    }
+    
+    public static (int x, int y) PickTarget(Board board, IRandom random, ITargetPriority targetPriority, HashSet<(int x, int y)> exclude = null)
     {
         if (targetPriority != null)
         {
@@ -109,6 +179,10 @@ public static class CellPatterns
             {
                 for (int cy = 0; cy < board.Height; cy++)
                 {
+                    if (exclude != null && exclude.Contains((cx, cy)))
+                    {
+                        continue;
+                    }
                     int priority = targetPriority.GetPriority(board, cx, cy);
                     if (priority <= 0)
                     {
@@ -131,7 +205,7 @@ public static class CellPatterns
                 return bestCells[random.Next(bestCells.Count)];
             }
         }
-        return RandomCell(board, random);
+        return RandomCell(board, random, exclude);
     }
     
     public static PieceColor GetMostCommonColor(Board board)

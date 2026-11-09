@@ -79,8 +79,12 @@ public static class TurnResolver
                 int comboY = swapCmd.TargetPosition.y;
 
                 var consumed = new HashSet<int> { atSource.Id, atTarget.Id };
-                var ownCells = new HashSet<(int x, int y)> { swapCmd.SourcePosition, (comboX, comboY) };
+                var ownCells = new HashSet<(int x, int y)> { (comboX, comboY) };
 
+                board.ClearCell(swapCmd.SourcePosition.x, swapCmd.SourcePosition.y);
+                result.Add(new ComboMergeData { PieceId = atSource.Id, ToX = comboX, ToY = comboY });
+                float comboStartMs = ActivationTiming.ComboMergeMs;
+                
                 RocketDirection? rocketDirection = null;
                 if (atSource is RocketPiece rocketA)
                 {
@@ -95,18 +99,43 @@ public static class TurnResolver
                 ComboEffect comboEffect = combo != null
                     ? combo.GetEffect(board, kindA, kindB, comboX, comboY, rocketDirection, random, targetPriority)
                     : default;
+                
+                float comboFireMs = comboStartMs;
+                List<(int x, int y, float timeMs)> ballTargets = null;
 
                 if (comboEffect.Transformed != null)
                 {
                     var transformClear = new ClearPieceData();
-                    foreach (var (oldPiece, newPiece, tx, ty) in comboEffect.Transformed)
+                    ballTargets = new List<(int x, int y, float timeMs)>();
+
+                    float revealMs = ActivationTiming.LightBallStartMs + ActivationTiming.LightBallStepMs * comboEffect.Transformed.Count;
+                    comboFireMs = comboStartMs + revealMs + ActivationTiming.LightBallPulseMs;
+
+                    for (int i = 0; i < comboEffect.Transformed.Count; i++)
                     {
-                        transformClear.Hits.Add(new HitData(oldPiece.Id, tx, ty, 0f));
+                        var (oldPiece, newPiece, tx, ty) = comboEffect.Transformed[i];
+                        float transformTimeMs = comboStartMs + ActivationTiming.LightBallStartMs
+                                                            + ActivationTiming.LightBallStepMs * i; 
+
+                        transformClear.Hits.Add(new HitData(oldPiece.Id, tx, ty, transformTimeMs));
                         if (oldPiece.VisualType == PieceVisualType.Standard)
                         {
                             goalProgress.ClearedColors.Add(oldPiece.Color);
                         }
-                        pending.Enqueue(new PendingActivation(newPiece, tx, ty, null, 0f));
+
+                        result.Add(new SpecialCreatedData
+                        {
+                            Piece = newPiece,
+                            PieceId = newPiece.Id,
+                            Kind = GetKind(newPiece),
+                            X = tx,
+                            Y = ty,
+                            MergedIds = new List<int> { oldPiece.Id },
+                            TimeMs = transformTimeMs
+                        });
+
+                        ballTargets.Add((tx, ty, transformTimeMs));
+                        pending.Enqueue(new PendingActivation(newPiece, tx, ty, null, comboFireMs));
                     }
                     result.Add(transformClear);
                 }
@@ -114,18 +143,56 @@ public static class TurnResolver
                 {
                     ownCells.UnionWith(comboEffect.Cells);
                 }
-                
+
+                var mergeClear = new ClearPieceData();
+                mergeClear.Hits.Add(new HitData(atSource.Id, comboX, comboY, 0f));
+                result.Add(mergeClear);
+
                 var ownCellsTimed = new List<(int x, int y, float timeMs)>();
-                foreach (var (cx, cy) in ownCells)
+                if (comboEffect.TimedCells != null)
                 {
-                    ownCellsTimed.Add((cx, cy, 0f));
+                    ownCellsTimed.AddRange(comboEffect.TimedCells);
                 }
+                else
+                {
+                    float flightLocalTimeMs = (comboEffect.FlightTargets != null && comboEffect.FlightTargets.Count > 0) ? ActivationTiming.PropellerFlightMs : 0f;
+                    foreach (var (cx, cy) in ownCells)
+                    {
+                        bool isOrigin = cx == comboX && cy == comboY;
+                        ownCellsTimed.Add((cx, cy, isOrigin ? 0f : flightLocalTimeMs));
+                    }
+                }
+                
                 var comboDamageData = new DamagePieceData();
                 var comboClearOverlayData = new ClearOverlayData();
-                var comboClearData = ClearCellsAndEnqueueChains(board, ownCellsTimed, pending, consumed, comboDamageData, comboClearOverlayData, goalProgress, 0f);
-                result.Add(new SpecialActivatedData
+                var comboClearData = ClearCellsAndEnqueueChains(board, ownCellsTimed, pending, consumed, comboDamageData, comboClearOverlayData, goalProgress, comboFireMs);
+
+                Piece comboVisualPiece = kindB == PieceKind.Rocket
+                    ? new RocketPiece(atTarget.Id, rocketDirection ?? RocketDirection.Horizontal)
+                    : new SpecialPiece(atTarget.Id, kindB);
+
+                List<(int x, int y, float timeMs)> flightTargets = null;
+                if (comboEffect.FlightTargets != null && comboEffect.FlightTargets.Count > 0)
                 {
-                    PieceId = atTarget.Id, Kind = kindB, X = comboX, Y = comboY, TimeMs = 0f, IsCombo = true 
+                    flightTargets = new List<(int x, int y, float timeMs)>();
+                    foreach (var (fx, fy) in comboEffect.FlightTargets)
+                    {
+                        flightTargets.Add((fx, fy, ActivationTiming.PropellerFlightMs));
+                    }
+                }
+
+                result.Add(new SpecialActivationData
+                {
+                    PieceId = atTarget.Id,
+                    Piece = comboVisualPiece,
+                    Kind = kindB,
+                    ComboPartnerKind = kindA,
+                    X = comboX,
+                    Y = comboY,
+                    TimeMs = comboStartMs,
+                    Targets = ballTargets ?? flightTargets,
+                    Direction = rocketDirection,
+                    IsCombo = true
                 });
                 result.Add(comboDamageData);
                 result.Add(comboClearOverlayData);
@@ -170,7 +237,7 @@ public static class TurnResolver
             var chainClearOverlayData = new ClearOverlayData();
             var chainClearData = ClearCellsAndEnqueueChains(board, effect.Cells, pending, consumed, chainDamageData, chainClearOverlayData, goalProgress, activation.TimeMs);
             
-            result.Add(new SpecialActivatedData
+            result.Add(new SpecialActivationData
             {
                 PieceId = activation.Piece.Id,
                 Kind = GetKind(activation.Piece),
@@ -179,6 +246,7 @@ public static class TurnResolver
                 TargetX = effect.FlightTarget?.x,
                 TargetY = effect.FlightTarget?.y,
                 NeighborCells = effect.NeighborCells,
+                Targets = effect.Cells,
                 TimeMs = activation.TimeMs,
                 Direction = (activation.Piece as RocketPiece)?.Direction
             });
@@ -330,7 +398,7 @@ public static class TurnResolver
             const int maxFillIteration = 500;
             while (true)
             {
-                List<(int, int, int)> verticalMoves = OrganizationLogic.FillEmpties(board);
+                List<(int, int, int, int)> verticalMoves = OrganizationLogic.FillEmpties(board);
                 foreach (var move in verticalMoves)
                 {
                     RecordFallMove(fallStepData, refillStepData, refilledThisTurn, move);
@@ -379,7 +447,7 @@ public static class TurnResolver
         return  result;
     }
     
-    private static void RecordFallMove(FallStepData fallStepData, RefillStepData refillStepData, HashSet<int> refilledThisTurn, (int pieceId, int toX, int toY) move)
+    private static void RecordFallMove(FallStepData fallStepData, RefillStepData refillStepData, HashSet<int> refilledThisTurn, (int pieceId, int toX, int toY, int fromY) move)
     {
         if (refilledThisTurn.Contains(move.pieceId))
         {
@@ -391,6 +459,16 @@ public static class TurnResolver
                     refillStepData.Moves[i] = (entry.pieceId, entry.color, move.toX, move.toY);
                     return;
                 }
+            }
+        }
+
+        for (int i = 0; i < fallStepData.Moves.Count; i++)
+        {
+            if (fallStepData.Moves[i].pieceId == move.pieceId)
+            {
+                var entry = fallStepData.Moves[i];
+                fallStepData.Moves[i] = (entry.pieceId, move.toX, move.toY, entry.fromY);
+                return;
             }
         }
 
@@ -408,6 +486,7 @@ public static class TurnResolver
         ClearOverlayData clearOverlayData, GoalProgressData goalProgress, float baseTimeMs)
     {
         var clearPieceData = new ClearPieceData();
+        var hitOverlays = new HashSet<OverlayPiece>();
         foreach (var (cx, cy, localTimeMs) in cells)
         {
             float absoluteTimeMs = baseTimeMs + localTimeMs;
@@ -430,7 +509,10 @@ public static class TurnResolver
             if (overlay != null)
             {
                 bool wasLocked = BoardLogic.IsPieceLocked(piece);
-                TryBreakOverlay(board, overlay, cx, cy, absoluteTimeMs, clearOverlayData, damageData, goalProgress);
+                if (overlay.Flags.HasFlag(PieceFlags.DamageableBySpecial) && hitOverlays.Add(overlay))
+                {
+                    TryBreakOverlay(board, overlay, cx, cy, absoluteTimeMs, clearOverlayData, damageData, goalProgress);
+                }
                 if (wasLocked)
                 {
                     continue;

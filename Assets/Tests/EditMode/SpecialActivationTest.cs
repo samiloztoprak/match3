@@ -8,22 +8,23 @@ namespace Tests.EditMode
         private static HashSet<int> CollectClearedIds(List<TurnStepData> steps)
         {
             var ids = new HashSet<int>();
+            bool sawClear = false;
             foreach (var step in steps)
             {
-                if (step is FallStepData)
+                if (step is FallStepData && sawClear)
                 {
                     break;
                 }
 
                 if (step is ClearPieceData clear)
                 {
+                    sawClear = true;
                     foreach (var hit in clear.Hits)
                     {
                         ids.Add(hit.PieceId);
                     }
                 }
             }
-
             return ids;
         }
 
@@ -389,7 +390,7 @@ namespace Tests.EditMode
             int activationCount = 0;
             foreach (var step in result)
             {
-                if (step is SpecialActivatedData)
+                if (step is SpecialActivationData)
                 {
                     activationCount++;
                 }
@@ -457,20 +458,20 @@ namespace Tests.EditMode
             var result1 = TurnResolver.Resolve(board1, new TapCommand(2, 2), new SystemRandom(42));
             var result2 = TurnResolver.Resolve(board2, new TapCommand(2, 2), new SystemRandom(42));
 
-            SpecialActivatedData activated1 = null;
+            SpecialActivationData activated1 = null;
             foreach (var step in result1)
             {
-                if (step is SpecialActivatedData data)
+                if (step is SpecialActivationData data)
                 {
                     activated1 = data;
                     break;
                 }
             }
 
-            SpecialActivatedData activated2 = null;
+            SpecialActivationData activated2 = null;
             foreach (var step in result2)
             {
-                if (step is SpecialActivatedData data)
+                if (step is SpecialActivationData data)
                 {
                     activated2 = data;
                     break;

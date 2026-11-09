@@ -132,11 +132,11 @@ namespace Tests.EditMode
 
             var result = TurnResolver.Resolve(board, new TapCommand(2, 2));
 
-            SpecialActivatedData rocketActivation = null;
-            SpecialActivatedData tntActivation = null;
+            SpecialActivationData rocketActivation = null;
+            SpecialActivationData tntActivation = null;
             foreach (var step in result)
             {
-                if (step is SpecialActivatedData data)
+                if (step is SpecialActivationData data)
                 {
                     if (data.Kind == PieceKind.Rocket) rocketActivation = data;
                     else if (data.Kind == PieceKind.Tnt) tntActivation = data;

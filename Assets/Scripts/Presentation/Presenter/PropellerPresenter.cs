@@ -5,7 +5,7 @@ public class PropellerPresenter : IActivationPresenter
 {
     private readonly IActivationPresenter _fallback = new FlashActivationPresenter();
 
-    public float Present(SpecialActivatedData data, float t, TurnPlayer player,
+    public float Present(SpecialActivationData data, float t, TurnPlayer player,
         List<(float, IViewCommand)> timeline)
     {
         if (!data.TargetX.HasValue || !data.TargetY.HasValue)

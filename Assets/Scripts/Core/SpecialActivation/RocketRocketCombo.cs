@@ -4,8 +4,6 @@ public sealed class RocketRocketCombo : IComboActivation
 {
     public ComboEffect GetEffect(Board board, PieceKind kindA, PieceKind kindB, int x, int y, RocketDirection? rocketDirection, IRandom random, ITargetPriority targetPriority)
     {
-        var cells = new HashSet<(int x, int y)>();
-        CellPatterns.AddRowAndColumn(board, x, y, cells);
-        return new ComboEffect { Cells = cells };
+        return new ComboEffect { TimedCells = CellPatterns.AddRowAndColumnTimed(board, x, y) };
     }
 }

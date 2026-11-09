@@ -10,14 +10,15 @@ public static class ViewCommandFactory
         var result = new List<(float, IViewCommand)>();
 
         float popDuration = player.PopDuration;
-        float fallDuration = player.FallDuration;
+        float fallSecondsPerCell = player.FallSecondsPerCell;
         float fallDelay = player.FallDelay;
         float mergeDuration = player.MergeDuration;
 
         float waveStart = 0f;
-        float lastHit = 0f;         
+        float lastHit = 0f;
         float fallStart = -1f;
         bool fallHasMoves = false;
+        float fallMaxDuration = 0f; 
 
         float At(float timeMs) => waveStart + Mathf.Max(0f, timeMs) / 1000f;
 
@@ -39,6 +40,7 @@ public static class ViewCommandFactory
                 }
                 list.Add(hit);
             }
+
             foreach (var pair in buckets)
             {
                 float t = At(pair.Key);
@@ -79,11 +81,12 @@ public static class ViewCommandFactory
         void EndWave()
         {
             BeginFallPhase();
-            float waveEnd = fallHasMoves ? fallStart + fallDuration : lastHit;
+            float waveEnd = fallHasMoves ? fallStart + fallMaxDuration : lastHit;
             waveStart = Mathf.Max(waveEnd, waveStart);
             lastHit = waveStart;
             fallStart = -1f;
             fallHasMoves = false;
+            fallMaxDuration = 0f;
         }
 
         foreach (var step in steps)
@@ -91,59 +94,83 @@ public static class ViewCommandFactory
             switch (step)
             {
                 case ClearPieceData clear:
+                {
                     AddClearHits(clear.Hits);
                     break;
-
+                }
+                
                 case ClearOverlayData overlay:
+                {
                     AddClearHits(overlay.Hits);
                     break;
-
+                }
+                
                 case DamagePieceData damage:
+                {
                     AddDamageHits(damage.Hits);
                     break;
-
-                case SpecialActivatedData activated:
+                }
+                
+                case SpecialActivationData activated:
                 {
                     float t = At(activated.TimeMs);
-                    IActivationPresenter presenter = ActivationPresenterRegistry.Get(activated.Kind);
+                    IActivationPresenter presenter = ActivationPresenterRegistry.Get(activated);
                     MarkHit(presenter.Present(activated, t, player, result));
                     break;
                 }
-
+                
                 case SpecialCreatedData created:
                 {
+                    float ct = At(created.TimeMs);
                     Vector3 anchorPos = player.CellToWorld(created.X, created.Y);
-                    result.Add((waveStart, new MergeToAnchorViewCommand(created.MergedIds, anchorPos, player, mergeDuration)));
-                    result.Add((waveStart + mergeDuration, new SpawnSpecialViewCommand(created.Piece, anchorPos, player, 0f)));
-                    MarkHit(waveStart + mergeDuration);
+                    result.Add((ct, new MergeToAnchorViewCommand(created.MergedIds, anchorPos, player, mergeDuration)));
+                    result.Add((ct + mergeDuration, new SpawnSpecialViewCommand(created.Piece, anchorPos, player, 0f)));
+                    MarkHit(ct + mergeDuration);
                     break;
                 }
-
+                
                 case FallStepData fall:
+                {
                     BeginFallPhase();
                     if (fall.Moves.Count > 0)
                     {
-                        result.Add((fallStart, new FallViewCommand(fall.Moves, player, fallDuration)));
+                        var fallCmd = new FallViewCommand(fall.Moves, player, fallSecondsPerCell);
+                        result.Add((fallStart, fallCmd));
                         fallHasMoves = true;
+                        fallMaxDuration = Mathf.Max(fallMaxDuration, fallCmd.Duration);
                     }
                     break;
-
+                }
+                
                 case RefillStepData refill:
+                {
                     BeginFallPhase();
                     if (refill.Moves.Count > 0)
                     {
-                        result.Add((fallStart, new RefillViewCommand(refill.Moves, player, fallDuration)));
+                        var refillCmd = new RefillViewCommand(refill.Moves, player, fallSecondsPerCell);
+                        result.Add((fallStart, refillCmd));
                         fallHasMoves = true;
+                        fallMaxDuration = Mathf.Max(fallMaxDuration, refillCmd.Duration);
                     }
                     EndWave();
                     break;
-
+                }
+                
                 case ShuffleStepData shuffle:
                 {
                     const float shuffleDuration = 0.5f;
                     result.Add((waveStart, new ShuffleViewCommand(shuffle.Moves, player, shuffleDuration)));
                     waveStart += shuffleDuration;
                     lastHit = waveStart;
+                    break;
+                }
+                
+                case ComboMergeData merge:
+                {
+                    float duration = ActivationTiming.ComboMergeMs / 1000f;
+                    Vector3 to = player.CellToWorld(merge.ToX, merge.ToY);
+                    result.Add((waveStart, new MergeToAnchorViewCommand(new List<int> { merge.PieceId }, to, player, duration)));
+                    MarkHit(waveStart + duration);
                     break;
                 }
             }

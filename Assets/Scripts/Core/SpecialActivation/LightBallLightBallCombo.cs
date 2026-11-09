@@ -4,14 +4,15 @@ public sealed class LightBallLightBallCombo : IComboActivation
 {
     public ComboEffect GetEffect(Board board, PieceKind kindA, PieceKind kindB, int x, int y, RocketDirection? rocketDirection, IRandom random, ITargetPriority targetPriority)
     {
-        var cells = new HashSet<(int x, int y)>();
+        var timed = new List<(int x, int y, float timeMs)>();
         for (int cx = 0; cx < board.Width; cx++)
         {
             for (int cy = 0; cy < board.Height; cy++)
             {
-                cells.Add((cx, cy));
+                int ring = ActivationTiming.ChebyshevDistance(x, y, cx, cy);
+                timed.Add((cx, cy, ActivationTiming.LightBallWaveMsPerRing * ring));
             }
         }
-        return new ComboEffect { Cells = cells };
+        return new ComboEffect { TimedCells = timed };
     }
 }

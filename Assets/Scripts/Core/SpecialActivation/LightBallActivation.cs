@@ -26,30 +26,25 @@ public sealed class LightBallActivation : ISpecialActivation
                 }
             }
         }
-
+        
         targets.Sort((a, b) =>
         {
             int da = (a.x - x) * (a.x - x) + (a.y - y) * (a.y - y);
             int db = (b.x - x) * (b.x - x) + (b.y - y) * (b.y - y);
-            if (da != db)
-            {
-                return da.CompareTo(db);
-            }
-            if (a.x != b.x)
-            {
-                return a.x.CompareTo(b.x);
-            }
+            if (da != db) return da.CompareTo(db);
+            if (a.x != b.x) return a.x.CompareTo(b.x);
             return a.y.CompareTo(b.y);
         });
 
-        float lastMs = 0f;
-        for (int i = 0; i < targets.Count; i++)
-        {
-            lastMs = ActivationTiming.LightBallStartMs + ActivationTiming.LightBallStepMs * i;
-            cells.Add((targets[i].x, targets[i].y, lastMs));
-        }
+        float revealMs = ActivationTiming.LightBallStartMs + ActivationTiming.LightBallStepMs * targets.Count;
+        float clearMs = revealMs + ActivationTiming.LightBallPulseMs;
 
-        cells.Add((x, y, lastMs));
+        foreach (var target in targets)
+        {
+            cells.Add((target.x, target.y, clearMs));
+        }
+        cells.Add((x, y, clearMs));
+
         return new ActivationEffect { Cells = cells, FlightTarget = null };
     }
 }

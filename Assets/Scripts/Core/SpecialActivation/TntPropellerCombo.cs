@@ -6,7 +6,7 @@ public sealed class TntPropellerCombo : IComboActivation
     {
         var cells = new HashSet<(int x, int y)>();
         var (rx, ry) = CellPatterns.PickTarget(board, random, targetPriority);
-        CellPatterns.AddArea(board, rx, ry, 1, cells);
-        return new ComboEffect { Cells = cells };
+        CellPatterns.AddArea(board, rx, ry, ActivationArea.TntPropellerRadius, cells);
+        return new ComboEffect { Cells = cells, FlightTargets = new List<(int x, int y)> { (rx, ry) } };
     }
 }

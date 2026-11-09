@@ -10,7 +10,7 @@ public class BoardController : MonoBehaviour
     [SerializeField] private TurnPlayer _turnPlayer;
     [SerializeField] private HudController _hud;
     [SerializeField] private EndGameController _endGame;
-    [SerializeField] private float _idleHintDelay = 6f;
+    [SerializeField] private float _idleHintDelay = 5f;
     [SerializeField] private SpriteRenderer _background;
     [SerializeField] private float _cameraMargin = 1f;
     
@@ -199,9 +199,18 @@ public class BoardController : MonoBehaviour
 
         var command = new SwapCommand(_board, x1, y1, x2, y2);
         var result = TurnResolver.Resolve(_board, command, targetPriority: _goalTracker);
-        ApplyTurnResult(result, true);
+        bool isCombo = false;
+        foreach (var step in result)
+        {
+            if (step is SpecialActivationData sad && sad.IsCombo)
+            {
+                isCombo = true;
+                break;
+            }
+        }
         
-        StartCoroutine(PlayTurnAndCheckShuffle(_turnPlayer.PlaySwapTurn(piece1.Id, piece2.Id, x1, y1, x2, y2, result)));
+        ApplyTurnResult(result, true);
+        StartCoroutine(PlayTurnAndCheckShuffle(_turnPlayer.PlaySwapTurn(piece1.Id, piece2.Id, x1, y1, x2, y2, result, isCombo)));
     }
     
     public void TryActivate(int x, int y)

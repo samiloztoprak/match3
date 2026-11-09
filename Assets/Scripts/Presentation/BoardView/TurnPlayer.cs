@@ -11,7 +11,7 @@ public class TurnPlayer : MonoBehaviour
     [SerializeField] private float _cellSize = 1f;
     [SerializeField] private float _stepDuration = 0.2f;  
     [SerializeField] private float _swapDuration = 0.15f;
-    [SerializeField] private float _fallDuration = 0.2f;
+    [SerializeField] private float _fallSecondsPerCell = 0.08f;
     [SerializeField] private float _fallDelay = 0.06f;
     [SerializeField] private float _mergeDuration = 0.16f;
     [SerializeField] private PieceVisualConfig _visualConfig;
@@ -21,6 +21,8 @@ public class TurnPlayer : MonoBehaviour
     [SerializeField] private EffectSpawner _effects;
     [SerializeField] private CameraShake _cameraShake;
     [SerializeField] private ExplosionView _tntExplosionPrefab;
+    [SerializeField] private LightBeamView _lightBeamPrefab;
+    [SerializeField] private PropellerActivationView _propellerActivationPrefab;
     
     public PropellerAnimationConfig PropellerConfig => _propellerConfig;
     public EffectSpawner Effects => _effects;
@@ -28,7 +30,7 @@ public class TurnPlayer : MonoBehaviour
     public ExplosionView TntExplosionPrefab => _tntExplosionPrefab;
     
     public float PopDuration => _stepDuration;
-    public float FallDuration => _fallDuration;
+    public float FallSecondsPerCell => _fallSecondsPerCell;
     public float FallDelay => _fallDelay;
     public float MergeDuration => _mergeDuration;
 
@@ -56,9 +58,10 @@ public class TurnPlayer : MonoBehaviour
             actionOnGet: view => view.gameObject.SetActive(true),
             actionOnRelease: view =>
             {
-                view.transform.DOKill();
+                view.KillTweens();
                 view.gameObject.SetActive(false);
                 view.transform.localScale = defaultScale;
+                view.transform.rotation = Quaternion.identity;
                 view.SetSortingOrder(SortingOrders.Piece);
             },
             actionOnDestroy: view => Destroy(view.gameObject),
@@ -145,32 +148,59 @@ public class TurnPlayer : MonoBehaviour
         _effects.Release(view);
     }
     
-    public IEnumerator PlaySwapTurn(int piece1Id, int piece2Id, int x1, int y1, int x2, int y2, List<TurnStepData> steps)
+    public LightBeamView SpawnLightBeam(Vector3 position)
+    {
+        return _effects.Spawn(_lightBeamPrefab, position);
+    }
+
+    public void ReleaseLightBeam(LightBeamView view)
+    {
+        _effects.Release(view);
+    }
+    
+    public PropellerActivationView SpawnPropellerActivation(Vector3 position)
+    {
+        return _effects.Spawn(_propellerActivationPrefab, position);
+    }
+
+    public void ReleasePropellerActivation(PropellerActivationView view)
+    {
+        _effects.Release(view);
+    }
+    
+    public IEnumerator PlaySwapTurn(int piece1Id, int piece2Id, int x1, int y1, int x2, int y2, List<TurnStepData> steps, bool isCombo = false)
     {
         IsBusy = true;
         try
         {
+            Vector3 targetWorldPos = CellToWorld(x2, y2);
+            Vector3 sourceWorldPos = CellToWorld(x1, y1);
+
             if (_pieceById.TryGetValue(piece1Id, out PieceView view1))
             {
-                view1.MoveTo(CellToWorld(x2, y2), _swapDuration);
+                view1.MoveTo(targetWorldPos, _swapDuration);
             }
             if (_pieceById.TryGetValue(piece2Id, out PieceView view2))
             {
-                view2.MoveTo(CellToWorld(x1, y1), _swapDuration);
+                view2.MoveTo(isCombo ? targetWorldPos : sourceWorldPos, _swapDuration);
             }
-            yield return new WaitForSeconds(_swapDuration);
+            
+            if (!isCombo)
+            {
+                yield return new WaitForSeconds(_swapDuration);
+            }
 
             List<(float startTime, IViewCommand command)> commands = ViewCommandFactory.Build(steps, this);
-            
+
             if (commands.Count == 0)
             {
                 if (_pieceById.TryGetValue(piece1Id, out PieceView backView1))
                 {
-                    backView1.MoveTo(CellToWorld(x1, y1), _swapDuration);
+                    backView1.MoveTo(sourceWorldPos, _swapDuration);
                 }
                 if (_pieceById.TryGetValue(piece2Id, out PieceView backView2))
                 {
-                    backView2.MoveTo(CellToWorld(x2, y2), _swapDuration);
+                    backView2.MoveTo(targetWorldPos, _swapDuration);
                 }
                 yield return new WaitForSeconds(_swapDuration);
                 yield break;

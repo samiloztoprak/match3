@@ -7,9 +7,10 @@ public sealed class TntActivation : ISpecialActivation
     public ActivationEffect GetAffectedCells(Board board, Piece piece, int x, int y, Piece partner, IRandom random, ITargetPriority targetPriority)
     {
         var cells = new List<(int x, int y, float timeMs)>();
-        for (int cx = x - 1; cx <= x + 1; cx++)
+        int r = ActivationArea.TntRadius;
+        for (int cx = x - r; cx <= x + r; cx++)
         {
-            for (int cy = y - 1; cy <= y + 1; cy++)
+            for (int cy = y - r; cy <= y + r; cy++)
             {
                 if (cx < 0 || cx >= board.Width || cy < 0 || cy >= board.Height)
                 {

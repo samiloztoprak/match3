@@ -992,6 +992,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 135300bf1a68fb6409f973bb45e47e64, type: 2}
   - {fileID: 11400000, guid: 6df24a80ac8935d4db2ed24a5eafc794, type: 2}
   - {fileID: 11400000, guid: e46326d4df642e740bd3219a2b639dd5, type: 2}
+  - {fileID: 11400000, guid: 067c52a50dd14bccb41494896e3eff78, type: 2}
+  - {fileID: 11400000, guid: 8510f15986a84273b9df314d4cf04bde, type: 2}
+  - {fileID: 11400000, guid: 95370c4acc6946ad9b7ee3391e99b8cf, type: 2}
+  - {fileID: 11400000, guid: 90e1e7d0194c41128ad1e8e939d7f3e5, type: 2}
+  - {fileID: 11400000, guid: ffc206bb2c14472fb5ddf69577640ee2, type: 2}
+  - {fileID: 11400000, guid: 186de52f4e86423a8c2928739fe82d46, type: 2}
+  - {fileID: 11400000, guid: 79f4da8be9b84ffc96b2b7cb585c3240, type: 2}
+  - {fileID: 11400000, guid: 1f57e4d6f91c4ef0833be181ffcb442a, type: 2}
+  - {fileID: 11400000, guid: e3bd349e8faf4a6982523fc3ba836a7f, type: 2}
+  - {fileID: 11400000, guid: 73009cc69e7c473e98b47b7ac439c8c6, type: 2}
   _turnPlayer: {fileID: 1077321448}
   _hud: {fileID: 1872247925}
   _endGame: {fileID: 1394509476}
@@ -1029,7 +1039,7 @@ MonoBehaviour:
   _cellSize: 1
   _stepDuration: 0.1
   _swapDuration: 0.15
-  _fallDuration: 0.2
+  _fallSecondsPerCell: 0.08
   _fallDelay: 0.06
   _mergeDuration: 0.16
   _visualConfig: {fileID: 11400000, guid: 09d110696ffca734986e68c988cb8450, type: 2}
@@ -1039,6 +1049,8 @@ MonoBehaviour:
   _effects: {fileID: 1077321449}
   _cameraShake: {fileID: 519420033}
   _tntExplosionPrefab: {fileID: 6683318824054819131, guid: 3f74d0a9958f84d4996f9b723f75322c, type: 3}
+  _lightBeamPrefab: {fileID: 6678387600696547443, guid: 881b7086c8df30b479007379810ecd69, type: 3}
+  _propellerActivationPrefab: {fileID: 4182894333919953439, guid: 50b5c26630829044bb5464bb92e099e5, type: 3}
 --- !u!114 &1077321449
 MonoBehaviour:
   m_ObjectHideFlags: 0

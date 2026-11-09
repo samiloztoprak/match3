@@ -14,4 +14,5 @@ public sealed class SpecialCreatedData : TurnStepData
     public int X;
     public int Y;
     public List<int> MergedIds;
+    public float TimeMs;
 }

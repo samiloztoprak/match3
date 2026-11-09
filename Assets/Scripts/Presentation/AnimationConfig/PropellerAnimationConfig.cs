@@ -4,7 +4,6 @@ using UnityEngine;
 public class PropellerAnimationConfig : ScriptableObject
 {
     [Header("Flight")]
-    public float FlightDuration = 0.4f;
     public float PeakScale = 1.4f;
     public float WeaveFactor = 0.25f;
     public float MinWeaveAmount = 0.3f;
