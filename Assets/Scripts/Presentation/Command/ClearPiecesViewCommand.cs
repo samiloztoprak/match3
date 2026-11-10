@@ -21,11 +21,16 @@ public class ClearPiecesViewCommand : IViewCommand
         foreach (HitData hit in _hits)
         {
             PieceView view = _player.GetView(hit.PieceId);
-            if (view == null) continue;
+            if (view == null)
+            {
+                continue;
+            }
 
-            _player.SpawnBreakEffect(view.transform.position);
+            Vector3 position = view.transform.position;
+            Piece piece = view.Piece;
             _player.UnregisterView(hit.PieceId);
             view.ShrinkAndRelease(_shrinkDuration, v => _player.ReleasePooled(v));
+            _player.SpawnBreakEffect(piece, position);
         }
     }
 }

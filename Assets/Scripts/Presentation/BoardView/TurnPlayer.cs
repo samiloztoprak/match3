@@ -15,7 +15,7 @@ public class TurnPlayer : MonoBehaviour
     [SerializeField] private float _fallDelay = 0.06f;
     [SerializeField] private float _mergeDuration = 0.16f;
     [SerializeField] private PieceVisualConfig _visualConfig;
-    [SerializeField] private ParticleSystem _breakEffectPrefab;
+    [SerializeField] private BreakEffectConfig _breakEffects;
     [SerializeField] private PropellerAnimationConfig _propellerConfig;
     [SerializeField] private RocketActivationView _rocketActivationPrefab;
     [SerializeField] private EffectSpawner _effects;
@@ -68,15 +68,6 @@ public class TurnPlayer : MonoBehaviour
             collectionCheck: true,
             defaultCapacity: board.Width * board.Height,
             maxSize: 200);
-
-        _breakEffectPool = new ObjectPool<ParticleSystem>(
-            createFunc: () => Instantiate(_breakEffectPrefab, transform),
-            actionOnGet: effect => effect.gameObject.SetActive(true),
-            actionOnRelease: effect => effect.gameObject.SetActive(false),
-            actionOnDestroy: effect => Destroy(effect.gameObject),
-            collectionCheck: true,
-            defaultCapacity: 10,
-            maxSize: 50);
     }
     
     public PieceView GetView(int pieceId)
@@ -124,20 +115,6 @@ public class TurnPlayer : MonoBehaviour
         return instance;
     }
     
-    public void SpawnBreakEffect(Vector3 position)
-    {
-        ParticleSystem effect = _breakEffectPool.Get();
-        effect.transform.position = position;
-        effect.Play();
-        StartCoroutine(ReleaseBreakAfterPlay(effect));
-    }
-    
-    private IEnumerator ReleaseBreakAfterPlay(ParticleSystem effect)
-    {
-        yield return new WaitForSeconds(effect.main.duration + effect.main.startLifetime.constantMax);
-        _breakEffectPool.Release(effect);
-    }
-    
     public RocketActivationView SpawnRocketActivation(Vector3 position)
     {
         return _effects.Spawn(_rocketActivationPrefab, position);
@@ -166,6 +143,52 @@ public class TurnPlayer : MonoBehaviour
     public void ReleasePropellerActivation(PropellerActivationView view)
     {
         _effects.Release(view);
+    }
+    
+    public void SpawnBreakEffect(Vector3 position)
+    {
+        if (_breakEffects == null)
+        {
+            return;
+        }
+        PlayEffect(_breakEffects.Default, position);
+    }
+
+    public void SpawnBreakEffect(Piece piece, Vector3 position)
+    {
+        if (_breakEffects == null)
+        {
+            return;
+        }
+        PlayEffect(_breakEffects.GetBreak(piece), position);
+    }
+
+    public void SpawnHitEffect(Piece piece, Vector3 position)
+    {
+        if (_breakEffects == null)
+        {
+            return;
+        }
+        PlayEffect(_breakEffects.GetHit(piece), position);
+    }
+
+    private void PlayEffect(ParticleSystem prefab, Vector3 position)
+    {
+        if (prefab == null || _effects == null)
+        {
+            return;
+        }
+        
+        ParticleSystem effect = _effects.Spawn(prefab, position);
+        effect.Clear(true);
+        effect.Play(true);
+        StartCoroutine(ReleaseEffectAfter(effect, effect.main.duration + effect.main.startLifetime.constantMax));
+    }
+
+    private IEnumerator ReleaseEffectAfter(ParticleSystem effect, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        _effects.Release(effect);
     }
     
     public IEnumerator PlaySwapTurn(int piece1Id, int piece2Id, int x1, int y1, int x2, int y2, List<TurnStepData> steps, bool isCombo = false)

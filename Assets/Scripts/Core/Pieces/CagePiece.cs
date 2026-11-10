@@ -7,7 +7,7 @@ public sealed class CagePiece : OverlayPiece
     {
         VisualType = PieceVisualType.Cage;
         GoalKind = GoalType.ClearCage;
-        Health = 2;
+        Health = 3;
     }
     
     private static HashSet<(int x, int y)> BuildCoveredCells(int x, int y)

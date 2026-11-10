@@ -167,6 +167,15 @@ public static class TurnResolver
                 var comboClearOverlayData = new ClearOverlayData();
                 var comboClearData = ClearCellsAndEnqueueChains(board, ownCellsTimed, pending, consumed, comboDamageData, comboClearOverlayData, goalProgress, comboFireMs);
 
+                if (comboEffect.LandingStrikes != null)
+                {
+                    foreach (var strike in comboEffect.LandingStrikes)
+                    {
+                        var strikeClearData = ClearCellsAndEnqueueChains(board, strike, pending, consumed, comboDamageData, comboClearOverlayData, goalProgress, comboFireMs);
+                        comboClearData.Hits.AddRange(strikeClearData.Hits);
+                    }
+                }
+                
                 Piece comboVisualPiece = kindB == PieceKind.Rocket
                     ? new RocketPiece(atTarget.Id, rocketDirection ?? RocketDirection.Horizontal)
                     : new SpecialPiece(atTarget.Id, kindB);
@@ -237,6 +246,15 @@ public static class TurnResolver
             var chainClearOverlayData = new ClearOverlayData();
             var chainClearData = ClearCellsAndEnqueueChains(board, effect.Cells, pending, consumed, chainDamageData, chainClearOverlayData, goalProgress, activation.TimeMs);
             
+            var allCells = effect.Cells;
+            if (effect.LandingCells != null)
+            {
+                var landingClearData = ClearCellsAndEnqueueChains(board, effect.LandingCells, pending, consumed, chainDamageData, chainClearOverlayData, goalProgress, activation.TimeMs);
+                chainClearData.Hits.AddRange(landingClearData.Hits);
+                allCells = new List<(int x, int y, float timeMs)>(effect.Cells);
+                allCells.AddRange(effect.LandingCells);
+            }
+            
             result.Add(new SpecialActivationData
             {
                 PieceId = activation.Piece.Id,
@@ -246,7 +264,7 @@ public static class TurnResolver
                 TargetX = effect.FlightTarget?.x,
                 TargetY = effect.FlightTarget?.y,
                 NeighborCells = effect.NeighborCells,
-                Targets = effect.Cells,
+                Targets = allCells,
                 TimeMs = activation.TimeMs,
                 Direction = (activation.Piece as RocketPiece)?.Direction
             });
@@ -312,10 +330,11 @@ public static class TurnResolver
             result.Add(damageData);
             result.Add(clearOverlayData);
             
-            (int x, int y)? anchorHint = null;
+            var anchorHints = new List<(int x, int y)>();
             if (iteration == 0 && command is SwapCommand swapCommand)
             {
-                anchorHint = swapCommand.TargetPosition;
+                anchorHints.Add(swapCommand.TargetPosition);
+                anchorHints.Add(swapCommand.SourcePosition);
             }
             
             foreach (var (template, cells) in matches)
@@ -337,9 +356,7 @@ public static class TurnResolver
                 }
                 else
                 {
-                    (int, int) anchor = (anchorHint.HasValue && cells.Contains(anchorHint.Value))
-                        ? anchorHint.Value
-                        : cells.First();
+                    (int, int) anchor = PickAnchor(cells, anchorHints);
 
                     List<int> mergedIds = new List<int>();
                     
@@ -498,6 +515,11 @@ public static class TurnResolver
                 continue;
             }
             
+            if (BoardLogic.IsVoid(piece))
+            {
+                continue;
+            }
+            
             bool isChainTarget = piece.VisualType == PieceVisualType.Special && !excludeFromChain.Contains(piece.Id);
             if (isChainTarget)
             {
@@ -587,5 +609,27 @@ public static class TurnResolver
         {
             damageData.Hits.Add((floor.Id, floor.Health, timeMs));
         }
+    }
+    
+    private static (int x, int y) PickAnchor(IEnumerable<(int x, int y)> cells, List<(int x, int y)> hints)
+    {
+        var list = new List<(int x, int y)>(cells);
+        foreach (var hint in hints)
+        {
+            if (list.Contains(hint)) return hint;
+        }
+
+        float cx = 0f, cy = 0f;
+        foreach (var (x, y) in list) { cx += x; cy += y; }
+        cx /= list.Count; cy /= list.Count;
+
+        var best = list[0];
+        float bestDist = float.MaxValue;
+        foreach (var c in list)
+        {
+            float d = (c.x - cx) * (c.x - cx) + (c.y - cy) * (c.y - cy);
+            if (d < bestDist) { bestDist = d; best = c; }
+        }
+        return best;
     }
 }

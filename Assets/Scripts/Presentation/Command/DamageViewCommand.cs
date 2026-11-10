@@ -22,7 +22,7 @@ public class DamageViewCommand : IViewCommand
             PieceView view = _player.GetView(pieceId);
             if (view == null) continue;
 
-            _player.SpawnBreakEffect(view.transform.position);
+            _player.SpawnHitEffect(view.Piece, view.transform.position);
             view.RefreshSprite(_player.VisualConfig, healthAfter);
         }
     }

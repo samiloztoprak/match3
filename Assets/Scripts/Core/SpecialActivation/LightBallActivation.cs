@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using LogicLibrary;
 
 public sealed class LightBallActivation : ISpecialActivation
 {
@@ -19,7 +20,7 @@ public sealed class LightBallActivation : ISpecialActivation
                 for (int cy = 0; cy < board.Height; cy++)
                 {
                     Piece p = board.GetCell(cx, cy);
-                    if (p != null && p.VisualType == PieceVisualType.Standard && p.Color == targetColor)
+                    if (BoardLogic.IsColorTargetable(p) && p.Color == targetColor)
                     {
                         targets.Add((cx, cy));
                     }

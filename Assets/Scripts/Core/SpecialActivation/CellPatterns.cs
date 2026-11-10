@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using LogicLibrary;
 
 public static class CellPatterns
 {
@@ -14,6 +15,23 @@ public static class CellPatterns
         }
     }
 
+    public static HashSet<(int x, int y)> ToCellSet(List<(int x, int y, float timeMs)> cells)
+    {
+        var set = new HashSet<(int x, int y)>();
+        foreach (var (cx, cy, _) in cells)
+        {
+            set.Add((cx, cy));
+        }
+        return set;
+    }
+    
+    public static List<(int x, int y, float timeMs)> PropellerTakeoff(Board board, int x, int y)
+    {
+        var cells = new List<(int x, int y, float timeMs)> { (x, y, 0f) };
+        AddNeighbors(board, x, y, cells);
+        return cells;
+    }
+    
     public static void AddArea(Board board, int x, int y, int radius, HashSet<(int x, int y)> cells)
     {
         for (int cx = x - radius; cx <= x + radius; cx++)
@@ -148,10 +166,18 @@ public static class CellPatterns
         {
             for (int cy = 0; cy < board.Height; cy++)
             {
-                if (board.GetCell(cx, cy) == null)
+                Piece cell = board.GetCell(cx, cy);
+
+                if (cell == null)
                 {
                     continue;
                 }
+                
+                if(BoardLogic.IsVoid(cell))
+                {
+                    continue;
+                }
+                
                 if (exclude != null && exclude.Contains((cx, cy)))
                 {
                     continue;

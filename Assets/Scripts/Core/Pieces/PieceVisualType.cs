@@ -6,5 +6,6 @@ public enum PieceVisualType
     Lock,
     Special,
     Grass,
-    Cage
+    Cage,
+    Hole
 }

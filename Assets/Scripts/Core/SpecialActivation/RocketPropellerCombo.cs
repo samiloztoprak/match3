@@ -4,33 +4,31 @@ public sealed class RocketPropellerCombo : IComboActivation
 {
     public ComboEffect GetEffect(Board board, PieceKind kindA, PieceKind kindB, int x, int y, RocketDirection? rocketDirection, IRandom random, ITargetPriority targetPriority)
     {
-        var (rx, ry) = CellPatterns.PickTarget(board, random, targetPriority);
+        var takeoff = CellPatterns.PropellerTakeoff(board, x, y);
+        var (rx, ry) = CellPatterns.PickTarget(board, random, targetPriority, CellPatterns.ToCellSet(takeoff));
         RocketDirection dir = rocketDirection ?? RocketDirection.Horizontal;
 
-        var map = new Dictionary<(int x, int y), float>();
-        map[(x, y)] = 0f;
-
+        var rocket = new List<(int x, int y, float timeMs)>();
         if (dir == RocketDirection.Horizontal)
         {
             for (int cx = 0; cx < board.Width; cx++)
             {
-                float t = ActivationTiming.PropellerFlightMs + ActivationTiming.RocketMsPerCell * System.Math.Abs(cx - rx);
-                if (!map.TryGetValue((cx, ry), out float old) || t < old) map[(cx, ry)] = t;
+                rocket.Add((cx, ry, ActivationTiming.PropellerFlightMs + ActivationTiming.RocketMsPerCell * System.Math.Abs(cx - rx)));
             }
         }
         else
         {
             for (int cy = 0; cy < board.Height; cy++)
             {
-                float t = ActivationTiming.PropellerFlightMs + ActivationTiming.RocketMsPerCell * System.Math.Abs(cy - ry);
-                if (!map.TryGetValue((rx, cy), out float old) || t < old) map[(rx, cy)] = t;
+                rocket.Add((rx, cy, ActivationTiming.PropellerFlightMs + ActivationTiming.RocketMsPerCell * System.Math.Abs(cy - ry)));
             }
         }
 
-        var timed = new List<(int x, int y, float timeMs)>();
-        foreach (var kvp in map) timed.Add((kvp.Key.x, kvp.Key.y, kvp.Value));
-
-        return new ComboEffect { TimedCells = timed, FlightTargets = new List<(int x, int y)> { (rx, ry) } };
-
+        return new ComboEffect
+        {
+            TimedCells = takeoff,
+            FlightTargets = new List<(int x, int y)> { (rx, ry) },
+            LandingStrikes = new List<List<(int x, int y, float timeMs)>> { rocket },
+        };
     }
 }

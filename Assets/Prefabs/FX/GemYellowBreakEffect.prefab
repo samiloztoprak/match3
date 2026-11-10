@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5821125934637396768}
   - component: {fileID: 8636490982486929628}
   m_Layer: 0
-  m_Name: BreakEffect (1)
+  m_Name: GemYellowBreakEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4840,7 +4840,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e6b766dd4f0b77a41b076c14e9b2b275, type: 2}
+  - {fileID: 2100000, guid: 9873e8d3fb41f6540bc1f87535afa06a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4906,7 +4906,7 @@ GameObject:
   - component: {fileID: 3731488670092309079}
   - component: {fileID: 4741421009587053905}
   m_Layer: 0
-  m_Name: BreakEffect
+  m_Name: GemYellowBreakEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4920,14 +4920,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8642222266317719891}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -1.78103, y: -0.67154, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 926516737725801207}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &3731488670092309079
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -5642,7 +5642,7 @@ ParticleSystem:
     m_TextureColorAffectsParticles: 1
     m_TextureAlphaAffectsParticles: 1
     m_TextureBilinearFiltering: 0
-    randomDirectionAmount: 0
+    randomDirectionAmount: 0.74
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
@@ -9735,7 +9735,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e6b766dd4f0b77a41b076c14e9b2b275, type: 2}
+  - {fileID: 2100000, guid: 9873e8d3fb41f6540bc1f87535afa06a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9756,7 +9756,7 @@ ParticleSystemRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 999
   m_MaskInteraction: 0
   m_RenderMode: 0
   m_MeshDistribution: 0

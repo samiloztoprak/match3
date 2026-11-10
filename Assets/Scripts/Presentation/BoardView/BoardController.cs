@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 
 public class BoardController : MonoBehaviour
 {
+    [SerializeField, Range(0.1f, 1f)] private float _swipeThresholdCells = 0.35f;
+
     [SerializeField] private LevelDefinition[] _levels;
     [SerializeField] private TurnPlayer _turnPlayer;
     [SerializeField] private HudController _hud;
@@ -13,12 +15,14 @@ public class BoardController : MonoBehaviour
     [SerializeField] private float _idleHintDelay = 5f;
     [SerializeField] private SpriteRenderer _background;
     [SerializeField] private float _cameraMargin = 1f;
+    [SerializeField] private SpriteRenderer _cellTilePrefab;
     
     private LevelDefinition _level;
     
     private bool _hasStart;
     private int _startX, _startY;
     private Vector3 _startWorldPos;
+    private bool _swipeConsumed;
     private Board _board;
     private GoalTracker _goalTracker;
     private int _movesRemaining;
@@ -27,6 +31,7 @@ public class BoardController : MonoBehaviour
     private float _idleTimer;
     private PieceView _hintView1;
     private PieceView _hintView2;
+    
     
     void Start()
     {
@@ -52,6 +57,17 @@ public class BoardController : MonoBehaviour
             for (int y = 0; y < _board.Height; y++)
             {
                 Piece piece = _board.GetCell(x, y);
+                if (BoardLogic.IsVoid(piece))
+                {
+                    continue;
+                }
+                
+                if (_cellTilePrefab != null)
+                {
+                    SpriteRenderer tile = Instantiate(_cellTilePrefab, _turnPlayer.CellToWorld(x, y), Quaternion.identity, transform);
+                    tile.sortingOrder = SortingOrders.CellTile;
+                }
+                
                 _turnPlayer.SpawnPieceView(piece, _turnPlayer.CellToWorld(x, y));
             }
         }
@@ -95,21 +111,19 @@ public class BoardController : MonoBehaviour
         {
             _idleTimer = 0f;
             ClearHint();
-            
-            Vector2 screenPos = Pointer.current.position.ReadValue();
-            Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, 0));
-            _startWorldPos = worldPos;
-            (_startX, _startY) = _turnPlayer.WorldToCell(worldPos);
-            _hasStart = true;
-        }
-        
-        if (Pointer.current.press.wasReleasedThisFrame && _hasStart)
-        {
-            Vector2 screenPos = Pointer.current.position.ReadValue();
-            Vector3 endWorldPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, 0));
-            Vector3 delta = endWorldPos - _startWorldPos;
 
-            if (delta.magnitude > .5f)
+            _startWorldPos = PointerWorldPosition();
+            (_startX, _startY) = _turnPlayer.WorldToCell(_startWorldPos);
+            _hasStart = _startX >= 0 && _startX < _board.Width && _startY >= 0 && _startY < _board.Height;
+            _swipeConsumed = false;
+        }
+
+        if (_hasStart && !_swipeConsumed && Pointer.current.press.isPressed)
+        {
+            Vector3 delta = PointerWorldPosition() - _startWorldPos;
+            float threshold = _turnPlayer.CellSize * _swipeThresholdCells;
+
+            if (delta.magnitude >= threshold)
             {
                 int targetX = _startX;
                 int targetY = _startY;
@@ -119,13 +133,19 @@ public class BoardController : MonoBehaviour
                 else
                     targetY += delta.y > 0 ? -1 : 1;
 
+                _swipeConsumed = true;
                 TrySwap(_startX, _startY, targetX, targetY);
             }
-            else
+        }
+
+        if (Pointer.current.press.wasReleasedThisFrame)
+        {
+            if (_hasStart && !_swipeConsumed)
             {
                 TryActivate(_startX, _startY);
             }
             _hasStart = false;
+            _swipeConsumed = false;
         }
     }
     
@@ -295,4 +315,27 @@ public class BoardController : MonoBehaviour
         _background.transform.localScale = new Vector3(visibleWidth / nativeSize.x, visibleHeight / nativeSize.y, 1f);
         _background.sortingOrder = SortingOrders.Background;
     }
+    
+    private Vector3 PointerWorldPosition()
+    {
+        Vector2 screenPos = Pointer.current.position.ReadValue();
+        Vector3 world = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, 0f));
+        world.z = 0f;
+        return world;
+    }
+    
+    
+    
+    
+    
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+    public int LevelCount => _levels.Length;
+
+    public void DebugAddMoves(int amount)
+    {
+        if (_levelEnded) return;
+        _movesRemaining += amount;
+        _hud.SetMoves(_movesRemaining);
+    }
+#endif
 }

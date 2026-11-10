@@ -8,6 +8,7 @@ public static class ObstacleSpawnerRegistry
         { ObstacleType.Lock, new LockObstacleSpawner() },
         { ObstacleType.Grass, new GrassObstacleSpawner() },
         { ObstacleType.Cage, new CageObstacleSpawner() },
+        { ObstacleType.Hole, new HoleObstacleSpawner() },
     };
 
     public static IObstacleSpawner Get(ObstacleType type)

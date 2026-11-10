@@ -981,6 +981,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 809db103f7e5e8944a5402561aeff999, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BoardController
+  _swipeThresholdCells: 0.35
   _levels:
   - {fileID: 11400000, guid: 820f9c90ba60be942821ad9d0e390e42, type: 2}
   - {fileID: 11400000, guid: 2d1bb39e11ff06d43916e6c279ad864b, type: 2}
@@ -1008,6 +1009,7 @@ MonoBehaviour:
   _idleHintDelay: 6
   _background: {fileID: 2085060684}
   _cameraMargin: 1
+  _cellTilePrefab: {fileID: 1595000400380124855, guid: 673675e3bdee67b46b8d0ca257bbe3e3, type: 3}
 --- !u!4 &1077321447
 Transform:
   m_ObjectHideFlags: 0
@@ -1043,7 +1045,7 @@ MonoBehaviour:
   _fallDelay: 0.06
   _mergeDuration: 0.16
   _visualConfig: {fileID: 11400000, guid: 09d110696ffca734986e68c988cb8450, type: 2}
-  _breakEffectPrefab: {fileID: 3731488670092309079, guid: 7c3af47023e6c514ca14030b4e35e4e2, type: 3}
+  _breakEffects: {fileID: 11400000, guid: be7e779628d2fd84f98f939e59e55b44, type: 2}
   _propellerConfig: {fileID: 11400000, guid: bef7f603029ea74488ec9facf12fccdb, type: 2}
   _rocketActivationPrefab: {fileID: 2151119278267167874, guid: 89f0e678dd15dc740b17efb4b64b5ee3, type: 3}
   _effects: {fileID: 1077321449}
@@ -1330,6 +1332,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1851750870
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1851750872}
+  - component: {fileID: 1851750871}
+  m_Layer: 0
+  m_Name: LevelDebugger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1851750871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851750870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e42d19626b6b4c4d8604ba8d92a43d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelDebugger
+  _board: {fileID: 1077321446}
+  _startLevelIndex: -1
+  _extraMovesAmount: 5
+  _showOverlay: 1
+--- !u!4 &1851750872
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851750870}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.29552, y: -0.50485, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1872247923
 GameObject:
   m_ObjectHideFlags: 0
@@ -1602,3 +1652,4 @@ SceneRoots:
   - {fileID: 2085060685}
   - {fileID: 856818704}
   - {fileID: 1645105713}
+  - {fileID: 1851750872}

@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48a62b3adb7ae874f8484ba87e3d840c, type: 3}
+  m_Name: BreakEffectConfig
+  m_EditorClassIdentifier: Assembly-CSharp::BreakEffectConfig
+  _default: {fileID: 3731488670092309079, guid: 7c3af47023e6c514ca14030b4e35e4e2, type: 3}
+  _types:
+  - Type: 0
+    Hit: {fileID: 3731488670092309079, guid: 7c3af47023e6c514ca14030b4e35e4e2, type: 3}
+    Break: {fileID: 3731488670092309079, guid: 7c3af47023e6c514ca14030b4e35e4e2, type: 3}
+  - Type: 1
+    Hit: {fileID: 3731488670092309079, guid: 7c3af47023e6c514ca14030b4e35e4e2, type: 3}
+    Break: {fileID: 3731488670092309079, guid: 7c3af47023e6c514ca14030b4e35e4e2, type: 3}
+  - Type: 3
+    Hit: {fileID: 3731488670092309079, guid: 8d442c7339e5ef547b1145166433529b, type: 3}
+    Break: {fileID: 3731488670092309079, guid: 8d442c7339e5ef547b1145166433529b, type: 3}
+  - Type: 4
+    Hit: {fileID: 3731488670092309079, guid: 9451306e10b5f7147826ecc3c9efeaf5, type: 3}
+    Break: {fileID: 3731488670092309079, guid: 9451306e10b5f7147826ecc3c9efeaf5, type: 3}
+  - Type: 5
+    Hit: {fileID: 3731488670092309079, guid: 5f33634fc766c194ea67fb88112c8cc5, type: 3}
+    Break: {fileID: 3731488670092309079, guid: 5f33634fc766c194ea67fb88112c8cc5, type: 3}
+  _colors:
+  - Color: 1
+    Break: {fileID: 3731488670092309079, guid: 9c97ea7c1361eba41b61d46f57b0953c, type: 3}
+  - Color: 2
+    Break: {fileID: 3731488670092309079, guid: 28528ed8470ed874cb95bc8eb8ab5ef7, type: 3}
+  - Color: 3
+    Break: {fileID: 3731488670092309079, guid: 93bacd743640a4741bee987902dfa129, type: 3}
+  - Color: 4
+    Break: {fileID: 3731488670092309079, guid: d9f0bd26047b4124f9e5b275342d0ba2, type: 3}

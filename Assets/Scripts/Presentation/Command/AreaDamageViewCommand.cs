@@ -19,6 +19,8 @@ public class AreaDamageViewCommand : IViewCommand
     public void Execute()
     {
         foreach (var (x, y) in _cells)
+        {
             _player.SpawnBreakEffect(_player.CellToWorld(x, y));
+        }    
     }
 }

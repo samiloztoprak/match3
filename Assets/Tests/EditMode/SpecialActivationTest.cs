@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 
 namespace Tests.EditMode
@@ -155,7 +156,7 @@ namespace Tests.EditMode
         }
 
         [Test]
-        public void Combo_TntTnt_ClearsRadius4Area()
+        public void Combo_TntTnt_ClearsRadius3Area()
         {
             Board board = new Board(3, 11);
 
@@ -170,7 +171,8 @@ namespace Tests.EditMode
             board.SetCell(2, 1, new ColoredPiece(board.NextId(), PieceColor.Red));
 
             board.SetCell(0, 2, new ColoredPiece(board.NextId(), PieceColor.Red));
-            board.SetCell(1, 2, new ColoredPiece(board.NextId(), PieceColor.Blue));
+            var p1y2 = new ColoredPiece(board.NextId(), PieceColor.Blue);
+            board.SetCell(1, 2, p1y2);
             board.SetCell(2, 2, new ColoredPiece(board.NextId(), PieceColor.Green));
 
             board.SetCell(0, 3, new ColoredPiece(board.NextId(), PieceColor.Green));
@@ -194,7 +196,8 @@ namespace Tests.EditMode
             board.SetCell(2, 7, new ColoredPiece(board.NextId(), PieceColor.Red));
 
             board.SetCell(0, 8, new ColoredPiece(board.NextId(), PieceColor.Red));
-            board.SetCell(1, 8, new ColoredPiece(board.NextId(), PieceColor.Blue));
+            var p1y8 = new ColoredPiece(board.NextId(), PieceColor.Blue);
+            board.SetCell(1, 8, p1y8);
             board.SetCell(2, 8, new ColoredPiece(board.NextId(), PieceColor.Green));
 
             board.SetCell(0, 9, new ColoredPiece(board.NextId(), PieceColor.Green));
@@ -211,11 +214,13 @@ namespace Tests.EditMode
             var result = TurnResolver.Resolve(board, command);
             var clearedIds = CollectClearedIds(result);
 
-            Assert.IsTrue(clearedIds.Contains(p1y1.Id), "exactly 4 away should still be cleared");
-            Assert.IsTrue(clearedIds.Contains(p19.Id));
+            Assert.AreEqual(3, ActivationArea.TntComboRadius, "This board is built for radius 3; update the test if the radius changes");
 
-            Assert.IsFalse(clearedIds.Contains(p1y0.Id), "5 away should be outside the blast");
-            Assert.IsFalse(clearedIds.Contains(p110.Id));
+            Assert.IsTrue(clearedIds.Contains(p1y2.Id), "exactly 3 away (edge of the blast) should be cleared");
+            Assert.IsTrue(clearedIds.Contains(p1y8.Id));
+
+            Assert.IsFalse(clearedIds.Contains(p1y1.Id), "4 away should be outside the blast");
+            Assert.IsFalse(clearedIds.Contains(p19.Id));
         }
 
         [Test]
@@ -519,6 +524,26 @@ namespace Tests.EditMode
             board.SetCell(4, 4, new ColoredPiece(board.NextId(), PieceColor.Red));
 
             return board;
+        }
+        
+        [Test]
+        public void Swap_PassivePieceMakesMatch_SpecialSpawnsAtItsCell()
+        {
+            var board = new Board(5, 5);
+            var colors = new[] { PieceColor.Blue, PieceColor.Green, PieceColor.Yellow };
+            for (int x = 0; x < 5; x++)
+            for (int y = 0; y < 5; y++)
+                board.SetCell(x, y, new ColoredPiece(board.NextId(), colors[(x + 2 * y) % 3]));
+
+            foreach (int x in new[] { 0, 1, 3 }) board.SetCell(x, 2, new ColoredPiece(board.NextId(), PieceColor.Red));
+            board.SetCell(2, 1, new ColoredPiece(board.NextId(), PieceColor.Red));
+            board.SetCell(2, 2, new ColoredPiece(board.NextId(), PieceColor.Blue));
+
+            var result = TurnResolver.Resolve(board, new SwapCommand(board, 2, 2, 2, 1), new SystemRandom(1));
+
+            var created = result.OfType<SpecialCreatedData>().First();
+            Assert.AreEqual(2, created.X);
+            Assert.AreEqual(2, created.Y);
         }
     }
 }

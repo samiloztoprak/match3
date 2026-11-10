@@ -30,6 +30,11 @@ namespace LogicLibrary
             return piece.Flags.HasFlag(PieceFlags.CanMatch);
         }
         
+        public static bool IsColorTargetable(Piece piece)
+        {
+            return piece != null && IsPieceMatchable(piece) && !IsPieceLocked(piece) && piece.Color != PieceColor.Empty;
+        }
+        
         public static bool IsCellSwapBlocked(Board board, int x, int y)
         {
             Piece piece = board.GetCell(x, y);
@@ -39,6 +44,11 @@ namespace LogicLibrary
             }
 
             return false;
+        }
+        
+        public static bool IsVoid(Piece piece)
+        {
+            return piece != null && piece.Flags.HasFlag(PieceFlags.Void);
         }
         
         public static void AddFlag(Piece piece, PieceFlags flags)
@@ -359,6 +369,12 @@ namespace LogicLibrary
             for (int cy = y - 1; cy >= 0; cy--)
             {
                 Piece piece = board.GetCell(x, cy);
+                
+                if (BoardLogic.IsVoid(piece))
+                {
+                    continue;
+                }
+                
                 if (piece != null && (!BoardLogic.IsPieceMoveable(piece) || BoardLogic.IsPieceLocked(piece)))
                 {
                     return true;
@@ -449,6 +465,11 @@ namespace LogicLibrary
                 for(int y = 0; y < board.Height; y++)
                 {
                     Piece piece = board.GetCell(x, y);
+                    
+                    if (BoardLogic.IsVoid(piece))
+                    {
+                        continue;
+                    }
                     
                     if (piece != null && (!BoardLogic.IsPieceMoveable(piece) || BoardLogic.IsPieceLocked(piece)))
                     {
@@ -594,7 +615,7 @@ namespace LogicLibrary
                 for (int cy = 0; cy < board.Height; cy++)
                 {
                     Piece p = board.GetCell(cx, cy);
-                    if (p == null || p.VisualType != PieceVisualType.Standard || p.Color != color)
+                    if (!BoardLogic.IsColorTargetable(p) || p.Color != color)
                     {
                         continue;
                     }
