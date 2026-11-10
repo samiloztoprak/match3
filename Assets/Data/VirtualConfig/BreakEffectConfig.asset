@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48a62b3adb7ae874f8484ba87e3d840c, type: 3}
   m_Name: BreakEffectConfig
   m_EditorClassIdentifier: Assembly-CSharp::BreakEffectConfig
-  _default: {fileID: 3731488670092309079, guid: 7c3af47023e6c514ca14030b4e35e4e2, type: 3}
+  _default: {fileID: 3731488670092309079, guid: 8d442c7339e5ef547b1145166433529b, type: 3}
   _types:
   - Type: 0
-    Hit: {fileID: 3731488670092309079, guid: 7c3af47023e6c514ca14030b4e35e4e2, type: 3}
-    Break: {fileID: 3731488670092309079, guid: 7c3af47023e6c514ca14030b4e35e4e2, type: 3}
+    Hit: {fileID: 3731488670092309079, guid: 8d442c7339e5ef547b1145166433529b, type: 3}
+    Break: {fileID: 3731488670092309079, guid: 8d442c7339e5ef547b1145166433529b, type: 3}
   - Type: 1
-    Hit: {fileID: 3731488670092309079, guid: 7c3af47023e6c514ca14030b4e35e4e2, type: 3}
+    Hit: {fileID: 3731488670092309079, guid: 2fda7ee42fb4a7248957bdc279b1cb09, type: 3}
     Break: {fileID: 3731488670092309079, guid: 7c3af47023e6c514ca14030b4e35e4e2, type: 3}
   - Type: 3
     Hit: {fileID: 3731488670092309079, guid: 8d442c7339e5ef547b1145166433529b, type: 3}
@@ -29,6 +29,9 @@ MonoBehaviour:
   - Type: 5
     Hit: {fileID: 3731488670092309079, guid: 5f33634fc766c194ea67fb88112c8cc5, type: 3}
     Break: {fileID: 3731488670092309079, guid: 5f33634fc766c194ea67fb88112c8cc5, type: 3}
+  - Type: 2
+    Hit: {fileID: 3731488670092309079, guid: 4d4ebc519c4f7bc4cb9090305969aa4b, type: 3}
+    Break: {fileID: 3731488670092309079, guid: 4d4ebc519c4f7bc4cb9090305969aa4b, type: 3}
   _colors:
   - Color: 1
     Break: {fileID: 3731488670092309079, guid: 9c97ea7c1361eba41b61d46f57b0953c, type: 3}
