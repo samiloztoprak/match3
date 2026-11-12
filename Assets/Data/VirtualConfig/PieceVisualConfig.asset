@@ -26,3 +26,4 @@ MonoBehaviour:
   _specialVisualConfig: {fileID: 11400000, guid: ef519b749221e1e40b03aa4ce81a9f9b, type: 2}
   _grassVisualConfig: {fileID: 11400000, guid: 75190af909b80b54ab382215b1c13906, type: 2}
   _cageVisualConfig: {fileID: 11400000, guid: 4f69a8eb06e61634289175dd126e2d6c, type: 2}
+  _toySprite: {fileID: -9170278564998984525, guid: 16afba31d05a81f4ea49d984ce1b8bba, type: 3}

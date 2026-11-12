@@ -137,6 +137,14 @@ public class GoalTracker : ITargetPriority
             return 2;
         }
 
+        Piece above = y > 0 ? board.GetCell(x, y - 1) : null;
+        if (piece != null && !piece.Flags.HasFlag(PieceFlags.Void)
+                          && above != null && above.Flags.HasFlag(PieceFlags.Collectable) && !above.Flags.HasFlag(PieceFlags.Locked)
+                          && above.GoalKind.HasValue && IsGoalActive(above.GoalKind.Value, null))
+        {
+            return 3;
+        }
+        
         OverlayPiece overlay = board.GetOverlayPieceAt(x, y);
         if (overlay != null && overlay.GoalKind.HasValue && IsGoalActive(overlay.GoalKind.Value, null))
         {

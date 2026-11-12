@@ -9,5 +9,6 @@ public enum PieceFlags
     DamageableByNeighbor = 1 << 2,
     Locked = 1 << 3,
     DamageableBySpecial = 1 << 4,
-    Void = 1 << 5
+    Void = 1 << 5,
+    Collectable =  1 << 6,
 }

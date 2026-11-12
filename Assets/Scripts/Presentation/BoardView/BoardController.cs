@@ -84,7 +84,8 @@ public class BoardController : MonoBehaviour
         _goalTracker = new GoalTracker(_board, _level.Goals);
         _movesRemaining = _level.MoveLimit;
         _hud.SetMoves(_movesRemaining);
-        _hud.SetGoals(_goalTracker);
+        _hud.BuildGoals(_goalTracker);
+        _turnPlayer.GoalFlyer.Bind(_hud);
         
         var initialResult = TurnResolver.Resolve(_board, null);
         ApplyTurnResult(initialResult, false);
@@ -152,7 +153,7 @@ public class BoardController : MonoBehaviour
     private IEnumerator PlayInitialTurn(List<TurnStepData> result)
     {
         yield return StartCoroutine(_turnPlayer.PlayTapTurn(result));
-        ShowEndGameIfNeeded();
+        yield return StartCoroutine(FinishTurn());
     }
     
     private void ApplyTurnResult(List<TurnStepData> result, bool consumesMove)
@@ -177,7 +178,18 @@ public class BoardController : MonoBehaviour
         }
 
         _hud.SetMoves(_movesRemaining);
-        _hud.SetGoals(_goalTracker);
+    }
+    
+    private IEnumerator FinishTurn()
+    {
+        bool ending = _goalTracker.IsComplete() || _movesRemaining <= 0;
+        if (ending)
+        {
+            _levelEnded = true;
+            yield return StartCoroutine(_turnPlayer.GoalFlyer.WaitForFlights());
+            _hud.SyncGoals(_goalTracker);
+        }
+        ShowEndGameIfNeeded();
     }
     
     private void ShowEndGameIfNeeded()
@@ -263,7 +275,7 @@ public class BoardController : MonoBehaviour
     {
         yield return StartCoroutine(turnRoutine);
 
-        ShowEndGameIfNeeded();
+        yield return StartCoroutine(FinishTurn());
         if (_levelEnded)
         {
             yield break;

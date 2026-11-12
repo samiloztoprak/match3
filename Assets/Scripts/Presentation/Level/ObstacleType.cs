@@ -1,9 +1,10 @@
 
 public enum ObstacleType
 {
-    Box,
-    Lock,
-    Grass,
-    Cage,
-    Hole
+    Box   = 0,
+    Lock  = 1,
+    Grass = 2,
+    Cage  = 3,
+    Hole  = 4,
+    Toy   = 5
 }

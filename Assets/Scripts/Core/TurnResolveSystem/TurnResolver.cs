@@ -406,50 +406,14 @@ public static class TurnResolver
                 }
             }
             result.Add(clearStepData);
-
-            FallStepData fallStepData = new FallStepData();
-            RefillStepData refillStepData = new RefillStepData();
-            HashSet<int> refilledThisTurn = new HashSet<int>();
             
-            int fillIteration = 0;
-            const int maxFillIteration = 500;
-            while (true)
+            AddFillSteps(board, random, result);
+            while (TryCollectAtExits(board, goalProgress, out CollectStepData collectStepData))
             {
-                List<(int, int, int, int)> verticalMoves = OrganizationLogic.FillEmpties(board);
-                foreach (var move in verticalMoves)
-                {
-                    RecordFallMove(fallStepData, refillStepData, refilledThisTurn, move);
-                }
-
-                var diagonalMove = OrganizationLogic.FillOneDiagonalStep(board, random);
-                if (diagonalMove != null)
-                {
-                    RecordFallMove(fallStepData, refillStepData, refilledThisTurn, diagonalMove.Value);
-                    fillIteration++;
-                    if (fillIteration > maxFillIteration) break;
-                    continue;
-                }
-
-                List<(int, PieceColor, int, int)> newPieces = OrganizationLogic.GetNewPieceToEmpty(board, random);
-                if (newPieces.Count > 0)
-                {
-                    foreach (var piece in newPieces)
-                    {
-                        refillStepData.Moves.Add(piece);
-                        refilledThisTurn.Add(piece.Item1);
-                    }
-                    fillIteration++;
-                    if (fillIteration > maxFillIteration)
-                    {
-                        break;
-                    }
-                    continue;
-                }
-
-                break;
+                result.Add(collectStepData);
+                AddFillSteps(board, random, result);
             }
-            result.Add(fallStepData);
-            result.Add(refillStepData);
+            
             iteration++;
             if (iteration > MaxIteration)
             {
@@ -539,6 +503,12 @@ public static class TurnResolver
                 {
                     continue;
                 }
+            }
+            
+            if (piece.Flags.HasFlag(PieceFlags.Collectable))
+            {
+                TryBreakFloor(board, cx, cy, absoluteTimeMs, clearOverlayData, damageData, goalProgress);
+                continue;
             }
             
             if (piece.Flags.HasFlag(PieceFlags.DamageableByNeighbor))
@@ -631,5 +601,69 @@ public static class TurnResolver
             if (d < bestDist) { bestDist = d; best = c; }
         }
         return best;
+    }
+    
+    private static void AddFillSteps(Board board, IRandom random, List<TurnStepData> result)
+    {
+        FallStepData fallStepData = new FallStepData();
+        RefillStepData refillStepData = new RefillStepData();
+        HashSet<int> refilledThisTurn = new HashSet<int>();
+
+        int fillIteration = 0;
+        const int maxFillIteration = 500;
+        while (true)
+        {
+            List<(int, int, int, int)> verticalMoves = OrganizationLogic.FillEmpties(board);
+            foreach (var move in verticalMoves)
+            {
+                RecordFallMove(fallStepData, refillStepData, refilledThisTurn, move);
+            }
+
+            var diagonalMove = OrganizationLogic.FillOneDiagonalStep(board, random);
+            if (diagonalMove != null)
+            {
+                RecordFallMove(fallStepData, refillStepData, refilledThisTurn, diagonalMove.Value);
+                fillIteration++;
+                if (fillIteration > maxFillIteration) break;
+                continue;
+            }
+
+            List<(int, PieceColor, int, int)> newPieces = OrganizationLogic.GetNewPieceToEmpty(board, random);
+            if (newPieces.Count > 0)
+            {
+                foreach (var piece in newPieces)
+                {
+                    refillStepData.Moves.Add(piece);
+                    refilledThisTurn.Add(piece.Item1);
+                }
+                fillIteration++;
+                if (fillIteration > maxFillIteration) break;
+                continue;
+            }
+            break;
+        }
+        result.Add(fallStepData);
+        result.Add(refillStepData);
+    }
+
+    private static bool TryCollectAtExits(Board board, GoalProgressData goalProgress, out CollectStepData collectStepData)
+    {
+        collectStepData = new CollectStepData();
+        for (int x = 0; x < board.Width; x++)
+        {
+            int exitY = BoardLogic.GetExitY(board, x);
+            if (exitY < 0) continue;
+
+            Piece piece = board.GetCell(x, exitY);
+            if (piece == null || !piece.Flags.HasFlag(PieceFlags.Collectable) || BoardLogic.IsPieceLocked(piece))
+            {
+                continue;
+            }
+
+            collectStepData.Hits.Add(new HitData(piece.Id, x, exitY, 0f));
+            goalProgress.Increment(piece.GoalKind);
+            board.ClearCell(x, exitY);
+        }
+        return collectStepData.Hits.Count > 0;
     }
 }

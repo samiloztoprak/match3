@@ -9,6 +9,7 @@ public static class ObstacleSpawnerRegistry
         { ObstacleType.Grass, new GrassObstacleSpawner() },
         { ObstacleType.Cage, new CageObstacleSpawner() },
         { ObstacleType.Hole, new HoleObstacleSpawner() },
+        { ObstacleType.Toy, new ToyObstacleSpawner() }
     };
 
     public static IObstacleSpawner Get(ObstacleType type)

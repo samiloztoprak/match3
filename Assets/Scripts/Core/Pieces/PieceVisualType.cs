@@ -7,5 +7,6 @@ public enum PieceVisualType
     Special,
     Grass,
     Cage,
-    Hole
+    Hole,
+    Toy,
 }

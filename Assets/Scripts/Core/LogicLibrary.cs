@@ -60,6 +60,18 @@ namespace LogicLibrary
         {
             piece.Flags &= ~flags;
         }
+        
+        public static int GetExitY(Board board, int x)
+        {
+            for (int y = board.Height - 1; y >= 0; y--)
+            {
+                if (!IsVoid(board.GetCell(x, y)))
+                {
+                    return y;
+                }
+            }
+            return -1;
+        }
     }
 
     public static class MatchLogic
@@ -719,7 +731,8 @@ namespace LogicLibrary
                 for (int y = 0; y < board.Height; y++)
                 {
                     Piece piece = board.GetCell(x, y);
-                    if (piece != null && BoardLogic.IsPieceMoveable(piece) && !BoardLogic.IsPieceLocked(piece))
+                    if (piece != null && BoardLogic.IsPieceMoveable(piece) && !BoardLogic.IsPieceLocked(piece)
+                        && !piece.Flags.HasFlag(PieceFlags.Collectable))
                     {
                         positions.Add((x, y));
                         pieces.Add(piece);

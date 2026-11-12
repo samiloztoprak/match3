@@ -5,5 +5,5 @@ public enum GoalType
     ClearBox,
     ClearLock,
     ClearGrass,
-    ClearCage
+    CollectToy
 }

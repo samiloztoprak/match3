@@ -47,6 +47,10 @@ public class PieceVisualConfig : ScriptableObject
         {
             return GetCageSprite(piece);
         }
+        else if (piece.VisualType == PieceVisualType.Toy)
+        {
+            return GetToySprite(piece);
+        }
         return null;
     }
     
@@ -129,5 +133,13 @@ public class PieceVisualConfig : ScriptableObject
             return _cageVisualConfig.GetSprite(piece.Health);
         }
         return null;
+    }
+    
+    [SerializeField]
+    private Sprite _toySprite;
+    
+    public Sprite GetToySprite(Piece piece)
+    {
+        return _toySprite;
     }
 }

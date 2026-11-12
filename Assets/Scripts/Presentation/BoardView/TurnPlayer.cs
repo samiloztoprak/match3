@@ -23,6 +23,11 @@ public class TurnPlayer : MonoBehaviour
     [SerializeField] private ExplosionView _tntExplosionPrefab;
     [SerializeField] private LightBeamView _lightBeamPrefab;
     [SerializeField] private PropellerActivationView _propellerActivationPrefab;
+    [SerializeField] private RectTransform _collectTarget;
+    [SerializeField] private GoalFlyer _goalFlyer;
+    [SerializeField] private float _collectJumpDuration = 0.3f;
+    [SerializeField] private float _collectFlyDuration = 0.55f;
+    
     
     public PropellerAnimationConfig PropellerConfig => _propellerConfig;
     public EffectSpawner Effects => _effects;
@@ -34,7 +39,9 @@ public class TurnPlayer : MonoBehaviour
     public float FallDelay => _fallDelay;
     public float MergeDuration => _mergeDuration;
 
-
+    public float CollectJumpDuration => _collectJumpDuration;
+    public float CollectFlyDuration => _collectFlyDuration;
+    public GoalFlyer GoalFlyer => _goalFlyer;
     
     private Dictionary<int, PieceView> _pieceById = new Dictionary<int, PieceView>();
     private ObjectPool<PieceView> _pieceViewPool;
@@ -51,7 +58,7 @@ public class TurnPlayer : MonoBehaviour
     public void Init(Board board)
     {
         _board = board;
-
+        
         Vector3 defaultScale = _piecePrefab.transform.localScale;
         _pieceViewPool = new ObjectPool<PieceView>(
             createFunc: () => Instantiate(_piecePrefab, transform),
@@ -281,5 +288,21 @@ public class TurnPlayer : MonoBehaviour
         sequence.InsertCallback(totalDuration, () => { });
 
         yield return sequence.WaitForCompletion();
+    }
+    
+    public Vector3 GetCollectTargetWorld()
+    {
+        Camera cam = Camera.main;
+        if (_collectTarget == null || cam == null)
+        {
+            return CellToWorld(_board.Width / 2, -3);
+        }
+
+        Canvas canvas = _collectTarget.GetComponentInParent<Canvas>();
+        Camera uiCamera = canvas != null && canvas.renderMode != RenderMode.ScreenSpaceOverlay ? canvas.worldCamera : null;
+        Vector2 screen = RectTransformUtility.WorldToScreenPoint(uiCamera, _collectTarget.position);
+        Vector3 world = cam.ScreenToWorldPoint(new Vector3(screen.x, screen.y, -cam.transform.position.z));
+        world.z = 0f;
+        return world;
     }
 }

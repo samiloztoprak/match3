@@ -173,6 +173,15 @@ public static class ViewCommandFactory
                     MarkHit(waveStart + duration);
                     break;
                 }
+                
+                case CollectStepData collect:
+                {
+                    if (collect.Hits.Count == 0) break;
+                    float jump = player.CollectJumpDuration;
+                    result.Add((waveStart, new CollectViewCommand(collect.Hits, player, jump, player.CollectFlyDuration)));
+                    MarkHit(waveStart + jump);
+                    break;
+                }
             }
         }
 

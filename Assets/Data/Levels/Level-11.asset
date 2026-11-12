@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelDefinition
   Width: 8
   Height: 8
-  MoveLimit: 19
+  MoveLimit: 26
   Goals:
   - Type: 3
     Color: 0
@@ -22,6 +22,9 @@ MonoBehaviour:
   - Type: 0
     Color: 1
     TargetCount: 18
+  - Type: 4
+    Color: 0
+    TargetCount: 2
   Obstacles:
   - Type: 4
     Cells:
@@ -83,3 +86,7 @@ MonoBehaviour:
   - Type: 2
     Cells:
     - {x: 5, y: 5}
+  - Type: 5
+    Cells:
+    - {x: 3, y: 0}
+    - {x: 4, y: 0}

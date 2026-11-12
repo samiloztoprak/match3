@@ -1,43 +1,57 @@
-using System.Text;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class HudController : MonoBehaviour
 {
     [SerializeField] private TMP_Text _movesText;
-    [SerializeField] private TMP_Text _goalsText;
+    [SerializeField] private Transform _goalSlotParent;
+    [SerializeField] private GoalSlotView _goalSlotPrefab;
+    [SerializeField] private GoalIconConfig _goalIcons;
+
+    private readonly List<GoalSlotView> _slots = new List<GoalSlotView>();
 
     public void SetMoves(int movesRemaining)
     {
         _movesText.text = movesRemaining.ToString();
     }
 
-    public void SetGoals(GoalTracker tracker)
+    public void BuildGoals(GoalTracker tracker)
     {
-        StringBuilder sb = new StringBuilder();
+        foreach (GoalSlotView slot in _slots)
+        {
+            Destroy(slot.gameObject);
+        }
+        _slots.Clear();
+
         for (int i = 0; i < tracker.Goals.Count; i++)
         {
             LevelGoal goal = tracker.Goals[i];
-            int remaining = tracker.GetRemaining(i);
+            _goalIcons.TryGet(goal.Type, goal.Color, out Sprite icon, out _, out _);
 
-            sb.Append(GoalLabel(goal));
-            sb.Append(": ");
-            sb.Append(remaining);
-            sb.Append("   ");
+            GoalSlotView slot = Instantiate(_goalSlotPrefab, _goalSlotParent);
+            slot.Setup(goal, icon, tracker.GetRemaining(i));
+            _slots.Add(slot);
         }
-        _goalsText.text = sb.ToString();
     }
 
-    private string GoalLabel(LevelGoal goal)
+    public GoalSlotView FindSlot(Piece piece)
     {
-        switch (goal.Type)
+        foreach (GoalSlotView slot in _slots)
         {
-            case GoalType.CollectColor: return goal.Color.ToString();
-            case GoalType.ClearBox: return "Box";
-            case GoalType.ClearLock: return "Lock";
-            case GoalType.ClearGrass: return "Grass";
-            case GoalType.ClearCage: return "Cage";
-            default: return goal.Type.ToString();
+            if (slot.HasPending && slot.Matches(piece))
+            {
+                return slot;
+            }
+        }
+        return null;
+    }
+
+    public void SyncGoals(GoalTracker tracker)
+    {
+        for (int i = 0; i < _slots.Count && i < tracker.Goals.Count; i++)
+        {
+            _slots[i].SyncTo(tracker.GetRemaining(i));
         }
     }
 }
