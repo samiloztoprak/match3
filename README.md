@@ -6,13 +6,17 @@ A swap-based match-3 game for Android, built in Unity 6 (C#).
   <tr>
     <td><img src="ProjectExternal/readme/gameplay_1.gif" width="200" alt="Gameplay 1"></td>
     <td><img src="ProjectExternal/readme/gameplay_2.gif" width="200" alt="Gameplay 2"></td>
+  </tr>
+  <tr>
     <td><img src="ProjectExternal/readme/gameplay_3.gif" width="200" alt="Gameplay 3"></td>
     <td><img src="ProjectExternal/readme/gameplay_4.gif" width="200" alt="Gameplay 4"></td>
   </tr>
   <tr>
     <td><img src="ProjectExternal/readme/gameplay_5.gif" width="200" alt="Gameplay 5"></td>
     <td><img src="ProjectExternal/readme/gameplay_6.gif" width="200" alt="Gameplay 6"></td>
-    <td><img src="ProjectExternal/readme/gameplay_7.gif" width="200" alt="Gameplay 7"></td>
+  </tr>
+  <tr>
+     <td><img src="ProjectExternal/readme/gameplay_7.gif" width="200" alt="Gameplay 7"></td>
     <td><img src="ProjectExternal/readme/gameplay_8.gif" width="200" alt="Gameplay 8"></td>
   </tr>
 </table>
