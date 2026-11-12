@@ -93,14 +93,14 @@ public class TurnPlayer : MonoBehaviour
     public Vector3 CellToWorld(int x, int y)
     {
         float offsetX = (_board.Width - 1) / 2f;
-        float offsetY = (_board.Height - 1) / 2f;
+        float offsetY = (_board.Height - 1) / 3f;
         return new Vector3((x - offsetX) * _cellSize, -(y - offsetY) * _cellSize, 0);
     }
     
     public (int, int) WorldToCell(Vector3 worldPos)
     {
         float offsetX = (_board.Width - 1) / 2f;
-        float offsetY = (_board.Height - 1) / 2f;
+        float offsetY = (_board.Height - 1) / 3f;
         int x = Mathf.RoundToInt(worldPos.x / _cellSize + offsetX);
         int y = Mathf.RoundToInt(offsetY - worldPos.y / _cellSize);
         return (x, y);
