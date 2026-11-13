@@ -5,17 +5,21 @@ using UnityEngine;
 public class GoalFlyer : MonoBehaviour
 {
     [SerializeField] private EffectSpawner _effects;
-    [SerializeField] private GoalIconConfig _icons;
-    [SerializeField] private SpriteRenderer _iconPrefab;
-    [SerializeField] private GoalSpark _sparkPrefab;
-    [SerializeField] private float _iconFlyDuration = 0.6f;
-    [SerializeField] private float _sparkFlyDuration = 0.45f;
-    [SerializeField] private float _arcHeight = 1.5f;
-    [SerializeField] private float _arcSpread = 1.5f;
+    [SerializeField] private GameAssets _assets;
+    [SerializeField] private AnimationSettings _anim;
 
     private HudController _hud;
     private int _activeFlights;
 
+    private void OnValidate()
+    {
+        if (_effects == null) _effects = GetComponent<EffectSpawner>();
+#if UNITY_EDITOR
+        if (_assets == null) _assets = AutoRef.Asset<GameAssets>();
+        if (_anim == null) _anim = AutoRef.Asset<AnimationSettings>();
+#endif
+    }
+    
     public void Bind(HudController hud)
     {
         _hud = hud;
@@ -35,7 +39,7 @@ public class GoalFlyer : MonoBehaviour
         }
 
         Vector3 to = UiToWorld(slot.Target);
-        _icons.TryGet(slot.Type, slot.Color, out Sprite icon, out GoalFlyStyle style, out Color sparkColor);
+        _assets.GoalIcons.TryGet(slot.Type, slot.Color, out Sprite icon, out GoalFlyStyle style, out Color sparkColor);
 
         if (style == GoalFlyStyle.Spark)
         {
@@ -90,20 +94,20 @@ public class GoalFlyer : MonoBehaviour
 
     private void FlyIcon(Sprite sprite, Vector3 from, Vector3 to, float delay, GoalSlotView slot)
     {
-        SpriteRenderer icon = _effects.Spawn(_iconPrefab, from);
+        SpriteRenderer icon = _effects.Spawn(_assets.GoalFlyIcon, from);
         icon.sprite = sprite;
         icon.sortingOrder = SortingOrders.Flight;
 
         Transform t = icon.transform;
-        Vector3 baseScale = _iconPrefab.transform.localScale;
+        Vector3 baseScale = _assets.GoalFlyIcon.transform.localScale;
         t.localScale = Vector3.zero;
         _activeFlights++;
 
         Sequence seq = DOTween.Sequence().SetTarget(t);
         seq.AppendInterval(delay);
         seq.Append(t.DOScale(baseScale * 1.2f, 0.12f));
-        seq.Append(t.DOMove(to, _iconFlyDuration).SetEase(Ease.InCubic));
-        seq.Join(t.DOScale(baseScale * 0.6f, _iconFlyDuration).SetEase(Ease.InQuad));
+        seq.Append(t.DOMove(to, _anim.IconFlyDuration).SetEase(Ease.InCubic));
+        seq.Join(t.DOScale(baseScale * 0.6f, _anim.IconFlyDuration).SetEase(Ease.InQuad));
         seq.OnComplete(() =>
         {
             CompleteFlight(slot);
@@ -113,7 +117,7 @@ public class GoalFlyer : MonoBehaviour
 
     private void FlySpark(Vector3 from, Vector3 to, Color color, float delay, GoalSlotView slot)
     {
-        GoalSpark spark = _effects.Spawn(_sparkPrefab, from);
+        GoalSpark spark = _effects.Spawn(_assets.GoalSpark, from);
         spark.Trail.Clear();
         spark.Sprite.color = color;
         spark.Sprite.sortingOrder = SortingOrders.Flight;
@@ -122,19 +126,19 @@ public class GoalFlyer : MonoBehaviour
         spark.Trail.endColor = new Color(color.r, color.g, color.b, 0f);
 
         Transform t = spark.transform;
-        Vector3 baseScale = _sparkPrefab.transform.localScale;
+        Vector3 baseScale = _assets.GoalSpark.transform.localScale;
         t.localScale = baseScale;
         _activeFlights++;
 
         Vector3 mid = (from + to) * 0.5f;
         Vector3 side = Vector3.Cross(to - from, Vector3.forward).normalized;
-        Vector3 control = mid + Vector3.up * _arcHeight + side * Random.Range(-_arcSpread, _arcSpread);
+        Vector3 control = mid + Vector3.up * _anim.ArcHeight + side * Random.Range(-_anim.ArcSpread, _anim.ArcSpread);
 
         float progress = 0f;
         Sequence seq = DOTween.Sequence().SetTarget(t);
         seq.AppendInterval(delay);
         seq.Append(t.DOPunchScale(baseScale * 0.4f, 0.12f, 4, 0.5f));
-        seq.Append(DOTween.To(() => progress, v => progress = v, 1f, _sparkFlyDuration)
+        seq.Append(DOTween.To(() => progress, v => progress = v, 1f, _anim.SparkFlyDuration)
             .SetEase(Ease.InQuad)
             .OnUpdate(() =>
             {

@@ -37,7 +37,7 @@ public class CollectViewCommand : IViewCommand
             }
 
             GoalSlotView slot = null;
-            Vector3 target = _player.GetCollectTargetWorld();
+            Vector3 target = _player.CellToWorld(hit.X, -3);
             if (flyer != null && flyer.TryReserve(view.Piece, out GoalSlotView reserved, out Vector3 slotTarget))
             {
                 slot = reserved;

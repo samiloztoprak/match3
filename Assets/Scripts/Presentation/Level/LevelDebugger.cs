@@ -15,6 +15,11 @@ public class LevelDebugger : MonoBehaviour
     [SerializeField] private int _boosterUpdateAmount = 3;
     private static bool _startApplied;
 
+    private void OnValidate()
+    {
+        if (_board == null) _board = AutoRef.InScene<BoardController>();
+    }
+    
     private void Awake()
     {
         if (!_startApplied && _startLevelIndex >= 0)

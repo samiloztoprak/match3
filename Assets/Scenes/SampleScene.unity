@@ -151,7 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 200458653}
   - component: {fileID: 200458652}
   m_Layer: 5
-  m_Name: ui_image_hummer_icon
+  m_Name: ui_image_hammer_icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -307,7 +307,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
   m_OnCullStateChanged:
@@ -363,7 +363,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -485,7 +485,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &265967032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -540,7 +540,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -751.45, y: 0.000015258789}
+  m_AnchoredPosition: {x: 7, y: 0.000015258789}
   m_SizeDelta: {x: 317.1, y: 317.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &272894121
@@ -554,7 +554,7 @@ GameObject:
   - component: {fileID: 272894123}
   - component: {fileID: 272894122}
   m_Layer: 0
-  m_Name: booster_target_reticle_outline
+  m_Name: fx_target_reticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -868,7 +868,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &367217842
 RectTransform:
   m_ObjectHideFlags: 0
@@ -885,7 +885,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 388.54993, y: -0.011959258}
+  m_AnchoredPosition: {x: 6, y: -0.011959258}
   m_SizeDelta: {x: 317.1, y: 317.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &367217843
@@ -1306,7 +1306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.392}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1363,7 +1363,7 @@ GameObject:
   - component: {fileID: 757807123}
   - component: {fileID: 757807122}
   m_Layer: 5
-  m_Name: ui_image_rocket_horizontal_icon
+  m_Name: ui_image_row_icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1402,7 +1402,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1477,7 +1477,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1577,7 +1577,7 @@ GameObject:
   - component: {fileID: 816687986}
   - component: {fileID: 816687985}
   m_Layer: 5
-  m_Name: ui_image_rocket_vertical_icon
+  m_Name: ui_image_column_icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1616,7 +1616,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1735,7 +1735,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1872247924}
   - {fileID: 1394509475}
   - {fileID: 1401960796}
   - {fileID: 1367355028}
@@ -1835,7 +1834,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1937,7 +1936,7 @@ GameObject:
   - component: {fileID: 1077321449}
   - component: {fileID: 1077321450}
   m_Layer: 0
-  m_Name: BoardController
+  m_Name: game_board
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1978,13 +1977,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e3bd349e8faf4a6982523fc3ba836a7f, type: 2}
   - {fileID: 11400000, guid: 73009cc69e7c473e98b47b7ac439c8c6, type: 2}
   _turnPlayer: {fileID: 1077321448}
-  _hud: {fileID: 1872247925}
+  _hud: {fileID: 1401960797}
   _endGame: {fileID: 1394509476}
   _idleHintDelay: 6
   _background: {fileID: 2085060684}
   _cameraMargin: 1
-  _cellTilePrefab: {fileID: 1595000400380124855, guid: 673675e3bdee67b46b8d0ca257bbe3e3, type: 3}
   _boosterBar: {fileID: 1367355029}
+  _assets: {fileID: 11400000, guid: 7a4f5424df908e84e97d2c615285d04d, type: 2}
+  _anim: {fileID: 11400000, guid: f9404e9a6f733b9499f4aacae13da178, type: 2}
 --- !u!4 &1077321447
 Transform:
   m_ObjectHideFlags: 0
@@ -2013,28 +2013,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96b63323eeaebe146b0e6c8c21415b2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurnPlayer
-  _piecePrefab: {fileID: 4093109827346939760, guid: 783826b51c210b44898c69377c31f864, type: 3}
   _cellSize: 1
-  _stepDuration: 0.1
-  _swapDuration: 0.15
-  _fallSecondsPerCell: 0.08
-  _fallDelay: 0.06
-  _mergeDuration: 0.16
-  _visualConfig: {fileID: 11400000, guid: 09d110696ffca734986e68c988cb8450, type: 2}
-  _breakEffects: {fileID: 11400000, guid: be7e779628d2fd84f98f939e59e55b44, type: 2}
-  _propellerConfig: {fileID: 11400000, guid: bef7f603029ea74488ec9facf12fccdb, type: 2}
-  _rocketActivationPrefab: {fileID: 2151119278267167874, guid: 89f0e678dd15dc740b17efb4b64b5ee3, type: 3}
+  _assets: {fileID: 11400000, guid: 7a4f5424df908e84e97d2c615285d04d, type: 2}
+  _anim: {fileID: 11400000, guid: f9404e9a6f733b9499f4aacae13da178, type: 2}
   _effects: {fileID: 1077321449}
   _cameraShake: {fileID: 519420033}
-  _tntExplosionPrefab: {fileID: 6683318824054819131, guid: 3f74d0a9958f84d4996f9b723f75322c, type: 3}
-  _lightBeamPrefab: {fileID: 6678387600696547443, guid: 881b7086c8df30b479007379810ecd69, type: 3}
-  _propellerActivationPrefab: {fileID: 4182894333919953439, guid: 50b5c26630829044bb5464bb92e099e5, type: 3}
-  _collectTarget: {fileID: 370384370}
   _goalFlyer: {fileID: 1077321450}
-  _collectJumpDuration: 0.3
-  _collectFlyDuration: 0.55
-  _hammerPrefab: {fileID: 4571388776048433953, guid: b8c44ce7ebde53a4aa5851469707ad9a, type: 3}
-  _hammerImpactPrefab: {fileID: 1317046582944282590, guid: b27424b493ee0994dbe8481e2c8a9ec0, type: 3}
   _targetReticle: {fileID: 272894122}
 --- !u!114 &1077321449
 MonoBehaviour:
@@ -2061,13 +2045,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GoalFlyer
   _effects: {fileID: 1077321449}
-  _icons: {fileID: 11400000, guid: bd216404b97167743bac1d081281ad5f, type: 2}
-  _iconPrefab: {fileID: 8648644522278414196, guid: 4e1f2dd778dfa7c45af6f4b333866af1, type: 3}
-  _sparkPrefab: {fileID: 7513626069142836023, guid: a069328b762f7974b8c02eebdf1977af, type: 3}
-  _iconFlyDuration: 0.6
-  _sparkFlyDuration: 0.45
-  _arcHeight: 1.5
-  _arcSpread: 1.5
+  _assets: {fileID: 11400000, guid: 7a4f5424df908e84e97d2c615285d04d, type: 2}
+  _anim: {fileID: 11400000, guid: f9404e9a6f733b9499f4aacae13da178, type: 2}
 --- !u!1 &1246334450
 GameObject:
   m_ObjectHideFlags: 0
@@ -2080,7 +2059,7 @@ GameObject:
   - component: {fileID: 1246334453}
   - component: {fileID: 1246334452}
   m_Layer: 5
-  m_Name: ui_image_banner
+  m_Name: ui_image_moves_banner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2271,7 +2250,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2467,7 +2446,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2603,7 +2582,7 @@ GameObject:
   - component: {fileID: 1384367228}
   - component: {fileID: 1384367227}
   m_Layer: 5
-  m_Name: ui_banner
+  m_Name: ui_image_level_banner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2727,6 +2706,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1401960796}
+  - component: {fileID: 1401960797}
   m_Layer: 5
   m_Name: ui_panel_top
   m_TagString: Untagged
@@ -2756,6 +2736,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 2.5}
   m_SizeDelta: {x: 0, y: -5.633484}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1401960797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1401960795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 113a48b695972274a8b501a7ab40f942, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HudController
+  _movesText: {fileID: 92576379}
+  _levelText: {fileID: 1350218322}
+  _goalSlotParent: {fileID: 8305356004359178653}
+  _assets: {fileID: 11400000, guid: 7a4f5424df908e84e97d2c615285d04d, type: 2}
 --- !u!1 &1487030838
 GameObject:
   m_ObjectHideFlags: 0
@@ -2948,7 +2944,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -3172,7 +3168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -3345,7 +3341,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1700941212
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3454,7 +3450,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -3495,7 +3491,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1758731371
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3512,7 +3508,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -371.45, y: 0.000015258789}
+  m_AnchoredPosition: {x: 8, y: 0.000015258789}
   m_SizeDelta: {x: 317.1, y: 317.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1758731372
@@ -3659,7 +3655,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelDebugger
   _board: {fileID: 1077321446}
-  _startLevelIndex: -1
+  _startLevelIndex: 0
   _extraMovesAmount: 5
   _showOverlay: 1
   _boosterUpdateAmount: 3
@@ -3678,58 +3674,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1872247923
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1872247924}
-  - component: {fileID: 1872247925}
-  m_Layer: 5
-  m_Name: Hud
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1872247924
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1872247923}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 856818704}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1872247925
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1872247923}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 113a48b695972274a8b501a7ab40f942, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HudController
-  _movesText: {fileID: 92576379}
-  _goalSlotParent: {fileID: 8305356004359178653}
-  _goalSlotPrefab: {fileID: 6369549598773532538, guid: a9a4521856d51034cab8d8f5612ad3c0, type: 3}
-  _goalIcons: {fileID: 11400000, guid: bd216404b97167743bac1d081281ad5f, type: 2}
 --- !u!1 &1998029724
 GameObject:
   m_ObjectHideFlags: 0
@@ -3882,7 +3826,7 @@ GameObject:
   - component: {fileID: 2085060685}
   - component: {fileID: 2085060684}
   m_Layer: 0
-  m_Name: background
+  m_Name: env_background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4115,7 +4059,7 @@ GameObject:
   - component: {fileID: 2124250695}
   - component: {fileID: 2124250694}
   m_Layer: 5
-  m_Name: ui_mascot
+  m_Name: ui_image_mascot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4334,7 +4278,7 @@ GameObject:
   - component: {fileID: 8305356004359178653}
   - component: {fileID: 3429326196160158836}
   m_Layer: 5
-  m_Name: goal_slots
+  m_Name: ui_grid_goal_slots
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

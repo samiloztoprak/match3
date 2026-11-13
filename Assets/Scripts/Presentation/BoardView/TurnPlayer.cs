@@ -7,50 +7,31 @@ using UnityEngine.Pool;
 
 public class TurnPlayer : MonoBehaviour
 {
-    [SerializeField] private PieceView _piecePrefab;
     [SerializeField] private float _cellSize = 1f;
-    [SerializeField] private float _stepDuration = 0.2f;  
-    [SerializeField] private float _swapDuration = 0.15f;
-    [SerializeField] private float _fallSecondsPerCell = 0.08f;
-    [SerializeField] private float _fallDelay = 0.06f;
-    [SerializeField] private float _mergeDuration = 0.16f;
-    [SerializeField] private PieceVisualConfig _visualConfig;
-    [SerializeField] private BreakEffectConfig _breakEffects;
-    [SerializeField] private PropellerAnimationConfig _propellerConfig;
-    [SerializeField] private RocketActivationView _rocketActivationPrefab;
+    [SerializeField] private GameAssets _assets;
+    [SerializeField] private AnimationSettings _anim;
     [SerializeField] private EffectSpawner _effects;
     [SerializeField] private CameraShake _cameraShake;
-    [SerializeField] private ExplosionView _tntExplosionPrefab;
-    [SerializeField] private LightBeamView _lightBeamPrefab;
-    [SerializeField] private PropellerActivationView _propellerActivationPrefab;
-    [SerializeField] private RectTransform _collectTarget;
     [SerializeField] private GoalFlyer _goalFlyer;
-    [SerializeField] private float _collectJumpDuration = 0.3f;
-    [SerializeField] private float _collectFlyDuration = 0.55f;
-    [SerializeField] private SpriteRenderer _hammerPrefab;
-    [SerializeField] private SpriteRenderer _hammerImpactPrefab;
     [SerializeField] private SpriteRenderer _targetReticle;
     
-    public PropellerAnimationConfig PropellerConfig => _propellerConfig;
-    public EffectSpawner Effects => _effects;
-    public CameraShake CameraShake => _cameraShake;
-    public ExplosionView TntExplosionPrefab => _tntExplosionPrefab;
-    
-    public SpriteRenderer HammerPrefab => _hammerPrefab;
-    public SpriteRenderer HammerImpactPrefab => _hammerImpactPrefab;
-    
-    public float PopDuration => _stepDuration;
-    public float FallSecondsPerCell => _fallSecondsPerCell;
-    public float FallDelay => _fallDelay;
-    public float MergeDuration => _mergeDuration;
-
-    public float CollectJumpDuration => _collectJumpDuration;
-    public float CollectFlyDuration => _collectFlyDuration;
+    public PropellerAnimationConfig PropellerConfig => _assets.PropellerAnimation;
+    public ExplosionView TntExplosionPrefab => _assets.TntExplosion;
+    public SpriteRenderer HammerPrefab => _assets.Hammer;
+    public SpriteRenderer HammerImpactPrefab => _assets.HammerImpact;
+    public float PopDuration => _anim.PopDuration;
+    public float FallSecondsPerCell => _anim.FallSecondsPerCell;
+    public float FallDelay => _anim.FallDelay;
+    public float MergeDuration => _anim.MergeDuration;
+    public float CollectJumpDuration => _anim.CollectJumpDuration;
+    public float CollectFlyDuration => _anim.CollectFlyDuration;
+    public PieceVisualConfig VisualConfig => _assets.PieceVisuals;
     public GoalFlyer GoalFlyer => _goalFlyer;
+    public CameraShake CameraShake => _cameraShake;
+    public EffectSpawner Effects => _effects;
     
     private Dictionary<int, PieceView> _pieceById = new Dictionary<int, PieceView>();
     private ObjectPool<PieceView> _pieceViewPool;
-    private ObjectPool<ParticleSystem> _breakEffectPool;
     private Board _board;
     
     public int BoardWidth => _board.Width;
@@ -58,15 +39,15 @@ public class TurnPlayer : MonoBehaviour
     public float CellSize => _cellSize;
     
     public bool IsBusy { get; private set; }
-    public PieceVisualConfig VisualConfig => _visualConfig;
+    
 
     public void Init(Board board)
     {
         _board = board;
         
-        Vector3 defaultScale = _piecePrefab.transform.localScale;
+        Vector3 defaultScale = _assets.PiecePrefab.transform.localScale;
         _pieceViewPool = new ObjectPool<PieceView>(
-            createFunc: () => Instantiate(_piecePrefab, transform),
+            createFunc: () => Instantiate(_assets.PiecePrefab, transform),
             actionOnGet: view => view.gameObject.SetActive(true),
             actionOnRelease: view =>
             {
@@ -80,6 +61,18 @@ public class TurnPlayer : MonoBehaviour
             collectionCheck: true,
             defaultCapacity: board.Width * board.Height,
             maxSize: 200);
+    }
+    
+    private void OnValidate()
+    {
+        if (_effects == null) _effects = GetComponent<EffectSpawner>();
+        if (_goalFlyer == null) _goalFlyer = GetComponent<GoalFlyer>();
+        if (_cameraShake == null) _cameraShake = AutoRef.InScene<CameraShake>();
+        if (_targetReticle == null) _targetReticle = AutoRef.Child<SpriteRenderer>(this, "fx_target_reticle");
+#if UNITY_EDITOR
+        if (_assets == null) _assets = AutoRef.Asset<GameAssets>();
+        if (_anim == null) _anim = AutoRef.Asset<AnimationSettings>();
+#endif
     }
     
     public PieceView GetView(int pieceId)
@@ -122,14 +115,14 @@ public class TurnPlayer : MonoBehaviour
     {
         PieceView instance = _pieceViewPool.Get();
         instance.transform.SetPositionAndRotation(position, Quaternion.identity);
-        instance.Setup(piece, _visualConfig);
+        instance.Setup(piece, _assets.PieceVisuals);
         _pieceById[piece.Id] = instance;
         return instance;
     }
     
     public RocketActivationView SpawnRocketActivation(Vector3 position)
     {
-        return _effects.Spawn(_rocketActivationPrefab, position);
+        return _effects.Spawn(_assets.RocketActivation, position);
     }
 
     public void ReleaseRocketActivation(RocketActivationView view)
@@ -139,7 +132,7 @@ public class TurnPlayer : MonoBehaviour
     
     public LightBeamView SpawnLightBeam(Vector3 position)
     {
-        return _effects.Spawn(_lightBeamPrefab, position);
+        return _effects.Spawn(_assets.LightBeam, position);
     }
 
     public void ReleaseLightBeam(LightBeamView view)
@@ -149,7 +142,7 @@ public class TurnPlayer : MonoBehaviour
     
     public PropellerActivationView SpawnPropellerActivation(Vector3 position)
     {
-        return _effects.Spawn(_propellerActivationPrefab, position);
+        return _effects.Spawn(_assets.PropellerActivation, position);
     }
 
     public void ReleasePropellerActivation(PropellerActivationView view)
@@ -159,29 +152,29 @@ public class TurnPlayer : MonoBehaviour
     
     public void SpawnBreakEffect(Vector3 position)
     {
-        if (_breakEffects == null)
+        if (_assets.BreakEffects == null)
         {
             return;
         }
-        PlayEffect(_breakEffects.Default, position);
+        PlayEffect(_assets.BreakEffects.Default, position);
     }
 
     public void SpawnBreakEffect(Piece piece, Vector3 position)
     {
-        if (_breakEffects == null)
+        if (_assets.BreakEffects == null)
         {
             return;
         }
-        PlayEffect(_breakEffects.GetBreak(piece), position);
+        PlayEffect(_assets.BreakEffects.GetBreak(piece), position);
     }
 
     public void SpawnHitEffect(Piece piece, Vector3 position)
     {
-        if (_breakEffects == null)
+        if (_assets.BreakEffects == null)
         {
             return;
         }
-        PlayEffect(_breakEffects.GetHit(piece), position);
+        PlayEffect(_assets.BreakEffects.GetHit(piece), position);
     }
 
     private void PlayEffect(ParticleSystem prefab, Vector3 position)
@@ -213,16 +206,16 @@ public class TurnPlayer : MonoBehaviour
 
             if (_pieceById.TryGetValue(piece1Id, out PieceView view1))
             {
-                view1.MoveTo(targetWorldPos, _swapDuration);
+                view1.MoveTo(targetWorldPos, _anim.SwapDuration);
             }
             if (_pieceById.TryGetValue(piece2Id, out PieceView view2))
             {
-                view2.MoveTo(isCombo ? targetWorldPos : sourceWorldPos, _swapDuration);
+                view2.MoveTo(isCombo ? targetWorldPos : sourceWorldPos, _anim.SwapDuration);
             }
             
             if (!isCombo)
             {
-                yield return new WaitForSeconds(_swapDuration);
+                yield return new WaitForSeconds(_anim.SwapDuration);
             }
 
             List<(float startTime, IViewCommand command)> commands = ViewCommandFactory.Build(steps, this);
@@ -231,13 +224,13 @@ public class TurnPlayer : MonoBehaviour
             {
                 if (_pieceById.TryGetValue(piece1Id, out PieceView backView1))
                 {
-                    backView1.MoveTo(sourceWorldPos, _swapDuration);
+                    backView1.MoveTo(sourceWorldPos, _anim.SwapDuration);
                 }
                 if (_pieceById.TryGetValue(piece2Id, out PieceView backView2))
                 {
-                    backView2.MoveTo(targetWorldPos, _swapDuration);
+                    backView2.MoveTo(targetWorldPos, _anim.SwapDuration);
                 }
-                yield return new WaitForSeconds(_swapDuration);
+                yield return new WaitForSeconds(_anim.SwapDuration);
                 yield break;
             }
 
@@ -293,22 +286,6 @@ public class TurnPlayer : MonoBehaviour
         sequence.InsertCallback(totalDuration, () => { });
 
         yield return sequence.WaitForCompletion();
-    }
-    
-    public Vector3 GetCollectTargetWorld()
-    {
-        Camera cam = Camera.main;
-        if (_collectTarget == null || cam == null)
-        {
-            return CellToWorld(_board.Width / 2, -3);
-        }
-
-        Canvas canvas = _collectTarget.GetComponentInParent<Canvas>();
-        Camera uiCamera = canvas != null && canvas.renderMode != RenderMode.ScreenSpaceOverlay ? canvas.worldCamera : null;
-        Vector2 screen = RectTransformUtility.WorldToScreenPoint(uiCamera, _collectTarget.position);
-        Vector3 world = cam.ScreenToWorldPoint(new Vector3(screen.x, screen.y, -cam.transform.position.z));
-        world.z = 0f;
-        return world;
     }
     
     public void ShowTargetReticle(int x, int y)

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10e857733d8f9ac4f8412363213bd4bc, type: 3}
+  m_Name: AnimationSettings
+  m_EditorClassIdentifier: Assembly-CSharp::AnimationSettings
+  PopDuration: 0.1
+  SwapDuration: 0.15
+  FallSecondsPerCell: 0.08
+  FallDelay: 0.06
+  MergeDuration: 0.16
+  CollectJumpDuration: 0.3
+  CollectFlyDuration: 0.55
+  IconFlyDuration: 0.6
+  SparkFlyDuration: 0.45
+  ArcHeight: 1.5
+  ArcSpread: 1.5

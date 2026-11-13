@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d2c8100ddaa9954a8b5afeab0292cf8, type: 3}
+  m_Name: GameAssets
+  m_EditorClassIdentifier: Assembly-CSharp::GameAssets
+  PiecePrefab: {fileID: 4093109827346939760, guid: 783826b51c210b44898c69377c31f864, type: 3}
+  CellTilePrefab: {fileID: 1595000400380124855, guid: 673675e3bdee67b46b8d0ca257bbe3e3, type: 3}
+  PieceVisuals: {fileID: 11400000, guid: 09d110696ffca734986e68c988cb8450, type: 2}
+  BreakEffects: {fileID: 11400000, guid: be7e779628d2fd84f98f939e59e55b44, type: 2}
+  PropellerAnimation: {fileID: 11400000, guid: bef7f603029ea74488ec9facf12fccdb, type: 2}
+  GoalIcons: {fileID: 11400000, guid: bd216404b97167743bac1d081281ad5f, type: 2}
+  RocketActivation: {fileID: 2151119278267167874, guid: 89f0e678dd15dc740b17efb4b64b5ee3, type: 3}
+  TntExplosion: {fileID: 6683318824054819131, guid: 3f74d0a9958f84d4996f9b723f75322c, type: 3}
+  LightBeam: {fileID: 6678387600696547443, guid: 881b7086c8df30b479007379810ecd69, type: 3}
+  PropellerActivation: {fileID: 4182894333919953439, guid: 50b5c26630829044bb5464bb92e099e5, type: 3}
+  Hammer: {fileID: 4571388776048433953, guid: b8c44ce7ebde53a4aa5851469707ad9a, type: 3}
+  HammerImpact: {fileID: 1317046582944282590, guid: b27424b493ee0994dbe8481e2c8a9ec0, type: 3}
+  GoalSlot: {fileID: 6369549598773532538, guid: a9a4521856d51034cab8d8f5612ad3c0, type: 3}
+  GoalFlyIcon: {fileID: 8648644522278414196, guid: 4e1f2dd778dfa7c45af6f4b333866af1, type: 3}
+  GoalSpark: {fileID: 7513626069142836023, guid: a069328b762f7974b8c02eebdf1977af, type: 3}

@@ -15,8 +15,10 @@ public class BoardController : MonoBehaviour
     [SerializeField] private float _idleHintDelay = 5f;
     [SerializeField] private SpriteRenderer _background;
     [SerializeField] private float _cameraMargin = 1f;
-    [SerializeField] private SpriteRenderer _cellTilePrefab;
     [SerializeField] private BoosterBarController _boosterBar;
+    
+    [SerializeField] private GameAssets _assets;
+    [SerializeField] private AnimationSettings _anim;
     
     private LevelDefinition _level;
     
@@ -33,6 +35,22 @@ public class BoardController : MonoBehaviour
     private PieceView _hintView1;
     private PieceView _hintView2;
     
+    private void OnValidate()
+    {
+        if (_turnPlayer == null) _turnPlayer = GetComponent<TurnPlayer>();
+        if (_hud == null) _hud = AutoRef.InScene<HudController>();
+        if (_endGame == null) _endGame = AutoRef.InScene<EndGameController>();
+        if (_boosterBar == null) _boosterBar = AutoRef.InScene<BoosterBarController>();
+        if (_background == null) _background = GameObject.Find("env_background")?.GetComponent<SpriteRenderer>();
+#if UNITY_EDITOR
+        if (_levels == null || _levels.Length == 0) _levels = AutoRef.Assets<LevelDefinition>("Assets/Data/Levels");
+#endif
+        
+#if UNITY_EDITOR
+        if (_assets == null) _assets = AutoRef.Asset<GameAssets>();
+        if (_anim == null) _anim = AutoRef.Asset<AnimationSettings>();
+#endif
+    }
     
     void Start()
     {
@@ -63,9 +81,9 @@ public class BoardController : MonoBehaviour
                     continue;
                 }
                 
-                if (_cellTilePrefab != null)
+                if (_assets.CellTilePrefab != null)
                 {
-                    SpriteRenderer tile = Instantiate(_cellTilePrefab, _turnPlayer.CellToWorld(x, y), Quaternion.identity, transform);
+                    SpriteRenderer tile = Instantiate(_assets.CellTilePrefab, _turnPlayer.CellToWorld(x, y), Quaternion.identity, transform);
                     tile.sortingOrder = SortingOrders.CellTile;
                 }
                 
@@ -88,6 +106,7 @@ public class BoardController : MonoBehaviour
         _movesRemaining = _level.MoveLimit;
         _hud.SetMoves(_movesRemaining);
         _hud.BuildGoals(_goalTracker);
+        _hud.SetLevel(index + 1);
         _turnPlayer.GoalFlyer.Bind(_hud);
         
         var initialResult = TurnResolver.Resolve(_board, null);
