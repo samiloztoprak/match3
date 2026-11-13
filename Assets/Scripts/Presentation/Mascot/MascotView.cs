@@ -44,7 +44,8 @@ public class MascotView : MonoBehaviour
         _board.MovesChanged += OnMovesChanged;
         _board.HintShown += OnHintShown;
         _board.LevelEnded += OnLevelEnded;
-
+        _board.LevelResumed += OnLevelResumed;
+        
         _restPosition = _animRoot.anchoredPosition;
         _image.sprite = Config.Get(MascotMood.Idle);
         StartBreathing();
@@ -57,7 +58,8 @@ public class MascotView : MonoBehaviour
         _board.MovesChanged -= OnMovesChanged;
         _board.HintShown -= OnHintShown;
         _board.LevelEnded -= OnLevelEnded;
-
+        _board.LevelResumed -= OnLevelResumed;
+        
         _action?.Kill();
         _breath?.Kill();
     }
@@ -133,9 +135,7 @@ public class MascotView : MonoBehaviour
         _currentPriority = NoReaction;
         Show(won ? MascotMood.TipHat : MascotMood.Sad);
     }
-
-    // ---------- Mood logic ----------
-
+    
     private void Play(MascotMood mood, int priority, float hold)
     {
         if (_levelEnded)
@@ -179,7 +179,6 @@ public class MascotView : MonoBehaviour
         _action = DOTween.Sequence().SetTarget(_animRoot);
         if (changeSprite)
         {
-            // Squash, swap the sprite at the bottom of the squash, pop back
             _action.Append(_animRoot.DOScale(new Vector3(1.08f, 0.9f, 1f), 0.08f).SetEase(Ease.OutQuad));
             _action.AppendCallback(() => _image.sprite = Config.Get(mood));
             _action.Append(_animRoot.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack));
@@ -216,5 +215,11 @@ public class MascotView : MonoBehaviour
         Transform t = _image.transform;
         t.localScale = Vector3.one;
         _breath = t.DOScaleY(1.03f, 1.2f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
+    }
+    
+    private void OnLevelResumed()
+    {
+        _levelEnded = false;
+        ReturnToBase();
     }
 }

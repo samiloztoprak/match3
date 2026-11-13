@@ -17,7 +17,8 @@ public class BoardController : MonoBehaviour
     [SerializeField] private LevelDefinition[] _levels;
     [SerializeField] private TurnPlayer _turnPlayer;
     [SerializeField] private HudController _hud;
-    [SerializeField] private EndGameController _endGame;
+    [SerializeField] private PopupManager _popups;
+    [SerializeField] private int _extraMovesAmount = 5;
     [SerializeField] private float _idleHintDelay = 5f;
     [SerializeField] private SpriteRenderer _background;
     [SerializeField] private float _cameraMargin = 1f;
@@ -41,11 +42,16 @@ public class BoardController : MonoBehaviour
     private PieceView _hintView1;
     private PieceView _hintView2;
     
+    private int _levelIndex;
+    private bool _extraMovesUsed;
+    
+    public event Action LevelResumed;
+    
     private void OnValidate()
     {
         if (_turnPlayer == null) _turnPlayer = GetComponent<TurnPlayer>();
         if (_hud == null) _hud = AutoRef.InScene<HudController>();
-        if (_endGame == null) _endGame = AutoRef.InScene<EndGameController>();
+        if (_popups == null) _popups = AutoRef.InScene<PopupManager>();
         if (_boosterBar == null) _boosterBar = AutoRef.InScene<BoosterBarController>();
         if (_background == null) _background = GameObject.Find("env_background")?.GetComponent<SpriteRenderer>();
 #if UNITY_EDITOR
@@ -61,7 +67,8 @@ public class BoardController : MonoBehaviour
     void Start()
     {
         int index = Mathf.Clamp(LevelProgress.CurrentIndex, 0, _levels.Length - 1);
-        _level = _levels[index];
+        _levelIndex = index;
+        _level = _levels[_levelIndex];
         _board = new Board(_level.Width, _level.Height);
         _turnPlayer.Init(_board);
         FitCameraToBoard();
@@ -198,7 +205,7 @@ public class BoardController : MonoBehaviour
             _boosterBar.InstantBoosterRequested -= OnInstantBooster;
         }
     }
-    
+
     private IEnumerator PlayInitialTurn(List<TurnStepData> result)
     {
         yield return StartCoroutine(_turnPlayer.PlayTapTurn(result));
@@ -247,16 +254,40 @@ public class BoardController : MonoBehaviour
         if (_goalTracker.IsComplete())
         {
             _levelEnded = true;
+            _boosterBar.SetInteractable(false);
             LevelEnded?.Invoke(true);
-            _endGame.ShowWin();
+
+            int stars = CalculateStars();
+            LevelProgress.SaveStars(_levelIndex, stars);
+            _popups.Show<WinPopup>().Setup(_levelIndex + 1, stars);
         }
         else if (_movesRemaining <= 0)
         {
             _levelEnded = true;
             _boosterBar.SetInteractable(false);
             LevelEnded?.Invoke(false);
-            _endGame.ShowLose();
+
+            _popups.Show<LosePopup>().Setup(_levelIndex + 1, _extraMovesAmount, !_extraMovesUsed, ContinueWithExtraMoves, _goalTracker);
         }
+    }
+    
+    private int CalculateStars()
+    {
+        float ratio = (float)_movesRemaining / _level.MoveLimit;
+        if (ratio >= 0.4f) return 3;
+        if (ratio >= 0.2f) return 2;
+        return 1;
+    }
+
+    private void ContinueWithExtraMoves()
+    {
+        _extraMovesUsed = true;
+        _movesRemaining += _extraMovesAmount;
+        _levelEnded = false;
+        _boosterBar.SetInteractable(true);
+        _hud.SetMoves(_movesRemaining);
+        MovesChanged?.Invoke(_movesRemaining);
+        LevelResumed?.Invoke();
     }
     
     public void TrySwap(int x1, int y1, int x2, int y2)
