@@ -3,6 +3,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GameAssets", menuName = "Match3/GameAssets")]
 public class GameAssets : ScriptableObject
 {
+    [Header("Mascot")]
+    public MascotConfig Mascot;
+    
     [Header("Board")]
     public PieceView PiecePrefab;
     public SpriteRenderer CellTilePrefab;

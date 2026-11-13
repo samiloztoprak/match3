@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using LogicLibrary;
@@ -6,6 +7,11 @@ using UnityEngine.InputSystem;
 
 public class BoardController : MonoBehaviour
 {
+    public event Action<TurnSummary> TurnStarted;
+    public event Action<int> MovesChanged;
+    public event Action HintShown;
+    public event Action<bool> LevelEnded; 
+    
     [SerializeField, Range(0.1f, 1f)] private float _swipeThresholdCells = 0.35f;
 
     [SerializeField] private LevelDefinition[] _levels;
@@ -221,6 +227,7 @@ public class BoardController : MonoBehaviour
         }
 
         _hud.SetMoves(_movesRemaining);
+        MovesChanged?.Invoke(_movesRemaining);
     }
     
     private IEnumerator FinishTurn()
@@ -240,12 +247,14 @@ public class BoardController : MonoBehaviour
         if (_goalTracker.IsComplete())
         {
             _levelEnded = true;
+            LevelEnded?.Invoke(true);
             _endGame.ShowWin();
         }
         else if (_movesRemaining <= 0)
         {
             _levelEnded = true;
             _boosterBar.SetInteractable(false);
+            LevelEnded?.Invoke(false);
             _endGame.ShowLose();
         }
     }
@@ -286,6 +295,7 @@ public class BoardController : MonoBehaviour
         }
         
         ApplyTurnResult(result, true);
+        TurnStarted?.Invoke(TurnSummary.From(result));
         StartCoroutine(PlayTurnAndCheckShuffle(_turnPlayer.PlaySwapTurn(piece1.Id, piece2.Id, x1, y1, x2, y2, result, isCombo)));
     }
     
@@ -311,7 +321,7 @@ public class BoardController : MonoBehaviour
         var command = new TapCommand(x, y);
         var result = TurnResolver.Resolve(_board, command, targetPriority: _goalTracker);
         ApplyTurnResult(result, true);
-        
+        TurnStarted?.Invoke(TurnSummary.From(result));
         StartCoroutine(PlayTurnAndCheckShuffle(_turnPlayer.PlayTapTurn(result)));
     }
     
@@ -333,6 +343,7 @@ public class BoardController : MonoBehaviour
         ClearHint();
         _idleTimer = 0f;
         ApplyTurnResult(result, false);
+        TurnStarted?.Invoke(TurnSummary.From(result));
         StartCoroutine(PlayTurnAndCheckShuffle(_turnPlayer.PlayTapTurn(result)));
     }
     
@@ -383,6 +394,7 @@ public class BoardController : MonoBehaviour
         _hintView2 = _turnPlayer.GetView(_board.GetCell(x2, y2).Id);
         _hintView1?.PlayHintPulse();
         _hintView2?.PlayHintPulse();
+        HintShown?.Invoke();
     }
 
     private void ClearHint()

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d2c8100ddaa9954a8b5afeab0292cf8, type: 3}
   m_Name: GameAssets
   m_EditorClassIdentifier: Assembly-CSharp::GameAssets
+  Mascot: {fileID: 11400000, guid: 7e8ce95efd74bf54dbe8224df75de75d, type: 2}
   PiecePrefab: {fileID: 4093109827346939760, guid: 783826b51c210b44898c69377c31f864, type: 3}
   CellTilePrefab: {fileID: 1595000400380124855, guid: 673675e3bdee67b46b8d0ca257bbe3e3, type: 3}
   PieceVisuals: {fileID: 11400000, guid: 09d110696ffca734986e68c988cb8450, type: 2}
