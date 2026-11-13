@@ -56,6 +56,11 @@ public static class TurnResolver
             return result;
         }
         
+        if (command is BoosterCommand boosterCmd0 && !boosterCmd0.Validate(board))
+        {
+            return result;
+        }
+        
         if(command != null)
             command.Execute();
 
@@ -216,6 +221,29 @@ public static class TurnResolver
             {
                 pending.Enqueue(new PendingActivation(atTarget, swapCmd.TargetPosition.x, swapCmd.TargetPosition.y, atSource, 0f));
             }
+        }
+        else if (command is BoosterCommand boosterCmd)
+        {
+            IBoosterEffect booster = BoosterRegistry.Get(boosterCmd.Type);
+            List<(int x, int y, float timeMs)> cells = booster.GetCells(board, boosterCmd.X, boosterCmd.Y);
+
+            var boosterDamageData = new DamagePieceData();
+            var boosterClearOverlayData = new ClearOverlayData();
+            var boosterClearData = ClearCellsAndEnqueueChains(board, cells, pending, new HashSet<int>(),
+                boosterDamageData, boosterClearOverlayData, goalProgress, booster.StartMs);
+
+            result.Add(new BoosterActivationData
+            {
+                Type = boosterCmd.Type,
+                X = boosterCmd.X,
+                Y = boosterCmd.Y,
+                TimeMs = 0f,
+                Cells = cells
+            });
+            result.Add(boosterDamageData);
+            result.Add(boosterClearOverlayData);
+            result.Add(boosterClearData);
+            specialActivated = true;
         }
         else if (command is TapCommand tapCommand)
         {

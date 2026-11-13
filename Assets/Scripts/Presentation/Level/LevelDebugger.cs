@@ -12,7 +12,7 @@ public class LevelDebugger : MonoBehaviour
 
     [SerializeField] private int _extraMovesAmount = 5;
     [SerializeField] private bool _showOverlay = true;
-
+    [SerializeField] private int _boosterUpdateAmount = 3;
     private static bool _startApplied;
 
     private void Awake()
@@ -33,6 +33,7 @@ public class LevelDebugger : MonoBehaviour
         if (kb.leftBracketKey.wasPressedThisFrame)  LoadLevel(LevelProgress.CurrentIndex - 1);
         if (kb.rKey.wasPressedThisFrame)            LoadLevel(LevelProgress.CurrentIndex);
         if (kb.mKey.wasPressedThisFrame && _board != null) _board.DebugAddMoves(_extraMovesAmount);
+        if (Keyboard.current.bKey.wasPressedThisFrame) UpdateBoosters(_boosterUpdateAmount);
     }
 
     private void LoadLevel(int index)
@@ -60,6 +61,14 @@ public class LevelDebugger : MonoBehaviour
     private void OnApplicationQuit()
     {
         _startApplied = false;
+    }
+
+    private void UpdateBoosters(int amount)
+    {
+        foreach (BoosterType type in System.Enum.GetValues(typeof(BoosterType)))
+        {
+            BoosterInventory.Add(type, amount);
+        }
     }
 }
 #endif

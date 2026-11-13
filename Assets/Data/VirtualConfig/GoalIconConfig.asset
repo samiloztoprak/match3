@@ -36,20 +36,20 @@ MonoBehaviour:
   - Type: 2
     Color: 0
     Icon: {fileID: -1423427027442448336, guid: 77fc3247445a5304b8c4668c04e1e807, type: 3}
-    FlyStyle: 1
+    FlyStyle: 0
     SparkColor: {r: 1, g: 0.922585, b: 0, a: 1}
   - Type: 3
     Color: 0
     Icon: {fileID: 7932798033344189819, guid: 8d01ab7e8f7bb414da8496ad92fb43fd, type: 3}
-    FlyStyle: 1
+    FlyStyle: 0
     SparkColor: {r: 0.06549895, g: 1, b: 0, a: 1}
   - Type: 4
     Color: 0
     Icon: {fileID: -9170278564998984525, guid: 16afba31d05a81f4ea49d984ce1b8bba, type: 3}
-    FlyStyle: 1
+    FlyStyle: 0
     SparkColor: {r: 1, g: 1, b: 1, a: 1}
   - Type: 1
     Color: 0
     Icon: {fileID: 2062545466655469432, guid: 9323df2cb4baadb4f8496f9eaa97020f, type: 3}
-    FlyStyle: 1
+    FlyStyle: 0
     SparkColor: {r: 1, g: 0.6894004, b: 0, a: 1}

@@ -27,12 +27,17 @@ public class TurnPlayer : MonoBehaviour
     [SerializeField] private GoalFlyer _goalFlyer;
     [SerializeField] private float _collectJumpDuration = 0.3f;
     [SerializeField] private float _collectFlyDuration = 0.55f;
-    
+    [SerializeField] private SpriteRenderer _hammerPrefab;
+    [SerializeField] private SpriteRenderer _hammerImpactPrefab;
+    [SerializeField] private SpriteRenderer _targetReticle;
     
     public PropellerAnimationConfig PropellerConfig => _propellerConfig;
     public EffectSpawner Effects => _effects;
     public CameraShake CameraShake => _cameraShake;
     public ExplosionView TntExplosionPrefab => _tntExplosionPrefab;
+    
+    public SpriteRenderer HammerPrefab => _hammerPrefab;
+    public SpriteRenderer HammerImpactPrefab => _hammerImpactPrefab;
     
     public float PopDuration => _stepDuration;
     public float FallSecondsPerCell => _fallSecondsPerCell;
@@ -304,5 +309,24 @@ public class TurnPlayer : MonoBehaviour
         Vector3 world = cam.ScreenToWorldPoint(new Vector3(screen.x, screen.y, -cam.transform.position.z));
         world.z = 0f;
         return world;
+    }
+    
+    public void ShowTargetReticle(int x, int y)
+    {
+        if (_targetReticle == null) return;
+        Transform t = _targetReticle.transform;
+        t.DOKill();
+        t.position = CellToWorld(x, y);
+        t.localScale = Vector3.one * 1.25f;
+        _targetReticle.sortingOrder = SortingOrders.Flight;
+        _targetReticle.gameObject.SetActive(true);
+        t.DOScale(1f, 0.15f).SetEase(Ease.OutBack);
+    }
+
+    public void HideTargetReticle()
+    {
+        if (_targetReticle == null) return;
+        _targetReticle.transform.DOKill();
+        _targetReticle.gameObject.SetActive(false);
     }
 }

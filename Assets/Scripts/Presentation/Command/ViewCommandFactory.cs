@@ -182,6 +182,28 @@ public static class ViewCommandFactory
                     MarkHit(waveStart + jump);
                     break;
                 }
+                
+                case BoosterActivationData booster:
+                {
+                    float t = At(booster.TimeMs);
+                    if (booster.Type == BoosterType.Hammer)
+                    {
+                        var hammer = new HammerStrikeViewCommand(booster.X, booster.Y, player);
+                        result.Add((t, hammer));
+                        MarkHit(t + hammer.Duration);
+                    }
+                    else
+                    {
+                        RocketDirection direction = booster.Type == BoosterType.Row
+                            ? RocketDirection.Horizontal
+                            : RocketDirection.Vertical;
+                        float launch = At(booster.TimeMs + ActivationTiming.BoosterLaunchMs);
+                        var fly = new RocketFlyViewCommand(direction, booster.X, booster.Y, player);
+                        result.Add((launch, fly));
+                        MarkHit(launch + fly.Duration);
+                    }
+                    break;
+                }
             }
         }
 

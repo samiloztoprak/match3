@@ -16,6 +16,7 @@ public class BoardController : MonoBehaviour
     [SerializeField] private SpriteRenderer _background;
     [SerializeField] private float _cameraMargin = 1f;
     [SerializeField] private SpriteRenderer _cellTilePrefab;
+    [SerializeField] private BoosterBarController _boosterBar;
     
     private LevelDefinition _level;
     
@@ -81,6 +82,8 @@ public class BoardController : MonoBehaviour
             }
         }
         
+        _boosterBar.InstantBoosterRequested += OnInstantBooster;
+        
         _goalTracker = new GoalTracker(_board, _level.Goals);
         _movesRemaining = _level.MoveLimit;
         _hud.SetMoves(_movesRemaining);
@@ -119,7 +122,7 @@ public class BoardController : MonoBehaviour
             _swipeConsumed = false;
         }
 
-        if (_hasStart && !_swipeConsumed && Pointer.current.press.isPressed)
+        if (_hasStart && !_swipeConsumed && !_boosterBar.Selected.HasValue && Pointer.current.press.isPressed)
         {
             Vector3 delta = PointerWorldPosition() - _startWorldPos;
             float threshold = _turnPlayer.CellSize * _swipeThresholdCells;
@@ -141,12 +144,33 @@ public class BoardController : MonoBehaviour
 
         if (Pointer.current.press.wasReleasedThisFrame)
         {
+            _turnPlayer.HideTargetReticle();
             if (_hasStart && !_swipeConsumed)
             {
-                TryActivate(_startX, _startY);
+                if (_boosterBar.Selected.HasValue)
+                {
+                    TryUseBooster(_boosterBar.Selected.Value, _startX, _startY);
+                }
+                else
+                {
+                    TryActivate(_startX, _startY);
+                }
             }
             _hasStart = false;
             _swipeConsumed = false;
+        }
+        
+        if (_hasStart && _boosterBar.Selected.HasValue)
+        {
+            _turnPlayer.ShowTargetReticle(_startX, _startY);
+        }
+    }
+    
+    private void OnDestroy()
+    {
+        if (_boosterBar != null)
+        {
+            _boosterBar.InstantBoosterRequested -= OnInstantBooster;
         }
     }
     
@@ -202,6 +226,7 @@ public class BoardController : MonoBehaviour
         else if (_movesRemaining <= 0)
         {
             _levelEnded = true;
+            _boosterBar.SetInteractable(false);
             _endGame.ShowLose();
         }
     }
@@ -269,6 +294,44 @@ public class BoardController : MonoBehaviour
         ApplyTurnResult(result, true);
         
         StartCoroutine(PlayTurnAndCheckShuffle(_turnPlayer.PlayTapTurn(result)));
+    }
+    
+    private void TryUseBooster(BoosterType type, int x, int y)
+    {
+        if (_levelEnded || _turnPlayer.IsBusy)
+        {
+            return;
+        }
+
+        var command = new BoosterCommand(type, x, y);
+        var result = TurnResolver.Resolve(_board, command, targetPriority: _goalTracker);
+        if (result.Count == 0)
+        {
+            return;
+        }
+
+        _boosterBar.TryConsume(type);
+        ClearHint();
+        _idleTimer = 0f;
+        ApplyTurnResult(result, false);
+        StartCoroutine(PlayTurnAndCheckShuffle(_turnPlayer.PlayTapTurn(result)));
+    }
+    
+    private void OnInstantBooster(BoosterType type)
+    {
+        if (type != BoosterType.Shuffle || _levelEnded || _turnPlayer.IsBusy)
+        {
+            return;
+        }
+        if (!_boosterBar.TryConsume(type))
+        {
+            return;
+        }
+
+        ClearHint();
+        _idleTimer = 0f;
+        var steps = TurnResolver.ResolveShuffle(_board, new SystemRandom());
+        StartCoroutine(PlayTurnAndCheckShuffle(_turnPlayer.PlayShuffleTurn(steps)));
     }
     
     private IEnumerator PlayTurnAndCheckShuffle(IEnumerator turnRoutine)

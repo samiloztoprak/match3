@@ -16,6 +16,9 @@ public static class ActivationTiming
     public const float LightBallWaveMsPerRing = 60f;
 
     public const float ComboMergeMs = 150f;
+    
+    public const float HammerStrikeMs = 250f;
+    public const float BoosterLaunchMs = 120f;
 
     public static int ChebyshevDistance(int x1, int y1, int x2, int y2)
     {
