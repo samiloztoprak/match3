@@ -53,6 +53,8 @@ public class HammerStrikeViewCommand : IViewCommand
 
     private void SpawnImpact(Vector3 position)
     {
+        AudioManager.Play(SoundId.Hammer);
+        
         SpriteRenderer prefab = _player.HammerImpactPrefab;
         SpriteRenderer impact = _player.Effects.Spawn(prefab, position);
         impact.sortingOrder = SortingOrders.Flight - 1;

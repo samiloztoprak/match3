@@ -17,6 +17,8 @@ public class DamageViewCommand : IViewCommand
 
     public void Execute()
     {
+        AudioManager.Play(SoundId.Hit);
+        
         foreach (var (pieceId, healthAfter, _) in _hits)
         {
             PieceView view = _player.GetView(pieceId);

@@ -30,4 +30,7 @@ public class GameAssets : ScriptableObject
     public GoalSlotView GoalSlot;
     public SpriteRenderer GoalFlyIcon;
     public GoalSpark GoalSpark;
+    
+    [Header("Levels")]
+    public LevelCatalog Levels;
 }

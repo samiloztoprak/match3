@@ -45,7 +45,7 @@ public class LevelDebugger : MonoBehaviour
     {
         int count = _board != null ? _board.LevelCount : int.MaxValue;
         LevelProgress.CurrentIndex = Mathf.Clamp(index, 0, count - 1);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneLoader.LoadGame();
     }
 
     private void OnGUI()

@@ -28,3 +28,4 @@ MonoBehaviour:
   GoalSlot: {fileID: 6369549598773532538, guid: a9a4521856d51034cab8d8f5612ad3c0, type: 3}
   GoalFlyIcon: {fileID: 8648644522278414196, guid: 4e1f2dd778dfa7c45af6f4b333866af1, type: 3}
   GoalSpark: {fileID: 7513626069142836023, guid: a069328b762f7974b8c02eebdf1977af, type: 3}
+  Levels: {fileID: 11400000, guid: 9dd1aed1d7c098548ae6a7948c79e6be, type: 2}

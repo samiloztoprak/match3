@@ -22,6 +22,8 @@ public class PropellerFlyViewCommand : IViewCommand
     
     public void Execute()
     {
+        AudioManager.Play(SoundId.Propeller);
+        
         PieceView view = _player.GetView(_pieceId);
         if (view == null) return;
 

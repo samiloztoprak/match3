@@ -19,6 +19,7 @@ public class SpawnSpecialViewCommand : IViewCommand
     
     public void Execute()
     {
+        AudioManager.Play(SoundId.SpecialCreated);
         _player.SpawnPieceView(_piece, _position);
     }
 }

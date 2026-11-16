@@ -17,11 +17,6 @@ public abstract class PopupView : MonoBehaviour
         if (_window == null) _window = AutoRef.Child<RectTransform>(this, "ui_panel_window");
     }
 
-    protected virtual void Awake()
-    {
-        gameObject.SetActive(false);
-    }
-
     public void Open()
     {
         IsOpen = true;

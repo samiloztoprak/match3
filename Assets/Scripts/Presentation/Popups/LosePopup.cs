@@ -1,7 +1,6 @@
 using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LosePopup : PopupView
@@ -44,6 +43,8 @@ public class LosePopup : PopupView
 
     public void Setup(int levelNumber, int extraMoves, bool canContinue, Action onExtraMoves, GoalTracker tracker)
     {
+        AudioManager.Play(SoundId.Lose);
+        
         _levelText.text = "LEVEL " + levelNumber;
         _extraMovesText.text = "+" + extraMoves + " MOVES";
         _onExtraMoves = onExtraMoves;
@@ -82,6 +83,6 @@ public class LosePopup : PopupView
 
     private void OnRetry()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneLoader.LoadGame();
     }
 }

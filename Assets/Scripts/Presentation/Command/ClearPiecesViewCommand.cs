@@ -20,6 +20,8 @@ public class ClearPiecesViewCommand : IViewCommand
 
     public void Execute()
     {
+        AudioManager.Play(SoundId.Match);
+        
         GoalFlyer flyer = _player.GoalFlyer;
         int flyIndex = 0;
 

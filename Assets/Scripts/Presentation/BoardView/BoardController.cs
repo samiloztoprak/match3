@@ -14,14 +14,15 @@ public class BoardController : MonoBehaviour
     
     [SerializeField, Range(0.1f, 1f)] private float _swipeThresholdCells = 0.35f;
 
-    [SerializeField] private LevelDefinition[] _levels;
     [SerializeField] private TurnPlayer _turnPlayer;
     [SerializeField] private HudController _hud;
     [SerializeField] private PopupManager _popups;
     [SerializeField] private int _extraMovesAmount = 5;
     [SerializeField] private float _idleHintDelay = 5f;
     [SerializeField] private SpriteRenderer _background;
-    [SerializeField] private float _cameraMargin = 1f;
+    [SerializeField] private RectTransform _topPanel;
+    [SerializeField] private RectTransform _bottomPanel;
+    [SerializeField] private float _boardPadding = 0.25f;
     [SerializeField] private BoosterBarController _boosterBar;
     
     [SerializeField] private GameAssets _assets;
@@ -54,9 +55,8 @@ public class BoardController : MonoBehaviour
         if (_popups == null) _popups = AutoRef.InScene<PopupManager>();
         if (_boosterBar == null) _boosterBar = AutoRef.InScene<BoosterBarController>();
         if (_background == null) _background = GameObject.Find("env_background")?.GetComponent<SpriteRenderer>();
-#if UNITY_EDITOR
-        if (_levels == null || _levels.Length == 0) _levels = AutoRef.Assets<LevelDefinition>("Assets/Data/Levels");
-#endif
+        if (_topPanel == null) _topPanel = GameObject.Find("ui_panel_top")?.GetComponent<RectTransform>();
+        if (_bottomPanel == null) _bottomPanel = GameObject.Find("ui_panel_bottom")?.GetComponent<RectTransform>();
         
 #if UNITY_EDITOR
         if (_assets == null) _assets = AutoRef.Asset<GameAssets>();
@@ -66,9 +66,11 @@ public class BoardController : MonoBehaviour
     
     void Start()
     {
-        int index = Mathf.Clamp(LevelProgress.CurrentIndex, 0, _levels.Length - 1);
+        AudioManager.EnsureCreated();
+        
+        int index = Mathf.Clamp(LevelProgress.CurrentIndex, 0, _assets.Levels.Count - 1);
         _levelIndex = index;
-        _level = _levels[_levelIndex];
+        _level = _assets.Levels.Get(_levelIndex);
         _board = new Board(_level.Width, _level.Height);
         _turnPlayer.Init(_board);
         FitCameraToBoard();
@@ -129,6 +131,13 @@ public class BoardController : MonoBehaviour
 
     void Update()
     {
+        if (_popups.IsAnyOpen)
+        {
+            _hasStart = false;
+            _turnPlayer.HideTargetReticle();
+            return;
+        }
+        
         if (Pointer.current == null)
         {
             return;
@@ -439,18 +448,39 @@ public class BoardController : MonoBehaviour
     private void FitCameraToBoard()
     {
         Camera cam = Camera.main;
-        float aspect = cam.aspect;
+        Canvas.ForceUpdateCanvases();
 
-        float heightNeeded = (_level.Height + _cameraMargin) / 2f;
-        float widthNeeded = (_level.Width + _cameraMargin) / (2f * aspect);
-        cam.orthographicSize = Mathf.Max(heightNeeded, widthNeeded);
+        float areaTop = _topPanel != null ? ViewportEdge(_topPanel, top: false) : 0.78f;
+        float areaBottom = _bottomPanel != null ? ViewportEdge(_bottomPanel, top: true) : 0.16f;
+        float areaHeight = Mathf.Max(0.1f, areaTop - areaBottom);
+
+        float boardWidth = _level.Width * _turnPlayer.CellSize + _boardPadding * 2f;
+        float boardHeight = _level.Height * _turnPlayer.CellSize + _boardPadding * 2f;
+
+        float sizeForHeight = boardHeight / (2f * areaHeight);
+        float sizeForWidth = boardWidth / (2f * cam.aspect);
+        cam.orthographicSize = Mathf.Max(sizeForHeight, sizeForWidth);
 
         float visibleHeight = cam.orthographicSize * 2f;
-        float visibleWidth = visibleHeight * aspect;
+        float visibleWidth = visibleHeight * cam.aspect;
+        float areaCenter = (areaTop + areaBottom) * 0.5f;
+        Vector3 camPos = cam.transform.position;
+        _turnPlayer.SetBoardOffset(new Vector3(camPos.x, camPos.y + (areaCenter - 0.5f) * visibleHeight, 0f));
 
         Vector2 nativeSize = _background.sprite.bounds.size;
         _background.transform.localScale = new Vector3(visibleWidth / nativeSize.x, visibleHeight / nativeSize.y, 1f);
         _background.sortingOrder = SortingOrders.Background;
+    }
+    
+    private static float ViewportEdge(RectTransform panel, bool top)
+    {
+        var corners = new Vector3[4];
+        panel.GetWorldCorners(corners);
+
+        Canvas canvas = panel.GetComponentInParent<Canvas>();
+        Camera uiCamera = canvas != null && canvas.renderMode != RenderMode.ScreenSpaceOverlay ? canvas.worldCamera : null;
+        Vector3 corner = top ? corners[1] : corners[0];
+        return RectTransformUtility.WorldToScreenPoint(uiCamera, corner).y / Screen.height;
     }
     
     private Vector3 PointerWorldPosition()
@@ -463,10 +493,8 @@ public class BoardController : MonoBehaviour
     
     
     
-    
-    
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-    public int LevelCount => _levels.Length;
+    public int LevelCount => _assets.Levels.Count;
 
     public void DebugAddMoves(int amount)
     {

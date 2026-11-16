@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HudController : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class HudController : MonoBehaviour
     [SerializeField] private TMP_Text _levelText;
     [SerializeField] private Transform _goalSlotParent;
     [SerializeField] private GameAssets _assets;
-
+    
     private readonly List<GoalSlotView> _slots = new List<GoalSlotView>();
     
     private void OnValidate()

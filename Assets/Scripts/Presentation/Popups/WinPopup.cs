@@ -1,7 +1,6 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class WinPopup : PopupView
@@ -28,11 +27,21 @@ public class WinPopup : PopupView
         }
     }
 
-    private void OnEnable() => _continueButton.onClick.AddListener(OnContinue);
-    private void OnDisable() => _continueButton.onClick.RemoveListener(OnContinue);
+    private void OnEnable()
+    {
+        _continueButton.onClick.AddListener(OnContinue);
+    }
+    
+    private void OnDisable()
+    {
+        _continueButton.onClick.RemoveListener(OnContinue);
+    }
 
     public void Setup(int levelNumber, int stars)
     {
+        AudioManager.Play(SoundId.Win);
+        Haptics.Vibrate();
+        
         _levelText.text = "LEVEL " + levelNumber;
         _starCount = stars;
         foreach (Image star in _stars)
@@ -47,7 +56,7 @@ public class WinPopup : PopupView
         for (int i = 0; i < _starCount && i < _stars.Length; i++)
         {
             Transform star = _stars[i].transform;
-            star.DOScale(1f, 0.35f).SetEase(Ease.OutBack).SetDelay(i * 0.25f);
+            star.DOScale(1f, 0.35f).SetEase(Ease.OutBack).SetDelay(i * 0.25f).OnStart(() => AudioManager.Play(SoundId.StarPop));
             star.DOPunchRotation(new Vector3(0f, 0f, 20f), 0.4f).SetDelay(i * 0.25f + 0.2f);
         }
     }
@@ -55,6 +64,6 @@ public class WinPopup : PopupView
     private void OnContinue()
     {
         LevelProgress.CurrentIndex++;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneLoader.LoadMenu();
     }
 }

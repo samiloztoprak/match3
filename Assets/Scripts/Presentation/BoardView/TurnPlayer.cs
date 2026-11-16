@@ -40,7 +40,8 @@ public class TurnPlayer : MonoBehaviour
     
     public bool IsBusy { get; private set; }
     
-
+    private Vector3 _boardOffset;
+    
     public void Init(Board board)
     {
         _board = board;
@@ -95,19 +96,25 @@ public class TurnPlayer : MonoBehaviour
         _pieceViewPool.Release(view);
     }
     
+    public void SetBoardOffset(Vector3 offset)
+    {
+        _boardOffset = offset;
+    }
+    
     public Vector3 CellToWorld(int x, int y)
     {
         float offsetX = (_board.Width - 1) / 2f;
-        float offsetY = (_board.Height - 1) / 3f;
-        return new Vector3((x - offsetX) * _cellSize, -(y - offsetY) * _cellSize, 0);
+        float offsetY = (_board.Height - 1) / 2f;
+        return new Vector3((x - offsetX) * _cellSize, -(y - offsetY) * _cellSize, 0f) + _boardOffset;
     }
     
     public (int, int) WorldToCell(Vector3 worldPos)
     {
+        Vector3 local = worldPos - _boardOffset;
         float offsetX = (_board.Width - 1) / 2f;
-        float offsetY = (_board.Height - 1) / 3f;
-        int x = Mathf.RoundToInt(worldPos.x / _cellSize + offsetX);
-        int y = Mathf.RoundToInt(offsetY - worldPos.y / _cellSize);
+        float offsetY = (_board.Height - 1) / 2f;
+        int x = Mathf.RoundToInt(local.x / _cellSize + offsetX);
+        int y = Mathf.RoundToInt(offsetY - local.y / _cellSize);
         return (x, y);
     }
     
@@ -201,6 +208,8 @@ public class TurnPlayer : MonoBehaviour
         IsBusy = true;
         try
         {
+            AudioManager.Play(SoundId.Swap);
+            
             Vector3 targetWorldPos = CellToWorld(x2, y2);
             Vector3 sourceWorldPos = CellToWorld(x1, y1);
 
@@ -222,6 +231,7 @@ public class TurnPlayer : MonoBehaviour
 
             if (commands.Count == 0)
             {
+                AudioManager.Play(SoundId.SwapBack);
                 if (_pieceById.TryGetValue(piece1Id, out PieceView backView1))
                 {
                     backView1.MoveTo(sourceWorldPos, _anim.SwapDuration);

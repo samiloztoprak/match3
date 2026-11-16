@@ -20,6 +20,9 @@ public class LightBeamStartViewCommand : IViewCommand
 
     public void Execute()
     {
+        AudioManager.Play(SoundId.LightBall);
+        Haptics.Vibrate();
+        
         LightBeamView beam = _player.SpawnLightBeam(_from);
         beam.Play(_from, _to);
         _activeBeams.Add(beam);

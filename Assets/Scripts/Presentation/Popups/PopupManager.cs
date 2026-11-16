@@ -8,6 +8,14 @@ public class PopupManager : MonoBehaviour
 
     public bool IsAnyOpen => _current != null && _current.IsOpen;
 
+    private void Awake()
+    {
+        foreach (PopupView popup in _popups)
+        {
+            popup.gameObject.SetActive(false);
+        }
+    }
+    
     private void OnValidate()
     {
         _popups = GetComponentsInChildren<PopupView>(true);

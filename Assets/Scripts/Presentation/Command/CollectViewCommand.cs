@@ -24,6 +24,8 @@ public class CollectViewCommand : IViewCommand
 
     public void Execute()
     {
+        AudioManager.Play(SoundId.ToyCollect);
+        
         GoalFlyer flyer = _player.GoalFlyer;
         float jumpHeight = _player.CellSize * JumpHeightInCells;
 

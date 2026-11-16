@@ -21,6 +21,8 @@ public class PropellerComboFlyViewCommand : IViewCommand
 
     public void Execute()
     {
+        AudioManager.Play(SoundId.Propeller);
+        
         PropellerActivationView view = _player.SpawnPropellerActivation(_origin);
         view.SetSprite(_sprite);
         view.Fly(_target, _flightDuration, _player.PropellerConfig, () => _player.ReleasePropellerActivation(view));

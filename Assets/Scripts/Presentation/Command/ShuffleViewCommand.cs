@@ -18,6 +18,8 @@ public class ShuffleViewCommand : IViewCommand
 
     public void Execute()
     {
+        AudioManager.Play(SoundId.Shuffle);
+        
         foreach (var (pieceId, toX, toY) in _moves)
         {
             PieceView view = _player.GetView(pieceId);

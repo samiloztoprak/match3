@@ -53,6 +53,8 @@ public class GoalSlotView : MonoBehaviour
 
     public void OnIconArrived()
     {
+        AudioManager.Play(SoundId.GoalArrive);
+        
         _shown = Mathf.Max(0, _shown - 1);
         Refresh();
 

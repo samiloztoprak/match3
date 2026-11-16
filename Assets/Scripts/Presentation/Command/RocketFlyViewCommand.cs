@@ -23,6 +23,8 @@ public class RocketFlyViewCommand : IViewCommand
 
     public void Execute()
     {
+        AudioManager.Play(SoundId.Rocket);
+        
         if (_direction == RocketDirection.Horizontal)
         {
             Play(_player.BoardWidth - 1, _y);

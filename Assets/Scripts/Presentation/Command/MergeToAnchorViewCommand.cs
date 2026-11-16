@@ -20,6 +20,9 @@ public class MergeToAnchorViewCommand : IViewCommand
     
     public void Execute()
     {
+        AudioManager.Play(SoundId.Combo);
+        Haptics.Vibrate();
+        
         foreach (int mergedId in _mergedIds)
         {
             PieceView view = _player.GetView(mergedId);
