@@ -267,6 +267,7 @@ public class BoardController : MonoBehaviour
             LevelEnded?.Invoke(true);
 
             int stars = CalculateStars();
+            Debug.Log("stars: " + stars);
             LevelProgress.SaveStars(_levelIndex, stars);
             _popups.Show<WinPopup>().Setup(_levelIndex + 1, stars);
         }
@@ -282,9 +283,12 @@ public class BoardController : MonoBehaviour
     
     private int CalculateStars()
     {
+        if (_extraMovesUsed) return 1;
+
         float ratio = (float)_movesRemaining / _level.MoveLimit;
-        if (ratio >= 0.4f) return 3;
-        if (ratio >= 0.2f) return 2;
+        Debug.Log("ratio: " + ratio);
+        if (ratio >= 0.15f) return 3;
+        if (ratio >= 0.05f) return 2;
         return 1;
     }
 
