@@ -33,14 +33,20 @@ A circus-themed, swap-based match-3 game for Android, built in Unity 6 (C#).
   - 2×2 square: Propeller (clears its neighbors, then flies to a goal target)
 - Special pieces chain: a blast that hits another special activates it.
 
-**Combos.** Swapping two specials together creates a combo:
+**Combos.** Swapping two specials together creates a combo. All 10 pairs are supported:
 
-| | Rocket | TNT | Propeller | Light Ball |
-|---|---|---|---|---|
-| **Rocket** | Cross | Thick cross | Flies, then fires a rocket | Turns a color into rockets |
-| **TNT** | | Large 7×7 blast | Flies, then explodes | Turns a color into TNT |
-| **Propeller** | | | Three propellers | Turns a color into propellers |
-| **Light Ball** | | | | Clears the whole board |
+| Combo | Effect |
+|---|---|
+| Rocket + Rocket | Cross (one row and one column) |
+| Rocket + TNT | Thick cross (three rows and three columns) |
+| Rocket + Propeller | Propeller flies to a target, then fires a rocket |
+| Rocket + Light Ball | Turns every piece of one color into rockets |
+| TNT + TNT | Large 7×7 blast |
+| TNT + Propeller | Propeller flies to a target, then explodes |
+| TNT + Light Ball | Turns every piece of one color into TNT |
+| Propeller + Propeller | Three propellers |
+| Propeller + Light Ball | Turns every piece of one color into propellers |
+| Light Ball + Light Ball | Clears the whole board |
 
 **Obstacles and collectibles**
 - Box: breaks after several hits from adjacent matches.
