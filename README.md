@@ -1,6 +1,6 @@
-# Match3
+# Circus Match
 
-A swap-based match-3 game for Android, built in Unity 6 (C#).
+A circus-themed, swap-based match-3 game for Android, built in Unity 6 (C#).
 
 <table>
   <tr>
@@ -42,17 +42,34 @@ A swap-based match-3 game for Android, built in Unity 6 (C#).
 | **Propeller** | | | Three propellers | Turns a color into propellers |
 | **Light Ball** | | | | Clears the whole board |
 
-**Obstacles**
+**Obstacles and collectibles**
 - Box: breaks after several hits from adjacent matches.
 - Lock: an overlay on a single cell; the piece underneath can't move until it breaks.
 - Cage: a 2×2 overlay that only special pieces can damage (3 hits).
 - Grass: a floor layer, cleared by matching or blasting on top of it.
 - Holes: cells with no piece, so boards don't have to be rectangular.
+- Toy balls: can't be matched or destroyed. Clear the pieces below them so they fall to the bottom of their column, where they are collected.
 
-**Levels**
-- 20 handmade levels with move limits and goals (collect colors, clear boxes, locks, cages or grass).
-- Progress is saved between sessions.
+**Boosters**
+- Hammer: breaks a single cell.
+- Row and Column: clear a full row or column.
+- Shuffle: reshuffles the board.
+- Using a booster doesn't cost a move. When a booster runs out, its button shows "+".
+
+**Levels and game flow**
+- 20 handmade levels with move limits and goals: collect colors or toys, clear boxes, locks or grass.
+- Main menu with a Play button for the next level, and a settings menu for music, sound and vibration.
+- Loading screen between scenes.
+- Win popup with a 1–3 star rating based on moves left.
+- Lose popup with the remaining goals and a one-time +5 moves option.
+- Progress and booster counts are saved between sessions.
 - In-editor level debugger: jump to any level, restart, add moves.
+
+**Game feel**
+- Cleared pieces and goal items fly to their slot in the top panel. Overlays (locks, grass) send a spark instead.
+- A reactive mascot cheers big combos and gets worried as moves run out.
+- Sound effects with pitch variation and rate limiting, plus haptic feedback.
+- The board is fitted between the top and bottom panels on any screen ratio.
 
 ## Architecture
 
@@ -108,19 +125,21 @@ flowchart LR
 ## How it's built
 
 - **Core is plain C#** with no Unity references (`noEngineReferences` assembly). It's deterministic: randomness goes through an `IRandom` interface, so tests and replays are reproducible.
-- **Simulate, then present.** One swap resolves the whole turn in Core (matches, activations, chains, falls, refills) and produces a list of timed steps. The Presentation layer turns those into view commands and plays them back on a DOTween timeline.
-- **Data-driven rules.** Piece behavior comes from flags (`Movable`, `CanMatch`, `Locked`, `DamageableByNeighbor`, `DamageableBySpecial`, `Void`) instead of type checks, so a new obstacle is mostly a new flag combination.
-- **Registries instead of switch statements.** Special activations and combos are looked up by piece kind; each one is its own small class with its own presenter.
-- **Gameplay ranges and timings are separate.** Blast sizes live in `ActivationArea`, animation timings in `ActivationTiming`.
+- **Simulate, then present.** One move resolves the whole turn in Core (matches, activations, chains, falls, refills, collected toys) and produces a list of timed steps. The Presentation layer turns those into view commands and plays them back on a DOTween timeline.
+- **Data-driven rules.** Piece behavior comes from flags (`Movable`, `CanMatch`, `Locked`, `DamageableByNeighbor`, `DamageableBySpecial`, `Void`, `Collectable`) instead of type checks, so a new obstacle is mostly a new flag combination.
+- **Registries instead of switch statements.** Special activations, combos and boosters are looked up by type; each one is its own small class.
+- **Commands for every player action.** Swap, tap and booster use go through the same `ICommand` → `TurnResolver` path.
+- **Auto-wired references.** Components find their children, scene objects and assets in `OnValidate`, so there is little manual wiring in the Inspector. Shared prefabs and timings live in `GameAssets` and `AnimationSettings` ScriptableObjects.
+- **Event-driven UI.** The board controller raises events (turn started, moves changed, level ended); the mascot, HUD and popups listen instead of being called directly.
 - **Pooling.** Piece views and particle effects are pooled. Break and hit effects are chosen per piece type and color from a ScriptableObject config.
-- **Tested.** 30 EditMode tests cover commands, matching, special activations, combos, floors and timing fixes.
+- **Tested.** 40 EditMode tests cover commands, matching, special activations, combos, floors, toys, boosters and timing fixes.
 
 ## Status
 
-The core game is done: matching, all special pieces and combos, obstacles, goals and 20 levels.
+The core game and its screens are done: matching, specials and combos, obstacles, toys, boosters, mascot, menus, popups, audio, loading screen and 20 levels. It runs on Android devices.
 
 Next:
-- Menus and screens (level map, win/lose, settings)
-- Level data as JSON and a level editor
-- Downloading new levels without an app update
-- Google Play release
+- Sprite atlases and Addressables
+- A level editor with automated playtesting, used to build 40–50 levels
+- Level data as JSON, downloaded without an app update
+- Google Play closed testing, then release
