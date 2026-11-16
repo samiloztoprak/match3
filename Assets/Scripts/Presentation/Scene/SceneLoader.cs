@@ -1,4 +1,3 @@
-using UnityEngine.SceneManagement;
 
 public static class SceneLoader
 {
@@ -10,6 +9,6 @@ public static class SceneLoader
 
     private static void Load(string sceneName)
     {
-        SceneManager.LoadScene(sceneName);
+        LoadingScreen.LoadScene(sceneName);
     }
 }
