@@ -54,6 +54,57 @@ A swap-based match-3 game for Android, built in Unity 6 (C#).
 - Progress is saved between sessions.
 - In-editor level debugger: jump to any level, restart, add moves.
 
+## Architecture
+
+The game logic (Core) is pure C# with no Unity references. A turn is fully simulated first, then played back as animation.
+
+```mermaid
+flowchart LR
+    Input(["Player input<br/>swap · tap · booster"])
+
+    subgraph Core["Core — pure C#, no UnityEngine, deterministic"]
+        direction TB
+        CMD["ICommand<br/>Swap · Tap · Booster"]
+        TR["TurnResolver<br/>match → clear → specials<br/>→ fall → refill → collect"]
+        REG["Registries<br/>Shape · Special · Combo · Booster"]
+        BRD["Board + Pieces<br/>PieceFlags · IRandom"]
+        STEPS[["List&lt;TurnStepData&gt;<br/>the whole turn as data"]]
+        CMD --> TR
+        REG --- TR
+        BRD --- TR
+        TR --> STEPS
+    end
+
+    subgraph Pres["Presentation — Unity"]
+        direction TB
+        VCF["ViewCommandFactory<br/>steps → timed waves"]
+        TP["TurnPlayer<br/>DOTween timeline"]
+        PV["PieceView · Effects<br/>Activation/Combo Presenters"]
+        UI["HUD · GoalFlyer<br/>MascotView · Popups"]
+        VCF --> TP --> PV
+        TP --> UI
+    end
+
+    BCtrl["BoardController<br/>input · turn flow · camera fit"]
+
+    Input --> BCtrl
+    BCtrl -->|"1 · build command"| CMD
+    STEPS -->|"2 · steps (data only)"| VCF
+    TP -->|"3 · turn done → next input"| BCtrl
+
+    classDef core fill:#fde8e8,stroke:#c0392b,color:#222
+    classDef pres fill:#e8f0fd,stroke:#2c5aa0,color:#222
+    classDef ctrl fill:#fff4d6,stroke:#b8860b,color:#222
+    class CMD,TR,REG,BRD,STEPS core
+    class VCF,TP,PV,UI pres
+    class BCtrl ctrl
+```
+
+**Why this split**
+- **Testable:** Core runs in EditMode tests without a scene. A seeded `IRandom` makes every turn reproducible.
+- **Simulate, then present:** Core never waits for an animation. The view only reads `TurnStepData`, so timing can change without touching the rules.
+- **Open for new content:** new specials, combos and boosters are added as new registry entries. `TurnResolver` doesn't change.
+
 ## How it's built
 
 - **Core is plain C#** with no Unity references (`noEngineReferences` assembly). It's deterministic: randomness goes through an `IRandom` interface, so tests and replays are reproducible.
