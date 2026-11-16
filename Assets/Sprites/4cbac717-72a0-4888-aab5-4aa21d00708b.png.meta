@@ -291,10 +291,10 @@ TextureImporter:
       name: 4cbac717-72a0-4888-aab5-4aa21d00708b_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 593
-        width: 316
-        height: 294
+        x: 21
+        y: 686
+        width: 278
+        height: 80
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -313,10 +313,10 @@ TextureImporter:
       name: 4cbac717-72a0-4888-aab5-4aa21d00708b_1
       rect:
         serializedVersion: 2
-        x: 316
-        y: 593
-        width: 316
-        height: 294
+        x: 328
+        y: 691
+        width: 267
+        height: 67
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
