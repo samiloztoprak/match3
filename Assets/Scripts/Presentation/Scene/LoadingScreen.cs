@@ -2,16 +2,19 @@ using System.Collections;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LoadingScreen : MonoBehaviour
 {
-    private const string ResourcePath = "LoadingScreen";
     private const float FadeDuration = 0.25f;
     private const float MinShowTime = 0.6f;
     private const float BarFillSpeed = 2.5f;
 
+    private static LoadingScreen _prefab;
     private static LoadingScreen _instance;
 
     [SerializeField] private Canvas _canvas;
@@ -26,14 +29,23 @@ public class LoadingScreen : MonoBehaviour
 
     public static bool IsLoading { get; private set; }
 
+    public static void Register(LoadingScreen prefab)
+    {
+        _prefab = prefab;
+    }
+
     private static LoadingScreen Instance
     {
         get
         {
             if (_instance == null)
             {
-                LoadingScreen prefab = Resources.Load<LoadingScreen>(ResourcePath);
-                _instance = Instantiate(prefab);
+                if (_prefab == null)
+                {
+                    Debug.LogError("[LoadingScreen] Not registered. Start the game from the Boot scene.");
+                    return null;
+                }
+                _instance = Instantiate(_prefab);
                 _instance.name = "LoadingScreen";
                 DontDestroyOnLoad(_instance.gameObject);
                 _instance.HideImmediate();
@@ -57,7 +69,12 @@ public class LoadingScreen : MonoBehaviour
         {
             return;
         }
-        Instance.StartCoroutine(Instance.LoadRoutine(sceneName));
+        LoadingScreen screen = Instance;
+        if (screen == null)
+        {
+            return;
+        }
+        screen.StartCoroutine(screen.LoadRoutine(sceneName));
     }
 
     private IEnumerator LoadRoutine(string sceneName)
@@ -72,22 +89,26 @@ public class LoadingScreen : MonoBehaviour
         yield return _group.DOFade(1f, FadeDuration).SetUpdate(true).WaitForCompletion();
 
         float startTime = Time.unscaledTime;
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
-        operation.allowSceneActivation = false;
+        AsyncOperationHandle<SceneInstance> handle =
+            Addressables.LoadSceneAsync(sceneName, LoadSceneMode.Single, activateOnLoad: false);
 
-        while (operation.progress < 0.9f || _displayed < 1f || Time.unscaledTime - startTime < MinShowTime)
+        while (!handle.IsDone || _displayed < 1f || Time.unscaledTime - startTime < MinShowTime)
         {
-            float target = Mathf.Clamp01(operation.progress / 0.9f);
+            float target = handle.PercentComplete;
             _displayed = Mathf.MoveTowards(_displayed, target, BarFillSpeed * Time.unscaledDeltaTime);
             SetBar(_displayed);
             yield return null;
         }
 
-        operation.allowSceneActivation = true;
-        while (!operation.isDone)
+        if (handle.Status != AsyncOperationStatus.Succeeded)
         {
-            yield return null;
+            Debug.LogError($"[LoadingScreen] Failed to load scene '{sceneName}': {handle.OperationException}");
+            HideImmediate();
+            IsLoading = false;
+            yield break;
         }
+
+        yield return handle.Result.ActivateAsync();
         yield return null;
 
         yield return _group.DOFade(0f, FadeDuration).SetUpdate(true).WaitForCompletion();

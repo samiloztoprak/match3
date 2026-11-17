@@ -7,14 +7,14 @@ public class MenuController : MonoBehaviour
 {
     [SerializeField] private Button _playButton;
     [SerializeField] private TMP_Text _playText;
-    [SerializeField] private GameAssets _assets;
+    [SerializeField] private LevelCatalog _levels;
     
     private void OnValidate()
     {
         if (_playButton == null) _playButton = AutoRef.Child<Button>(this, "ui_button_play");
         if (_playText == null) _playText = AutoRef.Child<TMP_Text>(this, "ui_text_play_value");
 #if UNITY_EDITOR
-        if (_assets == null) _assets = AutoRef.Asset<GameAssets>();
+        if (_levels == null) _levels = AutoRef.Asset<LevelCatalog>();
 #endif
     }
 
@@ -33,12 +33,14 @@ public class MenuController : MonoBehaviour
     {
         AudioManager.EnsureCreated();
         
-        bool hasNextLevel = LevelProgress.CurrentIndex < _assets.Levels.Count;
-
-        _playText.text = hasNextLevel
-            ? "LEVEL " + (LevelProgress.CurrentIndex + 1)
-            : "MORE LEVELS SOON";
-        _playButton.interactable = hasNextLevel;
+        // temp code for debugging
+        if (LevelProgress.CurrentIndex >= _levels.Count)
+        {
+            LevelProgress.CurrentIndex = 13;
+        }
+        
+        _playText.text = "LEVEL " + (LevelProgress.CurrentIndex + 1);
+        _playButton.interactable = true;
 
         PlayIntro();
     }

@@ -144,12 +144,48 @@ A detailed walkthrough (folder map, the life of a move, how to add new content) 
 - **Pooling.** Piece views and particle effects are pooled. Break and hit effects are chosen per piece type and color from a ScriptableObject config.
 - **Tested.** 40 EditMode tests cover commands, matching, special activations, combos, floors, toys, boosters and timing fixes.
 
+## Performance and memory
+
+All numbers below were measured on an Android phone with the Unity Memory Profiler (development build, connected to the device).
+
+| What changed | Result |
+|---|---|
+| Menu and Game load as separate Addressables bundles; the menu no longer references game assets | Game textures load only in the Game scene: **19.9 MB** textures in the menu, **33.8 MB** in a level |
+| Game bundle is released when returning to the menu | Game textures leave memory again (the only extra after a round is 3 MB of URP 2D lighting tables, created once) |
+| Assets shared by the menu, loading screen and game moved to a shared group | **5.7 MB** of duplicated assets removed from the build |
+| HDR and MSAA turned off in URP (not needed for a 2D sprite game) | Render textures **51.3 MB → 21.1 MB** |
+| Sprite atlases for board, UI and mascot | UI draw calls 17 → 12; board sprites were already cheap under the SRP Batcher |
+
+**Menu**
+
+![Memory in the menu](docs/images/memory_menu.png)
+
+**In a level**
+
+![Memory in a level](docs/images/memory_game.png)
+
+**Menu after one round (compared with the first menu snapshot)**
+
+![Memory after returning to the menu](docs/images/memory_menu_return.png)
+
+**Addressables build report: duplicated assets before and after the shared group**
+
+<table>
+  <tr>
+    <td><img src="docs/images/addressables_duplicates_before.png" alt="Duplicated assets before"></td>
+    <td><img src="docs/images/addressables_duplicates_after.png" alt="Duplicated assets after"></td>
+  </tr>
+  <tr>
+    <td align="center">Before: 11 duplicated assets</td>
+    <td align="center">After: only TextMesh Pro's default font is left</td>
+  </tr>
+</table>
+
 ## Status
 
-The core game and its screens are done: matching, specials and combos, obstacles, toys, boosters, mascot, menus, popups, audio, loading screen and 20 levels. It runs on Android devices.
+The core game and its screens are done: matching, specials and combos, obstacles, toys, boosters, mascot, menus, popups, audio, loading screen and 20 levels. Scenes load through Addressables with sprite atlases, and the game runs on Android devices.
 
 Next:
-- Sprite atlases and Addressables
 - A level editor with automated playtesting, used to build 40–50 levels
 - Level data as JSON, downloaded without an app update
 - Google Play closed testing, then release
