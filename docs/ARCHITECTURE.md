@@ -92,7 +92,7 @@ All code is under `Assets/Scripts`, in two main folders: `Core` (rules) and `Pre
 | `Booster` | Booster buttons and inventory | `BoosterBarController.cs` |
 | `Mascot` | Bobo's mood | `MascotView.cs` |
 | `Popups` | Win and lose windows | `PopupManager.cs` |
-| `Menu`, `Scene` | Main menu, scene change, loading screen | `SceneLoader.cs`, `LoadingScreen.cs` |
+| `Menu`, `Scene` | Main menu, boot, scene change, loading screen | `Boot.cs`, `SceneLoader.cs`, `LoadingScreen.cs` |
 | `Setting`, `Audio` | Settings, vibration, sounds | `GameSettings.cs`, `AudioManager.cs` |
 | `VisualConfig`, `AnimationConfig` | Visual and timing settings (ScriptableObjects) | `GameAssets.cs`, `AnimationSettings.cs` |
 | `Utils` | Helper that finds references automatically | `AutoRef.cs` |
@@ -101,9 +101,11 @@ All code is under `Assets/Scripts`, in two main folders: `Core` (rules) and `Pre
 
 - `Assets/Data/Levels`: the 20 level files (`LevelDefinition` assets).
 - `Assets/Data/VisualConfig`, `AnimationConfig`: visual and timing settings.
-- `Assets/Resources`: files the code loads by name (`AudioConfig`, the `LoadingScreen` prefab). The folder name must be exactly `Resources`.
+- `Assets/Resources`: files the code loads by name. Only `AudioConfig` is here now. The folder name must be exactly `Resources`.
+- `Assets/Sprites`: sprites sorted by where they are used (`boards`, `particule`, `user_interface/common`, `user_interface/game`, `bobo_sprites`, `backgrounds`) and the sprite atlases (section 9).
+- `Assets/AddressableAssetsData`: Addressables settings and groups (section 9).
 - `Assets/Prefabs`: piece, cell, effect and UI prefabs.
-- `Assets/Scenes`: `Menu` (build index 0) and `Game` (build index 1).
+- `Assets/Scenes`: `Boot` (the only scene in the build list), plus `Menu` and `Game`, which load through Addressables.
 - `Assets/Tests`: Core tests.
 - `Assets/Scripts/Editor`: tools that only run in the editor.
 
@@ -318,7 +320,7 @@ The factory doesn't write special piece shows itself. It gets the right presente
 
 ### Visual settings
 
-- **`GameAssets`** (ScriptableObject): all prefab references and the level catalog in one place.
+- **`GameAssets`** (ScriptableObject): all prefab references and the level catalog in one place. Only the Game scene may reference it (section 9).
 - **`AnimationSettings`**: timings like fall speed, pop duration and flight duration. To tune the game feel, you change this, not the code.
 - **`*VisualConfig`**: sprites of pieces, boxes, cages, locks and grass, and break effects.
 - **`AutoRef`**: classes find their own children by name (`AutoRef.Child<T>(this, "ui_text_moves")`), scene objects (`AutoRef.InScene<T>()`) and assets (`AutoRef.Asset<T>()`) in `OnValidate`. There is almost no manual drag and drop in the Inspector. Because of this, **object names matter**: if you rename an object, the reference breaks and the Console shows an `[AutoRef] ... not found` warning.
@@ -372,15 +374,16 @@ Bobo listens to `BoardController`'s events and changes his mood. Nobody tells hi
 
 ## 8. Game flow and screens
 
-The game has two scenes: **Menu** and **Game**. Every change between them goes through `SceneLoader`, with the loading screen.
+The game has three scenes: **Boot**, **Menu** and **Game**. Boot only starts the game. Every change between Menu and Game goes through `SceneLoader`, with the loading screen.
 
 ### The path between screens
 
-1. **The app opens → Menu scene.** It is at index 0 in the build list, so it opens first. `MenuController` brings in the logo and the Play button with animation. The button shows the next level: "LEVEL 7". If there are no levels left, it says "MORE LEVELS SOON" and can't be pressed.
-2. **Play is pressed → loading screen → Game scene.** `SceneLoader.LoadGame()` → `LoadingScreen.LoadScene("Game")`.
-3. **The game is played.** The loop in section 3 repeats on every move.
-4. **Win → Win popup.** Stars are shown. When Continue is pressed, `LevelProgress.CurrentIndex` goes up by one and the game returns to the Menu.
-5. **Lose → Lose popup.** The remaining goals are shown. There are two choices:
+1. **The app opens → Boot scene.** It is the only scene in the build list. `Boot` starts Addressables, loads the loading screen prefab, gives it to `LoadingScreen.Register()` and then calls `SceneLoader.LoadMenu()`.
+2. **Menu scene.** `MenuController` brings in the logo and the Play button with animation. The button shows the next level: "LEVEL 7". For now, after the last level the game loops back to level 14 (`LoopStartIndex`), until online levels arrive.
+3. **Play is pressed → loading screen → Game scene.** `SceneLoader.LoadGame()` → `LoadingScreen.LoadScene("Game")`.
+4. **The game is played.** The loop in section 3 repeats on every move.
+5. **Win → Win popup.** Stars are shown. When Continue is pressed, `LevelProgress.CurrentIndex` goes up by one and the game returns to the Menu.
+6. **Lose → Lose popup.** The remaining goals are shown. There are two choices:
    - **+5 moves:** the level continues from where it stopped (`ContinueWithExtraMoves`). It can be used once per level. On the second loss, the button is visible but faded and can't be pressed.
    - **Retry:** the Game scene loads again from the start, with the loading screen.
 
@@ -394,10 +397,11 @@ The game has two scenes: **Menu** and **Game**. Every change between them goes t
 
 ### Loading screen: `LoadingScreen`
 
-- The prefab is in `Resources/LoadingScreen`. It is not placed in any scene: on the first scene change, the code creates it and keeps it alive between scenes with `DontDestroyOnLoad`.
-- Order: the screen fades in like a curtain → the new scene loads in the background (`LoadSceneAsync`) → the bar fills → the scene opens → the curtain fades out.
+- The prefab is an Addressables asset with the address `LoadingScreen`. It is not placed in any scene: `Boot` loads it and registers it, then the first scene change creates it and keeps it alive between scenes with `DontDestroyOnLoad`.
+- Order: the screen fades in like a curtain → the new scene loads in the background (`Addressables.LoadSceneAsync`) → the bar fills → the scene opens → the curtain fades out.
 - It stays on screen for at least 0.6 s, so it doesn't flash on fast loads. Clicks are blocked while loading, and a second load can't start.
 - When hidden, its Canvas is fully off, so it costs nothing to draw.
+- If a scene can't be loaded (a missing or broken bundle), it logs an error and hides itself instead of getting stuck.
 
 ### Popups: `PopupManager`
 
@@ -426,7 +430,60 @@ Everything is saved in `PlayerPrefs`, so it stays when the app closes and opens 
 | Booster counts | `BoosterInventory` |
 | Music, sound, vibration | `GameSettings` |
 
-## 9. Tests
+## 9. Assets and memory: atlases and Addressables
+
+The menu loads only what the menu needs. Game graphics load when a level opens and leave memory when the player goes back to the menu.
+
+### Addressables groups
+
+| Group | Contents | Bundle mode | Why |
+| --- | --- | --- | --- |
+| `Scenes` | `Menu`, `Game` (addresses `Menu`, `Game`) | Pack Separately | Each scene and the assets only it uses go into their own bundle |
+| `UI` | `LoadingScreen` prefab | Pack Together | Loaded once by `Boot`, lives for the whole session |
+| `Shared` | `atlas_ui_common`, `bobo_juggle`, `menu-background` | Pack Together | Used by the menu, the loading screen and the game. Without this group each bundle gets its own copy |
+
+Prefabs, sprites and ScriptableObjects are not added to groups one by one. Addressables pulls them in as dependencies of the scene that uses them.
+
+### Sprite atlases
+
+| Atlas | Folder | Loaded |
+| --- | --- | --- |
+| `atlas_board` | `Sprites/boards` | In a level |
+| `atlas_ui_game` | `Sprites/user_interface/game` | In a level |
+| `atlas_ui_common` | `Sprites/user_interface/common` | Always (Shared group) |
+| `bobo_sprite_atlas` | `Sprites/bobo_sprites` | In a level (`bobo_juggle` stays outside it, because the loading screen uses it) |
+
+Atlases pack whole folders, so a new sprite joins the right atlas when you put it in the right folder. Backgrounds and the logo are not in an atlas: they are big and used alone. Particle textures (`Sprites/particule`) are not in an atlas either, because particle materials use the texture directly.
+
+### Rules that keep memory low
+
+- **The menu must not reference game assets.** `MenuController` uses `LevelCatalog` (level data only), not `GameAssets`. One reference to `GameAssets` would load every game graphic in the menu.
+- **An asset used in more than one place goes to the `Shared` group.** Otherwise Addressables copies it into every bundle that uses it.
+- **`LevelDebugger` runs only in the editor.** Its `OnGUI` text made Unity create text materials that stayed in memory, which spoiled device measurements.
+- **URP: HDR and MSAA are off.** A 2D sprite game doesn't need them, and they doubled the size of the render textures.
+
+### Measured on a phone (Memory Profiler)
+
+| | Menu | Level | Menu after a level |
+| --- | --- | --- | --- |
+| Textures | 19.9 MB | 33.8 MB | 22.9 MB (the extra 3 MB is URP 2D lighting tables, created once) |
+| Render textures | 21.1 MB | 23.8 MB | 21.3 MB |
+
+Other results: the shared group removed 5.7 MB of duplicated assets from the build, and turning off HDR and MSAA cut render textures from 51.3 MB to 21.1 MB.
+
+### How to check it
+
+- **Analyze** (Window → Asset Management → Addressables → Analyze): run *Check Duplicate Bundle Dependencies*. Only TextMesh Pro's default font is expected there.
+- **Build Report** (Window → Asset Management → Addressables → Build Reports, needs *Debug Build Layout* in Preferences): see which assets are in which bundle.
+- **Memory Profiler on the phone**: editor numbers include the editor's own memory and are not reliable. Use a development build connected to the device.
+
+### Working in the editor
+
+- **Press Play from the `Boot` scene.** Starting from Game or Menu fails, because the loading screen is registered by Boot.
+- **Play Mode Script → Use Asset Database** for daily work (fastest). Use **Use Existing Build** to test real bundles, after Build → New Build → Default Build Script.
+- Player builds also build the Addressables content (*Build Addressables on Player Build* is on).
+
+## 10. Tests
 
 There are 40 tests in 6 files under `Assets/Tests/EditMode`. They only test Core, don't open a scene, and finish in a few seconds.
 
@@ -451,7 +508,7 @@ Each test has three steps: **set up, act, check.**
 
 The name also says what is tested: `Toy_HitByRocket_IsNotDestroyed` = "a toy is not destroyed when a rocket hits it".
 
-## 10. Recipes: how to add something new
+## 11. Recipes: how to add something new
 
 The real test of an architecture is how easy it is to add new content. None of these recipes need a change in `TurnResolver`.
 
@@ -460,7 +517,7 @@ The real test of an architecture is how easy it is to add new content. None of t
 1. In the `Assets/Data/Levels` folder, right click → Create → Match3 → **Level Definition**. Use a number in the name so the order is right (`Level21`).
 2. Fill in `Width`, `Height`, `MoveLimit`, `Goals` and `Obstacles` in the Inspector.
 3. Right click the `LevelCatalog` asset → **Refresh From Data/Levels**. The new level is added to the list.
-4. In the game, jump to that level with `LevelDebugger` and try it.
+4. In the editor, jump to that level with `LevelDebugger` and try it (keys `[` and `]`).
 
 ### A new obstacle
 
@@ -488,6 +545,18 @@ If you pick the right flags, the rules for matching, damage, falling and shuffli
 3. Add its button and sprite to the booster bar.
 4. Write its test.
 
+### A new sprite
+
+1. Put it in the folder for where it is used: `Sprites/boards` (on the board), `Sprites/user_interface/game` (game UI), `Sprites/user_interface/common` (menu and game), `Sprites/backgrounds` (big single images).
+2. The atlas of that folder picks it up by itself. Nothing to add by hand.
+3. If the menu and the game both use it, it must be in `common`. Then run Analyze to check for duplicates.
+
+### A new scene
+
+1. Add the scene to the `Scenes` Addressables group and give it a short address (for example `Shop`).
+2. Load it with `LoadingScreen.LoadScene("Shop")` through a new `SceneLoader` method. Don't add it to the build list.
+3. Build the Addressables content again and run Analyze.
+
 ### A new sound
 
 1. Add a new value to `SoundId` (write the numbers out, don't change the existing ones).
@@ -500,7 +569,7 @@ If you pick the right flags, the rules for matching, damage, falling and shuffli
 - **Blast timings** (rocket delay per cell, chain delay): `ActivationTiming.cs`. These are in Core, so they must pass the tests.
 - **Mascot reactions:** `MascotConfig`.
 
-## 11. Glossary
+## 12. Glossary
 
 | Term | Meaning |
 | --- | --- |
@@ -525,3 +594,7 @@ If you pick the right flags, the rules for matching, damage, falling and shuffli
 | ScriptableObject | A Unity asset file that holds settings without changing code (levels, configs) |
 | `AutoRef` | A helper that finds references automatically by object name |
 | Event | A class announcing "this happened"; listeners give their own reaction |
+| Addressables | Unity's system for loading assets by address, from bundles, only when they are needed |
+| Bundle | A package of assets that is loaded and released together |
+| Sprite atlas | Many small sprites packed into one texture |
+| Boot scene | The first, almost empty scene that starts Addressables and opens the menu |

@@ -92,7 +92,7 @@ Kodun tamamı `Assets/Scripts` altında, iki ana klasörde durur: `Core` (kurall
 | `Booster` | Booster butonları ve envanteri | `BoosterBarController.cs` |
 | `Mascot` | Bobo'nun ruh hali | `MascotView.cs` |
 | `Popups` | Kazanma ve kaybetme pencereleri | `PopupManager.cs` |
-| `Menu`, `Scene` | Ana menü, sahne geçişi, yükleme ekranı | `SceneLoader.cs`, `LoadingScreen.cs` |
+| `Menu`, `Scene` | Ana menü, açılış (Boot), sahne geçişi, yükleme ekranı | `Boot.cs`, `SceneLoader.cs`, `LoadingScreen.cs` |
 | `Setting`, `Audio` | Ayarlar, titreşim, sesler | `GameSettings.cs`, `AudioManager.cs` |
 | `VisualConfig`, `AnimationConfig` | Görsel ve zamanlama ayarları (ScriptableObject) | `GameAssets.cs`, `AnimationSettings.cs` |
 | `Utils` | Referansları otomatik bulan yardımcı | `AutoRef.cs` |
@@ -101,9 +101,11 @@ Kodun tamamı `Assets/Scripts` altında, iki ana klasörde durur: `Core` (kurall
 
 - `Assets/Data/Levels`: 20 level dosyası (`LevelDefinition` asset'leri).
 - `Assets/Data/VisualConfig`, `AnimationConfig`: görsel ve zamanlama ayar dosyaları.
-- `Assets/Resources`: kodun adıyla yüklediği dosyalar (`AudioConfig`, `LoadingScreen` prefab'ı). Klasör adı birebir `Resources` olmalı.
+- `Assets/Resources`: kodun adıyla yüklediği dosyalar. Şu an sadece `AudioConfig` burada. Klasör adı birebir `Resources` olmalı.
+- `Assets/Sprites`: kullanıldıkları yere göre ayrılmış sprite'lar (`boards`, `particule`, `user_interface/common`, `user_interface/game`, `bobo_sprites`, `backgrounds`) ve sprite atlasları (bölüm 9).
+- `Assets/AddressableAssetsData`: Addressables ayarları ve grupları (bölüm 9).
 - `Assets/Prefabs`: taş, hücre, efekt ve UI prefab'ları.
-- `Assets/Scenes`: `Menu` (build sırası 0) ve `Game` (build sırası 1).
+- `Assets/Scenes`: `Boot` (build listesindeki tek sahne), ayrıca Addressables ile yüklenen `Menu` ve `Game`.
 - `Assets/Tests`: Core testleri.
 - `Assets/Scripts/Editor`: sadece editörde çalışan araçlar.
 
@@ -318,7 +320,7 @@ Her komutun iki üyesi vardır: `Execute()` (animasyonu başlat) ve `Duration` (
 
 ### Görsel ayarlar
 
-- **`GameAssets`** (ScriptableObject): tüm prefab referansları ve level kataloğu tek yerde.
+- **`GameAssets`** (ScriptableObject): tüm prefab referansları ve level kataloğu tek yerde. Ona sadece Game sahnesi referans verebilir (bölüm 9).
 - **`AnimationSettings`**: düşme hızı, patlama süresi, uçuş süresi gibi zamanlamalar. Hissi ayarlamak için koda değil buraya dokunursun.
 - **`*VisualConfig`**: taş, kutu, kafes, kilit, çimen sprite'ları ve kırılma efektleri.
 - **`AutoRef`**: sınıflar `OnValidate` içinde çocuklarını isimle (`AutoRef.Child<T>(this, "ui_text_moves")`), sahnedeki nesneleri (`AutoRef.InScene<T>()`) ve asset'leri (`AutoRef.Asset<T>()`) kendileri bulur. Inspector'da elle sürükleme neredeyse yok. Bu yüzden **obje isimleri önemli**: bir objeyi yeniden adlandırırsan referans kopar ve Console'da `[AutoRef] ... not found` uyarısı çıkar.
@@ -372,15 +374,16 @@ Bobo, `BoardController`'ın event'lerini dinleyip ruh hali değiştirir. Kimse o
 
 ## 8. Oyun akışı ve ekranlar
 
-Oyun iki sahneden oluşur: **Menu** ve **Game**. Aralarındaki her geçiş `SceneLoader` üzerinden ve yükleme ekranıyla yapılır.
+Oyun üç sahneden oluşur: **Boot**, **Menu** ve **Game**. Boot sadece oyunu başlatır. Menu ile Game arasındaki her geçiş `SceneLoader` üzerinden ve yükleme ekranıyla yapılır.
 
 ### Ekranlar arası yolculuk
 
-1. **Uygulama açılır → Menu sahnesi.** Build listesinde 0. sırada olduğu için ilk o açılır. `MenuController` logoyu ve Play butonunu animasyonla getirir. Butonda bir sonraki level yazar: "LEVEL 7". Level kalmadıysa "MORE LEVELS SOON" yazar ve buton basılmaz.
-2. **Play'e basılır → yükleme ekranı → Game sahnesi.** `SceneLoader.LoadGame()` → `LoadingScreen.LoadScene("Game")`.
-3. **Oyun oynanır.** Bölüm 3'teki döngü her hamlede tekrarlanır.
-4. **Kazanılır → Win popup.** Yıldızlar gösterilir. Continue'ya basılınca `LevelProgress.CurrentIndex` bir artar ve Menu'ye dönülür.
-5. **Kaybedilir → Lose popup.** Kalan hedefler gösterilir. İki seçenek var:
+1. **Uygulama açılır → Boot sahnesi.** Build listesindeki tek sahne bu. `Boot` Addressables'ı başlatır, yükleme ekranı prefab'ını yükleyip `LoadingScreen.Register()`'a verir, sonra `SceneLoader.LoadMenu()`'yü çağırır.
+2. **Menu sahnesi.** `MenuController` logoyu ve Play butonunu animasyonla getirir. Butonda bir sonraki level yazar: "LEVEL 7". Online level'lar gelene kadar, son level bitince oyun Level 14'e döner (`LoopStartIndex`).
+3. **Play'e basılır → yükleme ekranı → Game sahnesi.** `SceneLoader.LoadGame()` → `LoadingScreen.LoadScene("Game")`.
+4. **Oyun oynanır.** Bölüm 3'teki döngü her hamlede tekrarlanır.
+5. **Kazanılır → Win popup.** Yıldızlar gösterilir. Continue'ya basılınca `LevelProgress.CurrentIndex` bir artar ve Menu'ye dönülür.
+6. **Kaybedilir → Lose popup.** Kalan hedefler gösterilir. İki seçenek var:
    - **+5 hamle:** level kaldığı yerden devam eder (`ContinueWithExtraMoves`). Level başına bir kez kullanılır. İkinci kayıpta buton görünür ama soluk ve basılamaz.
    - **Retry:** Game sahnesi yükleme ekranıyla baştan yüklenir.
 
@@ -394,10 +397,11 @@ Oyun iki sahneden oluşur: **Menu** ve **Game**. Aralarındaki her geçiş `Scen
 
 ### Yükleme ekranı: `LoadingScreen`
 
-- Prefab'ı `Resources/LoadingScreen`'dedir. Hiçbir sahneye konmaz: ilk sahne geçişinde kod onu kendisi oluşturur ve `DontDestroyOnLoad` ile sahneler arasında yaşatır.
-- Sıra: ekran kararan bir perde gibi gelir (fade in) → yeni sahne arka planda yüklenir (`LoadSceneAsync`) → bar dolar → sahne açılır → perde kalkar (fade out).
+- Prefab'ı `LoadingScreen` adresiyle Addressables'ta durur. Hiçbir sahneye konmaz: `Boot` onu yükleyip kaydeder, ilk sahne geçişinde oluşturulur ve `DontDestroyOnLoad` ile sahneler arasında yaşar.
+- Sıra: ekran kararan bir perde gibi gelir (fade in) → yeni sahne arka planda yüklenir (`Addressables.LoadSceneAsync`) → bar dolar → sahne açılır → perde kalkar (fade out).
 - En az 0,6 sn görünür, böylece hızlı yüklemede yanıp sönmez. Yükleme sürerken tıklamalar engellenir ve ikinci bir yükleme başlatılamaz.
 - Gizliyken Canvas tamamen kapalıdır, çizim maliyeti yoktur.
+- Bir sahne yüklenemezse (eksik ya da bozuk paket) hata yazar ve takılı kalmak yerine kendini gizler.
 
 ### Popup'lar: `PopupManager`
 
@@ -426,7 +430,60 @@ Hepsi `PlayerPrefs`'te tutulur, uygulama kapanıp açılınca kaybolmaz:
 | Booster sayıları | `BoosterInventory` |
 | Müzik, ses, titreşim | `GameSettings` |
 
-## 9. Testler ve bot
+## 9. Asset'ler ve bellek: atlaslar ve Addressables
+
+Menü sadece menünün ihtiyacı olanı yükler. Oyun görselleri bir level açılınca yüklenir, oyuncu menüye dönünce bellekten çıkar.
+
+### Addressables grupları
+
+| Grup | İçerik | Bundle Mode | Neden |
+| --- | --- | --- | --- |
+| `Scenes` | `Menu`, `Game` (adresler `Menu`, `Game`) | Pack Separately | Her sahne ve sadece onun kullandığı asset'ler ayrı bir pakete girer |
+| `UI` | `LoadingScreen` prefab'ı | Pack Together | `Boot` bir kez yükler, oturum boyunca yaşar |
+| `Shared` | `atlas_ui_common`, `bobo_juggle`, `menu-background` | Pack Together | Menü, yükleme ekranı ve oyun ortak kullanıyor. Bu grup olmazsa her paket kendi kopyasını alır |
+
+Prefab, sprite ve ScriptableObject'ler gruplara tek tek eklenmez. Addressables onları kullanan sahnenin bağımlılığı olarak kendisi paketler.
+
+### Sprite atlasları
+
+| Atlas | Klasör | Ne zaman yüklü |
+| --- | --- | --- |
+| `atlas_board` | `Sprites/boards` | Level'da |
+| `atlas_ui_game` | `Sprites/user_interface/game` | Level'da |
+| `atlas_ui_common` | `Sprites/user_interface/common` | Her zaman (Shared grubu) |
+| `bobo_sprite_atlas` | `Sprites/bobo_sprites` | Level'da (`bobo_juggle` atlasın dışında, çünkü yükleme ekranı kullanıyor) |
+
+Atlaslar klasörün tamamını paketler. Yeni bir sprite'ı doğru klasöre koyarsan doğru atlasa kendiliğinden girer. Arkaplanlar ve logo atlasta değil: büyükler ve tek başlarına kullanılıyorlar. Particle texture'ları (`Sprites/particule`) da atlasta değil, çünkü particle materyalleri texture'ı doğrudan kullanıyor.
+
+### Belleği düşük tutan kurallar
+
+- **Menü oyun asset'lerine referans vermemeli.** `MenuController`, `GameAssets` değil `LevelCatalog` kullanır (sadece level verisi). `GameAssets`'e tek bir referans, menüde bütün oyun görsellerini yükler.
+- **Birden fazla yerde kullanılan asset `Shared` grubuna gider.** Yoksa Addressables onu kullanan her pakete kopyalar.
+- **`LevelDebugger` sadece editörde çalışır.** `OnGUI` yazısı Unity'nin bellekte kalan yazı materyalleri oluşturmasına yol açıyor ve cihaz ölçümlerini bozuyordu.
+- **URP'de HDR ve MSAA kapalı.** 2D sprite oyununun bunlara ihtiyacı yok, render texture'ların boyutunu iki katına çıkarıyorlardı.
+
+### Telefonda ölçülen değerler (Memory Profiler)
+
+| | Menü | Level | Level'dan sonra menü |
+| --- | --- | --- | --- |
+| Texture'lar | 19.9 MB | 33.8 MB | 22.9 MB (fazladan 3 MB, bir kez oluşturulan URP 2D ışık tabloları) |
+| Render texture'lar | 21.1 MB | 23.8 MB | 21.3 MB |
+
+Diğer sonuçlar: Shared grubu build'den 5.7 MB'lık kopya asset'i kaldırdı. HDR ve MSAA'yı kapatmak render texture'ları 51.3 MB'tan 21.1 MB'a indirdi.
+
+### Nasıl kontrol edilir
+
+- **Analyze** (Window → Asset Management → Addressables → Analyze): *Check Duplicate Bundle Dependencies* kuralını çalıştır. Orada sadece TextMesh Pro'nun varsayılan fontu kalmalı.
+- **Build Report** (Window → Asset Management → Addressables → Build Reports, Preferences'ta *Debug Build Layout* açık olmalı): hangi asset'in hangi pakette olduğunu gösterir.
+- **Telefonda Memory Profiler**: editördeki sayılar editörün kendi belleğini de içeriyor, güvenilir değil. Telefona bağlı bir Development Build kullan.
+
+### Editörde çalışırken
+
+- **Play'e `Boot` sahnesinden bas.** Game ya da Menu'den başlatırsan hata alırsın, çünkü yükleme ekranını Boot kaydediyor.
+- Günlük çalışmada **Play Mode Script → Use Asset Database** (en hızlısı). Gerçek paketleri denemek için önce Build → New Build → Default Build Script, sonra **Use Existing Build**.
+- Player build'i Addressables içeriğini de derler (*Build Addressables on Player Build* açık).
+
+## 10. Testler
 
 Projede `Assets/Tests/EditMode` altında 6 dosyada 40 test var. Hepsi sadece Core'u test eder, sahne açmaz, saniyeler içinde biter.
 
@@ -451,7 +508,7 @@ Her test üç adımlıdır: **kur, yap, kontrol et.**
 
 İsim de ne test edildiğini söyler: `Toy_HitByRocket_IsNotDestroyed` = "top rokete vurulunca yok olmaz".
 
-## 10. Tarifler: yeni bir şey nasıl eklenir
+## 11. Tarifler: yeni bir şey nasıl eklenir
 
 Mimarinin asıl testi yeni içerik eklemenin kolaylığıdır. Aşağıdaki tariflerin hiçbirinde `TurnResolver`'ı değiştirmen gerekmez.
 
@@ -460,7 +517,7 @@ Mimarinin asıl testi yeni içerik eklemenin kolaylığıdır. Aşağıdaki tari
 1. `Assets/Data/Levels` klasöründe sağ tık → Create → Match3 → **Level Definition**. Sıralama doğru olsun diye numaralı adlandır (`Level21`).
 2. Inspector'da `Width`, `Height`, `MoveLimit`, `Goals` ve `Obstacles` alanlarını doldur.
 3. `LevelCatalog` asset'ine sağ tık → **Refresh From Data/Levels**. Yeni level listeye eklenir.
-4. Oyunda `LevelDebugger` ile doğrudan o level'a atlayıp dene.
+4. Editörde `LevelDebugger` ile doğrudan o level'a atlayıp dene (`[` ve `]` tuşları).
 
 ### Yeni bir engel
 
@@ -488,6 +545,18 @@ Bayrakları doğru seçersen eşleşme, hasar, düşme ve karıştırma kurallar
 3. Booster bar'a butonunu ve sprite'ını ekle.
 4. Testini yaz.
 
+### Yeni bir sprite
+
+1. Kullanıldığı yere göre doğru klasöre koy: `Sprites/boards` (tahtada), `Sprites/user_interface/game` (oyun arayüzü), `Sprites/user_interface/common` (menü ve oyun), `Sprites/backgrounds` (büyük tek görseller).
+2. O klasörün atlası onu kendiliğinden alır, elle eklemen gerekmez.
+3. Menü ve oyun ikisi de kullanıyorsa `common` klasöründe olmalı. Sonra Analyze ile kopya kontrolü yap.
+
+### Yeni bir sahne
+
+1. Sahneyi `Scenes` Addressables grubuna ekle ve kısa bir adres ver (örneğin `Shop`).
+2. Yeni bir `SceneLoader` metodu üzerinden `LoadingScreen.LoadScene("Shop")` ile yükle. Build listesine ekleme.
+3. Addressables içeriğini yeniden derle ve Analyze çalıştır.
+
 ### Yeni bir ses
 
 1. `SoundId`'ye yeni bir değer ekle (değerleri açıkça yaz, mevcutların sayısını değiştirme).
@@ -500,7 +569,7 @@ Bayrakları doğru seçersen eşleşme, hasar, düşme ve karıştırma kurallar
 - **Patlama zamanlamaları** (roketin hücre başına gecikmesi, zincir gecikmesi): `ActivationTiming.cs`. Bunlar Core'da olduğu için testlerden geçmesi gerekir.
 - **Maskot tepkileri:** `MascotConfig`.
 
-## 11. Sözlük
+## 12. Sözlük
 
 | Terim | Anlamı |
 | --- | --- |
@@ -525,3 +594,7 @@ Bayrakları doğru seçersen eşleşme, hasar, düşme ve karıştırma kurallar
 | ScriptableObject | Unity'de kodu değiştirmeden ayar tutan asset dosyası (level'lar, config'ler) |
 | `AutoRef` | Referansları obje ismiyle otomatik bulan yardımcı |
 | Event | Bir sınıfın "şu oldu" diye duyurması; dinleyenler kendi tepkisini verir |
+| Addressables | Asset'leri adresle, paketlerden ve sadece gerektiğinde yükleyen Unity sistemi |
+| Bundle (paket) | Birlikte yüklenen ve birlikte boşaltılan asset grubu |
+| Sprite atlas | Birçok küçük sprite'ın tek bir texture'a paketlenmiş hali |
+| Boot sahnesi | Addressables'ı başlatıp menüyü açan, neredeyse boş ilk sahne |
