@@ -123,6 +123,8 @@ flowchart LR
     class BCtrl ctrl
 ```
 
+A detailed walkthrough (folder map, the life of a move, how to add new content) is in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md). A Turkish version is in [docs/ARCHITECTURE.tr.md](docs/ARCHITECTURE.tr.md).
+
 **Why this split**
 - **Testable:** Core runs in EditMode tests without a scene. A seeded `IRandom` makes every turn reproducible.
 - **Simulate, then present:** Core never waits for an animation. The view only reads `TurnStepData`, so timing can change without touching the rules.
