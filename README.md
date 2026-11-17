@@ -84,7 +84,7 @@ The game logic (Core) is pure C# with no Unity references. A turn is fully simul
 ```mermaid
 flowchart LR
     Input(["Player input<br/>swap · tap · booster"])
-
+ subgraph System["System"]
     subgraph Core["Core — pure C#, no UnityEngine, deterministic"]
         direction TB
         CMD["ICommand<br/>Swap · Tap · Booster"]
@@ -98,6 +98,7 @@ flowchart LR
         TR --> STEPS
     end
 
+   
     subgraph Pres["Presentation — Unity"]
         direction TB
         VCF["ViewCommandFactory<br/>steps → timed waves"]
@@ -121,6 +122,7 @@ flowchart LR
     class CMD,TR,REG,BRD,STEPS core
     class VCF,TP,PV,UI pres
     class BCtrl ctrl
+  end
 ```
 
 A detailed walkthrough (folder map, the life of a move, how to add new content) is in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md). A Turkish version is in [docs/ARCHITECTURE.tr.md](docs/ARCHITECTURE.tr.md).
