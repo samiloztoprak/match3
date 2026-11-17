@@ -19,7 +19,7 @@ This split gives three benefits:
 ```mermaid
 flowchart LR
     Input(["Player input<br/>swap · tap · booster"])
-
+ subgraph System["System"]
     subgraph Core["Core — pure C#, no UnityEngine, deterministic"]
         direction TB
         CMD["ICommand<br/>Swap · Tap · Booster"]
@@ -33,6 +33,7 @@ flowchart LR
         TR --> STEPS
     end
 
+   
     subgraph Pres["Presentation — Unity"]
         direction TB
         VCF["ViewCommandFactory<br/>steps → timed waves"]
@@ -56,6 +57,7 @@ flowchart LR
     class CMD,TR,REG,BRD,STEPS core
     class VCF,TP,PV,UI pres
     class BCtrl ctrl
+  end
 ```
 
 Read the arrows in order: a touch becomes a command, Core calculates the turn, the result goes to Presentation as a data list, and Presentation plays it. When the animation ends, `BoardController` accepts new input.
