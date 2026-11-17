@@ -5868,7 +5868,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelDebugger
   _board: {fileID: 1077321446}
-  _startLevelIndex: -1
+  _startLevelIndex: 12
   _extraMovesAmount: 0
   _showOverlay: 1
   _boosterUpdateAmount: 3
