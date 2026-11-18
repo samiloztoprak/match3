@@ -119,5 +119,20 @@ namespace Tests.EditMode
 
             Assert.IsEmpty(LevelValidator.Validate(level));
         }
+        
+        [Test]
+        public void Validator_RejectsBadStarThresholds()
+        {
+            LevelData level = Level(new[] { "...", "...", "..." });
+
+            level.stars = new LevelStars { two = 5, three = 3 };
+            Assert.IsTrue(LevelValidator.Validate(level).Any(e => e.Contains("Stars")), "two > three must be rejected");
+
+            level.stars = new LevelStars { two = 2, three = 10 };
+            Assert.IsTrue(LevelValidator.Validate(level).Any(e => e.Contains("Stars")), "three >= moves must be rejected");
+
+            level.stars = new LevelStars { two = 2, three = 4 };
+            Assert.IsFalse(LevelValidator.Validate(level).Any(e => e.Contains("Stars")));
+        }
     }
 }

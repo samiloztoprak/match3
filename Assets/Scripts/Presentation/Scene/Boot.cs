@@ -7,6 +7,10 @@ public class Boot : MonoBehaviour
 {
     private const string LoadingScreenKey = "LoadingScreen";
 
+#if UNITY_EDITOR
+    public const string PlayLevelKey = "Match3.PlayLevelDirect";
+#endif
+    
     private IEnumerator Start()
     {
         yield return Addressables.InitializeAsync();
@@ -21,6 +25,14 @@ public class Boot : MonoBehaviour
         }
 
         LoadingScreen.Register(handle.Result.GetComponent<LoadingScreen>());
+#if UNITY_EDITOR
+        if (UnityEditor.SessionState.GetBool(PlayLevelKey, false))
+        {
+            UnityEditor.SessionState.EraseBool(PlayLevelKey);
+            SceneLoader.LoadGame();
+            yield break;
+        }
+#endif
         SceneLoader.LoadMenu();
     }
 }

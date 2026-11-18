@@ -61,16 +61,13 @@ namespace LogicLibrary
             piece.Flags &= ~flags;
         }
         
-        public static int GetExitY(Board board, int x)
+        public static bool IsExit(Board board, int x, int y)
         {
-            for (int y = board.Height - 1; y >= 0; y--)
+            if (IsVoid(board.GetCell(x, y)))
             {
-                if (!IsVoid(board.GetCell(x, y)))
-                {
-                    return y;
-                }
+                return false;
             }
-            return -1;
+            return y == board.Height - 1 || IsVoid(board.GetCell(x, y + 1));
         }
     }
 
@@ -670,11 +667,11 @@ namespace LogicLibrary
             {
                 for (int y = 0; y < board.Height; y++)
                 {
-                    if (TryNeighborSwap(board, x, y, x + 1, y))
+                    if (IsValidSwap(board, x, y, x + 1, y))
                     {
                         return (x, y, x + 1, y);
                     }
-                    if (TryNeighborSwap(board, x, y, x, y + 1))
+                    if (IsValidSwap(board, x, y, x, y + 1))
                     {
                         return (x, y, x, y + 1);
                     }
@@ -683,7 +680,7 @@ namespace LogicLibrary
             return null;
         }
 
-        private static bool TryNeighborSwap(Board board, int x1, int y1, int x2, int y2)
+        public static bool IsValidSwap(Board board, int x1, int y1, int x2, int y2)
         {
             if (!BoardLogic.IsValidIndex(x2, y2, board))
             {

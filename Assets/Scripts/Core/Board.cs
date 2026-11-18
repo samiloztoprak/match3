@@ -91,5 +91,26 @@ public class Board
             Colors = colors;
         }
     }
+    
+    public Board Clone()
+    {
+        var copy = new Board(Width, Height)
+        {
+            _nextId = _nextId, Colors = Colors
+        };
+        for (int x = 0; x < Width; x++)
+        {
+            for (int y = 0; y < Height; y++)
+            {
+                copy._cells[x, y] = _cells[x, y]?.Clone();
+                copy._floor[x, y] = (FloorPiece)_floor[x, y]?.Clone();
+            }
+        }
+        foreach (OverlayPiece overlay in _overlayPieces)
+        {
+            copy._overlayPieces.Add((OverlayPiece)overlay.Clone());
+        }
+        return copy;
+    }
 }
 

@@ -10,6 +10,11 @@ public sealed class HoleElement : ILevelElement
 
     public bool CanPlace(LevelData level, int x, int y, out string reason)
     {
+        if (y > 0 && LevelElements.Get(LevelLayer.Cell, level.At(LevelLayer.Cell, x, y - 1))?.AutoGoal == GoalType.CollectToy)
+        {
+            reason = "A hole can't be right under a toy: the toy would be collected for free.";
+            return false;
+        }
         reason = null;
         if (level.At(LevelLayer.Overlay, x, y) != LevelData.Empty || level.TryGetCage(x, y, out _, out _))
         {
@@ -53,6 +58,12 @@ public sealed class ToyElement : ILevelElement
 
     public bool CanPlace(LevelData level, int x, int y, out string reason)
     {
+        bool atExit = y == level.height - 1 || level.At(LevelLayer.Cell, x, y + 1) == '#';
+        if (atExit)
+        {
+            reason = "A toy can't start at an exit (bottom row or right above a hole).";
+            return false;
+        }
         reason = null; return true;
     }
     public void Place(Board board, int x, int y)

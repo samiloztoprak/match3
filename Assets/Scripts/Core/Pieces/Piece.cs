@@ -21,4 +21,6 @@ public abstract class Piece
     }
  
     public PieceVisualType VisualType { get; internal set;}
+    
+    public Piece Clone() => (Piece)MemberwiseClone();
 }

@@ -16,15 +16,15 @@ MonoBehaviour:
     version: 1
     width: 7
     height: 7
-    moves: 16
+    moves: 8
     colors:
     - Red
     - Yellow
     - Blue
     - Green
     stars:
-      two: 0
-      three: 0
+      two: 5
+      three: 6
     cells:
     - .......
     - .......
@@ -52,7 +52,4 @@ MonoBehaviour:
     goals:
     - type: CollectColor
       color: Red
-      count: 17
-    - type: CollectColor
-      color: Blue
-      count: 11
+      count: 13

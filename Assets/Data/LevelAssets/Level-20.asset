@@ -16,22 +16,22 @@ MonoBehaviour:
     version: 1
     width: 9
     height: 9
-    moves: 50
+    moves: 28
     colors:
     - Red
     - Yellow
     - Blue
     - Green
     stars:
-      two: 0
-      three: 0
+      two: 6
+      three: 11
     cells:
     - '##.....##'
     - '#.B...B.#'
-    - .........
-    - ..OO.OO..
-    - ..OO.OO..
-    - .........
+    - ...rrr...
+    - ..OOrOO..
+    - ..OOrOO..
+    - ....O....
     - .........
     - '#.......#'
     - '##.#.#.##'
@@ -47,18 +47,18 @@ MonoBehaviour:
     - .........
     floors:
     - .........
-    - .........
-    - .ggg.ggg.
-    - .g.....g.
-    - .g.....g.
-    - .ggg.ggg.
-    - .........
+    - ....g....
+    - .ggggggg.
+    - gg..g..gg
+    - gg..g..gg
+    - .ggggggg.
+    - .g.ggg.g.
     - .........
     - .........
     goals:
     - type: ClearGrass
       color: 
-      count: 16
+      count: 30
     - type: ClearBox
       color: 
       count: 2
@@ -67,4 +67,4 @@ MonoBehaviour:
       count: 2
     - type: CollectToy
       color: 
-      count: 8
+      count: 9

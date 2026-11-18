@@ -13,19 +13,23 @@ public class LevelCatalog : ScriptableObject, ILevelSource
     }
 
 #if UNITY_EDITOR
+    public const string AssetFolder = "Assets/Data/LevelAssets";
+
     private void OnValidate()
     {
-        if (_levelAssets == null || _levelAssets.Length == 0)
-        {
-            Refresh();
-        }
+        if (_levelAssets == null || _levelAssets.Length == 0) Refresh();
     }
 
     [ContextMenu("Refresh From Data/LevelAssets")]
-    private void Refresh()
+    public void Refresh()
     {
-        _levelAssets = AutoRef.Assets<LevelAsset>("Assets/Data/LevelAssets");
+        _levelAssets = AutoRef.Assets<LevelAsset>(AssetFolder);
         UnityEditor.EditorUtility.SetDirty(this);
+    }
+
+    public int IndexOf(LevelAsset asset)
+    {
+        return _levelAssets != null ? System.Array.IndexOf(_levelAssets, asset) : -1;
     }
 #endif
 }

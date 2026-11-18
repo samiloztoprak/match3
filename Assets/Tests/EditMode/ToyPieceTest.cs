@@ -108,7 +108,27 @@ namespace Tests.EditMode
                 "GHB",
             }, out ToyPiece Toy);
 
-            Assert.AreEqual(1, BoardLogic.GetExitY(board, 1), "A hole at the bottom moves the exit up");
+            Assert.IsTrue(BoardLogic.IsExit(board, 1, 1), "A hole at the bottom moves the exit up");
+
+            var result = TurnResolver.Resolve(board, new SwapCommand(board, 2, 0, 2, 1));
+
+            Assert.IsTrue(WasCollected(result, Toy.Id));
+            Assert.AreEqual(1, ToyGoal(result));
+        }
+        
+        [Test]
+        public void Toy_AboveHoleInTheMiddleOfAColumn_IsCollected()
+        {
+            Board board = Build(new[]
+            {
+                "RRBR",
+                "BORG",
+                "GHBY",
+                "YBGR",
+            }, out ToyPiece Toy);
+
+            Assert.IsTrue(BoardLogic.IsExit(board, 1, 1), "The cell above a hole is an exit");
+            Assert.IsFalse(BoardLogic.IsExit(board, 1, 2), "A hole is never an exit");
 
             var result = TurnResolver.Resolve(board, new SwapCommand(board, 2, 0, 2, 1));
 

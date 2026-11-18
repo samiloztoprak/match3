@@ -679,18 +679,23 @@ public static class TurnResolver
         collectStepData = new CollectStepData();
         for (int x = 0; x < board.Width; x++)
         {
-            int exitY = BoardLogic.GetExitY(board, x);
-            if (exitY < 0) continue;
-
-            Piece piece = board.GetCell(x, exitY);
-            if (piece == null || !piece.Flags.HasFlag(PieceFlags.Collectable) || BoardLogic.IsPieceLocked(piece))
+            for (int y = 0; y < board.Height; y++)
             {
-                continue;
-            }
+                if (!BoardLogic.IsExit(board, x, y))
+                {
+                    continue;
+                }
 
-            collectStepData.Hits.Add(new HitData(piece.Id, x, exitY, 0f));
-            goalProgress.Increment(piece.GoalKind);
-            board.ClearCell(x, exitY);
+                Piece piece = board.GetCell(x, y);
+                if (piece == null || !piece.Flags.HasFlag(PieceFlags.Collectable) || BoardLogic.IsPieceLocked(piece))
+                {
+                    continue;
+                }
+
+                collectStepData.Hits.Add(new HitData(piece.Id, x, y, 0f));
+                goalProgress.Increment(piece.GoalKind);
+                board.ClearCell(x, y);
+            }
         }
         return collectStepData.Hits.Count > 0;
     }

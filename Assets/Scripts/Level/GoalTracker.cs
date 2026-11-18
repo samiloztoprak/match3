@@ -82,21 +82,7 @@ public class GoalTracker : ITargetPriority
                 continue;
             }
 
-            int consumed = 0;
-            if (_goals[i].Type == GoalType.CollectColor)
-            {
-                foreach (var color in progress.ClearedColors)
-                {
-                    if (color == _goals[i].Color)
-                    {
-                        consumed++;
-                    }
-                }
-            }
-            else
-            {
-                consumed = progress.GetCount(_goals[i].Type);
-            }
+            int consumed = Consumed(i, progress);
 
             if (consumed > 0)
             {
@@ -184,5 +170,34 @@ public class GoalTracker : ITargetPriority
             }
         }
         return false;
+    }
+    
+    private int Consumed(int index, GoalProgressData progress)
+    {
+        LevelGoal goal = _goals[index];
+        if (goal.Type != GoalType.CollectColor)
+        {
+            return progress.GetCount(goal.Type);
+        }
+
+        int count = 0;
+        foreach (PieceColor color in progress.ClearedColors)
+        {
+            if (color == goal.Color)
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public int CountUseful(GoalProgressData progress)
+    {
+        int useful = 0;
+        for (int i = 0; i < _goals.Count; i++)
+        {
+            useful += Math.Min(_remaining[i], Consumed(i, progress));
+        }
+        return useful;
     }
 }

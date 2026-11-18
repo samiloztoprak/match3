@@ -16,17 +16,16 @@ MonoBehaviour:
     version: 1
     width: 9
     height: 9
-    moves: 36
+    moves: 8
     colors:
     - Red
     - Yellow
     - Blue
-    - Green
     stars:
-      two: 0
-      three: 0
+      two: 2
+      three: 4
     cells:
-    - .........
+    - '#........'
     - .........
     - .........
     - .........

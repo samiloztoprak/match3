@@ -16,25 +16,25 @@ MonoBehaviour:
     version: 1
     width: 9
     height: 9
-    moves: 16
+    moves: 25
     colors:
     - Red
     - Yellow
     - Blue
     - Green
     stars:
-      two: 0
-      three: 0
+      two: 5
+      three: 10
     cells:
     - .........
     - .........
     - .........
     - .........
-    - .........
-    - .........
-    - .........
-    - .........
-    - BBBBBBBBB
+    - .B.B.B.B.
+    - ..B.B.B..
+    - .B.B.B.B.
+    - ..B.B.B..
+    - .B.B.B.B.
     overlays:
     - .........
     - .........
@@ -58,4 +58,4 @@ MonoBehaviour:
     goals:
     - type: ClearBox
       color: 
-      count: 9
+      count: 18

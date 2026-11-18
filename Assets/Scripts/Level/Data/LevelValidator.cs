@@ -28,6 +28,13 @@ public static class LevelValidator
             errors.Add("Moves must be greater than 0.");
         }
 
+        LevelStars stars = level.stars;
+        if (stars != null && (stars.two > 0 || stars.three > 0)
+                          && !(stars.two > 0 && stars.two <= stars.three && stars.three < level.moves))
+        {
+            errors.Add("Stars must be 0 < two ≤ three < moves, or both 0 to use the default.");
+        }
+        
         List<PieceColor> colors = ParseColors(level.colors, errors);
         CheckRows(level, LevelLayer.Cell, errors, required: true);
         CheckRows(level, LevelLayer.Overlay, errors, required: false);
