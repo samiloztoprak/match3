@@ -28,7 +28,7 @@ public class BoardController : MonoBehaviour
     [SerializeField] private GameAssets _assets;
     [SerializeField] private AnimationSettings _anim;
     
-    private LevelDefinition _level;
+    private LevelData _level; 
     
     private bool _hasStart;
     private int _startX, _startY;
@@ -67,66 +67,31 @@ public class BoardController : MonoBehaviour
     void Start()
     {
         AudioManager.EnsureCreated();
-        
+
         int index = Mathf.Clamp(LevelProgress.CurrentIndex, 0, _assets.Levels.Count - 1);
         _levelIndex = index;
         _level = _assets.Levels.Get(_levelIndex);
-        _board = new Board(_level.Width, _level.Height);
+        _board = LevelBoardBuilder.Build(_level, new SystemRandom());
         _turnPlayer.Init(_board);
         FitCameraToBoard();
-            
-        OrganizationLogic.GetNewPieceToEmpty(_board, new SystemRandom());
+        SpawnBoardViews();
 
-        foreach (var obstacle in _level.Obstacles)
-        {
-            IObstacleSpawner spawner = ObstacleSpawnerRegistry.Get(obstacle.Type);
-            if (spawner != null && spawner.Phase == ObstacleSpawnPhase.BeforeFill)
-            {
-                spawner.Spawn(_board, _turnPlayer, obstacle);
-            }
-        }
-
-        for (int x = 0; x < _board.Width; x++)
-        {
-            for (int y = 0; y < _board.Height; y++)
-            {
-                Piece piece = _board.GetCell(x, y);
-                if (BoardLogic.IsVoid(piece))
-                {
-                    continue;
-                }
-                
-                if (_assets.CellTilePrefab != null)
-                {
-                    SpriteRenderer tile = Instantiate(_assets.CellTilePrefab, _turnPlayer.CellToWorld(x, y), Quaternion.identity, transform);
-                    tile.sortingOrder = SortingOrders.CellTile;
-                }
-                
-                _turnPlayer.SpawnPieceView(piece, _turnPlayer.CellToWorld(x, y));
-            }
-        }
-
-        foreach (var obstacle in _level.Obstacles)
-        {
-            IObstacleSpawner spawner = ObstacleSpawnerRegistry.Get(obstacle.Type);
-            if (spawner != null && spawner.Phase == ObstacleSpawnPhase.AfterFill)
-            {
-                spawner.Spawn(_board, _turnPlayer, obstacle);
-            }
-        }
-        
         _boosterBar.InstantBoosterRequested += OnInstantBooster;
-        
-        _goalTracker = new GoalTracker(_board, _level.Goals);
-        _movesRemaining = _level.MoveLimit;
+
+        _goalTracker = new GoalTracker(_board, LevelBoardBuilder.BuildGoals(_level));
+        _movesRemaining = _level.moves;
         _hud.SetMoves(_movesRemaining);
         _hud.BuildGoals(_goalTracker);
         _hud.SetLevel(index + 1);
         _turnPlayer.GoalFlyer.Bind(_hud);
-        
+
         var initialResult = TurnResolver.Resolve(_board, null);
         ApplyTurnResult(initialResult, false);
         StartCoroutine(PlayInitialTurn(initialResult));
+        if (_hasStart && _boosterBar.Selected.HasValue)
+        {
+            _turnPlayer.ShowTargetReticle(_startX, _startY);
+        }
     }
 
     void Update()
@@ -207,6 +172,62 @@ public class BoardController : MonoBehaviour
         }
     }
     
+    private void SpawnBoardViews()
+    {
+        for (int x = 0; x < _board.Width; x++)
+        {
+            for (int y = 0; y < _board.Height; y++)
+            {
+                Piece piece = _board.GetCell(x, y);
+                if (BoardLogic.IsVoid(piece)) continue;
+
+                Vector3 position = _turnPlayer.CellToWorld(x, y);
+                if (_assets.CellTilePrefab != null)
+                {
+                    SpriteRenderer tile = Instantiate(_assets.CellTilePrefab, position, Quaternion.identity, transform);
+                    tile.sortingOrder = SortingOrders.CellTile;
+                }
+
+                _turnPlayer.SpawnPieceView(piece, position);
+
+                FloorPiece floor = _board.GetFloor(x, y);
+                if (floor != null)
+                {
+                    _turnPlayer.SpawnPieceView(floor, position).SetSortingOrder(SortingOrders.Floor);
+                }
+            }
+        }
+
+        foreach (OverlayPiece overlay in _board.OverlayPieces)
+        {
+            SpawnOverlayView(overlay);
+        }
+    }
+    
+    private void SpawnOverlayView(OverlayPiece overlay)
+    {
+        int minX = int.MaxValue;
+        int minY = int.MaxValue;
+        int maxX = int.MinValue;
+        int maxY = int.MinValue;
+        
+        foreach (var (x, y) in overlay.CoveredCells)
+        {
+            minX = Mathf.Min(minX, x); maxX = Mathf.Max(maxX, x);
+            minY = Mathf.Min(minY, y); maxY = Mathf.Max(maxY, y);
+        }
+
+        Vector3 center = (_turnPlayer.CellToWorld(minX, minY) + _turnPlayer.CellToWorld(maxX, maxY)) / 2f;
+        PieceView view = _turnPlayer.SpawnPieceView(overlay, center);
+
+        int width = maxX - minX + 1, height = maxY - minY + 1;
+        if (width > 1 || height > 1)
+        {
+            view.SetSizeInCells(width, height);
+        }
+        view.SetSortingOrder(SortingOrders.Overlay);
+    }
+    
     private void OnDestroy()
     {
         if (_boosterBar != null)
@@ -283,12 +304,34 @@ public class BoardController : MonoBehaviour
     
     private int CalculateStars()
     {
-        if (_extraMovesUsed) return 1;
+        if (_extraMovesUsed)
+        {
+            return 1;
+        }
 
-        float ratio = (float)_movesRemaining / _level.MoveLimit;
-        Debug.Log("ratio: " + ratio);
-        if (ratio >= 0.15f) return 3;
-        if (ratio >= 0.05f) return 2;
+        LevelStars stars = _level.stars;
+        if (stars != null && stars.three > 0)
+        {
+            if (_movesRemaining >= stars.three)
+            {
+                return 3;
+            }
+            if (_movesRemaining >= stars.two)
+            {
+                return 2;
+            }
+            return 1;
+        }
+
+        float ratio = (float)_movesRemaining / _level.moves;
+        if (ratio >= 0.15f)
+        {
+            return 3;
+        }
+        if (ratio >= 0.05f)
+        {
+            return 2;
+        }
         return 1;
     }
 
@@ -458,8 +501,8 @@ public class BoardController : MonoBehaviour
         float areaBottom = _bottomPanel != null ? ViewportEdge(_bottomPanel, top: true) : 0.16f;
         float areaHeight = Mathf.Max(0.1f, areaTop - areaBottom);
 
-        float boardWidth = _level.Width * _turnPlayer.CellSize + _boardPadding * 2f;
-        float boardHeight = _level.Height * _turnPlayer.CellSize + _boardPadding * 2f;
+        float boardWidth = _level.width * _turnPlayer.CellSize + _boardPadding * 2f;
+        float boardHeight = _level.height * _turnPlayer.CellSize + _boardPadding * 2f;
 
         float sizeForHeight = boardHeight / (2f * areaHeight);
         float sizeForWidth = boardWidth / (2f * cam.aspect);
@@ -494,6 +537,8 @@ public class BoardController : MonoBehaviour
         world.z = 0f;
         return world;
     }
+    
+    
     
     
     

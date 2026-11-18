@@ -415,6 +415,22 @@ namespace LogicLibrary
             return source;
         }
         
+        public static void FillAllEmptyCells(Board board, IRandom random)
+        {
+            for (int x = 0; x < board.Width; x++)
+            {
+                for (int y = 0; y < board.Height; y++)
+                {
+                    if (board.GetCell(x, y) != null)
+                    {
+                        continue;
+                    }
+                    PieceColor color = PickNonMatchingColor(board, x, y, random);
+                    board.SetCell(x, y, new ColoredPiece(board.NextId(), color));
+                }
+            }
+        }
+        
         public static List<(int, int, int, int)> FillEmpties(Board board)
         {
             List<(int, int, int, int)> collectedMovement = new List<(int, int, int, int)>();
@@ -461,12 +477,6 @@ namespace LogicLibrary
                 board.SetCell(x, writeY, null);
                 writeY--;
             }
-        }
-
-        static T RandomEnumValue<T>(IRandom random)
-        {
-            var v = Enum.GetValues(typeof(T));
-            return (T)v.GetValue(random.Next(v.Length));
         }
 
         public static List<(int, PieceColor, int, int)> GetNewPieceToEmpty(Board board, IRandom random)
@@ -576,17 +586,12 @@ namespace LogicLibrary
         private static PieceColor PickNonMatchingColor(Board board, int x, int y, IRandom random)
         {
             const int maxAttempts = 20;
-            PieceColor color = PieceColor.Empty;
+            IReadOnlyList<PieceColor> colors = board.Colors;
+            PieceColor color = colors[0];
             for (int attempt = 0; attempt < maxAttempts; attempt++)
             {
-                PieceColor candidate = PieceColor.Empty;
-                while (candidate == PieceColor.Empty)
-                {
-                    candidate = RandomEnumValue<PieceColor>(random);
-                }
-
-                color = candidate;
-                if (!CreatesMatchAt(board, x, y, candidate))
+                color = colors[random.Next(colors.Count)];
+                if (!CreatesMatchAt(board, x, y, color))
                 {
                     break;
                 }

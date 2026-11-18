@@ -1,0 +1,16 @@
+{
+    "name": "LevelAssembly",
+    "rootNamespace": "",
+    "references": [
+        "GUID:89949d1b035ed3646b5b2852589ced78"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,27 +1,31 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "LevelCatalog", menuName = "Match3/LevelCatalog")]
-public class LevelCatalog : ScriptableObject
+public class LevelCatalog : ScriptableObject, ILevelSource
 {
-    [SerializeField] private LevelDefinition[] _levels;
+    [SerializeField] private LevelAsset[] _levelAssets;
 
-    public int Count => _levels != null ? _levels.Length : 0;
+    public int Count => _levelAssets != null ? _levelAssets.Length : 0;
 
-    public LevelDefinition Get(int index)
+    public LevelData Get(int index)
     {
-        return _levels[Mathf.Clamp(index, 0, _levels.Length - 1)];
+        return _levelAssets[Mathf.Clamp(index, 0, _levelAssets.Length - 1)].Data;
     }
 
 #if UNITY_EDITOR
     private void OnValidate()
     {
-        if (_levels == null || _levels.Length == 0) Refresh();
+        if (_levelAssets == null || _levelAssets.Length == 0)
+        {
+            Refresh();
+        }
     }
 
-    [ContextMenu("Refresh From Data/Levels")]
+    [ContextMenu("Refresh From Data/LevelAssets")]
     private void Refresh()
     {
-        _levels = AutoRef.Assets<LevelDefinition>("Assets/Data/Levels");
+        _levelAssets = AutoRef.Assets<LevelAsset>("Assets/Data/LevelAssets");
+        UnityEditor.EditorUtility.SetDirty(this);
     }
 #endif
 }

@@ -138,11 +138,12 @@ A detailed walkthrough (folder map, the life of a move, how to add new content) 
 - **Simulate, then present.** One move resolves the whole turn in Core (matches, activations, chains, falls, refills, collected toys) and produces a list of timed steps. The Presentation layer turns those into view commands and plays them back on a DOTween timeline.
 - **Data-driven rules.** Piece behavior comes from flags (`Movable`, `CanMatch`, `Locked`, `DamageableByNeighbor`, `DamageableBySpecial`, `Void`, `Collectable`) instead of type checks, so a new obstacle is mostly a new flag combination.
 - **Registries instead of switch statements.** Special activations, combos and boosters are looked up by type; each one is its own small class.
+- **Levels as data.** A level is a `LevelData`: size, moves, colors, goals and one letter per cell for each board layer (cell, overlay, floor). It is saved as a `LevelAsset` in the project and can be written as JSON for online levels. Each thing you can place (box, lock, cage, grass...) is one `ILevelElement` class with its own placing rules, so the board builder and the validator have no obstacle-specific code. The game only reads levels through an `ILevelSource` interface.
 - **Commands for every player action.** Swap, tap and booster use go through the same `ICommand` → `TurnResolver` path.
 - **Auto-wired references.** Components find their children, scene objects and assets in `OnValidate`, so there is little manual wiring in the Inspector. Shared prefabs and timings live in `GameAssets` and `AnimationSettings` ScriptableObjects.
 - **Event-driven UI.** The board controller raises events (turn started, moves changed, level ended); the mascot, HUD and popups listen instead of being called directly.
 - **Pooling.** Piece views and particle effects are pooled. Break and hit effects are chosen per piece type and color from a ScriptableObject config.
-- **Tested.** 40 EditMode tests cover commands, matching, special activations, combos, floors, toys, boosters and timing fixes.
+- **Tested.** 51 EditMode tests cover commands, matching, special activations, combos, floors, toys, boosters, timing fixes, board colors, building a board from level data, the level validator and JSON round trips.
 
 ## Performance and memory
 
@@ -185,7 +186,9 @@ All numbers below were measured on an Android phone with the Unity Memory Profil
 
 The core game and its screens are done: matching, specials and combos, obstacles, toys, boosters, mascot, menus, popups, audio, loading screen and 20 levels. Scenes load through Addressables with sprite atlases, and the game runs on Android devices.
 
+Levels are now data: a separate `LevelAssembly` builds the board from `LevelData`, checks it with a validator, and can read and write JSON. The 20 levels were moved to the new format.
+
 Next:
-- A level editor with automated playtesting, used to build 40–50 levels
+- A level editor window with automated playtesting, used to build 40–50 levels
 - Level data as JSON, downloaded without an app update
 - Google Play closed testing, then release

@@ -73,5 +73,23 @@ public class Board
     {
         _floor[x, y] = null;
     }
+    
+    private static readonly PieceColor[] DefaultColors =
+    {
+        PieceColor.Red, PieceColor.Yellow, PieceColor.Blue, PieceColor.Green
+    };
+
+    public IReadOnlyList<PieceColor> Colors {
+        get;
+        private set;
+    } = DefaultColors;
+    
+    public void SetColors(IReadOnlyList<PieceColor> colors)
+    {
+        if (colors != null && colors.Count > 0)
+        {
+            Colors = colors;
+        }
+    }
 }
 

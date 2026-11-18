@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "GameAssets", menuName = "Match3/GameAssets")]
 public class GameAssets : ScriptableObject
@@ -32,5 +33,8 @@ public class GameAssets : ScriptableObject
     public GoalSpark GoalSpark;
     
     [Header("Levels")]
-    public LevelCatalog Levels;
+    [SerializeField, FormerlySerializedAs("Levels")] 
+    private LevelCatalog _levelCatalog;
+    
+    public ILevelSource Levels => _levelCatalog;
 }

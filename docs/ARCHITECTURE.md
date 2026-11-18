@@ -4,7 +4,7 @@
 
 ## 1. The big picture
 
-The game has two layers. **Core** calculates the rules. **Presentation** shows the result on the screen. The two layers only talk to each other with data.
+The game has two main layers. **Core** calculates the rules. **Presentation** shows the result on the screen. The two layers only talk to each other with data. A third, small layer, **Level**, reads a level file and builds the starting board (section 7).
 
 Think of a football match. **Core is the referee.** It decides if it was a goal, if it was offside, what the score is, and writes the result on a paper. **Presentation is the TV broadcast.** It takes that paper and adds replays, camera angles and crowd sounds. The broadcast can be slow or fancy, but the score does not change. And the referee does not know where the cameras are.
 
@@ -12,7 +12,7 @@ In this project, that paper is a `List<TurnStepData>`: an ordered list of everyt
 
 This split gives three benefits:
 
-- **Testable.** Core never touches Unity, so it can be tested without opening a scene. This is why the 40 tests run in a few seconds.
+- **Testable.** Core never touches Unity, so it can be tested without opening a scene. This is why the 51 tests run in a few seconds.
 - **Animations can't break the rules.** Making an animation faster or adding an effect can't change the result of the game.
 - **Repeatable.** All randomness goes through `IRandom`. With the same seed, the same move always gives the same result. This makes bot testing possible.
 
@@ -46,7 +46,16 @@ flowchart LR
 
     BCtrl["BoardController<br/>input · turn flow · camera fit"]
 
+    subgraph Lvl["Level — level data, no scene"]
+        direction TB
+        LS["ILevelSource<br/>LevelCatalog → LevelAsset"]
+        LB["LevelBoardBuilder<br/>LevelElements · LevelValidator"]
+        LS --> LB
+    end
+
     Input --> BCtrl
+    BCtrl -->|"0 · load level"| LS
+    LB -->|"builds"| BRD
     BCtrl -->|"1 · build command"| CMD
     STEPS -->|"2 · steps (data only)"| VCF
     TP -->|"3 · turn done → next input"| BCtrl
@@ -57,14 +66,16 @@ flowchart LR
     class CMD,TR,REG,BRD,STEPS core
     class VCF,TP,PV,UI pres
     class BCtrl ctrl
+    classDef lvl fill:#e8f6ea,stroke:#2e7d32,color:#222
+    class LS,LB lvl
   end
 ```
 
-Read the arrows in order: a touch becomes a command, Core calculates the turn, the result goes to Presentation as a data list, and Presentation plays it. When the animation ends, `BoardController` accepts new input.
+Read the arrows in order: when a level opens, its data is loaded and built into a board (0). Then a touch becomes a command, Core calculates the turn, the result goes to Presentation as a data list, and Presentation plays it. When the animation ends, `BoardController` accepts new input.
 
 ## 2. Folder map
 
-All code is under `Assets/Scripts`, in two main folders: `Core` (rules) and `Presentation` (screen). To find something, first ask: "Is this a rule, or is this something I see?"
+All code is under `Assets/Scripts`, in three folders: `Core` (rules), `Level` (level data) and `Presentation` (screen). Each folder is its own assembly: `CoreAssembly`, `LevelAssembly`, and Unity's default assembly for Presentation. The links go one way: Presentation can see Level and Core, Level can only see Core, and Core sees nothing. If a file is in the wrong folder, the project doesn't compile. To find something, first ask: "Is this a rule, level data, or something I see?"
 
 **Core: the game rules (no Unity)**
 
@@ -79,16 +90,23 @@ All code is under `Assets/Scripts`, in two main folders: `Core` (rules) and `Pre
 | `Core/Booster` | Booster effects | `BoosterRegistry.cs` |
 | `Core/RandomSystem` | The randomness interface | `IRandom.cs` |
 
+**Level: level data and the board builder (no scene)**
+
+| Folder | What's inside | Most important file |
+| --- | --- | --- |
+| `Level/` (root) | Builds a `Board` from level data | `LevelBoardBuilder.cs` |
+| `Level/Data` | The level format, the level asset, JSON, goals, the validator | `LevelData.cs`, `LevelValidator.cs` |
+| `Level/Elements` | One class for each thing you can place on a level, and their registry | `LevelElements.cs` |
+
 **Presentation: everything you see on the screen (Unity)**
 
 | Folder | What's inside | Most important file |
 | --- | --- | --- |
 | `BoardView` | Main classes that build the board, read input and play the turn | `BoardController.cs`, `TurnPlayer.cs` |
-| `BoardView/ObstacleSpawners` | Place obstacles at the start of a level | `ObstacleSpawnerRegistry.cs` |
 | `Command` | The factory that turns steps into animation commands, and the commands | `ViewCommandFactory.cs` |
 | `Presenter` | The animation recipe of each special piece and combo | `ActivationPresenterRegistry.cs` |
 | `EffectViews`, `Effects` | Rocket, light beam, explosion, spark, camera shake | `EffectSpawner.cs` |
-| `Level` | Level data, goal tracking, HUD, flying icons | `GoalTracker.cs`, `GoalFlyer.cs` |
+| `Level` | Level catalog and progress, goal tracking, HUD, flying icons | `LevelCatalog.cs`, `GoalTracker.cs` |
 | `Booster` | Booster buttons and inventory | `BoosterBarController.cs` |
 | `Mascot` | Bobo's mood | `MascotView.cs` |
 | `Popups` | Win and lose windows | `PopupManager.cs` |
@@ -99,14 +117,14 @@ All code is under `Assets/Scripts`, in two main folders: `Core` (rules) and `Pre
 
 **Important folders outside the code**
 
-- `Assets/Data/Levels`: the 20 level files (`LevelDefinition` assets).
+- `Assets/Data/LevelAssets`: the 20 level files (`LevelAsset` assets).
 - `Assets/Data/VisualConfig`, `AnimationConfig`: visual and timing settings.
 - `Assets/Resources`: files the code loads by name. Only `AudioConfig` is here now. The folder name must be exactly `Resources`.
 - `Assets/Sprites`: sprites sorted by where they are used (`boards`, `particule`, `user_interface/common`, `user_interface/game`, `bobo_sprites`, `backgrounds`) and the sprite atlases (section 9).
 - `Assets/AddressableAssetsData`: Addressables settings and groups (section 9).
 - `Assets/Prefabs`: piece, cell, effect and UI prefabs.
 - `Assets/Scenes`: `Boot` (the only scene in the build list), plus `Menu` and `Game`, which load through Addressables.
-- `Assets/Tests`: Core tests.
+- `Assets/Tests`: Core and Level tests.
 - `Assets/Scripts/Editor`: tools that only run in the editor.
 
 ## 3. The life of a move
@@ -148,6 +166,7 @@ The board is a grid with three layers. Think of the layers of a cake:
 
 - Coordinates: `x` grows from left to right, `y` grows **from top to bottom**. `y = 0` is the top row. Pieces fall in the direction where `y` grows.
 - Each piece has a unique `Id` (`board.NextId()`). Presentation finds pieces by this Id, not by position. When a piece falls, its position changes but its Id stays the same.
+- `Board.Colors` is the list of colors on this board. New pieces that come from the top only use these colors. The level decides it (2 to 4 colors); the default is all four.
 
 ### Pieces and flags
 
@@ -238,7 +257,7 @@ Think of a restaurant menu. The waiter (`TurnResolver`) doesn't know how to cook
 | `BoosterRegistry` | `BoosterType` | Cells the booster hits (`IBoosterEffect`) | `Core/Booster` |
 | `ActivationPresenterRegistry` | `PieceKind` | Animation recipe of the blast (`IActivationPresenter`) | `Presentation/Presenter` |
 | `ComboPresenterRegistry` | Two `PieceKind`s | Animation recipe of the combo | `Presentation/Presenter` |
-| `ObstacleSpawnerRegistry` | `ObstacleType` | The class that places the obstacle at level start | `Presentation/BoardView/ObstacleSpawners` |
+| `LevelElements` | Layer + letter | The element that checks and places one thing on a level (`ILevelElement`) | `Level/Elements` |
 
 **Each special piece has two halves.** The Core half (`RocketActivation`) answers "which cells are hit, and when?". The Presentation half (`RocketPresenter`) answers "how does it look on screen?". They don't know each other. Only the `SpecialActivationData` step goes between them.
 
@@ -273,7 +292,7 @@ Presentation takes the step list from Core and turns it into timed animations. I
 
 It is the center of the Game scene and connects everything:
 
-- **Level start (`Start`):** gets the level from `LevelCatalog` using `LevelProgress.CurrentIndex`, creates the `Board`, places pieces and obstacles, sets up `GoalTracker` and the HUD, and fits the camera to the board.
+- **Level start (`Start`):** gets the level data from `LevelCatalog` using `LevelProgress.CurrentIndex`, builds the `Board` with `LevelBoardBuilder`, fits the camera, creates the visuals of every cell, floor and overlay (`SpawnBoardViews`), and sets up `GoalTracker` and the HUD.
 - **Input (`Update`):** turns touches into swap, tap or booster (section 3).
 - **Turn flow:** creates the command, gives it to `TurnResolver`, applies the result and asks `TurnPlayer` to play it.
 - **Hint:** if the player doesn't move for a while, it finds a valid move with `MoveLogic` and shows it.
@@ -327,21 +346,99 @@ The factory doesn't write special piece shows itself. It gets the right presente
 
 ## 7. Levels, goals and HUD
 
-A level is a ScriptableObject that holds the board size, move limit, goals and obstacle positions. Goals are updated in the data right away, and on the screen when the icons arrive.
+A level is plain data: the board size, the move limit, the colors, the goals and what is on each cell. The same data can come from an asset in the project or, later, from a JSON file on a server. Goals are updated in the data right away, and on the screen when the icons arrive.
 
-### Level data
+### Level data: `LevelData`
 
-| File | What it holds |
-| --- | --- |
-| `LevelDefinition` | `Width`, `Height`, `MoveLimit`, `Goals` list, `Obstacles` list |
-| `LevelGoal` | Goal type (`GoalType`), color (only for color goals), target count |
-| `ObstaclePlacement` | Obstacle type and which cells it goes on |
-| `LevelCatalog` | The ordered list of all levels. Fills itself from the `Data/Levels` folder |
-| `LevelProgress` | Which level the player is on (`CurrentIndex`) and their stars (`PlayerPrefs`) |
+A level is saved as text rows: one string for each board row, one letter for each cell. There are three row lists, one for each board layer, so one cell can have a piece, a floor under it and an overlay on top of it at the same time.
+
+```json
+{
+  "width": 5, "height": 4, "moves": 20,
+  "colors": ["Red", "Yellow", "Blue", "Green"],
+  "stars": { "two": 0, "three": 0 },
+  "cells":    ["#...#", ".BOB.", ".....", "r...y"],
+  "overlays": [".....", ".....", ".L.C.", "....."],
+  "floors":   [".....", "g...g", ".....", "....."],
+  "goals": [
+    { "type": "ClearBox", "count": 2 },
+    { "type": "CollectColor", "color": "Red", "count": 15 }
+  ]
+}
+```
+
+| Layer | Letter | Meaning |
+| --- | --- | --- |
+| Cell | `.` | A random colored piece |
+| Cell | `#` | Hole (no cell) |
+| Cell | `B` | Box |
+| Cell | `O` | Toy ball |
+| Cell | `r` `y` `b` `g` | A fixed red, yellow, blue or green piece |
+| Cell | `R` `V` | Rocket (horizontal, vertical) |
+| Cell | `T` `P` `X` | TNT, propeller, light ball |
+| Overlay | `L` | Lock |
+| Overlay | `C` | Cage. The letter is the top-left cell of the 2×2 cage |
+| Floor | `g` | Grass |
+
+On every layer, `.` means "nothing special here". The same letter can mean different things on different layers (`g` is a green piece on the cell layer and grass on the floor layer), because the layer is part of the key.
+
+- `colors`: the colors of this level, written by name. Random pieces and new pieces from the top only use these colors.
+- `stars`: how many moves must be left for 2 and 3 stars. `0` means "use the default" (section 8).
+- `goals`: the goal type as text. `color` is only used by `CollectColor`.
 
 Goal types (`GoalType`): `CollectColor` (collect a color), `ClearBox` (break boxes), `ClearLock` (break locks), `ClearGrass` (clear grass), `CollectToy` (collect toys).
 
-At level start, obstacles are placed with `ObstacleSpawnerRegistry`. Holes, boxes and toys are placed before the pieces (they fill the cell itself). Locks, cages and grass are placed after the pieces (they go on top of or under a piece). `ObstacleSpawnPhase` sets this order.
+### The files of the level system
+
+| File | Assembly | Job |
+| --- | --- | --- |
+| `LevelData` | Level | The level format above. Plain C#, can be written as JSON |
+| `LevelAsset` | Level | A ScriptableObject that holds one `LevelData`. This is how a level is saved in the project |
+| `ILevelSource` | Level | The "give me level N" interface. The game only knows this, not where the level comes from |
+| `LevelJson` | Level | `LevelData` ↔ JSON text, for online levels |
+| `ILevelElement`, `LevelElements` | Level | One class for each thing you can place, and the registry that finds it by layer + letter |
+| `LevelValidator` | Level | Checks a level before it is saved or played |
+| `LevelBoardBuilder` | Level | Builds a `Board` and the goal list from `LevelData` |
+| `LevelGoal` | Level | One goal as the game uses it: type, color, target count |
+| `LevelCatalog` | Presentation | The levels in the build, in order. Implements `ILevelSource`. Fills itself from `Data/LevelAssets` |
+| `LevelProgress` | Presentation | Which level the player is on (`CurrentIndex`) and their stars (`PlayerPrefs`) |
+
+### Elements: one class for each thing
+
+Each thing you can put on a level is an **element**: `HoleElement`, `BoxElement`, `ToyElement`, `ColorElement`, `SpecialElement`, `LockElement`, `CageElement`, `GrassElement`. An element knows everything about itself:
+
+| Member | Example: the lock |
+| --- | --- |
+| `Code` and `Layer` | `'L'` on the overlay layer |
+| `DisplayName` | "Lock" (shown in the level editor) |
+| `AutoGoal` | `ClearLock`: placing a lock suggests this goal |
+| `CanPlace(level, x, y, out reason)` | Not on a hole, not on a box, not inside a cage |
+| `Place(board, x, y)` | Adds a `LockPiece` and locks the piece under it |
+
+The builder, the validator and the level editor don't know what a lock is. They ask `LevelElements` for the element and call it. It is the same registry idea as in section 5.
+
+### How a level becomes a board
+
+`LevelBoardBuilder.Build(level, random)` works in this order:
+
+1. Create an empty `Board` and set its colors.
+2. Place the **cell** layer: holes, boxes, toys, fixed colors, special pieces.
+3. Fill every empty cell with random pieces in the level's colors (`FillAllEmptyCells`). The fill doesn't create matches at the start.
+4. Place the **floor** layer (grass).
+5. Place the **overlay** layer (locks, cages). Overlays come last because they lock the piece under them, so that piece must already exist.
+
+An unknown letter throws an error instead of being skipped. A broken level should fail loudly, not be played wrong. `BuildGoals(level)` turns the text goals into `LevelGoal`s for `GoalTracker`.
+
+Then `BoardController.SpawnBoardViews()` creates visuals for whatever is on the board. There is no code for a specific obstacle: an overlay's size and position come from the cells it covers, so the 2×2 cage needs nothing special.
+
+### The validator: `LevelValidator`
+
+`Validate(level)` returns a list of errors. An empty list means the level is good. It checks:
+
+- The size is between 3 and 10, moves are above 0, and there are at least 2 valid colors.
+- Each row list has the right number of rows, and each row has the right length.
+- Each letter is a known element, and each element's `CanPlace` rule passes.
+- Each goal has a known type and a count above 0. A color goal uses one of the level's colors. A goal like `ClearBox 5` is rejected if the board has fewer than 5 boxes.
 
 ### `GoalTracker`: the goal accountant
 
@@ -389,11 +486,15 @@ The game has three scenes: **Boot**, **Menu** and **Game**. Boot only starts the
 
 ### Star rating
 
+If the level has its own star values (`stars.three` and `stars.two` above 0), those are used. For example, with `three = 4` you need 4 or more moves left for 3 stars. If not, the default ratios are used:
+
 | Moves left (compared to the move limit) | Stars |
 | --- | --- |
-| 25% or more | 3 |
-| 10% or more | 2 |
-| Less, or +5 moves was used | 1 |
+| 15% or more | 3 |
+| 5% or more | 2 |
+| Less | 1 |
+
+If the player used +5 moves, the level always gets 1 star.
 
 ### Loading screen: `LoadingScreen`
 
@@ -485,7 +586,7 @@ Other results: the shared group removed 5.7 MB of duplicated assets from the bui
 
 ## 10. Tests
 
-There are 40 tests in 6 files under `Assets/Tests/EditMode`. They only test Core, don't open a scene, and finish in a few seconds.
+There are 51 tests in 9 files under `Assets/Tests/EditMode`. They test Core and Level, don't open a scene, and finish in a few seconds.
 
 **To run them:** Window → General → Test Runner → EditMode tab → Run All.
 
@@ -497,6 +598,9 @@ There are 40 tests in 6 files under `Assets/Tests/EditMode`. They only test Core
 | `TimingAndFixesTest` | 5 | Blast times grow with distance, chain delay, a swap with no match returns empty |
 | `FloorPieceTest` | 4 | Grass breaks with a match on top of it, doesn't break with a match next to it |
 | `ToyPieceTest` | 4 | Toy is collected at the bottom, not affected by a rocket, not collected inside a cage, exit moves up if there's a hole under it |
+| `BoardColorsTest` | 2 | New pieces only use the board's colors |
+| `LevelBoardBuilderTest` | 7 | Letters become the right pieces, only the level's colors are used, locks and cages lock pieces, floors, goals; the validator rejects a lock on a box and too many goals, and accepts a good level |
+| `LevelJsonTest` | 2 | A level written to JSON and read back is the same; empty text gives no level |
 
 ### How to read a test
 
@@ -514,18 +618,20 @@ The real test of an architecture is how easy it is to add new content. None of t
 
 ### A new level
 
-1. In the `Assets/Data/Levels` folder, right click → Create → Match3 → **Level Definition**. Use a number in the name so the order is right (`Level21`).
-2. Fill in `Width`, `Height`, `MoveLimit`, `Goals` and `Obstacles` in the Inspector.
-3. Right click the `LevelCatalog` asset → **Refresh From Data/Levels**. The new level is added to the list.
+1. In the `Assets/Data/LevelAssets` folder, right click → Create → Match3 → **Level Asset**. Use a number in the name so the order is right (`Level-21`).
+2. In the Inspector, fill in `Data`: size, moves, colors, the `cells` rows (and `overlays`, `floors` if needed) and the goals. Each row must be exactly `width` letters long.
+3. Right click the `LevelCatalog` asset → **Refresh From Data/LevelAssets**. The new level is added to the list.
 4. In the editor, jump to that level with `LevelDebugger` and try it (keys `[` and `]`).
+
+The level editor window (in progress) will replace steps 1 and 2: you draw on a grid, and it checks the level with `LevelValidator` before saving.
 
 ### A new obstacle
 
 1. **Core:** write a new class under `Core/Pieces`. Pick the right layer: `Piece` if it sits in the cell, `OverlayPiece` if it covers the top, `FloorPiece` if it sits under. Give it flags, health and (if it is a goal) a `GoalKind`.
 2. Add a new value to `PieceVisualType`. If it will be a goal, add one to `GoalType` too.
 3. **Test:** write a test for its behavior (for example "does a rocket damage it?").
-4. **Placing it:** add a value to `ObstacleType`, write a new spawner from `IObstacleSpawner`, and register it in `ObstacleSpawnerRegistry`.
-5. **Visuals:** add a `VisualConfig` for its sprites or extend an existing one. If it is a goal, add its icon to `GoalIconConfig`.
+4. **Placing it:** under `Level/Elements`, write a class that implements `ILevelElement`. Pick a free letter and its layer, write its `CanPlace` rules, set `AutoGoal` if it is a goal, and create the piece in `Place`. Add one line for it in `LevelElements`, and a test in `LevelBoardBuilderTest`.
+5. **Visuals:** add a `VisualConfig` for its sprites or extend an existing one. If it is a goal, add its icon to `GoalIconConfig`. No spawn code is needed: `SpawnBoardViews` creates the visual for any piece on the board.
 
 If you pick the right flags, the rules for matching, damage, falling and shuffling work on the new obstacle by themselves.
 
@@ -592,6 +698,11 @@ If you pick the right flags, the rules for matching, damage, falling and shuffli
 | Target priority (`ITargetPriority`) | Which cell a targeting piece, like the propeller, will pick |
 | Exit | The lowest cell without a hole in a column; a toy is collected when it gets here |
 | ScriptableObject | A Unity asset file that holds settings without changing code (levels, configs) |
+| Level data (`LevelData`) | A level as plain data: size, moves, colors, goals and letter rows for each layer |
+| Element (`ILevelElement`) | One thing you can place on a level (box, lock, grass...) with its letter, rules and placing code |
+| Validator | The class that checks a level and lists what is wrong |
+| `ILevelSource` | Where levels come from: today the levels in the build, later a server |
+| Assembly (`.asmdef`) | A group of code compiled together. It decides which code can see which code |
 | `AutoRef` | A helper that finds references automatically by object name |
 | Event | A class announcing "this happened"; listeners give their own reaction |
 | Addressables | Unity's system for loading assets by address, from bundles, only when they are needed |
