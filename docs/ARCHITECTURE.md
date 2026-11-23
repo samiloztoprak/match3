@@ -12,7 +12,7 @@ In this project, that paper is a `List<TurnStepData>`: an ordered list of everyt
 
 This split gives three benefits:
 
-- **Testable.** Core never touches Unity, so it can be tested without opening a scene. This is why the 51 tests run in a few seconds.
+- **Testable.** Core never touches Unity, so it can be tested without opening a scene. This is why the 70 tests run in a few seconds.
 - **Animations can't break the rules.** Making an animation faster or adding an effect can't change the result of the game.
 - **Repeatable.** All randomness goes through `IRandom`. With the same seed, the same move always gives the same result. This makes bot testing possible.
 
@@ -402,6 +402,18 @@ Goal types (`GoalType`): `CollectColor` (collect a color), `ClearBox` (break box
 | `LevelGoal` | Level | One goal as the game uses it: type, color, target count |
 | `LevelCatalog` | Presentation | The levels in the build, in order. Implements `ILevelSource`. Fills itself from `Data/LevelAssets` |
 | `LevelProgress` | Presentation | Which level the player is on (`CurrentIndex`) and their stars (`PlayerPrefs`) |
+| `LevelBot` | Level | A greedy bot that plays a level with fixed seeds. Reports win rate, moves and difficulty |
+| `LevelGenerator` | Level | Builds random levels from pieces, with mirror and difficulty options |
+| `LevelEditing` | Level | The editing operations used by the editor window: paint, erase, resize, colors, goals |
+| `LevelEditorWindow` | Editor | The `Match3 > Level Editor` window. Uses `LevelEditing`, the validator, the bot and `Export JSON` |
+| `RemoteLevelSync` | Presentation | Downloads `index.json` and new level files in the background, checks their sha256 and saves them to the cache |
+| `RemoteAwareLevelSource` | Presentation | An `ILevelSource` that uses cached remote levels first and falls back to the bundled ones |
+
+### Online levels
+
+Levels can change without an app update. When the app starts, `Boot` adds a `RemoteLevelSync` and starts it. It downloads `index.json` from the hosting server. For each level in the index that isn't cached yet, it downloads the file, checks its sha256 and saves it to `persistentDataPath/levels` as `{levelId:000}_r{contentRevision}.json`. The index itself is also saved there.
+
+`GameAssets.Levels` returns a `RemoteAwareLevelSource` that wraps the bundled `LevelCatalog`. When a cached remote file exists for a level, that file is used. Otherwise the bundled level is used. The sync doesn't block the menu, so on the first launch the bundled levels may still be in use. If the phone is offline, the bundled levels still play.
 
 ### Elements: one class for each thing
 
@@ -476,7 +488,7 @@ The game has three scenes: **Boot**, **Menu** and **Game**. Boot only starts the
 ### The path between screens
 
 1. **The app opens → Boot scene.** It is the only scene in the build list. `Boot` starts Addressables, loads the loading screen prefab, gives it to `LoadingScreen.Register()` and then calls `SceneLoader.LoadMenu()`.
-2. **Menu scene.** `MenuController` brings in the logo and the Play button with animation. The button shows the next level: "LEVEL 7". For now, after the last level the game loops back to level 14 (`LoopStartIndex`), until online levels arrive.
+2. **Menu scene.** `MenuController` brings in the logo and the Play button with animation. The button shows the next level: "LEVEL 7". The level index is clamped to the number of levels, so after the last level the last one is played again until new levels arrive.
 3. **Play is pressed → loading screen → Game scene.** `SceneLoader.LoadGame()` → `LoadingScreen.LoadScene("Game")`.
 4. **The game is played.** The loop in section 3 repeats on every move.
 5. **Win → Win popup.** Stars are shown. When Continue is pressed, `LevelProgress.CurrentIndex` goes up by one and the game returns to the Menu.
@@ -586,7 +598,7 @@ Other results: the shared group removed 5.7 MB of duplicated assets from the bui
 
 ## 10. Tests
 
-There are 51 tests in 9 files under `Assets/Tests/EditMode`. They test Core and Level, don't open a scene, and finish in a few seconds.
+There are 70 tests in 12 files under `Assets/Tests/EditMode`. They test Core and Level, don't open a scene, and finish in a few seconds.
 
 **To run them:** Window → General → Test Runner → EditMode tab → Run All.
 
@@ -597,10 +609,13 @@ There are 51 tests in 9 files under `Assets/Tests/EditMode`. They test Core and 
 | `BoosterTest` | 6 | Hammer, row, column; hitting a cage, not destroying a toy, rejected on a hole |
 | `TimingAndFixesTest` | 5 | Blast times grow with distance, chain delay, a swap with no match returns empty |
 | `FloorPieceTest` | 4 | Grass breaks with a match on top of it, doesn't break with a match next to it |
-| `ToyPieceTest` | 4 | Toy is collected at the bottom, not affected by a rocket, not collected inside a cage, exit moves up if there's a hole under it |
+| `ToyPieceTest` | 5 | Toy is collected at the bottom, not affected by a rocket, not collected inside a cage, exit moves up if there's a hole under it |
 | `BoardColorsTest` | 2 | New pieces only use the board's colors |
-| `LevelBoardBuilderTest` | 7 | Letters become the right pieces, only the level's colors are used, locks and cages lock pieces, floors, goals; the validator rejects a lock on a box and too many goals, and accepts a good level |
+| `LevelBoardBuilderTest` | 8 | Letters become the right pieces, only the level's colors are used, locks and cages lock pieces, floors, goals; the validator rejects a lock on a box and too many goals, and accepts a good level |
 | `LevelJsonTest` | 2 | A level written to JSON and read back is the same; empty text gives no level |
+| `LevelBotTest` | 5 | The bot finishes an easy level; the same seed gives the same result; a board copy is independent of the original; moves are taken from percentiles; win rate maps to difficulty |
+| `LevelEditingTest` | 8 | A lock on a box is refused with a reason; erasing a cage removes the whole cage; resizing keeps content; color goals follow the board |
+| `LevelGeneratorTest` | 4 | A generated level is valid and has the requested pieces; the same seed gives the same level; mirror mode is symmetric; moves follow the difficulty |
 
 ### How to read a test
 
@@ -623,7 +638,7 @@ The real test of an architecture is how easy it is to add new content. None of t
 3. Right click the `LevelCatalog` asset → **Refresh From Data/LevelAssets**. The new level is added to the list.
 4. In the editor, jump to that level with `LevelDebugger` and try it (keys `[` and `]`).
 
-The level editor window (in progress) will replace steps 1 and 2: you draw on a grid, and it checks the level with `LevelValidator` before saving.
+The Level Editor window (`Match3 > Level Editor`) can do steps 1 and 2: you paint the level on a grid, it checks the level with `LevelValidator` before saving, and `Export JSON` writes the file for the online host. The bot in the same window runs the level with fixed seeds to check its difficulty.
 
 ### A new obstacle
 
@@ -701,7 +716,8 @@ If you pick the right flags, the rules for matching, damage, falling and shuffli
 | Level data (`LevelData`) | A level as plain data: size, moves, colors, goals and letter rows for each layer |
 | Element (`ILevelElement`) | One thing you can place on a level (box, lock, grass...) with its letter, rules and placing code |
 | Validator | The class that checks a level and lists what is wrong |
-| `ILevelSource` | Where levels come from: today the levels in the build, later a server |
+| Remote level | A level downloaded from the online host and cached on the phone. Used before the bundled copy |
+| `ILevelSource` | Where levels come from: the cached online levels first, then the levels in the build |
 | Assembly (`.asmdef`) | A group of code compiled together. It decides which code can see which code |
 | `AutoRef` | A helper that finds references automatically by object name |
 | Event | A class announcing "this happened"; listeners give their own reaction |
