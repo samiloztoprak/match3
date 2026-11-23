@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: GrassVisualConfig
   m_EditorClassIdentifier: Assembly-CSharp::GrassVisualConfig
   _damageSprites:
-  - {fileID: 7932798033344189819, guid: 8d01ab7e8f7bb414da8496ad92fb43fd, type: 3}
+  - {fileID: 21300000, guid: 1dfa70c4952133440b16d0df440bcd3e, type: 3}

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using LogicLibrary;
 
 public class GoalTracker : ITargetPriority
 {
@@ -117,15 +118,16 @@ public class GoalTracker : ITargetPriority
     public int GetPriority(Board board, int x, int y)
     {
         Piece piece = board.GetCell(x, y);
-
-        if (piece != null && piece.GoalKind.HasValue && IsGoalActive(piece.GoalKind.Value, null))
+        
+        if (piece != null && BoardLogic.IsPieceTargetableByPropeller(piece) && piece.GoalKind.HasValue && IsGoalActive(piece.GoalKind.Value, null))
         {
             return 2;
         }
 
         Piece above = y > 0 ? board.GetCell(x, y - 1) : null;
-        if (piece != null && !piece.Flags.HasFlag(PieceFlags.Void)
-                          && above != null && above.Flags.HasFlag(PieceFlags.Collectable) && !above.Flags.HasFlag(PieceFlags.Locked)
+        if (above != null && piece != null && BoardLogic.IsPieceTargetableByPropeller(above) 
+                          && BoardLogic.IsPieceCollectable(piece)
+                          && !BoardLogic.IsPieceLocked(above)
                           && above.GoalKind.HasValue && IsGoalActive(above.GoalKind.Value, null))
         {
             return 3;

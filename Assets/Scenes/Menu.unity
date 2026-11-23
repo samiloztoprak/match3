@@ -155,8 +155,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5706059}
   m_AnchorMax: {x: 0.5, y: 0.5706059}
-  m_AnchoredPosition: {x: 0, y: 0.0000038146973}
-  m_SizeDelta: {x: 802.3777, y: 420.9031}
+  m_AnchoredPosition: {x: 0.000016954, y: 0.000015258789}
+  m_SizeDelta: {x: 1092.9548, y: 388.8109}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &37834106
 MonoBehaviour:
@@ -222,7 +222,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 8438139545992066731, guid: 1ee41f349340c4f46aef41c4feea0fa9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2f9e44aa3bb825840823d002e3042a68, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -231,7 +231,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 1.94
 --- !u!222 &37834108
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -363,8 +363,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: de38699c187076948a9a57afd9a9806d, type: 2}
+  m_sharedMaterial: {fileID: 5646235477691856468, guid: de38699c187076948a9a57afd9a9806d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -388,12 +388,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 110
+  m_fontSize: 170
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 110
+  m_fontSizeMax: 170
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -590,8 +590,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0.000061035156, y: 0}
+  m_SizeDelta: {x: 246.8308, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1154883693
 MonoBehaviour:
@@ -613,9 +613,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1208252747477482805, guid: cc2bae26f63aff04b86ef3cde8d70f4f, type: 3}
+  m_Sprite: {fileID: 8905639587219589326, guid: d1231d00d2caaed44a190168be2aae72, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -666,8 +666,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -0.00053406, y: 298.63623}
-  m_SizeDelta: {x: 1920, y: 597.2725}
+  m_AnchoredPosition: {x: -0.00053406, y: 511.91858}
+  m_SizeDelta: {x: 1920, y: 1023.8371}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1254657857
 MonoBehaviour:
@@ -1152,7 +1152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MenuController
   _playButton: {fileID: 37834106}
   _playText: {fileID: 390434377}
-  _assets: {fileID: 11400000, guid: 7a4f5424df908e84e97d2c615285d04d, type: 2}
+  _levels: {fileID: 11400000, guid: 9dd1aed1d7c098548ae6a7948c79e6be, type: 2}
 --- !u!1 &1868527096 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7663226027641709882, guid: 6e1f3373025b1ee4abcd92569a7bc1a5, type: 3}
@@ -1197,8 +1197,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0.000045776, y: -525.46}
-  m_SizeDelta: {x: 1273.1584, y: 707.3101}
+  m_AnchoredPosition: {x: -0.0075331, y: -608.66}
+  m_SizeDelta: {x: 2191.208, y: 1217.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2145037923
 MonoBehaviour:
@@ -1220,7 +1220,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1801268808295281696, guid: e32220adeba4b8144a858b18f6da29ba, type: 3}
+  m_Sprite: {fileID: 4956349664782362014, guid: 3d8fde3f126a1eb48b8b9dc5f908cf1a, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

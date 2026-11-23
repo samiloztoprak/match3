@@ -21,11 +21,9 @@ public class LoadingScreen : MonoBehaviour
     [SerializeField] private CanvasGroup _group;
     [SerializeField] private Image _barFill;
     [SerializeField] private TMP_Text _percentText;
-    [SerializeField] private RectTransform _mascot;
 
     private float _displayed;
     private Vector2 _mascotStartPos;
-    private Tween _mascotTween;
 
     public static bool IsLoading { get; private set; }
 
@@ -60,7 +58,6 @@ public class LoadingScreen : MonoBehaviour
         _group = GetComponent<CanvasGroup>();
         _barFill = AutoRef.Child<Image>(this, "ui_image_bar_fill");
         _percentText = AutoRef.Child<TMP_Text>(this, "ui_text_percent");
-        _mascot = AutoRef.Child<RectTransform>(this, "ui_image_mascot");
     }
 
     public static void LoadScene(string sceneName)
@@ -85,7 +82,6 @@ public class LoadingScreen : MonoBehaviour
 
         _canvas.enabled = true;
         _group.blocksRaycasts = true;
-        StartMascot();
         yield return _group.DOFade(1f, FadeDuration).SetUpdate(true).WaitForCompletion();
 
         float startTime = Time.unscaledTime;
@@ -121,24 +117,10 @@ public class LoadingScreen : MonoBehaviour
         _barFill.fillAmount = value;
         _percentText.text = $"{Mathf.RoundToInt(value * 100f)}%";
     }
-
-    private void StartMascot()
-    {
-        _mascotStartPos = _mascot.anchoredPosition;
-        _mascotTween = _mascot.DOAnchorPosY(_mascotStartPos.y + 30f, 0.35f)
-            .SetEase(Ease.OutQuad)
-            .SetLoops(-1, LoopType.Yoyo)
-            .SetUpdate(true);
-    }
+   
 
     private void HideImmediate()
     {
-        _mascotTween?.Kill();
-        if (_mascotTween != null)
-        {
-            _mascot.anchoredPosition = _mascotStartPos;
-            _mascotTween = null;
-        }
         _group.alpha = 0f;
         _group.blocksRaycasts = false;
         _canvas.enabled = false;

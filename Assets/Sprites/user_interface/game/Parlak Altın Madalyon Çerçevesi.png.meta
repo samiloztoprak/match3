@@ -1,0 +1,1495 @@
+fileFormatVersion: 2
+guid: 2e0c7683b1918844189bbb0d503aa3f3
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6351944429346226800
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_0"
+  - first:
+      213: -143290500527638710
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_1"
+  - first:
+      213: -7645137951883702747
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_2"
+  - first:
+      213: 690489040839365168
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_3"
+  - first:
+      213: 6559811200995751256
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_4"
+  - first:
+      213: 6793073436164956674
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_5"
+  - first:
+      213: 5046364141408850655
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_6"
+  - first:
+      213: 7067147558294537509
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_7"
+  - first:
+      213: 8469853714678484039
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_8"
+  - first:
+      213: 256803279351057197
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_9"
+  - first:
+      213: 6422524349161450696
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_10"
+  - first:
+      213: -3223842009585824479
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_11"
+  - first:
+      213: -6466194334766805994
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_12"
+  - first:
+      213: 2629505311548726270
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_13"
+  - first:
+      213: 631987480960716580
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_14"
+  - first:
+      213: 3697359326772356505
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_15"
+  - first:
+      213: 9182679055207546136
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_16"
+  - first:
+      213: -2007201534126377662
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_17"
+  - first:
+      213: 969882205434042488
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_18"
+  - first:
+      213: 7597789055009512747
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_19"
+  - first:
+      213: 6256452828008605174
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_20"
+  - first:
+      213: 7773459188299217912
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_21"
+  - first:
+      213: 7799225631974479761
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_22"
+  - first:
+      213: -4833104779245589413
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_23"
+  - first:
+      213: 3228052620142371994
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_24"
+  - first:
+      213: 2242791158381035834
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_25"
+  - first:
+      213: -4346090732257955218
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_26"
+  - first:
+      213: -2550663155811223334
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_27"
+  - first:
+      213: 2146323216651034992
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_28"
+  - first:
+      213: 3653641424953249274
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_29"
+  - first:
+      213: -8704622693164525165
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_30"
+  - first:
+      213: 138438343676764141
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_31"
+  - first:
+      213: 5844052870231560228
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_32"
+  - first:
+      213: -3102003937938688155
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_33"
+  - first:
+      213: 8608581853034035738
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_34"
+  - first:
+      213: -6941916220150052646
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_35"
+  - first:
+      213: -380548446660846704
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_36"
+  - first:
+      213: 5098521261345462947
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_37"
+  - first:
+      213: -8401393752527460221
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_38"
+  - first:
+      213: -801166683980618651
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_39"
+  - first:
+      213: -2153412798818547502
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_40"
+  - first:
+      213: 3611763666783437935
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_41"
+  - first:
+      213: 1684370118849843364
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_42"
+  - first:
+      213: 5886032250183509237
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_43"
+  - first:
+      213: -7893452791900424432
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_44"
+  - first:
+      213: -16855099597038708
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_45"
+  - first:
+      213: -4254567461344987906
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_46"
+  - first:
+      213: 2281565481860079823
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_47"
+  - first:
+      213: -2836896016478478491
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_48"
+  - first:
+      213: 7519569255930126910
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_49"
+  - first:
+      213: 6105070856581131759
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_50"
+  - first:
+      213: -8343976876364601039
+    second: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_51"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_0"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1302
+        height: 1194
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09dfbcf023c59d7a0800000000000000
+      internalID: -6351944429346226800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_1"
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 1181
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a47bc588c0ee20ef0800000000000000
+      internalID: -143290500527638710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_2"
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1180
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52e4d17d98307e590800000000000000
+      internalID: -7645137951883702747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_3"
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 1142
+        width: 88
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 032d780df1c159900800000000000000
+      internalID: 690489040839365168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_4"
+      rect:
+        serializedVersion: 2
+        x: 490
+        y: 1157
+        width: 78
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 855fafc2881290b50800000000000000
+      internalID: 6559811200995751256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_5"
+      rect:
+        serializedVersion: 2
+        x: 721
+        y: 1173
+        width: 29
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20221c78c48d54e50800000000000000
+      internalID: 6793073436164956674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_6"
+      rect:
+        serializedVersion: 2
+        x: 745
+        y: 1166
+        width: 62
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd291f72379480640800000000000000
+      internalID: 5046364141408850655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_7"
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 1182
+        width: 25
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5254a6bc24d831260800000000000000
+      internalID: 7067147558294537509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_8"
+      rect:
+        serializedVersion: 2
+        x: 836
+        y: 1181
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74c0fea0417fa8570800000000000000
+      internalID: 8469853714678484039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_9"
+      rect:
+        serializedVersion: 2
+        x: 866
+        y: 1161
+        width: 81
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2b00e2d839509300800000000000000
+      internalID: 256803279351057197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_10"
+      rect:
+        serializedVersion: 2
+        x: 974
+        y: 1144
+        width: 38
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8cca0191ed3612950800000000000000
+      internalID: 6422524349161450696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_11"
+      rect:
+        serializedVersion: 2
+        x: 1053
+        y: 1175
+        width: 7
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12dc7aed5cc9243d0800000000000000
+      internalID: -3223842009585824479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_12"
+      rect:
+        serializedVersion: 2
+        x: 1067
+        y: 1153
+        width: 41
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61cc49b03867346a0800000000000000
+      internalID: -6466194334766805994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_13"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1054
+        width: 63
+        height: 113
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: efb5ddd2621ed7420800000000000000
+      internalID: 2629505311548726270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_14"
+      rect:
+        serializedVersion: 2
+        x: 1203
+        y: 1149
+        width: 62
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42f4829f34545c800800000000000000
+      internalID: 631987480960716580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_15"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 955
+        width: 10
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9956e3fd7b8af4330800000000000000
+      internalID: 3697359326772356505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_16"
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 877
+        width: 168
+        height: 166
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81db014e2fd6f6f70800000000000000
+      internalID: 9182679055207546136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_17"
+      rect:
+        serializedVersion: 2
+        x: 1119
+        y: 780
+        width: 183
+        height: 331
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24537cdd6dcf424e0800000000000000
+      internalID: -2007201534126377662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_18"
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 871
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8785ed82ab6b57d00800000000000000
+      internalID: 969882205434042488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_19"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 826
+        width: 67
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2d513604e4c07960800000000000000
+      internalID: 7597789055009512747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_20"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 766
+        width: 33
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f5e07fe2b263d650800000000000000
+      internalID: 6256452828008605174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_21"
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 828
+        width: 9
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fb329a32ffd0eb60800000000000000
+      internalID: 7773459188299217912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_22"
+      rect:
+        serializedVersion: 2
+        x: 1222
+        y: 790
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 197d5f4e36a6c3c60800000000000000
+      internalID: 7799225631974479761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_23"
+      rect:
+        serializedVersion: 2
+        x: 1242
+        y: 743
+        width: 45
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5ce2d66fcc5decb0800000000000000
+      internalID: -4833104779245589413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_24"
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 748
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a94eadb41c85ccc20800000000000000
+      internalID: 3228052620142371994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_25"
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 732
+        width: 17
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3140bcfcaeff1f10800000000000000
+      internalID: 2242791158381035834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_26"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 686
+        width: 6
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e62b52e61859fa3c0800000000000000
+      internalID: -4346090732257955218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_27"
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 702
+        width: 17
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad8f130bf593a9cd0800000000000000
+      internalID: -2550663155811223334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_28"
+      rect:
+        serializedVersion: 2
+        x: 1240
+        y: 667
+        width: 47
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 071a8a5089549cd10800000000000000
+      internalID: 2146323216651034992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_29"
+      rect:
+        serializedVersion: 2
+        x: 1236
+        y: 428
+        width: 66
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afd8df6a48754b230800000000000000
+      internalID: 3653641424953249274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_30"
+      rect:
+        serializedVersion: 2
+        x: 1250
+        y: 504
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 399df1697c7f23780800000000000000
+      internalID: -8704622693164525165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_31"
+      rect:
+        serializedVersion: 2
+        x: 1222
+        y: 449
+        width: 15
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: def952aa0f4dbe100800000000000000
+      internalID: 138438343676764141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_32"
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 438
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42011c25f1f3a1150800000000000000
+      internalID: 5844052870231560228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_33"
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 317
+        width: 54
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5673d438ad773f4d0800000000000000
+      internalID: -3102003937938688155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_34"
+      rect:
+        serializedVersion: 2
+        x: 1220
+        y: 401
+        width: 35
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1ab7f9c593d77770800000000000000
+      internalID: 8608581853034035738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_35"
+      rect:
+        serializedVersion: 2
+        x: 1203
+        y: 328
+        width: 34
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad80f654afb59af90800000000000000
+      internalID: -6941916220150052646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_36"
+      rect:
+        serializedVersion: 2
+        x: 1224
+        y: 380
+        width: 9
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09b14f8343508baf0800000000000000
+      internalID: -380548446660846704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_37"
+      rect:
+        serializedVersion: 2
+        x: 1236
+        y: 373
+        width: 7
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3aad546f21691c640800000000000000
+      internalID: 5098521261345462947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_38"
+      rect:
+        serializedVersion: 2
+        x: 1187
+        y: 339
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3882a6205e0486b80800000000000000
+      internalID: -8401393752527460221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_39"
+      rect:
+        serializedVersion: 2
+        x: 1198
+        y: 337
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 564257b452fa1e4f0800000000000000
+      internalID: -801166683980618651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_40"
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 303
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d804aff77a8d12e0800000000000000
+      internalID: -2153412798818547502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_41"
+      rect:
+        serializedVersion: 2
+        x: 1234
+        y: 295
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f640a434bef8f1230800000000000000
+      internalID: 3611763666783437935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_42"
+      rect:
+        serializedVersion: 2
+        x: 1246
+        y: 293
+        width: 6
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a0d35ce2b5106710800000000000000
+      internalID: 1684370118849843364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_43"
+      rect:
+        serializedVersion: 2
+        x: 1187
+        y: 238
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f46ea065236fa150800000000000000
+      internalID: 5886032250183509237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_44"
+      rect:
+        serializedVersion: 2
+        x: 1203
+        y: 248
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 017b57fc182d47290800000000000000
+      internalID: -7893452791900424432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_45"
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 216
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8b5ddf406e14cff0800000000000000
+      internalID: -16855099597038708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_46"
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 185
+        width: 7
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef4b8918f6db4f4c0800000000000000
+      internalID: -4254567461344987906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_47"
+      rect:
+        serializedVersion: 2
+        x: 1244
+        y: 167
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc0201ea7bfb9af10800000000000000
+      internalID: 2281565481860079823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_48"
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 102
+        width: 9
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56f54118a1251a8d0800000000000000
+      internalID: -2836896016478478491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_49"
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 122
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e32e9abd560ea5860800000000000000
+      internalID: 7519569255930126910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_50"
+      rect:
+        serializedVersion: 2
+        x: 1107
+        y: 18
+        width: 154
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fedab17199199b450800000000000000
+      internalID: 6105070856581131759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_51"
+      rect:
+        serializedVersion: 2
+        x: 791
+        y: 0
+        width: 44
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 139e63e3d3d343c80800000000000000
+      internalID: -8343976876364601039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_0": -6351944429346226800
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_1": -143290500527638710
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_10": 6422524349161450696
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_11": -3223842009585824479
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_12": -6466194334766805994
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_13": 2629505311548726270
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_14": 631987480960716580
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_15": 3697359326772356505
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_16": 9182679055207546136
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_17": -2007201534126377662
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_18": 969882205434042488
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_19": 7597789055009512747
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_2": -7645137951883702747
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_20": 6256452828008605174
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_21": 7773459188299217912
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_22": 7799225631974479761
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_23": -4833104779245589413
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_24": 3228052620142371994
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_25": 2242791158381035834
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_26": -4346090732257955218
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_27": -2550663155811223334
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_28": 2146323216651034992
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_29": 3653641424953249274
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_3": 690489040839365168
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_30": -8704622693164525165
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_31": 138438343676764141
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_32": 5844052870231560228
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_33": -3102003937938688155
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_34": 8608581853034035738
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_35": -6941916220150052646
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_36": -380548446660846704
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_37": 5098521261345462947
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_38": -8401393752527460221
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_39": -801166683980618651
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_4": 6559811200995751256
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_40": -2153412798818547502
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_41": 3611763666783437935
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_42": 1684370118849843364
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_43": 5886032250183509237
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_44": -7893452791900424432
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_45": -16855099597038708
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_46": -4254567461344987906
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_47": 2281565481860079823
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_48": -2836896016478478491
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_49": 7519569255930126910
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_5": 6793073436164956674
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_50": 6105070856581131759
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_51": -8343976876364601039
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_6": 5046364141408850655
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_7": 7067147558294537509
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_8": 8469853714678484039
+      "Parlak Alt\u0131n Madalyon \xC7er\xE7evesi_9": 256803279351057197
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

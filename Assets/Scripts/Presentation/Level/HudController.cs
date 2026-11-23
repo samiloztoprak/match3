@@ -29,7 +29,7 @@ public class HudController : MonoBehaviour
     
     public void SetMoves(int movesRemaining)
     {
-        _movesText.text = movesRemaining.ToString();
+        _movesText.text = "MOVES " +movesRemaining.ToString();
     }
 
     public void BuildGoals(GoalTracker tracker)

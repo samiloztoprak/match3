@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameAssets
   Mascot: {fileID: 11400000, guid: 7e8ce95efd74bf54dbe8224df75de75d, type: 2}
   PiecePrefab: {fileID: 4093109827346939760, guid: 783826b51c210b44898c69377c31f864, type: 3}
-  CellTilePrefab: {fileID: 1595000400380124855, guid: 673675e3bdee67b46b8d0ca257bbe3e3, type: 3}
+  CellTilePrefab: {fileID: -4256715866632513688, guid: 673675e3bdee67b46b8d0ca257bbe3e3, type: 3}
   PieceVisuals: {fileID: 11400000, guid: 09d110696ffca734986e68c988cb8450, type: 2}
   BreakEffects: {fileID: 11400000, guid: be7e779628d2fd84f98f939e59e55b44, type: 2}
   PropellerAnimation: {fileID: 11400000, guid: bef7f603029ea74488ec9facf12fccdb, type: 2}
@@ -28,4 +28,4 @@ MonoBehaviour:
   GoalSlot: {fileID: 6369549598773532538, guid: a9a4521856d51034cab8d8f5612ad3c0, type: 3}
   GoalFlyIcon: {fileID: 8648644522278414196, guid: 4e1f2dd778dfa7c45af6f4b333866af1, type: 3}
   GoalSpark: {fileID: 7513626069142836023, guid: a069328b762f7974b8c02eebdf1977af, type: 3}
-  Levels: {fileID: 11400000, guid: 9dd1aed1d7c098548ae6a7948c79e6be, type: 2}
+  _levelCatalog: {fileID: 11400000, guid: 9dd1aed1d7c098548ae6a7948c79e6be, type: 2}

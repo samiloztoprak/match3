@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: 577171e36ae16ee4bb6c8cce2006cf97
+guid: 9d0ddc23fbde11349aafc2b3b134a6c0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7878449442569803499
-    second: special_lightball_0
+      213: -4211649304977186216
+    second: "G\xF6kku\u015Fa\u011F\u0131 I\u015F\u0131k Topu_0"
+  - first:
+      213: 8344283630004485935
+    second: "G\xF6kku\u015Fa\u011F\u0131 I\u015F\u0131k Topu_1"
+  - first:
+      213: 8850099682665609682
+    second: "G\xF6kku\u015Fa\u011F\u0131 I\u015F\u0131k Topu_2"
+  - first:
+      213: 9111727692642699049
+    second: "G\xF6kku\u015Fa\u011F\u0131 I\u015F\u0131k Topu_3"
+  - first:
+      213: 5674332362810125010
+    second: "G\xF6kku\u015Fa\u011F\u0131 I\u015F\u0131k Topu_4"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,12 +58,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 1000
+  spritePixelsToUnits: 6500
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -126,13 +138,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: special_lightball_0
+      name: "G\xF6kku\u015Fa\u011F\u0131 I\u015F\u0131k Topu_0"
       rect:
         serializedVersion: 2
-        x: 7
-        y: 7
-        width: 164
-        height: 176
+        x: 0
+        y: 0
+        width: 1243
+        height: 1254
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +153,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: be65f35b600e55d60800000000000000
-      internalID: 7878449442569803499
+      spriteID: 852605a75473d85c0800000000000000
+      internalID: -4211649304977186216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "G\xF6kku\u015Fa\u011F\u0131 I\u015F\u0131k Topu_1"
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 1244
+        width: 21
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2f368760c9dcc370800000000000000
+      internalID: 8344283630004485935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "G\xF6kku\u015Fa\u011F\u0131 I\u015F\u0131k Topu_2"
+      rect:
+        serializedVersion: 2
+        x: 804
+        y: 1246
+        width: 15
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d9b41485ced1da70800000000000000
+      internalID: 8850099682665609682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "G\xF6kku\u015Fa\u011F\u0131 I\u015F\u0131k Topu_3"
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 1231
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 927ce0a7f0c537e70800000000000000
+      internalID: 9111727692642699049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "G\xF6kku\u015Fa\u011F\u0131 I\u015F\u0131k Topu_4"
+      rect:
+        serializedVersion: 2
+        x: 501
+        y: 1221
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2daecc658374fbe40800000000000000
+      internalID: 5674332362810125010
       vertices: []
       indices: 
       edges: []
@@ -151,7 +251,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +261,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      special_lightball_0: 7878449442569803499
+      "G\xF6kku\u015Fa\u011F\u0131 I\u015F\u0131k Topu_0": -4211649304977186216
+      "G\xF6kku\u015Fa\u011F\u0131 I\u015F\u0131k Topu_1": 8344283630004485935
+      "G\xF6kku\u015Fa\u011F\u0131 I\u015F\u0131k Topu_2": 8850099682665609682
+      "G\xF6kku\u015Fa\u011F\u0131 I\u015F\u0131k Topu_3": 9111727692642699049
+      "G\xF6kku\u015Fa\u011F\u0131 I\u015F\u0131k Topu_4": 5674332362810125010
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

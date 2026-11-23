@@ -1,0 +1,270 @@
+fileFormatVersion: 2
+guid: 704bebf56c0bedc45904246e10dcbb4d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6860246633974934878
+    second: "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_0"
+  - first:
+      213: 7104431465420710542
+    second: "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_1"
+  - first:
+      213: 70407645600614562
+    second: "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_2"
+  - first:
+      213: 2862489617405846645
+    second: "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_3"
+  - first:
+      213: 698868532541415169
+    second: "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_4"
+  - first:
+      213: 4988200599841946870
+    second: "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_5"
+  - first:
+      213: -1661237722527606705
+    second: "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_6"
+  - first:
+      213: -4922306169272849192
+    second: "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_7"
+  - first:
+      213: -4873747592115568197
+    second: "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_8"
+  - first:
+      213: -7050043975336454287
+    second: "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_9"
+  - first:
+      213: -3049397336045301171
+    second: "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_10"
+  - first:
+      213: -591537042010332750
+    second: "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_11"
+  - first:
+      213: 6945232698004461550
+    second: "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_12"
+  - first:
+      213: -2878404143906563047
+    second: "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_13"
+  - first:
+      213: -8205121959651147282
+    second: "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_14"
+  - first:
+      213: -8822646787897473152
+    second: "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_15"
+  - first:
+      213: -2663430343450129581
+    second: "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_16"
+  - first:
+      213: -2508308860904449232
+    second: "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_17"
+  - first:
+      213: -7332901277839346378
+    second: "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_18"
+  - first:
+      213: -3469922964817936391
+    second: "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_19"
+  - first:
+      213: -6774234802022054906
+    second: "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_20"
+  - first:
+      213: -2845161611644899911
+    second: "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_21"
+  - first:
+      213: 1637277272695436479
+    second: "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_22"
+  - first:
+      213: -2730959614828885096
+    second: "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_23"
+  - first:
+      213: 1881112744832359069
+    second: "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_24"
+  - first:
+      213: -5157811058191346912
+    second: "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_25"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 3
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 4000
+  spriteBorder: {x: 479, y: 481, z: 468, w: 491}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_0"
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 80
+        width: 1065
+        height: 1065
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 424, y: 407, z: 422, w: 419}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a2da5698028bc0a0800000000000000
+      internalID: -6860246633974934878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: ce99cad418a5abc4982e069ec99e4453
+    internalID: 1566212748
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_0": -6860246633974934878
+      "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_1": 7104431465420710542
+      "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_10": -3049397336045301171
+      "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_11": -591537042010332750
+      "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_12": 6945232698004461550
+      "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_13": -2878404143906563047
+      "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_14": -8205121959651147282
+      "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_15": -8822646787897473152
+      "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_16": -2663430343450129581
+      "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_17": -2508308860904449232
+      "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_18": -7332901277839346378
+      "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_19": -3469922964817936391
+      "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_2": 70407645600614562
+      "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_20": -6774234802022054906
+      "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_21": -2845161611644899911
+      "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_22": 1637277272695436479
+      "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_23": -2730959614828885096
+      "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_24": 1881112744832359069
+      "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_25": -5157811058191346912
+      "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_26": -1908947026
+      "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_3": 2862489617405846645
+      "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_4": 698868532541415169
+      "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_5": 4988200599841946870
+      "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_6": -1661237722527606705
+      "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_7": -4922306169272849192
+      "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_8": -4873747592115568197
+      "Parlak Mor Oyun Tahtas\u0131 H\xFCcresi_9": -7050043975336454287
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

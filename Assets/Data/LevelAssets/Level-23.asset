@@ -26,7 +26,7 @@ MonoBehaviour:
       three: 13
     cells:
     - ..BB..BB..
-    - B...BB...B
+    - B#..BB...B
     - ..#.BB.#..
     - .B.B..B.B.
     - ...#..#...

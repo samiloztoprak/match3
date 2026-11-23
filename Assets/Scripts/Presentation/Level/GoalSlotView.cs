@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GoalSlotView : MonoBehaviour
 {
     [SerializeField] private Image _icon;
+    [SerializeField] private Image _countPanel;
     [SerializeField] private TMP_Text _count;
     [SerializeField] private GameObject _check;
 
@@ -75,6 +76,7 @@ public class GoalSlotView : MonoBehaviour
     {
         _count.text = _shown.ToString();
         _count.gameObject.SetActive(_shown > 0);
+        _countPanel.gameObject.SetActive(_shown > 0);
         if (_check != null)
         {
             _check.SetActive(_shown == 0);

@@ -80,8 +80,7 @@ public class MascotView : MonoBehaviour
         }
         else if (Time.time >= _nextIdleVariationAt)
         {
-            MascotMood variation = Random.value < 0.5f ? MascotMood.Juggle : MascotMood.Think;
-            Play(variation, IdleVariationPriority, Config.IdleVariationHold);
+            Play(MascotMood.Think, IdleVariationPriority, Config.IdleVariationHold);
         }
     }
     

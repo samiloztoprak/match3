@@ -3,7 +3,7 @@ using System.Collections.Generic;
 public sealed class CagePiece : OverlayPiece
 {
     public CagePiece(int id, int x, int y)
-        : base(id, PieceColor.Empty, PieceFlags.DamageableBySpecial, BuildCoveredCells(x, y))
+        : base(id, PieceColor.Empty, PieceFlags.DamageableBySpecial | PieceFlags.TargetableByPropeller, BuildCoveredCells(x, y))
     {
         VisualType = PieceVisualType.Cage;
         Health = 3;

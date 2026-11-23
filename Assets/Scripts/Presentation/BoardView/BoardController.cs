@@ -92,6 +92,8 @@ public class BoardController : MonoBehaviour
         {
             _turnPlayer.ShowTargetReticle(_startX, _startY);
         }
+        
+        //Debug.Log($"[LevelDebug] CurrentIndex={LevelProgress.CurrentIndex} Count={_assets.Levels.Count} Type={_assets.Levels.GetType().Name} Dir={Application.persistentDataPath}/levels");
     }
 
     void Update()
@@ -174,18 +176,36 @@ public class BoardController : MonoBehaviour
     
     private void SpawnBoardViews()
     {
+        bool flipFlop = false;
         for (int x = 0; x < _board.Width; x++)
         {
             for (int y = 0; y < _board.Height; y++)
             {
                 Piece piece = _board.GetCell(x, y);
-                if (BoardLogic.IsVoid(piece)) continue;
+
+                if (piece == null)
+                {
+                    continue;
+                }
+                
+                if (BoardLogic.IsVoid(piece))
+                {
+                    continue;
+                }
 
                 Vector3 position = _turnPlayer.CellToWorld(x, y);
                 if (_assets.CellTilePrefab != null)
                 {
-                    SpriteRenderer tile = Instantiate(_assets.CellTilePrefab, position, Quaternion.identity, transform);
-                    tile.sortingOrder = SortingOrders.CellTile;
+                    CellTile tile = Instantiate(_assets.CellTilePrefab, position, Quaternion.identity, transform);
+                    if (flipFlop)
+                    {
+                        tile.SetCellDarkConfig();
+                    }
+                    else
+                    {
+                        tile.SetCellLightConfig();
+                    }
+                    flipFlop = !flipFlop;
                 }
 
                 _turnPlayer.SpawnPieceView(piece, position);
@@ -238,7 +258,11 @@ public class BoardController : MonoBehaviour
 
     private IEnumerator PlayInitialTurn(List<TurnStepData> result)
     {
+        var allCells = AllCells();
+        _turnPlayer.LockCells(allCells);
         yield return StartCoroutine(_turnPlayer.PlayTapTurn(result));
+        
+        _turnPlayer.UnlockCells(allCells);
         yield return StartCoroutine(FinishTurn());
     }
     
@@ -288,7 +312,6 @@ public class BoardController : MonoBehaviour
             LevelEnded?.Invoke(true);
 
             int stars = CalculateStars();
-            Debug.Log("stars: " + stars);
             LevelProgress.SaveStars(_levelIndex, stars);
             _popups.Show<WinPopup>().Setup(_levelIndex + 1, stars);
         }
@@ -353,21 +376,35 @@ public class BoardController : MonoBehaviour
             return;
         }
         
-        if (_turnPlayer.IsBusy)
+        if (!BoardLogic.IsValidIndex(x1, y1, _board))
         {
-            Debug.Log("Still resolving previous turn, ignoring this swap");
             return;
         }
-
-        if (!BoardLogic.IsValidIndex(x1, y1, _board)) return;
-        if (!BoardLogic.IsValidIndex(x2, y2, _board)) return;
-
+        
+        if (!BoardLogic.IsValidIndex(x2, y2, _board))
+        {
+            return;
+        }
+        
+        if (!_turnPlayer.AreCellsFree((x1, y1), (x2, y2)))
+        {
+            Debug.Log("Those cells are still busy, ignoring this swap");
+            return;
+        }
+       
         Piece piece1 = _board.GetCell(x1, y1);
         Piece piece2 = _board.GetCell(x2, y2);
         if (piece1 == null || piece2 == null) return;
 
-        if (BoardLogic.IsCellSwapBlocked(_board, x1, y1) || BoardLogic.IsCellSwapBlocked(_board, x2, y2)) return;
-        if (!BoardLogic.IsPieceMoveable(piece1) || !BoardLogic.IsPieceMoveable(piece2)) return;
+        if (BoardLogic.IsCellSwapBlocked(_board, x1, y1) || BoardLogic.IsCellSwapBlocked(_board, x2, y2))
+        {
+            return;
+        }
+        
+        if (!BoardLogic.IsPieceMoveable(piece1) || !BoardLogic.IsPieceMoveable(piece2))
+        {
+            return;
+        }
 
         var command = new SwapCommand(_board, x1, y1, x2, y2);
         var result = TurnResolver.Resolve(_board, command, targetPriority: _goalTracker);
@@ -381,9 +418,14 @@ public class BoardController : MonoBehaviour
             }
         }
         
+        var lockedCells = CollectAffectedCells(result);
+        lockedCells.Add((x1, y1));
+        lockedCells.Add((x2, y2));
+        _turnPlayer.LockCells(lockedCells);
+        
         ApplyTurnResult(result, true);
         TurnStarted?.Invoke(TurnSummary.From(result));
-        StartCoroutine(PlayTurnAndCheckShuffle(_turnPlayer.PlaySwapTurn(piece1.Id, piece2.Id, x1, y1, x2, y2, result, isCombo)));
+        StartCoroutine(PlayTurnAndCheckShuffle(lockedCells, _turnPlayer.PlaySwapTurn(piece1.Id, piece2.Id, x1, y1, x2, y2, result, isCombo)));
     }
     
     public void TryActivate(int x, int y)
@@ -393,13 +435,11 @@ public class BoardController : MonoBehaviour
             return;
         }
         
-        if (_turnPlayer.IsBusy)
+        if (!_turnPlayer.AreCellsFree((x, y)))
         {
-            Debug.Log("Still resolving previous turn, ignoring this tap");
+            Debug.Log("That cell is still busy, ignoring this tap");
             return;
         }
-
-        if (!BoardLogic.IsValidIndex(x, y, _board)) return;
 
         Piece piece = _board.GetCell(x, y);
         if (piece == null || piece.VisualType != PieceVisualType.Special) return;
@@ -407,14 +447,19 @@ public class BoardController : MonoBehaviour
 
         var command = new TapCommand(x, y);
         var result = TurnResolver.Resolve(_board, command, targetPriority: _goalTracker);
+
+        var lockedCells = CollectAffectedCells(result);
+        lockedCells.Add((x, y));
+        _turnPlayer.LockCells(lockedCells);
+
         ApplyTurnResult(result, true);
         TurnStarted?.Invoke(TurnSummary.From(result));
-        StartCoroutine(PlayTurnAndCheckShuffle(_turnPlayer.PlayTapTurn(result)));
+        StartCoroutine(PlayTurnAndCheckShuffle(lockedCells, _turnPlayer.PlayTapTurn(result)));
     }
     
     private void TryUseBooster(BoosterType type, int x, int y)
     {
-        if (_levelEnded || _turnPlayer.IsBusy)
+        if (_levelEnded || !_turnPlayer.AreCellsFree((x, y)))
         {
             return;
         }
@@ -429,9 +474,14 @@ public class BoardController : MonoBehaviour
         _boosterBar.TryConsume(type);
         ClearHint();
         _idleTimer = 0f;
+        
+        var lockedCells = CollectAffectedCells(result);
+        lockedCells.Add((x, y));
+        _turnPlayer.LockCells(lockedCells);
+        
         ApplyTurnResult(result, false);
         TurnStarted?.Invoke(TurnSummary.From(result));
-        StartCoroutine(PlayTurnAndCheckShuffle(_turnPlayer.PlayTapTurn(result)));
+        StartCoroutine(PlayTurnAndCheckShuffle(lockedCells, _turnPlayer.PlayTapTurn(result)));
     }
     
     private void OnInstantBooster(BoosterType type)
@@ -448,25 +498,33 @@ public class BoardController : MonoBehaviour
         ClearHint();
         _idleTimer = 0f;
         var steps = TurnResolver.ResolveShuffle(_board, new SystemRandom());
-        StartCoroutine(PlayTurnAndCheckShuffle(_turnPlayer.PlayShuffleTurn(steps)));
+        
+        var allCells = AllCells();
+        _turnPlayer.LockCells(allCells);
+        StartCoroutine(PlayTurnAndCheckShuffle(allCells, _turnPlayer.PlayShuffleTurn(steps)));
     }
     
-    private IEnumerator PlayTurnAndCheckShuffle(IEnumerator turnRoutine)
+    private IEnumerator PlayTurnAndCheckShuffle(HashSet<(int x, int y)> lockedCells, IEnumerator turnRoutine)
     {
         yield return StartCoroutine(turnRoutine);
-
+        _turnPlayer.UnlockCells(lockedCells);
+        
         yield return StartCoroutine(FinishTurn());
         if (_levelEnded)
         {
             yield break;
         }
         
-        if (!MoveLogic.HasAvailableMove(_board))
+        if (!_turnPlayer.IsBusy && !MoveLogic.HasAvailableMove(_board))
         {
             var shuffleSteps = TurnResolver.ResolveShuffle(_board, new SystemRandom());
+            var allCells = AllCells();
+            _turnPlayer.LockCells(allCells);
             yield return StartCoroutine(_turnPlayer.PlayShuffleTurn(shuffleSteps));
+            _turnPlayer.UnlockCells(allCells);
         }
     }
+    
     
     private void ShowHint()
     {
@@ -538,9 +596,125 @@ public class BoardController : MonoBehaviour
         return world;
     }
     
-    
-    
-    
+    private HashSet<(int x, int y)> CollectAffectedCells(List<TurnStepData> steps)
+    {
+        var columns = new HashSet<int>();
+
+        void AddColumn(int x)
+        {
+            for (int dx = -1; dx <= 1; dx++)
+            {
+                int cx = x + dx;
+                if (cx >= 0 && cx < _board.Width)
+                {
+                    columns.Add(cx);
+                }
+            }
+        }
+
+        foreach (var step in steps)
+        {
+            switch (step)
+            {
+                case ClearPieceData clear:
+                {
+                    foreach (var hit in clear.Hits)
+                    {
+                        AddColumn(hit.X);
+                    }
+                    break;
+                }
+                case ClearOverlayData overlay:
+                {
+                    foreach (var hit in overlay.Hits)
+                    {
+                        AddColumn(hit.X);
+                    }
+                    break;
+                }
+                case CollectStepData collect:
+                {
+                    foreach (var hit in collect.Hits)
+                    {
+                        AddColumn(hit.X);
+                    }
+                    break;
+                }
+                case SpecialActivationData activated:
+                {
+                    AddColumn(activated.X);
+                    if (activated.TargetX.HasValue)
+                    {
+                        AddColumn(activated.TargetX.Value);
+                    }
+                    if (activated.NeighborCells != null)
+                    {
+                        foreach (var (nx, _) in activated.NeighborCells)
+                        {
+                            AddColumn(nx);
+                        }
+                    }
+                    if (activated.Targets != null)
+                    {
+                        foreach (var (tx, _, _) in activated.Targets)
+                        {
+                            AddColumn(tx);
+                        }
+                    }
+                    break;
+                }
+                case SpecialCreatedData created:
+                {
+                    AddColumn(created.X);
+                    break;
+                }
+                case FallStepData fall:
+                {
+                    foreach (var move in fall.Moves)
+                    {
+                        AddColumn(move.toX);
+                    }
+                    break;
+                }
+                case RefillStepData refill:
+                {
+                    foreach (var move in refill.Moves)
+                    {
+                        AddColumn(move.toX);
+                    }
+                    break;
+                }
+                case ComboMergeData merge:
+                {
+                    AddColumn(merge.ToX);
+                    break;
+                }
+            }
+        }
+
+        var cells = new HashSet<(int x, int y)>();
+        foreach (int x in columns)
+        {
+            for (int y = 0; y < _board.Height; y++)
+            {
+                cells.Add((x, y));
+            }
+        }
+        return cells;
+    }
+
+    private HashSet<(int x, int y)> AllCells()
+    {
+        var cells = new HashSet<(int x, int y)>();
+        for (int x = 0; x < _board.Width; x++)
+        {
+            for (int y = 0; y < _board.Height; y++)
+            {
+                cells.Add((x, y));
+            }
+        }
+        return cells;
+    }
     
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
     public int LevelCount => _assets.Levels.Count;

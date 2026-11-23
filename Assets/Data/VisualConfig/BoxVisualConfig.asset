@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: BoxVisualConfig
   m_EditorClassIdentifier: Assembly-CSharp::BoxVisualConfig
   _damageSprites:
-  - {fileID: 2062545466655469432, guid: 9323df2cb4baadb4f8496f9eaa97020f, type: 3}
-  - {fileID: -1044639575880202847, guid: ae76a36d13754e44ba3da99fa1c28df1, type: 3}
-  - {fileID: 2992406564396960418, guid: 0c0cb4ee5ecd17a4dae5fe1bd90b4ece, type: 3}
+  - {fileID: 8743920102939819702, guid: 1bfab659a8e0a2d46921bfc2df97d0c1, type: 3}
+  - {fileID: -471049178025980635, guid: 4bd92ca1b9fd7ba4eadff785e007cc74, type: 3}
+  - {fileID: 4301152788239096981, guid: 42456b025ce2232468a046799f338fe2, type: 3}

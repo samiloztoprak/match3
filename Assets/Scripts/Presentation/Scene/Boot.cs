@@ -33,6 +33,9 @@ public class Boot : MonoBehaviour
             yield break;
         }
 #endif
+        RemoteLevelSync sync = gameObject.AddComponent<RemoteLevelSync>();
+        StartCoroutine(sync.SyncLevels(null));
+        LevelProgress.CurrentIndex = 25;
         SceneLoader.LoadMenu();
     }
 }

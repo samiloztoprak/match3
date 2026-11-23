@@ -38,7 +38,8 @@ public class TurnPlayer : MonoBehaviour
     public int BoardHeight => _board.Height;
     public float CellSize => _cellSize;
     
-    public bool IsBusy { get; private set; }
+    private readonly HashSet<(int x, int y)> _busyCells = new HashSet<(int x, int y)>();
+    public bool IsBusy => _busyCells.Count > 0;
     
     private Vector3 _boardOffset;
     
@@ -205,77 +206,53 @@ public class TurnPlayer : MonoBehaviour
     
     public IEnumerator PlaySwapTurn(int piece1Id, int piece2Id, int x1, int y1, int x2, int y2, List<TurnStepData> steps, bool isCombo = false)
     {
-        IsBusy = true;
-        try
+        AudioManager.Play(SoundId.Swap);
+        
+        Vector3 targetWorldPos = CellToWorld(x2, y2);
+        Vector3 sourceWorldPos = CellToWorld(x1, y1);
+
+        if (_pieceById.TryGetValue(piece1Id, out PieceView view1))
         {
-            AudioManager.Play(SoundId.Swap);
-            
-            Vector3 targetWorldPos = CellToWorld(x2, y2);
-            Vector3 sourceWorldPos = CellToWorld(x1, y1);
-
-            if (_pieceById.TryGetValue(piece1Id, out PieceView view1))
-            {
-                view1.MoveTo(targetWorldPos, _anim.SwapDuration);
-            }
-            if (_pieceById.TryGetValue(piece2Id, out PieceView view2))
-            {
-                view2.MoveTo(isCombo ? targetWorldPos : sourceWorldPos, _anim.SwapDuration);
-            }
-            
-            if (!isCombo)
-            {
-                yield return new WaitForSeconds(_anim.SwapDuration);
-            }
-
-            List<(float startTime, IViewCommand command)> commands = ViewCommandFactory.Build(steps, this);
-
-            if (commands.Count == 0)
-            {
-                AudioManager.Play(SoundId.SwapBack);
-                if (_pieceById.TryGetValue(piece1Id, out PieceView backView1))
-                {
-                    backView1.MoveTo(sourceWorldPos, _anim.SwapDuration);
-                }
-                if (_pieceById.TryGetValue(piece2Id, out PieceView backView2))
-                {
-                    backView2.MoveTo(targetWorldPos, _anim.SwapDuration);
-                }
-                yield return new WaitForSeconds(_anim.SwapDuration);
-                yield break;
-            }
-
-            yield return PlayCommands(commands);
+            view1.MoveTo(targetWorldPos, _anim.SwapDuration);
         }
-        finally
+        if (_pieceById.TryGetValue(piece2Id, out PieceView view2))
         {
-            IsBusy = false;
+            view2.MoveTo(isCombo ? targetWorldPos : sourceWorldPos, _anim.SwapDuration);
         }
+        
+        if (!isCombo)
+        {
+            yield return new WaitForSeconds(_anim.SwapDuration);
+        }
+
+        List<(float startTime, IViewCommand command)> commands = ViewCommandFactory.Build(steps, this);
+
+        if (commands.Count == 0)
+        {
+            AudioManager.Play(SoundId.SwapBack);
+            if (_pieceById.TryGetValue(piece1Id, out PieceView backView1))
+            {
+                backView1.MoveTo(sourceWorldPos, _anim.SwapDuration);
+            }
+            if (_pieceById.TryGetValue(piece2Id, out PieceView backView2))
+            {
+                backView2.MoveTo(targetWorldPos, _anim.SwapDuration);
+            }
+            yield return new WaitForSeconds(_anim.SwapDuration);
+            yield break;
+        }
+
+        yield return PlayCommands(commands);
     }
     
     public IEnumerator PlayTapTurn(List<TurnStepData> steps)
     {
-        IsBusy = true;
-        try
-        {
-            yield return PlayCommands(ViewCommandFactory.Build(steps, this));
-        }
-        finally
-        {
-            IsBusy = false;
-        }
+        yield return PlayCommands(ViewCommandFactory.Build(steps, this));
     }
     
     public IEnumerator PlayShuffleTurn(List<TurnStepData> steps)
     {
-        IsBusy = true;
-        try
-        {
-            yield return PlayCommands(ViewCommandFactory.Build(steps, this));
-        }
-        finally
-        {
-            IsBusy = false;
-        }
+        yield return PlayCommands(ViewCommandFactory.Build(steps, this));
     }
     
     private IEnumerator PlayCommands(List<(float startTime, IViewCommand command)> commands)
@@ -315,5 +292,24 @@ public class TurnPlayer : MonoBehaviour
         if (_targetReticle == null) return;
         _targetReticle.transform.DOKill();
         _targetReticle.gameObject.SetActive(false);
+    }
+    
+    public bool AreCellsFree(params (int x, int y)[] cells)
+    {
+        foreach (var cell in cells)
+        {
+            if (_busyCells.Contains(cell)) return false;
+        }
+        return true;
+    }
+
+    public void LockCells(IEnumerable<(int x, int y)> cells)
+    {
+        foreach (var cell in cells) _busyCells.Add(cell);
+    }
+
+    public void UnlockCells(IEnumerable<(int x, int y)> cells)
+    {
+        foreach (var cell in cells) _busyCells.Remove(cell);
     }
 }

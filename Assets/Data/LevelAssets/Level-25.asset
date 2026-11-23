@@ -25,16 +25,16 @@ MonoBehaviour:
       two: 1
       three: 4
     cells:
-    - yOOyyyyOOy
-    - yOOyOOyOOy
+    - ROOTTTTOOR
+    - VOOROOROOV
     - OOOOOOOOOO
     - OOOOOOOOOO
-    - OOPPOOPPOO
-    - OOPOOOOPOO
-    - OOPOOOOPOO
+    - OORVOOVROO
+    - OOVOOOOVOO
+    - OOROOOOROO
     - OOXXOOXXOO
     - OOOO..OOOO
-    - yyyyyyyyyy
+    - yyyyRRyyyy
     overlays:
     - .C.....C..
     - ....C.....

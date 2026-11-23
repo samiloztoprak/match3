@@ -11,4 +11,6 @@ public enum PieceFlags
     DamageableBySpecial = 1 << 4,
     Void = 1 << 5,
     Collectable =  1 << 6,
+    CrossFill = 1 << 7,
+    TargetableByPropeller = 1 << 8,
 }

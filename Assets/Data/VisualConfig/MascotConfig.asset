@@ -14,21 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MascotConfig
   _sprites:
   - Mood: 0
-    Sprite: {fileID: -2282250204043152981, guid: 2d7fda959d4a4774c8fa4736a75061a2, type: 3}
+    Sprite: {fileID: 21300000, guid: d2c66a9d4a9d67d4f8f59772a4ba0a62, type: 3}
   - Mood: 1
-    Sprite: {fileID: -3082929951068881091, guid: 1fdf3551f24085948bd8fb0c3128fdd4, type: 3}
+    Sprite: {fileID: 21300000, guid: 7dd16be72e87dda418d08e57397a6096, type: 3}
   - Mood: 2
-    Sprite: {fileID: 8425852159245022298, guid: e9bb92a5c07feae48b45c65931c31f0c, type: 3}
+    Sprite: {fileID: 21300000, guid: 3fcb5931234db7c45965327a123c37f0, type: 3}
   - Mood: 3
-    Sprite: {fileID: 7556156338278532166, guid: 58b11cfda8130814e90ab03bd79311eb, type: 3}
+    Sprite: {fileID: 21300000, guid: 74fa336475f9cc349a6002dfa1f2a79d, type: 3}
   - Mood: 4
-    Sprite: {fileID: -8449957010768631142, guid: f456b8555392ed841ad89ecb0b8fa54e, type: 3}
+    Sprite: {fileID: 21300000, guid: 3c7cb5899ec978043a68b4288d5bd725, type: 3}
   - Mood: 5
-    Sprite: {fileID: -6922694008270945072, guid: 418fcb299a9c9874992506db90c7665e, type: 3}
+    Sprite: {fileID: 21300000, guid: 292916e966051d544ae8981118803327, type: 3}
   - Mood: 6
-    Sprite: {fileID: 220430714394281760, guid: c190993238e428f4fae530c2585f055a, type: 3}
-  - Mood: 7
-    Sprite: {fileID: 5593217877019417234, guid: 66b598515fbc6784bad6420066581d66, type: 3}
+    Sprite: {fileID: 21300000, guid: 793116030ad10be4cb5cab1b3129e882, type: 3}
   ReactionHold: 1.6
   IdleVariationMin: 8
   IdleVariationMax: 15

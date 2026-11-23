@@ -26,14 +26,14 @@ MonoBehaviour:
       two: 2
       three: 9
     cells:
-    - RROBBORR
-    - BTBTTBTB
-    - .BORROB.
+    - ..OT#ORR
+    - ..BT#B..
+    - TBORROBV
     - BBBOOBBB
-    - .B.RR.B.
+    - .B.RR.BX
     - B#rrrr#B
-    - .#.RR.#.
-    - ...BB...
+    - .#.RR.#X
+    - ...BBXX.
     overlays:
     - LLL..LLL
     - ........
@@ -55,7 +55,7 @@ MonoBehaviour:
     goals:
     - type: ClearBox
       color: 
-      count: 20
+      count: 16
     - type: CollectToy
       color: 
       count: 6

@@ -20,7 +20,7 @@ public sealed class LightBallActivation : ISpecialActivation
                 for (int cy = 0; cy < board.Height; cy++)
                 {
                     Piece p = board.GetCell(cx, cy);
-                    if (BoardLogic.IsColorTargetable(p) && p.Color == targetColor)
+                    if (p != null && BoardLogic.IsColorTargetable(p) && p.Color == targetColor)
                     {
                         targets.Add((cx, cy));
                     }

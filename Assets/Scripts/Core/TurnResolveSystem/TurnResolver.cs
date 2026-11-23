@@ -72,8 +72,8 @@ public static class TurnResolver
             Piece atSource = board.GetCell(swapCmd.SourcePosition.x, swapCmd.SourcePosition.y);
             Piece atTarget = board.GetCell(swapCmd.TargetPosition.x, swapCmd.TargetPosition.y);
 
-            bool sourceIsSpecial = atSource != null && atSource.VisualType == PieceVisualType.Special;
-            bool targetIsSpecial = atTarget != null && atTarget.VisualType == PieceVisualType.Special;
+            bool sourceIsSpecial = atSource != null && atSource.VisualType == PieceVisualType.Special && !BoardLogic.IsPieceLocked(atSource);
+            bool targetIsSpecial = atTarget != null && atTarget.VisualType == PieceVisualType.Special && !BoardLogic.IsPieceLocked(atTarget);
 
             if (sourceIsSpecial && targetIsSpecial)
             {
@@ -262,7 +262,7 @@ public static class TurnResolver
         {
             PendingActivation activation = pending.Dequeue();
 
-            if (board.GetCell(activation.X, activation.Y) != activation.Piece)
+            if (board.GetCell(activation.X, activation.Y) != activation.Piece || BoardLogic.IsPieceLocked(activation.Piece))
             {
                 continue;
             }
@@ -512,7 +512,7 @@ public static class TurnResolver
                 continue;
             }
             
-            bool isChainTarget = piece.VisualType == PieceVisualType.Special && !excludeFromChain.Contains(piece.Id);
+            bool isChainTarget = piece.VisualType == PieceVisualType.Special && !excludeFromChain.Contains(piece.Id) && !BoardLogic.IsPieceLocked(piece);
             if (isChainTarget)
             {
                 pending.Enqueue(new PendingActivation(piece, cx, cy, null, absoluteTimeMs + ActivationTiming.ChainDelayMs));
@@ -595,7 +595,20 @@ public static class TurnResolver
     private static void TryBreakFloor(Board board, int x, int y, float timeMs, ClearOverlayData clearOverlayData, DamagePieceData damageData, GoalProgressData goalProgress)
     {
         FloorPiece floor = board.GetFloor(x, y);
-        if (floor == null) return;
+        if (floor == null)
+        {
+            return;
+        }
+        
+        if (board.GetOverlayPieceAt(x, y) != null)
+        {
+            return;
+        }
+        
+        if(BoardLogic.IsPieceLocked(floor))
+        {
+            return;
+        }
 
         if (floor.ApplyDamage(1))
         {

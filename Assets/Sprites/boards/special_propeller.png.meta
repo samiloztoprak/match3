@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: 80e613370e49e6e4182195ea7f246d7b
+guid: e98a8ead99ba3e14b830fe75973d0d9b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3977123142835054643
-    second: special_propeller_0
+      213: 5677199387861819618
+    second: propeller_0
+  - first:
+      213: -3737892518302912452
+    second: propeller_1
+  - first:
+      213: -7257636573070085260
+    second: propeller_2
+  - first:
+      213: -7315619598280331213
+    second: propeller_3
+  - first:
+      213: 2620889089307646323
+    second: propeller_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +63,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 1000
+  spritePixelsToUnits: 7500
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -126,23 +138,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: special_propeller_0
+      name: propeller_0
       rect:
         serializedVersion: 2
-        x: 8
-        y: 10
-        width: 179
-        height: 165
+        x: 0
+        y: 0
+        width: 1254
+        height: 1254
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3382bac3d64913730800000000000000
-      internalID: 3977123142835054643
+      spriteID: 2e0a190a3c679ce40800000000000000
+      internalID: 5677199387861819618
       vertices: []
       indices: 
       edges: []
@@ -151,7 +163,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: e9d702bbf74bf954a946601f1d766279
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +173,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      special_propeller_0: 3977123142835054643
+      propeller_0: 5677199387861819618
+      propeller_1: -3737892518302912452
+      propeller_2: -7257636573070085260
+      propeller_3: -7315619598280331213
+      propeller_4: 2620889089307646323
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

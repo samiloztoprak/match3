@@ -30,9 +30,24 @@ namespace LogicLibrary
             return piece.Flags.HasFlag(PieceFlags.CanMatch);
         }
         
+        public static bool IsPieceTargetableByPropeller(Piece piece)
+        {
+            return piece.Flags.HasFlag(PieceFlags.TargetableByPropeller);
+        }
+        
+        public static bool IsPieceCollectable(Piece piece)
+        {
+            return piece.Flags.HasFlag(PieceFlags.Collectable);
+        }
+        
+        public static bool IsPieceCrossFillable(Piece piece)
+        {
+            return piece.Flags.HasFlag(PieceFlags.CrossFill);
+        }
+        
         public static bool IsColorTargetable(Piece piece)
         {
-            return piece != null && IsPieceMatchable(piece) && !IsPieceLocked(piece) && piece.Color != PieceColor.Empty;
+            return IsPieceMatchable(piece) && !IsPieceLocked(piece) && piece.Color != PieceColor.Empty;
         }
         
         public static bool IsCellSwapBlocked(Board board, int x, int y)
@@ -48,7 +63,7 @@ namespace LogicLibrary
         
         public static bool IsVoid(Piece piece)
         {
-            return piece != null && piece.Flags.HasFlag(PieceFlags.Void);
+            return piece.Flags.HasFlag(PieceFlags.Void);
         }
         
         public static void AddFlag(Piece piece, PieceFlags flags)
@@ -63,11 +78,19 @@ namespace LogicLibrary
         
         public static bool IsExit(Board board, int x, int y)
         {
-            if (IsVoid(board.GetCell(x, y)))
+            Piece piece = board.GetCell(x, y);
+            if (piece == null || IsVoid(piece))
             {
                 return false;
             }
-            return y == board.Height - 1 || IsVoid(board.GetCell(x, y + 1));
+
+            if (!IsValidIndex(x, y + 1, board))
+            {
+                return true;
+            }
+            
+            piece = board.GetCell(x, y + 1);
+            return y == board.Height - 1 || piece == null  || IsVoid(piece);
         }
     }
 
@@ -285,7 +308,8 @@ namespace LogicLibrary
                     }
                     
                     Piece piece = board.GetCell(newX, newY);
-                    if (piece != null && piece.Flags.HasFlag(PieceFlags.DamageableByNeighbor) && !addedPieces.Contains(piece))
+                    if (piece != null && piece.Flags.HasFlag(PieceFlags.DamageableByNeighbor) 
+                                    && !addedPieces.Contains(piece) && !BoardLogic.IsPieceLocked(piece))
                     {
                         addedPieces.Add(piece);
                         damageablePieces.Add((piece, newX, newY));
@@ -338,7 +362,7 @@ namespace LogicLibrary
                 maxY = Math.Max(maxY, y);
             }
             bool isHorizontalMatch = (maxX - minX) > (maxY - minY);
-            return isHorizontalMatch ? RocketDirection.Horizontal : RocketDirection.Vertical;
+            return isHorizontalMatch ? RocketDirection.Vertical :  RocketDirection.Horizontal;
         }
     }
 
@@ -379,12 +403,12 @@ namespace LogicLibrary
             {
                 Piece piece = board.GetCell(x, cy);
                 
-                if (BoardLogic.IsVoid(piece))
+                if (piece == null || BoardLogic.IsVoid(piece))
                 {
                     continue;
                 }
                 
-                if (piece != null && (!BoardLogic.IsPieceMoveable(piece) || BoardLogic.IsPieceLocked(piece)))
+                if (!BoardLogic.IsPieceMoveable(piece) || BoardLogic.IsPieceLocked(piece))
                 {
                     return true;
                 }
@@ -402,7 +426,7 @@ namespace LogicLibrary
             }
 
             Piece source = board.GetCell(sourceX, sourceY);
-            if (source == null || !BoardLogic.IsPieceMoveable(source) || BoardLogic.IsPieceLocked(source))
+            if (source == null || !BoardLogic.IsPieceMoveable(source) || BoardLogic.IsPieceLocked(source) || !BoardLogic.IsPieceCrossFillable(source))
             {
                 return null;
             }
@@ -439,18 +463,20 @@ namespace LogicLibrary
                 for(int y = board.Height - 1; y >= 0; y--)
                 {
                     Piece piece = board.GetCell(x, y);
-                    if(piece != null)
+                    
+                    if (piece == null || BoardLogic.IsVoid(piece))
                     {
-                        if(!BoardLogic.IsPieceMoveable(piece) || BoardLogic.IsPieceLocked(piece))
-                        {
-                            CompactSegment(board, x, segmentBottom, y + 1, collected,
-                                collectedMovement);
-                            collected.Clear();
-                            segmentBottom = y - 1;
-                            continue;
-                        }
-                        collected.Add((piece, y));
+                        continue;
                     }
+                        
+                    if(!BoardLogic.IsPieceMoveable(piece) || BoardLogic.IsPieceLocked(piece))
+                    {
+                        CompactSegment(board, x, segmentBottom, y + 1, collected, collectedMovement);
+                        collected.Clear();
+                        segmentBottom = y - 1;
+                        continue;
+                    }
+                    collected.Add((piece, y));
                 }
                 CompactSegment(board, x, segmentBottom, 0, collected, collectedMovement);
             }
@@ -463,15 +489,34 @@ namespace LogicLibrary
             int writeY = segmentBottom;
             foreach (var (piece, y) in collected)
             {
+                while (writeY >= segmentTop)
+                {
+                    Piece pieceCopy = board.GetCell(x, writeY);
+                    if (pieceCopy == null || !BoardLogic.IsVoid(pieceCopy))
+                    {
+                        break;
+                    }
+                    writeY--;
+                }
+
+                if (writeY < segmentTop)
+                {
+                    break;
+                }
+
                 board.SetCell(x, writeY, piece);
                 if (Math.Abs(y - writeY) > 0)
-                    collectedMovement.Add((piece.Id, x, writeY, y));   // 4. eleman: fromY
+                    collectedMovement.Add((piece.Id, x, writeY, y));
                 writeY--;
             }
 
             while (writeY >= segmentTop)
             {
-                board.SetCell(x, writeY, null);
+                Piece piece = board.GetCell(x, writeY);
+                if (!(piece != null && BoardLogic.IsVoid(piece)))
+                {
+                    board.SetCell(x, writeY, null);
+                }
                 writeY--;
             }
         }
@@ -485,22 +530,23 @@ namespace LogicLibrary
                 {
                     Piece piece = board.GetCell(x, y);
                     
-                    if (BoardLogic.IsVoid(piece))
-                    {
-                        continue;
-                    }
-                    
-                    if (piece != null && (!BoardLogic.IsPieceMoveable(piece) || BoardLogic.IsPieceLocked(piece)))
-                    {
-                        break;
-                    }
-                    
                     if(piece == null)
                     {
                         PieceColor newPieceColor = PickNonMatchingColor(board, x, y, random);
                         Piece newPiece = new ColoredPiece(board.NextId(), newPieceColor);
                         board.SetCell(x, y, newPiece);
                         collectedMovement.Add((newPiece.Id, newPiece.Color, x, y));
+                        continue;
+                    }
+                    
+                    if (BoardLogic.IsVoid(piece))
+                    {
+                        continue;
+                    }
+                    
+                    if (!BoardLogic.IsPieceMoveable(piece) || BoardLogic.IsPieceLocked(piece))
+                    {
+                        break;
                     }
                 }
             }
@@ -628,15 +674,15 @@ namespace LogicLibrary
             {
                 for (int cy = 0; cy < board.Height; cy++)
                 {
-                    Piece p = board.GetCell(cx, cy);
-                    if (!BoardLogic.IsColorTargetable(p) || p.Color != color)
+                    Piece piece = board.GetCell(cx, cy);
+                    if (piece == null || !BoardLogic.IsColorTargetable(piece) || piece.Color != color)
                     {
                         continue;
                     }
 
                     Piece newPiece = CreateSpecial(board, kind, random);
                     board.SetCell(cx, cy, newPiece);
-                    result.Add((p, newPiece, cx, cy));
+                    result.Add((piece, newPiece, cx, cy));
                 }
             }
 

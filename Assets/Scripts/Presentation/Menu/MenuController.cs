@@ -34,12 +34,6 @@ public class MenuController : MonoBehaviour
     {
         AudioManager.EnsureCreated();
         
-        // temp code for debugging
-        if (LevelProgress.CurrentIndex >= _levels.Count)
-        {
-            LevelProgress.CurrentIndex = 13;
-        }
-        
         _playText.text = "LEVEL " + (LevelProgress.CurrentIndex + 1);
         _playButton.interactable = true;
 

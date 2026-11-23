@@ -166,14 +166,19 @@ public static class CellPatterns
         {
             for (int cy = 0; cy < board.Height; cy++)
             {
-                Piece cell = board.GetCell(cx, cy);
+                Piece piece = board.GetCell(cx, cy);
 
-                if (cell == null)
+                if (piece == null)
                 {
                     continue;
                 }
                 
-                if(BoardLogic.IsVoid(cell))
+                if(BoardLogic.IsVoid(piece))
+                {
+                    continue;
+                }
+                
+                if(!BoardLogic.IsPieceTargetableByPropeller(piece))
                 {
                     continue;
                 }
@@ -209,6 +214,7 @@ public static class CellPatterns
                     {
                         continue;
                     }
+                    
                     int priority = targetPriority.GetPriority(board, cx, cy);
                     if (priority <= 0)
                     {

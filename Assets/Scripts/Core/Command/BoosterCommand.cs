@@ -15,9 +15,23 @@ public class BoosterCommand : ICommand
 
     public bool Validate(Board board)
     {
-        if (BoosterRegistry.Get(Type) == null) return false;
-        if (!BoardLogic.IsValidIndex(X, Y, board)) return false;
-        return !BoardLogic.IsVoid(board.GetCell(X, Y));
+        if (BoosterRegistry.Get(Type) == null)
+        {
+            return false;
+        }
+        if (!BoardLogic.IsValidIndex(X, Y, board))
+        {
+            return false;
+        }
+
+        Piece piece = board.GetCell(X, Y);
+        
+        if(piece == null)
+        {
+            return false;
+        }
+        
+        return !BoardLogic.IsVoid(piece);
     }
 
     public void Execute()

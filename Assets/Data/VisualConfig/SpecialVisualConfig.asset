@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f09a0c3ceb0ccc442ad3d8cc1e0d147f, type: 3}
   m_Name: SpecialVisualConfig
   m_EditorClassIdentifier: Assembly-CSharp::SpecialVisualConfig
-  _tntSprite: {fileID: 1753149496497909692, guid: 642e93ad8bf02d14297bb5ed35c1a7f6, type: 3}
-  _propellerSprite: {fileID: 3977123142835054643, guid: 80e613370e49e6e4182195ea7f246d7b, type: 3}
-  _lightBallSprite: {fileID: 7878449442569803499, guid: 577171e36ae16ee4bb6c8cce2006cf97, type: 3}
-  _rocketHorizontalSprite: {fileID: -1401040621308755642, guid: 37ffa9ac80185a843af1edd8b53be1ac, type: 3}
-  _rocketVerticalSprite: {fileID: -3822491242779326643, guid: 6c155adae639f084fbbd97d778451968, type: 3}
+  _tntSprite: {fileID: 21300000, guid: 955e710c590ec49429e68e9a4a14dad7, type: 3}
+  _propellerSprite: {fileID: 5677199387861819618, guid: e98a8ead99ba3e14b830fe75973d0d9b, type: 3}
+  _lightBallSprite: {fileID: 21300000, guid: 9d0ddc23fbde11349aafc2b3b134a6c0, type: 3}
+  _rocketHorizontalSprite: {fileID: 21300000, guid: bd31bee3d77bf424eace1862d80b8d6a, type: 3}
+  _rocketVerticalSprite: {fileID: 21300000, guid: 1bedd991ea2669441b4af82f635eecf2, type: 3}

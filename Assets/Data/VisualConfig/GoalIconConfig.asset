@@ -15,34 +15,34 @@ MonoBehaviour:
   _entries:
   - Type: 0
     Color: 1
-    Icon: {fileID: 41357845646865106, guid: 9dd858429bba0a84b8658f1b10b4942e, type: 3}
+    Icon: {fileID: -527819159795971499, guid: dff7d1e489685004392070b062677cd8, type: 3}
     FlyStyle: 0
     SparkColor: {r: 1, g: 1, b: 1, a: 1}
   - Type: 0
     Color: 2
-    Icon: {fileID: 3682819746019733806, guid: 8db293ea922b50244af2029b267014da, type: 3}
+    Icon: {fileID: -307935507215937363, guid: dff7d1e489685004392070b062677cd8, type: 3}
     FlyStyle: 0
     SparkColor: {r: 1, g: 1, b: 1, a: 1}
   - Type: 0
     Color: 3
-    Icon: {fileID: -4332065794632645858, guid: 650151c8ea63f564c9842288bed44db0, type: 3}
+    Icon: {fileID: 7662136631622436144, guid: dff7d1e489685004392070b062677cd8, type: 3}
     FlyStyle: 0
     SparkColor: {r: 1, g: 1, b: 1, a: 1}
   - Type: 0
     Color: 4
-    Icon: {fileID: 4141138629526647054, guid: d586aeddd11ef804fb4b8c5a5556f1d1, type: 3}
+    Icon: {fileID: 1611465420, guid: dff7d1e489685004392070b062677cd8, type: 3}
     FlyStyle: 0
     SparkColor: {r: 0, g: 0, b: 0, a: 1}
   - Type: 2
     Color: 0
-    Icon: {fileID: -1423427027442448336, guid: 77fc3247445a5304b8c4668c04e1e807, type: 3}
+    Icon: {fileID: -3587701905071538496, guid: 10ede9a7996d28d4dbb99e1e30f60d81, type: 3}
     FlyStyle: 0
     SparkColor: {r: 1, g: 0.922585, b: 0, a: 1}
   - Type: 3
     Color: 0
-    Icon: {fileID: 7932798033344189819, guid: 8d01ab7e8f7bb414da8496ad92fb43fd, type: 3}
+    Icon: {fileID: 21300000, guid: 1dfa70c4952133440b16d0df440bcd3e, type: 3}
     FlyStyle: 0
-    SparkColor: {r: 0.06549895, g: 1, b: 0, a: 1}
+    SparkColor: {r: 1, g: 0.8888807, b: 0.5613208, a: 1}
   - Type: 4
     Color: 0
     Icon: {fileID: -9170278564998984525, guid: 16afba31d05a81f4ea49d984ce1b8bba, type: 3}
@@ -50,6 +50,6 @@ MonoBehaviour:
     SparkColor: {r: 1, g: 1, b: 1, a: 1}
   - Type: 1
     Color: 0
-    Icon: {fileID: 2062545466655469432, guid: 9323df2cb4baadb4f8496f9eaa97020f, type: 3}
+    Icon: {fileID: 8743920102939819702, guid: 1bfab659a8e0a2d46921bfc2df97d0c1, type: 3}
     FlyStyle: 0
-    SparkColor: {r: 1, g: 0.6894004, b: 0, a: 1}
+    SparkColor: {r: 1, g: 0, b: 0.065113306, a: 1}

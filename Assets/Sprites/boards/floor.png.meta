@@ -1,0 +1,637 @@
+fileFormatVersion: 2
+guid: 1dfa70c4952133440b16d0df440bcd3e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7143188947724741405
+    second: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_0"
+  - first:
+      213: 9195651305663106275
+    second: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_1"
+  - first:
+      213: 2323143586862841653
+    second: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_2"
+  - first:
+      213: 738537240036488616
+    second: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_3"
+  - first:
+      213: 249559828409786914
+    second: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_4"
+  - first:
+      213: 5064976443254030349
+    second: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_5"
+  - first:
+      213: -9116613283408374954
+    second: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_6"
+  - first:
+      213: -3973883835093323543
+    second: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_7"
+  - first:
+      213: 3255521310996730733
+    second: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_8"
+  - first:
+      213: 2510587071427234784
+    second: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_9"
+  - first:
+      213: -5239594992292161874
+    second: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_10"
+  - first:
+      213: -5044810870280165092
+    second: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_11"
+  - first:
+      213: 2557915613385880820
+    second: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_12"
+  - first:
+      213: 6436134439429766479
+    second: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_13"
+  - first:
+      213: 289845949738293276
+    second: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_14"
+  - first:
+      213: -1824333865571334342
+    second: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_15"
+  - first:
+      213: -6284981251129029649
+    second: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_16"
+  - first:
+      213: -8406684641517468013
+    second: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_17"
+  - first:
+      213: 6400157700186812351
+    second: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_18"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 6000
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_0"
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 1239
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1b21a07084b12360800000000000000
+      internalID: 7143188947724741405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_1"
+      rect:
+        serializedVersion: 2
+        x: 607
+        y: 1247
+        width: 13
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ec086054248d9f70800000000000000
+      internalID: 9195651305663106275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_2"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1227
+        height: 1234
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53fbf21a8c67d3020800000000000000
+      internalID: 2323143586862841653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_3"
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 1209
+        width: 46
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a5b5c5f4bfcf3a00800000000000000
+      internalID: 738537240036488616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_4"
+      rect:
+        serializedVersion: 2
+        x: 545
+        y: 1207
+        width: 40
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 222a29a775d967300800000000000000
+      internalID: 249559828409786914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_5"
+      rect:
+        serializedVersion: 2
+        x: 659
+        y: 1215
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d00c0ef5d396a4640800000000000000
+      internalID: 5064976443254030349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_6"
+      rect:
+        serializedVersion: 2
+        x: 723
+        y: 1192
+        width: 73
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65316d745884b7180800000000000000
+      internalID: -9116613283408374954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_7"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 951
+        width: 41
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e0789ed4bde9d8c0800000000000000
+      internalID: -3973883835093323543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_8"
+      rect:
+        serializedVersion: 2
+        x: 1216
+        y: 998
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d639ca4426fed2d20800000000000000
+      internalID: 3255521310996730733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_9"
+      rect:
+        serializedVersion: 2
+        x: 1206
+        y: 843
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ebcb1ac3a567d220800000000000000
+      internalID: 2510587071427234784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_10"
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 537
+        width: 8
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea692857d183947b0800000000000000
+      internalID: -5239594992292161874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_11"
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 456
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c19ebe5fd3b3df9b0800000000000000
+      internalID: -5044810870280165092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_12"
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 375
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f47a4da2ba8f7320800000000000000
+      internalID: 2557915613385880820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_13"
+      rect:
+        serializedVersion: 2
+        x: 1214
+        y: 345
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4d7edc2c2eb15950800000000000000
+      internalID: 6436134439429766479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_14"
+      rect:
+        serializedVersion: 2
+        x: 1206
+        y: 230
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c189cb90b5db50400800000000000000
+      internalID: 289845949738293276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_15"
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 215
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a37c7e6d30aaea6e0800000000000000
+      internalID: -1824333865571334342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_16"
+      rect:
+        serializedVersion: 2
+        x: 1182
+        y: 103
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: febc672f9d247c8a0800000000000000
+      internalID: -6284981251129029649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_17"
+      rect:
+        serializedVersion: 2
+        x: 466
+        y: 9
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3968e9bebd4755b80800000000000000
+      internalID: -8406684641517468013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_18"
+      rect:
+        serializedVersion: 2
+        x: 744
+        y: 7
+        width: 21
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbfad12d48de1d850800000000000000
+      internalID: 6400157700186812351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_0": 7143188947724741405
+      "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_1": 9195651305663106275
+      "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_10": -5239594992292161874
+      "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_11": -5044810870280165092
+      "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_12": 2557915613385880820
+      "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_13": 6436134439429766479
+      "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_14": 289845949738293276
+      "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_15": -1824333865571334342
+      "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_16": -6284981251129029649
+      "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_17": -8406684641517468013
+      "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_18": 6400157700186812351
+      "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_2": 2323143586862841653
+      "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_3": 738537240036488616
+      "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_4": 249559828409786914
+      "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_5": 5064976443254030349
+      "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_6": -9116613283408374954
+      "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_7": -3973883835093323543
+      "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_8": 3255521310996730733
+      "Krem Zeminli Yumu\u015Fak Y\u0131ld\u0131z Karosu_9": 2510587071427234784
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using System.IO;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -207,6 +208,10 @@ public class LevelEditorWindow : EditorWindow
             if (GUILayout.Button("Save", EditorStyles.toolbarButton, GUILayout.Width(42f)))
             {
                 AssetDatabase.SaveAssets();
+            }
+            if (GUILayout.Button("Export JSON", EditorStyles.toolbarButton, GUILayout.Width(80f)))
+            {
+                ExportJson();
             }
             if (GUILayout.Button("▶ Play", EditorStyles.toolbarButton, GUILayout.Width(56f)))
             {
@@ -697,11 +702,7 @@ public class LevelEditorWindow : EditorWindow
             $"\n{report.Runs} runs, {_botSeconds:0.0}s";
         if (stale) text += "\nThe board or goals changed after this test. Run it again.";
 
-        MessageType type = stale ? MessageType.Warning
-            : report.Difficulty == LevelDifficulty.TooHard ? MessageType.Error
-            : MessageType.None;
-        EditorGUILayout.HelpBox(text, type);
-        
+       
         if (stale)
         {
             text += "\nThe board or goals changed after this test. Run it again.";
@@ -842,5 +843,35 @@ public class LevelEditorWindow : EditorWindow
             Level.stars.three = report.SuggestedThreeStars;
         });
         AssetDatabase.SaveAssets();
+    }
+    
+    private void ExportJson()
+    {
+        if (_asset == null)
+        {
+            return;
+        }
+
+        List<string> errors = LevelValidator.Validate(Level);
+        if (errors.Count > 0)
+        {
+            _message = "Export failed: " + errors[0];
+            return;
+        }
+        
+        string dir = Path.GetFullPath(Path.Combine(Application.dataPath, "..", "firebase-hosting", "public", "levels", "v1"));
+        Directory.CreateDirectory(dir);
+
+        string file = Path.Combine(dir, _asset.name + ".json");
+        string tmp = file + ".tmp";
+
+        File.WriteAllText(tmp, LevelJson.ToJson(Level));
+        if (File.Exists(file))
+        {
+            File.Delete(file);
+        }
+        File.Move(tmp, file);
+
+        _message = $"Exported: {_asset.name}.json";
     }
 }

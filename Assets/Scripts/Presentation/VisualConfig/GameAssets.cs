@@ -9,7 +9,7 @@ public class GameAssets : ScriptableObject
     
     [Header("Board")]
     public PieceView PiecePrefab;
-    public SpriteRenderer CellTilePrefab;
+    public CellTile CellTilePrefab;
 
     [Header("Configs")]
     public PieceVisualConfig PieceVisuals;
@@ -36,5 +36,6 @@ public class GameAssets : ScriptableObject
     [SerializeField, FormerlySerializedAs("Levels")] 
     private LevelCatalog _levelCatalog;
     
-    public ILevelSource Levels => _levelCatalog;
+    private ILevelSource _remoteSource;
+    public ILevelSource Levels => _remoteSource ??= new RemoteAwareLevelSource(_levelCatalog);
 }
