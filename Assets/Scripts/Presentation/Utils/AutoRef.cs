@@ -20,7 +20,7 @@ public static class AutoRef
 
     public static T InScene<T>() where T : Object
     {
-        return Object.FindFirstObjectByType<T>(FindObjectsInactive.Include);
+        return Object.FindAnyObjectByType<T>(FindObjectsInactive.Include);
     }
 
 #if UNITY_EDITOR
