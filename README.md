@@ -64,12 +64,19 @@ A circus-themed, swap-based match-3 game for Android, built in Unity 6 (C#).
 
 **Levels and game flow**
 - 20 handmade levels with move limits and goals: collect colors or toys, clear boxes, locks or grass.
+- Levels can also be downloaded from a remote host, so new levels ship without an app update. Bundled levels are the fallback when offline.
 - Main menu with a Play button for the next level, and a settings menu for music, sound and vibration.
 - Loading screen between scenes.
 - Win popup with a 1–3 star rating based on moves left.
 - Lose popup with the remaining goals and a one-time +5 moves option.
 - Progress and booster counts are saved between sessions.
 - In-editor level debugger: jump to any level, restart, add moves.
+
+**Level tools (editor only)**
+- Level Editor (`Match3 > Level Editor`): paint Normal, Overlay and Floor layers, resize the board, set moves and star thresholds, add color goals. Goals follow the board automatically.
+- Level Generator (`Match3 > Level Generator`): random levels built from pieces, with mirroring and difficulty settings.
+- Bot playtesting: a greedy bot plays a level with fixed seeds and reports win rate, suggested moves, star thresholds, difficulty and the hardest goal.
+- Export JSON: validated levels are written for remote hosting.
 
 **Game feel**
 - Cleared pieces and goal items fly to their slot in the top panel. Overlays (locks, grass) send a spark instead.
@@ -143,7 +150,7 @@ A detailed walkthrough (folder map, the life of a move, how to add new content) 
 - **Auto-wired references.** Components find their children, scene objects and assets in `OnValidate`, so there is little manual wiring in the Inspector. Shared prefabs and timings live in `GameAssets` and `AnimationSettings` ScriptableObjects.
 - **Event-driven UI.** The board controller raises events (turn started, moves changed, level ended); the mascot, HUD and popups listen instead of being called directly.
 - **Pooling.** Piece views and particle effects are pooled. Break and hit effects are chosen per piece type and color from a ScriptableObject config.
-- **Tested.** 51 EditMode tests cover commands, matching, special activations, combos, floors, toys, boosters, timing fixes, board colors, building a board from level data, the level validator and JSON round trips.
+- **Tested.** 70 EditMode tests cover commands, matching, special activations, combos, floors, toys, boosters, timing fixes, board colors, building a board from level data, the level validator, JSON round trips, the level bot, the level editor operations and the generator.
 
 ## Performance and memory
 
@@ -186,9 +193,9 @@ All numbers below were measured on an Android phone with the Unity Memory Profil
 
 The core game and its screens are done: matching, specials and combos, obstacles, toys, boosters, mascot, menus, popups, audio, loading screen and 20 levels. Scenes load through Addressables with sprite atlases, and the game runs on Android devices.
 
-Levels are now data: a separate `LevelAssembly` builds the board from `LevelData`, checks it with a validator, and can read and write JSON. The 20 levels were moved to the new format.
+Levels are now data: a separate `LevelAssembly` builds the board from `LevelData`, checks it with a validator, and can read and write JSON. The 20 levels were moved to the new format. Level tools and remote level delivery are in place.
 
 Next:
-- A level editor window with automated playtesting, used to build 40–50 levels
-- Level data as JSON, downloaded without an app update
+- Build levels 26 and up with the level tools, aiming for 40–50 levels with a difficulty curve
+- Hole falling rules and HolePiece support for non-rectangular boards
 - Google Play closed testing, then release
