@@ -4,7 +4,7 @@
 
 ## 1. Büyük resim
 
-Oyun iki ana katmandan oluşur: **Core** oyunun kurallarını hesaplar, **Presentation** bu hesabı ekranda oynatır. İkisi birbirine sadece veri ile konuşur. Üçüncü, küçük bir katman olan **Level** bir level dosyasını okuyup başlangıç tahtasını kurar (bölüm 7).
+Oyun iki ayrı katmandan oluşur: **Core** oyunun kurallarını hesaplar, **Presentation** bu hesabı ekranda oynatır. İkisi birbirine sadece veri ile konuşur.
 
 Bir futbol maçı düşün. **Core hakemdir**: gol oldu mu, ofsayt var mı, skor kaç, hepsine karar verir ve sonucu bir kâğıda yazar. **Presentation televizyon yayınıdır**: o kâğıdı alır, tekrar görüntülerini, kamera açılarını, tezahüratı ekler. Yayın ne kadar yavaş ya da süslü olursa olsun skor değişmez. Hakem de kameranın nerede olduğunu bilmez.
 
@@ -12,7 +12,7 @@ Bu projede o kâğıdın adı `List<TurnStepData>`'dır: bir hamlede olan her ş
 
 Bu ayrımın üç faydası var:
 
-- **Test edilebilir.** Core, Unity'ye hiç dokunmadığı için sahne açmadan test edilir. 51 test bu yüzden saniyeler içinde çalışır.
+- **Test edilebilir.** Core, Unity'ye hiç dokunmadığı için sahne açmadan test edilir. 70 test bu yüzden saniyeler içinde çalışır.
 - **Animasyon kuralları bozmaz.** Bir animasyonu hızlandırmak ya da efekt eklemek, oyunun sonucunu değiştiremez.
 - **Tekrarlanabilir.** Rastgelelik `IRandom` üzerinden gelir. Aynı tohum (seed) verilirse aynı hamle her seferinde aynı sonucu üretir. Bot testleri bu sayede mümkün.
 
@@ -46,16 +46,7 @@ flowchart LR
 
     BCtrl["BoardController<br/>input · turn flow · camera fit"]
 
-    subgraph Lvl["Level — level data, no scene"]
-        direction TB
-        LS["ILevelSource<br/>LevelCatalog → LevelAsset"]
-        LB["LevelBoardBuilder<br/>LevelElements · LevelValidator"]
-        LS --> LB
-    end
-
     Input --> BCtrl
-    BCtrl -->|"0 · load level"| LS
-    LB -->|"builds"| BRD
     BCtrl -->|"1 · build command"| CMD
     STEPS -->|"2 · steps (data only)"| VCF
     TP -->|"3 · turn done → next input"| BCtrl
@@ -66,16 +57,14 @@ flowchart LR
     class CMD,TR,REG,BRD,STEPS core
     class VCF,TP,PV,UI pres
     class BCtrl ctrl
-    classDef lvl fill:#e8f6ea,stroke:#2e7d32,color:#222
-    class LS,LB lvl
   end
 ```
 
-Okları sırayla oku: bir level açılınca verisi yüklenir ve tahtaya dönüştürülür (0). Sonra dokunuş komuta döner, Core turu hesaplar, sonuç bir veri listesi olarak Presentation'a gider ve orada oynatılır. Animasyon bitince `BoardController` yeni girdiyi kabul eder.
+Okları sırayla oku: dokunuş komuta döner, Core turu hesaplar, sonuç bir veri listesi olarak Presentation'a gider ve orada oynatılır. Animasyon bitince `BoardController` yeni girdiyi kabul eder.
 
 ## 2. Klasör haritası
 
-Kodun tamamı `Assets/Scripts` altında, üç klasörde durur: `Core` (kurallar), `Level` (level verisi) ve `Presentation` (ekran). Her klasör kendi assembly'sidir: `CoreAssembly`, `LevelAssembly` ve Presentation için Unity'nin varsayılan assembly'si. Bağlar tek yönlüdür: Presentation Level'ı ve Core'u görür, Level sadece Core'u görür, Core hiçbir şeyi görmez. Bir dosya yanlış klasördeyse proje derlenmez. Bir şeyi bulmak için önce "bu kural mı, level verisi mi, görüntü mü?" diye sor.
+Kodun tamamı `Assets/Scripts` altında, iki ana klasörde durur: `Core` (kurallar) ve `Presentation` (ekran). Bir şeyi bulmak için önce "bu kural mı, görüntü mü?" diye sor.
 
 **Core: oyunun kuralları (Unity yok)**
 
@@ -90,23 +79,16 @@ Kodun tamamı `Assets/Scripts` altında, üç klasörde durur: `Core` (kurallar)
 | `Core/Booster` | Booster'ların etkileri | `BoosterRegistry.cs` |
 | `Core/RandomSystem` | Rastgelelik arayüzü | `IRandom.cs` |
 
-**Level: level verisi ve tahta kurucu (sahne yok)**
-
-| Klasör | İçinde ne var | En önemli dosya |
-| --- | --- | --- |
-| `Level/` (kök) | Level verisinden `Board` kurar | `LevelBoardBuilder.cs` |
-| `Level/Data` | Level formatı, level asset'i, JSON, hedefler, validator | `LevelData.cs`, `LevelValidator.cs` |
-| `Level/Elements` | Level'a konabilen her şey için bir sınıf ve registry'leri | `LevelElements.cs` |
-
 **Presentation: ekranda görünen her şey (Unity)**
 
 | Klasör | İçinde ne var | En önemli dosya |
 | --- | --- | --- |
 | `BoardView` | Tahtayı kuran, girdiyi alan, turu oynatan ana sınıflar | `BoardController.cs`, `TurnPlayer.cs` |
+| `BoardView/ObstacleSpawners` | Level başında engelleri yerleştirenler | `ObstacleSpawnerRegistry.cs` |
 | `Command` | Adımları animasyon komutlarına çeviren fabrika ve komutlar | `ViewCommandFactory.cs` |
 | `Presenter` | Her özel taşın ve kombonun animasyon tarifi | `ActivationPresenterRegistry.cs` |
 | `EffectViews`, `Effects` | Roket, ışın, patlama, kıvılcım, kamera sarsıntısı | `EffectSpawner.cs` |
-| `Level` | Level kataloğu ve ilerleme, hedef takibi, HUD, uçan ikonlar | `LevelCatalog.cs`, `GoalTracker.cs` |
+| `Level` | Level verisi, hedef takibi, HUD, uçan ikonlar | `GoalTracker.cs`, `GoalFlyer.cs` |
 | `Booster` | Booster butonları ve envanteri | `BoosterBarController.cs` |
 | `Mascot` | Bobo'nun ruh hali | `MascotView.cs` |
 | `Popups` | Kazanma ve kaybetme pencereleri | `PopupManager.cs` |
@@ -117,14 +99,14 @@ Kodun tamamı `Assets/Scripts` altında, üç klasörde durur: `Core` (kurallar)
 
 **Kod dışındaki önemli klasörler**
 
-- `Assets/Data/LevelAssets`: 20 level dosyası (`LevelAsset` asset'leri).
+- `Assets/Data/LevelAssets`: 20 level dosyası (`LevelAsset` asset'leri, her biri bir `LevelData` tutar).
 - `Assets/Data/VisualConfig`, `AnimationConfig`: görsel ve zamanlama ayar dosyaları.
 - `Assets/Resources`: kodun adıyla yüklediği dosyalar. Şu an sadece `AudioConfig` burada. Klasör adı birebir `Resources` olmalı.
 - `Assets/Sprites`: kullanıldıkları yere göre ayrılmış sprite'lar (`boards`, `particule`, `user_interface/common`, `user_interface/game`, `bobo_sprites`, `backgrounds`) ve sprite atlasları (bölüm 9).
 - `Assets/AddressableAssetsData`: Addressables ayarları ve grupları (bölüm 9).
 - `Assets/Prefabs`: taş, hücre, efekt ve UI prefab'ları.
 - `Assets/Scenes`: `Boot` (build listesindeki tek sahne), ayrıca Addressables ile yüklenen `Menu` ve `Game`.
-- `Assets/Tests`: Core ve Level testleri.
+- `Assets/Tests`: Core testleri.
 - `Assets/Scripts/Editor`: sadece editörde çalışan araçlar.
 
 ## 3. Bir hamlenin yolculuğu
@@ -166,7 +148,6 @@ Tahta üç katmanlı bir ızgaradır. Bir pastanın katları gibi düşün:
 
 - Koordinatlar: `x` soldan sağa, `y` **yukarıdan aşağı** artar. `y = 0` en üst sıradır. Taşlar `y`'si büyüyen yöne düşer.
 - Her taşın benzersiz bir `Id`'si vardır (`board.NextId()`). Presentation taşları konumla değil bu Id ile tanır. Bir taş düştüğünde konumu değişir ama Id'si aynı kalır.
-- `Board.Colors` bu tahtadaki renklerin listesidir. Yukarıdan gelen yeni taşlar sadece bu renklerden olur. Buna level karar verir (2 ile 4 renk arası); varsayılan dört rengin hepsidir.
 
 ### Taşlar ve bayraklar
 
@@ -257,7 +238,7 @@ Bir restoranın menüsü gibi düşün. Garson (`TurnResolver`) yemeğin nasıl 
 | `BoosterRegistry` | `BoosterType` | Booster'ın vurduğu hücreler (`IBoosterEffect`) | `Core/Booster` |
 | `ActivationPresenterRegistry` | `PieceKind` | Patlamanın animasyon tarifi (`IActivationPresenter`) | `Presentation/Presenter` |
 | `ComboPresenterRegistry` | İki `PieceKind` | Kombonun animasyon tarifi | `Presentation/Presenter` |
-| `LevelElements` | Katman + harf | Level'a konan bir şeyi kontrol edip yerleştiren element (`ILevelElement`) | `Level/Elements` |
+| `ObstacleSpawnerRegistry` | `ObstacleType` | Engeli level başında yerleştiren sınıf | `Presentation/BoardView/ObstacleSpawners` |
 
 **Her özel taşın iki yarısı vardır.** Core yarısı (`RocketActivation`) "hangi hücreler, hangi zamanda vurulur" sorusunu cevaplar. Presentation yarısı (`RocketPresenter`) "bu ekranda nasıl görünür" sorusunu. İkisi birbirini tanımaz, aralarında sadece `SpecialActivationData` adımı gider.
 
@@ -292,7 +273,7 @@ Presentation, Core'un ürettiği adım listesini alıp zamanlanmış animasyonla
 
 Game sahnesinin merkezidir ve her şeyi birbirine bağlar:
 
-- **Level başı (`Start`):** `LevelProgress.CurrentIndex`'e göre `LevelCatalog`'dan level verisini alır, `Board`'u `LevelBoardBuilder` ile kurar, kamerayı tahtaya oturtur, her hücrenin, zeminin ve overlay'in görselini oluşturur (`SpawnBoardViews`), `GoalTracker`'ı ve HUD'u kurar.
+- **Level başı (`Start`):** `LevelProgress.CurrentIndex`'e göre `LevelCatalog`'dan level'ı alır, `Board`'u oluşturur, taşları ve engelleri yerleştirir, `GoalTracker`'ı ve HUD'u kurar, kamerayı tahtaya oturtur.
 - **Girdi (`Update`):** dokunuşları swap, tap ya da booster'a çevirir (bölüm 3).
 - **Tur akışı:** komutu oluşturur, `TurnResolver`'a verir, sonucu uygular, `TurnPlayer`'a oynatır.
 - **İpucu:** oyuncu bir süre hamle yapmazsa `MoveLogic` ile geçerli bir hamle bulup gösterir.
@@ -346,99 +327,33 @@ Her komutun iki üyesi vardır: `Execute()` (animasyonu başlat) ve `Duration` (
 
 ## 7. Level, hedefler ve HUD
 
-Bir level sade bir veridir: tahtanın boyutu, hamle sayısı, renkler, hedefler ve her hücrede ne olduğu. Aynı veri projedeki bir asset'ten ya da ileride sunucudaki bir JSON dosyasından gelebilir. Hedeflerin takibi veride anında, ekranda ise ikonlar yerine vardıkça güncellenir.
+Bir level, tahtanın boyutunu, hamle sayısını, hedefleri ve engellerin yerini tutan bir ScriptableObject'tir. Hedeflerin takibi veride anında, ekranda ise ikonlar yerine vardıkça güncellenir.
 
-### Level verisi: `LevelData`
+### Level verisi
 
-Bir level metin satırları olarak kaydedilir: tahtanın her sırası için bir string, her hücre için bir harf. Tahtanın her katmanı için ayrı bir satır listesi vardır. Böylece bir hücrede aynı anda bir taş, altında bir zemin ve üstünde bir overlay olabilir.
+| Dosya | Ne tutar |
+| --- | --- |
+| `LevelData` | Level'ın düz veri hali: boyut, hamle, renkler, hedefler ve her katman için harf satırları. JSON'a yazılabilir |
+| `LevelAsset` | Bir `LevelData` tutan ScriptableObject. Level'ın projede saklandığı yer |
+| `ILevelSource` | "N numaralı level'ı ver" arayüzü. Oyun level'ın nereden geldiğini bilmez |
+| `LevelJson` | `LevelData` ↔ JSON metni. Online level'lar için |
+| `LevelBoardBuilder` | `LevelData`'dan `Board` ve hedef listesi kurar |
+| `LevelValidator` | Level kaydedilmeden ya da oynatılmadan önce kontrol eder |
+| `LevelGoal` | Oyunun kullandığı hedef: tür, renk, hedef sayısı |
+| `LevelCatalog` | Build'deki level'lar, sırayla. `Data/LevelAssets` klasöründen kendini doldurur |
+| `LevelProgress` | Oyuncunun hangi level'da olduğu (`CurrentIndex`) ve yıldızları (`PlayerPrefs`) |
+| `LevelBot`, `LevelGenerator`, `LevelEditing` | Bot testi, rastgele level üretimi ve editör işlemleri |
+| `LevelEditorWindow` | `Match3 > Level Editor` penceresi. Export JSON ve bot buradan çalışır |
+| `RemoteLevelSync` | `index.json` ve yeni level dosyalarını arka planda indirir, sha256 kontrolü yapar, cache'e yazar |
+| `RemoteAwareLevelSource` | Önce cache'deki online level'ı, yoksa build'deki level'ı verir |
 
-```json
-{
-  "width": 5, "height": 4, "moves": 20,
-  "colors": ["Red", "Yellow", "Blue", "Green"],
-  "stars": { "two": 0, "three": 0 },
-  "cells":    ["#...#", ".BOB.", ".....", "r...y"],
-  "overlays": [".....", ".....", ".L.C.", "....."],
-  "floors":   [".....", "g...g", ".....", "....."],
-  "goals": [
-    { "type": "ClearBox", "count": 2 },
-    { "type": "CollectColor", "color": "Red", "count": 15 }
-  ]
-}
-```
+**Online level'lar:** Level'lar uygulama güncellemesi olmadan değişebilir. Uygulama açılınca `Boot` bir `RemoteLevelSync` ekleyip çalıştırır. Sunucudan `index.json` iner. Index'teki ve cache'de olmayan her level dosyası indirilir, sha256'sı kontrol edilir ve `persistentDataPath/levels` içine `{levelId:000}_r{contentRevision}.json` adıyla yazılır.
 
-| Katman | Harf | Anlamı |
-| --- | --- | --- |
-| Hücre | `.` | Rastgele renkli taş |
-| Hücre | `#` | Delik (hücre yok) |
-| Hücre | `B` | Kutu |
-| Hücre | `O` | Top |
-| Hücre | `r` `y` `b` `g` | Sabit kırmızı, sarı, mavi ya da yeşil taş |
-| Hücre | `R` `V` | Roket (yatay, dikey) |
-| Hücre | `T` `P` `X` | TNT, pervane, ışık topu |
-| Üst katman | `L` | Kilit |
-| Üst katman | `C` | Kafes. Harf, 2×2 kafesin sol üst hücresidir |
-| Zemin | `g` | Çimen |
-
-Her katmanda `.` "burada özel bir şey yok" demektir. Aynı harf farklı katmanlarda farklı anlama gelebilir (`g` hücre katmanında yeşil taş, zemin katmanında çimen), çünkü katman da anahtarın parçasıdır.
-
-- `colors`: bu level'ın renkleri, isimleriyle yazılır. Rastgele taşlar ve yukarıdan gelen yeni taşlar sadece bu renklerden olur.
-- `stars`: 2 ve 3 yıldız için kaç hamle kalması gerektiği. `0` "varsayılanı kullan" demektir (bölüm 8).
-- `goals`: hedef türü metin olarak yazılır. `color` sadece `CollectColor`'da kullanılır.
+`GameAssets.Levels`, build'deki `LevelCatalog`'u saran bir `RemoteAwareLevelSource` döndürür. Level için cache'de dosya varsa o kullanılır, yoksa build'deki level. Sync menüyü beklemez; bu yüzden ilk açılışta build'deki level'lar kullanılabilir. Telefon çevrimdışıysa build'deki level'lar yine oynanır.
 
 Hedef türleri (`GoalType`): `CollectColor` (renk topla), `ClearBox` (kutu kır), `ClearLock` (kilit kır), `ClearGrass` (çimen temizle), `CollectToy` (top topla).
 
-### Level sisteminin dosyaları
-
-| Dosya | Assembly | Görevi |
-| --- | --- | --- |
-| `LevelData` | Level | Yukarıdaki level formatı. Sade C#, JSON'a yazılabilir |
-| `LevelAsset` | Level | Bir `LevelData` tutan ScriptableObject. Level'lar projede böyle saklanır |
-| `ILevelSource` | Level | "Bana N. level'ı ver" arayüzü. Oyun sadece bunu bilir, level'ın nereden geldiğini bilmez |
-| `LevelJson` | Level | `LevelData` ↔ JSON metni, online level'lar için |
-| `ILevelElement`, `LevelElements` | Level | Yerleştirilebilen her şey için bir sınıf ve onu katman + harfle bulan registry |
-| `LevelValidator` | Level | Bir level'ı kaydedilmeden ya da oynanmadan önce kontrol eder |
-| `LevelBoardBuilder` | Level | `LevelData`'dan bir `Board` ve hedef listesi kurar |
-| `LevelGoal` | Level | Oyunun kullandığı haliyle tek bir hedef: tür, renk, hedef sayısı |
-| `LevelCatalog` | Presentation | Build'deki level'lar, sırasıyla. `ILevelSource`'u uygular. Kendini `Data/LevelAssets`'ten doldurur |
-| `LevelProgress` | Presentation | Oyuncunun hangi level'da olduğu (`CurrentIndex`) ve yıldızları (`PlayerPrefs`) |
-
-### Element'ler: her şey için bir sınıf
-
-Bir level'a konabilen her şey bir **element**'tir: `HoleElement`, `BoxElement`, `ToyElement`, `ColorElement`, `SpecialElement`, `LockElement`, `CageElement`, `GrassElement`. Bir element kendisiyle ilgili her şeyi bilir:
-
-| Üye | Örnek: kilit |
-| --- | --- |
-| `Code` ve `Layer` | Üst katmanda `'L'` |
-| `DisplayName` | "Lock" (level editöründe görünür) |
-| `AutoGoal` | `ClearLock`: kilit koymak bu hedefi önerir |
-| `CanPlace(level, x, y, out reason)` | Delikte, kutunun üstünde ve kafesin içinde olamaz |
-| `Place(board, x, y)` | Bir `LockPiece` ekler ve altındaki taşı kilitler |
-
-Builder, validator ve level editörü kilidin ne olduğunu bilmez. `LevelElements`'ten element'i ister ve onu çağırır. Bölüm 5'teki registry fikrinin aynısı.
-
-### Bir level nasıl tahtaya dönüşür
-
-`LevelBoardBuilder.Build(level, random)` şu sırayla çalışır:
-
-1. Boş bir `Board` oluşturur ve renklerini ayarlar.
-2. **Hücre** katmanını yerleştirir: delikler, kutular, toplar, sabit renkler, özel taşlar.
-3. Boş kalan her hücreyi level'ın renklerinden rastgele taşlarla doldurur (`FillAllEmptyCells`). Doldurma, başlangıçta eşleşme oluşturmaz.
-4. **Zemin** katmanını yerleştirir (çimen).
-5. **Üst katmanı** yerleştirir (kilit, kafes). Overlay'ler en son gelir, çünkü altlarındaki taşı kilitlerler. O taşın önceden var olması gerekir.
-
-Bilinmeyen bir harf atlanmaz, hata fırlatır. Bozuk bir level yanlış oynanmamalı, hemen görünmeli. `BuildGoals(level)` metin hedefleri `GoalTracker` için `LevelGoal`'lara çevirir.
-
-Sonra `BoardController.SpawnBoardViews()` tahtada ne varsa onun görselini oluşturur. Belirli bir engele özel kod yoktur: bir overlay'in boyutu ve konumu kapladığı hücrelerden hesaplanır, bu yüzden 2×2 kafes için özel bir şey gerekmez.
-
-### Validator: `LevelValidator`
-
-`Validate(level)` bir hata listesi döndürür. Liste boşsa level geçerlidir. Kontrol ettikleri:
-
-- Boyut 3 ile 10 arasında, hamle 0'dan büyük, en az 2 geçerli renk var.
-- Her satır listesinde doğru sayıda satır var, her satır doğru uzunlukta.
-- Her harf bilinen bir element, ve her element'in `CanPlace` kuralı geçiyor.
-- Her hedefin türü biliniyor ve sayısı 0'dan büyük. Renk hedefi level'ın renklerinden birini kullanıyor. `ClearBox 5` gibi bir hedef, tahtada 5'ten az kutu varsa reddedilir.
+Level başında engeller `ObstacleSpawnerRegistry` ile yerleştirilir. Delik, kutu ve top taşlardan önce konur (hücrenin kendisini doldururlar). Kilit, kafes ve çimen taşlardan sonra konur (taşın üstüne ya da altına eklenirler). Bu sırayı `ObstacleSpawnPhase` belirler.
 
 ### `GoalTracker`: hedef muhasebecisi
 
@@ -476,7 +391,7 @@ Oyun üç sahneden oluşur: **Boot**, **Menu** ve **Game**. Boot sadece oyunu ba
 ### Ekranlar arası yolculuk
 
 1. **Uygulama açılır → Boot sahnesi.** Build listesindeki tek sahne bu. `Boot` Addressables'ı başlatır, yükleme ekranı prefab'ını yükleyip `LoadingScreen.Register()`'a verir, sonra `SceneLoader.LoadMenu()`'yü çağırır.
-2. **Menu sahnesi.** `MenuController` logoyu ve Play butonunu animasyonla getirir. Butonda bir sonraki level yazar: "LEVEL 7". Online level'lar gelene kadar, son level bitince oyun Level 14'e döner (`LoopStartIndex`).
+2. **Menu sahnesi.** `MenuController` logoyu ve Play butonunu animasyonla getirir. Butonda bir sonraki level yazar: "LEVEL 7". Son level bittikten sonra, yeni level'lar gelene kadar son level tekrar oynanır.
 3. **Play'e basılır → yükleme ekranı → Game sahnesi.** `SceneLoader.LoadGame()` → `LoadingScreen.LoadScene("Game")`.
 4. **Oyun oynanır.** Bölüm 3'teki döngü her hamlede tekrarlanır.
 5. **Kazanılır → Win popup.** Yıldızlar gösterilir. Continue'ya basılınca `LevelProgress.CurrentIndex` bir artar ve Menu'ye dönülür.
@@ -486,15 +401,11 @@ Oyun üç sahneden oluşur: **Boot**, **Menu** ve **Game**. Boot sadece oyunu ba
 
 ### Yıldız hesabı
 
-Level'ın kendi yıldız değerleri varsa (`stars.three` ve `stars.two` 0'dan büyükse) onlar kullanılır. Örneğin `three = 4` ise 3 yıldız için en az 4 hamle kalmalıdır. Yoksa varsayılan oranlar kullanılır:
-
 | Kalan hamle (baştaki hamleye oranı) | Yıldız |
 | --- | --- |
-| %15 ve üstü | 3 |
-| %5 ve üstü | 2 |
-| Daha az | 1 |
-
-Oyuncu +5 hamle kullandıysa level her zaman 1 yıldız alır.
+| %25 ve üstü | 3 |
+| %10 ve üstü | 2 |
+| Daha az, ya da +5 hamle kullanıldıysa | 1 |
 
 ### Yükleme ekranı: `LoadingScreen`
 
@@ -586,7 +497,7 @@ Diğer sonuçlar: Shared grubu build'den 5.7 MB'lık kopya asset'i kaldırdı. H
 
 ## 10. Testler
 
-Projede `Assets/Tests/EditMode` altında 9 dosyada 51 test var. Core'u ve Level'ı test ederler, sahne açmazlar, saniyeler içinde biterler.
+Projede `Assets/Tests/EditMode` altında 12 dosyada 70 test var. Hepsi sadece Core'u test eder, sahne açmaz, saniyeler içinde biter.
 
 **Çalıştırmak için:** Window → General → Test Runner → EditMode sekmesi → Run All.
 
@@ -597,10 +508,13 @@ Projede `Assets/Tests/EditMode` altında 9 dosyada 51 test var. Core'u ve Level'
 | `BoosterTest` | 6 | Çekiç, satır, sütun; kafese vurma, topu yok etmeme, delikte reddedilme |
 | `TimingAndFixesTest` | 5 | Patlama zamanlarının mesafeyle artması, zincir gecikmesi, eşleşmeyen swap'ın boş dönmesi |
 | `FloorPieceTest` | 4 | Çimenin üstündeki eşleşmeyle kırılması, yanındaki eşleşmeyle kırılmaması |
-| `ToyPieceTest` | 4 | Topun dipte toplanması, roketten etkilenmemesi, kafes içindeyken toplanmaması, altı delikse çıkışın yukarı kayması |
-| `BoardColorsTest` | 2 | Yeni taşların sadece tahtanın renklerinden gelmesi |
-| `LevelBoardBuilderTest` | 7 | Harflerin doğru taşlara dönüşmesi, sadece level renklerinin kullanılması, kilit ve kafesin taşları kilitlemesi, zeminler, hedefler; validator'ın kutu üstündeki kilidi ve fazla hedefi reddetmesi, geçerli level'ı kabul etmesi |
-| `LevelJsonTest` | 2 | JSON'a yazılıp geri okunan level'ın aynı kalması; boş metnin level döndürmemesi |
+| `ToyPieceTest` | 5 | Topun dipte toplanması, roketten etkilenmemesi, kafes içindeyken toplanmaması, altı delikse çıkışın yukarı kayması |
+| `LevelBoardBuilderTest` | 8 | Harflerin doğru parçalara dönüşmesi, sadece level renklerinin kullanılması, kilit ve kafesin taşı kilitlemesi, çimen, hedefler; doğrulayıcının kutuda kilidi ve fazla hedefi reddetmesi |
+| `LevelJsonTest` | 2 | JSON'a yazılıp okunan level'ın aynı kalması; boş metinden level çıkmaması |
+| `BoardColorsTest` | 2 | Yeni taşların sadece tahtanın renklerini kullanması |
+| `LevelBotTest` | 5 | Bot kolay bir level'ı bitirir; aynı tohum aynı sonucu verir; tahta kopyası orijinalden bağımsızdır; hamle yüzdelikleri; kazanma oranı zorluğa çevrilir |
+| `LevelEditingTest` | 8 | Kutuya kilit koymak gerekçesiyle reddedilir; kafesi silmek tüm kafesi kaldırır; boyutlandırma içeriği korur; renk hedefleri tahtayı izler |
+| `LevelGeneratorTest` | 4 | Üretilen level geçerlidir ve istenen taşları içerir; aynı tohum aynı level'ı verir; ayna modu simetriktir; hamle zorluğa göre seçilir |
 
 ### Bir test nasıl okunur
 
@@ -623,15 +537,15 @@ Mimarinin asıl testi yeni içerik eklemenin kolaylığıdır. Aşağıdaki tari
 3. `LevelCatalog` asset'ine sağ tık → **Refresh From Data/LevelAssets**. Yeni level listeye eklenir.
 4. Editörde `LevelDebugger` ile doğrudan o level'a atlayıp dene (`[` ve `]` tuşları).
 
-Yapım aşamasındaki level editörü penceresi 1. ve 2. adımların yerini alacak: bir ızgara üzerine çizeceksin, kaydetmeden önce level'ı `LevelValidator` ile kontrol edecek.
+Level Editor penceresi (`Match3 > Level Editor`) 1 ve 2. adımları yapabilir: level'ı bir ızgarada boyarsın, kaydetmeden önce `LevelValidator` kontrol eder, `Export JSON` online host için dosyayı yazar. Aynı pencerideki bot, level'ı sabit tohumlarla oynatıp zorluğunu ölçer.
 
 ### Yeni bir engel
 
 1. **Core:** `Core/Pieces` altına yeni bir sınıf yaz. Doğru katmandan türet: hücrede duruyorsa `Piece`, üste kapanıyorsa `OverlayPiece`, altta duruyorsa `FloorPiece`. Bayraklarını, canını ve (hedefse) `GoalKind`'ını ver.
 2. `PieceVisualType`'a yeni bir değer ekle. Hedef olacaksa `GoalType`'a da ekle.
 3. **Test:** davranışını kontrol eden bir test yaz (örneğin "roket hasar veriyor mu").
-4. **Yerleştirme:** `Level/Elements` altına `ILevelElement`'i uygulayan bir sınıf yaz. Boş bir harf ve katmanını seç, `CanPlace` kurallarını yaz, hedefse `AutoGoal`'u ayarla, `Place`'te taşı oluştur. `LevelElements`'e onun için bir satır, `LevelBoardBuilderTest`'e bir test ekle.
-5. **Görüntü:** sprite'ları için bir `VisualConfig` ekle ya da mevcut olanı genişlet. Hedefse `GoalIconConfig`'e ikonunu ekle. Görsel oluşturma kodu gerekmez: `SpawnBoardViews` tahtadaki her taşın görselini kendisi oluşturur.
+4. **Yerleştirme:** `ObstacleType`'a değer ekle, `IObstacleSpawner`'dan yeni bir spawner yaz, `ObstacleSpawnerRegistry`'e kaydet.
+5. **Görüntü:** sprite'ları için bir `VisualConfig` ekle ya da mevcut olanı genişlet. Hedefse `GoalIconConfig`'e ikonunu ekle.
 
 Bayrakları doğru seçersen eşleşme, hasar, düşme ve karıştırma kuralları yeni engele kendiliğinden uygulanır.
 
@@ -698,11 +612,6 @@ Bayrakları doğru seçersen eşleşme, hasar, düşme ve karıştırma kurallar
 | Hedef önceliği (`ITargetPriority`) | Pervane gibi hedef seçen taşların hangi hücreyi seçeceği |
 | Çıkış (exit) | Bir sütunun en alttaki deliksiz hücresi; top buraya gelince toplanır |
 | ScriptableObject | Unity'de kodu değiştirmeden ayar tutan asset dosyası (level'lar, config'ler) |
-| Level verisi (`LevelData`) | Sade veri olarak bir level: boyut, hamle, renkler, hedefler ve her katman için harf satırları |
-| Element (`ILevelElement`) | Level'a konabilen tek bir şey (kutu, kilit, çimen...); harfi, kuralları ve yerleştirme kodu |
-| Validator | Bir level'ı kontrol edip neyin yanlış olduğunu listeleyen sınıf |
-| `ILevelSource` | Level'ların nereden geldiği: bugün build'deki level'lar, ileride bir sunucu |
-| Assembly (`.asmdef`) | Birlikte derlenen kod grubu. Hangi kodun hangi kodu görebileceğine karar verir |
 | `AutoRef` | Referansları obje ismiyle otomatik bulan yardımcı |
 | Event | Bir sınıfın "şu oldu" diye duyurması; dinleyenler kendi tepkisini verir |
 | Addressables | Asset'leri adresle, paketlerden ve sadece gerektiğinde yükleyen Unity sistemi |
