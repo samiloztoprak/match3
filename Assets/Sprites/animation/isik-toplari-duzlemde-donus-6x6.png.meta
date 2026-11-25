@@ -1,0 +1,1292 @@
+fileFormatVersion: 2
+guid: 7c32704d31095814b9408f7dcbfba963
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3368647319448304464
+    second: isik-toplari-duzlemde-donus-6x6_0
+  - first:
+      213: 6225029297702215501
+    second: isik-toplari-duzlemde-donus-6x6_1
+  - first:
+      213: 637613856026298806
+    second: isik-toplari-duzlemde-donus-6x6_2
+  - first:
+      213: -6576694104900493852
+    second: isik-toplari-duzlemde-donus-6x6_3
+  - first:
+      213: -3733196516313523641
+    second: isik-toplari-duzlemde-donus-6x6_4
+  - first:
+      213: -94595674347336220
+    second: isik-toplari-duzlemde-donus-6x6_5
+  - first:
+      213: -4043412448079548990
+    second: isik-toplari-duzlemde-donus-6x6_6
+  - first:
+      213: 6278950530077981374
+    second: isik-toplari-duzlemde-donus-6x6_7
+  - first:
+      213: 5234455598868762699
+    second: isik-toplari-duzlemde-donus-6x6_8
+  - first:
+      213: -2900907501065271576
+    second: isik-toplari-duzlemde-donus-6x6_9
+  - first:
+      213: 7733234672835951431
+    second: isik-toplari-duzlemde-donus-6x6_10
+  - first:
+      213: -6192484967514856907
+    second: isik-toplari-duzlemde-donus-6x6_11
+  - first:
+      213: -725363397485472531
+    second: isik-toplari-duzlemde-donus-6x6_12
+  - first:
+      213: -5294062453969796307
+    second: isik-toplari-duzlemde-donus-6x6_13
+  - first:
+      213: 8481828867370397518
+    second: isik-toplari-duzlemde-donus-6x6_14
+  - first:
+      213: -4273865995882559401
+    second: isik-toplari-duzlemde-donus-6x6_15
+  - first:
+      213: 7638432274943970199
+    second: isik-toplari-duzlemde-donus-6x6_16
+  - first:
+      213: -4710243346970123285
+    second: isik-toplari-duzlemde-donus-6x6_17
+  - first:
+      213: 2425496228804151492
+    second: isik-toplari-duzlemde-donus-6x6_18
+  - first:
+      213: -4017952160632999401
+    second: isik-toplari-duzlemde-donus-6x6_19
+  - first:
+      213: 5172250378378775718
+    second: isik-toplari-duzlemde-donus-6x6_20
+  - first:
+      213: -3902839194273427781
+    second: isik-toplari-duzlemde-donus-6x6_21
+  - first:
+      213: -508723164070121908
+    second: isik-toplari-duzlemde-donus-6x6_22
+  - first:
+      213: 3418949415571319172
+    second: isik-toplari-duzlemde-donus-6x6_23
+  - first:
+      213: 8719427901637649438
+    second: isik-toplari-duzlemde-donus-6x6_24
+  - first:
+      213: 3128382702994160932
+    second: isik-toplari-duzlemde-donus-6x6_25
+  - first:
+      213: 2855969101707011808
+    second: isik-toplari-duzlemde-donus-6x6_26
+  - first:
+      213: -5071085690414182422
+    second: isik-toplari-duzlemde-donus-6x6_27
+  - first:
+      213: 9200308432377597811
+    second: isik-toplari-duzlemde-donus-6x6_28
+  - first:
+      213: -556237348872063169
+    second: isik-toplari-duzlemde-donus-6x6_29
+  - first:
+      213: -7403841439495651478
+    second: isik-toplari-duzlemde-donus-6x6_30
+  - first:
+      213: 3072890629353362067
+    second: isik-toplari-duzlemde-donus-6x6_31
+  - first:
+      213: -2869468123046565555
+    second: isik-toplari-duzlemde-donus-6x6_32
+  - first:
+      213: -1494947688682049824
+    second: isik-toplari-duzlemde-donus-6x6_33
+  - first:
+      213: 4433313391503321563
+    second: isik-toplari-duzlemde-donus-6x6_34
+  - first:
+      213: -489189374356359092
+    second: isik-toplari-duzlemde-donus-6x6_35
+  - first:
+      213: 4810185112725706211
+    second: isik-toplari-duzlemde-donus-6x6_36
+  - first:
+      213: -3174253947083803414
+    second: isik-toplari-duzlemde-donus-6x6_37
+  - first:
+      213: 9204399466156648084
+    second: isik-toplari-duzlemde-donus-6x6_38
+  - first:
+      213: 2644801033431423136
+    second: isik-toplari-duzlemde-donus-6x6_39
+  - first:
+      213: 1840015099727093390
+    second: isik-toplari-duzlemde-donus-6x6_40
+  - first:
+      213: 7182046031731396951
+    second: isik-toplari-duzlemde-donus-6x6_41
+  - first:
+      213: -6229467248160697551
+    second: isik-toplari-duzlemde-donus-6x6_42
+  - first:
+      213: -774581144790220947
+    second: isik-toplari-duzlemde-donus-6x6_43
+  - first:
+      213: 1211491375825681176
+    second: isik-toplari-duzlemde-donus-6x6_44
+  - first:
+      213: 465796526444816036
+    second: isik-toplari-duzlemde-donus-6x6_45
+  - first:
+      213: 7413320258659276251
+    second: isik-toplari-duzlemde-donus-6x6_46
+  - first:
+      213: -9135376874474070801
+    second: isik-toplari-duzlemde-donus-6x6_47
+  - first:
+      213: -1434022208177779709
+    second: isik-toplari-duzlemde-donus-6x6_48
+  - first:
+      213: -5428346383558281570
+    second: isik-toplari-duzlemde-donus-6x6_49
+  - first:
+      213: 3709646723834941897
+    second: isik-toplari-duzlemde-donus-6x6_50
+  - first:
+      213: 5122475865909529376
+    second: isik-toplari-duzlemde-donus-6x6_51
+  - first:
+      213: -3889671038767686209
+    second: isik-toplari-duzlemde-donus-6x6_52
+  - first:
+      213: 5057708295283861368
+    second: isik-toplari-duzlemde-donus-6x6_53
+  - first:
+      213: -8861240545712533916
+    second: isik-toplari-duzlemde-donus-6x6_54
+  - first:
+      213: 54565025817323049
+    second: isik-toplari-duzlemde-donus-6x6_55
+  - first:
+      213: 7771760421423629337
+    second: isik-toplari-duzlemde-donus-6x6_56
+  - first:
+      213: -1611613318925472688
+    second: isik-toplari-duzlemde-donus-6x6_57
+  - first:
+      213: 2461158393860868541
+    second: isik-toplari-duzlemde-donus-6x6_58
+  - first:
+      213: -7211603772168929605
+    second: isik-toplari-duzlemde-donus-6x6_59
+  - first:
+      213: -6763183349162057499
+    second: isik-toplari-duzlemde-donus-6x6_60
+  - first:
+      213: 8489536692341022980
+    second: isik-toplari-duzlemde-donus-6x6_61
+  - first:
+      213: -214958857111407070
+    second: isik-toplari-duzlemde-donus-6x6_62
+  - first:
+      213: 7935272492057555988
+    second: isik-toplari-duzlemde-donus-6x6_63
+  - first:
+      213: 5106252617168682203
+    second: isik-toplari-duzlemde-donus-6x6_64
+  - first:
+      213: -3390860230264311149
+    second: isik-toplari-duzlemde-donus-6x6_65
+  - first:
+      213: 342381318667445395
+    second: isik-toplari-duzlemde-donus-6x6_66
+  - first:
+      213: 190896210315523492
+    second: isik-toplari-duzlemde-donus-6x6_67
+  - first:
+      213: -1533123133261555348
+    second: isik-toplari-duzlemde-donus-6x6_68
+  - first:
+      213: 7635864963475077985
+    second: isik-toplari-duzlemde-donus-6x6_69
+  - first:
+      213: 329861825287467566
+    second: isik-toplari-duzlemde-donus-6x6_70
+  - first:
+      213: 3236324666050598441
+    second: isik-toplari-duzlemde-donus-6x6_71
+  - first:
+      213: 7943521001953150984
+    second: isik-toplari-duzlemde-donus-6x6_72
+  - first:
+      213: -386063023922398969
+    second: isik-toplari-duzlemde-donus-6x6_73
+  - first:
+      213: -6908608418104289706
+    second: isik-toplari-duzlemde-donus-6x6_74
+  - first:
+      213: -6842883897917917410
+    second: isik-toplari-duzlemde-donus-6x6_75
+  - first:
+      213: 2540072246316980564
+    second: isik-toplari-duzlemde-donus-6x6_76
+  - first:
+      213: -5260399717939957871
+    second: isik-toplari-duzlemde-donus-6x6_77
+  - first:
+      213: 4660665056577714630
+    second: isik-toplari-duzlemde-donus-6x6_78
+  - first:
+      213: 8788578790741455405
+    second: isik-toplari-duzlemde-donus-6x6_79
+  - first:
+      213: 3489229689764634223
+    second: isik-toplari-duzlemde-donus-6x6_80
+  - first:
+      213: -424529485902308022
+    second: isik-toplari-duzlemde-donus-6x6_81
+  - first:
+      213: -242148247394716002
+    second: isik-toplari-duzlemde-donus-6x6_82
+  - first:
+      213: 351397348831978946
+    second: isik-toplari-duzlemde-donus-6x6_83
+  - first:
+      213: 5087420045872951988
+    second: isik-toplari-duzlemde-donus-6x6_84
+  - first:
+      213: -2287033260880420073
+    second: isik-toplari-duzlemde-donus-6x6_85
+  - first:
+      213: 7277903350600217111
+    second: isik-toplari-duzlemde-donus-6x6_86
+  - first:
+      213: 5651304829947850992
+    second: isik-toplari-duzlemde-donus-6x6_87
+  - first:
+      213: 5524664639314541517
+    second: isik-toplari-duzlemde-donus-6x6_88
+  - first:
+      213: 8888139980997535322
+    second: isik-toplari-duzlemde-donus-6x6_89
+  - first:
+      213: 2260538833334950631
+    second: isik-toplari-duzlemde-donus-6x6_90
+  - first:
+      213: 1027135690541948670
+    second: isik-toplari-duzlemde-donus-6x6_91
+  - first:
+      213: 8722506798815994914
+    second: isik-toplari-duzlemde-donus-6x6_92
+  - first:
+      213: -2410896592706220000
+    second: isik-toplari-duzlemde-donus-6x6_93
+  - first:
+      213: 8276164584239494063
+    second: isik-toplari-duzlemde-donus-6x6_94
+  - first:
+      213: 978250397724722448
+    second: isik-toplari-duzlemde-donus-6x6_95
+  - first:
+      213: 4091278693464869782
+    second: isik-toplari-duzlemde-donus-6x6_96
+  - first:
+      213: -6808091615368141597
+    second: isik-toplari-duzlemde-donus-6x6_97
+  - first:
+      213: 7489656558051036220
+    second: isik-toplari-duzlemde-donus-6x6_98
+  - first:
+      213: 2426948773681402951
+    second: isik-toplari-duzlemde-donus-6x6_99
+  - first:
+      213: -4892435427292870258
+    second: isik-toplari-duzlemde-donus-6x6_100
+  - first:
+      213: 8278143863169215311
+    second: isik-toplari-duzlemde-donus-6x6_101
+  - first:
+      213: -8963762730690069116
+    second: isik-toplari-duzlemde-donus-6x6_102
+  - first:
+      213: 1215477848943328688
+    second: isik-toplari-duzlemde-donus-6x6_103
+  - first:
+      213: -5401825217144321723
+    second: isik-toplari-duzlemde-donus-6x6_104
+  - first:
+      213: 2656332939548686336
+    second: isik-toplari-duzlemde-donus-6x6_105
+  - first:
+      213: 7200781189231351942
+    second: isik-toplari-duzlemde-donus-6x6_106
+  - first:
+      213: -767759617329325781
+    second: isik-toplari-duzlemde-donus-6x6_107
+  - first:
+      213: 4406024678132412589
+    second: isik-toplari-duzlemde-donus-6x6_108
+  - first:
+      213: -5947370578809181436
+    second: isik-toplari-duzlemde-donus-6x6_109
+  - first:
+      213: 5633526667166861225
+    second: isik-toplari-duzlemde-donus-6x6_110
+  - first:
+      213: 8395831885564457664
+    second: isik-toplari-duzlemde-donus-6x6_111
+  - first:
+      213: -6015110274966838255
+    second: isik-toplari-duzlemde-donus-6x6_112
+  - first:
+      213: 2795605526767088657
+    second: isik-toplari-duzlemde-donus-6x6_113
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05bb941a3e6dfbe20800000000000000
+      internalID: 3368647319448304464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_1
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4f90f52a2fb36650800000000000000
+      internalID: 6225029297702215501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_2
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b980508c6249d800800000000000000
+      internalID: 637613856026298806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_3
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ed10017e83eab4a0800000000000000
+      internalID: -6576694104900493852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_4
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74a18683c85013cc0800000000000000
+      internalID: -3733196516313523641
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_5
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ed0d314cbdefaef0800000000000000
+      internalID: -94595674347336220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cd63d72dc9e2e7c0800000000000000
+      internalID: -4043412448079548990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_7
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eba7c836d30532750800000000000000
+      internalID: 6278950530077981374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_8
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b40902342a584a840800000000000000
+      internalID: 5234455598868762699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_9
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e60db85ff7edb7d0800000000000000
+      internalID: -2900907501065271576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_10
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74bfe1766f7f15b60800000000000000
+      internalID: 7733234672835951431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_11
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 532a4523bbfdf0aa0800000000000000
+      internalID: -6192484967514856907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de4dec745ddfee5f0800000000000000
+      internalID: -725363397485472531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_13
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d23c56c4f36b786b0800000000000000
+      internalID: -5294062453969796307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_14
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4f244d8a6285b570800000000000000
+      internalID: 8481828867370397518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_15
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7588cc9458d20b4c0800000000000000
+      internalID: -4273865995882559401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_16
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79b0ae41fa9210a60800000000000000
+      internalID: 7638432274943970199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_17
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be3e232c1aad1aeb0800000000000000
+      internalID: -4710243346970123285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c8cbe128f719a120800000000000000
+      internalID: 2425496228804151492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_19
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 712f4f44ccd5d38c0800000000000000
+      internalID: -4017952160632999401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_20
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ac85acb05687c740800000000000000
+      internalID: 5172250378378775718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_21
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bbe4cd15e6456d9c0800000000000000
+      internalID: -3902839194273427781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_22
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4e66944af6a0f8f0800000000000000
+      internalID: -508723164070121908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_23
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 489682c016c827f20800000000000000
+      internalID: 3418949415571319172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e14edb1aa71a10970800000000000000
+      internalID: 8719427901637649438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_25
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42d71755e7f3a6b20800000000000000
+      internalID: 3128382702994160932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_26
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e6ecb434c072a720800000000000000
+      internalID: 2855969101707011808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_27
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aefcb4dae62ef99b0800000000000000
+      internalID: -5071085690414182422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_28
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37fc5ef16cf0eaf70800000000000000
+      internalID: 9200308432377597811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_29
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f37fca90419d748f0800000000000000
+      internalID: -556237348872063169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6f7b812075404990800000000000000
+      internalID: -7403841439495651478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_31
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 392db3c1fb915aa20800000000000000
+      internalID: 3072890629353362067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_32
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d49a087f1f99d28d0800000000000000
+      internalID: -2869468123046565555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_33
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0eea05a6ff0e04be0800000000000000
+      internalID: -1494947688682049824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: isik-toplari-duzlemde-donus-6x6_34
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd9a9867a0b468d30800000000000000
+      internalID: 4433313391503321563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 0bdc7d89a63fbcb40a45f181e6875acb
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":6.0,"y":6.0},"gridSpriteSize":{"x":512.0,"y":512.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      isik-toplari-duzlemde-donus-6x6_0: 3368647319448304464
+      isik-toplari-duzlemde-donus-6x6_1: 6225029297702215501
+      isik-toplari-duzlemde-donus-6x6_10: 7733234672835951431
+      isik-toplari-duzlemde-donus-6x6_11: -6192484967514856907
+      isik-toplari-duzlemde-donus-6x6_12: -725363397485472531
+      isik-toplari-duzlemde-donus-6x6_13: -5294062453969796307
+      isik-toplari-duzlemde-donus-6x6_14: 8481828867370397518
+      isik-toplari-duzlemde-donus-6x6_15: -4273865995882559401
+      isik-toplari-duzlemde-donus-6x6_16: 7638432274943970199
+      isik-toplari-duzlemde-donus-6x6_17: -4710243346970123285
+      isik-toplari-duzlemde-donus-6x6_18: 2425496228804151492
+      isik-toplari-duzlemde-donus-6x6_19: -4017952160632999401
+      isik-toplari-duzlemde-donus-6x6_2: 637613856026298806
+      isik-toplari-duzlemde-donus-6x6_20: 5172250378378775718
+      isik-toplari-duzlemde-donus-6x6_21: -3902839194273427781
+      isik-toplari-duzlemde-donus-6x6_22: -508723164070121908
+      isik-toplari-duzlemde-donus-6x6_23: 3418949415571319172
+      isik-toplari-duzlemde-donus-6x6_24: 8719427901637649438
+      isik-toplari-duzlemde-donus-6x6_25: 3128382702994160932
+      isik-toplari-duzlemde-donus-6x6_26: 2855969101707011808
+      isik-toplari-duzlemde-donus-6x6_27: -5071085690414182422
+      isik-toplari-duzlemde-donus-6x6_28: 9200308432377597811
+      isik-toplari-duzlemde-donus-6x6_29: -556237348872063169
+      isik-toplari-duzlemde-donus-6x6_3: -6576694104900493852
+      isik-toplari-duzlemde-donus-6x6_30: -7403841439495651478
+      isik-toplari-duzlemde-donus-6x6_31: 3072890629353362067
+      isik-toplari-duzlemde-donus-6x6_32: -2869468123046565555
+      isik-toplari-duzlemde-donus-6x6_33: -1494947688682049824
+      isik-toplari-duzlemde-donus-6x6_34: 4433313391503321563
+      isik-toplari-duzlemde-donus-6x6_4: -3733196516313523641
+      isik-toplari-duzlemde-donus-6x6_5: -94595674347336220
+      isik-toplari-duzlemde-donus-6x6_6: -4043412448079548990
+      isik-toplari-duzlemde-donus-6x6_7: 6278950530077981374
+      isik-toplari-duzlemde-donus-6x6_8: 5234455598868762699
+      isik-toplari-duzlemde-donus-6x6_9: -2900907501065271576
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

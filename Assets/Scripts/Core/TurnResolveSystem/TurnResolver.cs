@@ -149,6 +149,13 @@ public static class TurnResolver
 
                 var mergeClear = new ClearPieceData();
                 mergeClear.Hits.Add(new HitData(atSource.Id, comboX, comboY, 0f));
+                
+                if (comboEffect.Transformed == null)
+                {
+                    mergeClear.Hits.Add(new HitData(atTarget.Id, comboX, comboY, comboStartMs));
+                    board.ClearCell(comboX, comboY);
+                }
+                
                 result.Add(mergeClear);
 
                 var ownCellsTimed = new List<(int x, int y, float timeMs)>();

@@ -23,7 +23,7 @@ public class GameAssets : ScriptableObject
     public LightBeamView LightBeam;
     public LightBallActivationView LightBallActivation; 
     public PropellerActivationView PropellerActivation;
-    
+    public LightBallActivationView LightBallComboCharge;
     
     [Header("Boosters")]
     public SpriteRenderer Hammer;

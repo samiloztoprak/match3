@@ -19,7 +19,8 @@ public static class ActivationTiming
     public const float LightBallStepMs = 60f;
     public const float LightBallPulseMs = 120f;
     public const float LightBallWaveMsPerRing = 200f;
-
+    public const float LightBallComboChargeMs = 1800f; 
+    
     public const float ComboMergeMs = 150f;
     
     public const float HammerStrikeMs = 250f;

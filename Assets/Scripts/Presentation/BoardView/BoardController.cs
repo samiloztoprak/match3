@@ -27,6 +27,7 @@ public class BoardController : MonoBehaviour
     
     [SerializeField] private GameAssets _assets;
     [SerializeField] private AnimationSettings _anim;
+    [SerializeField] private SettingsDropdownView _settings;
     
     private LevelData _level; 
     
@@ -57,6 +58,7 @@ public class BoardController : MonoBehaviour
         if (_background == null) _background = GameObject.Find("env_background")?.GetComponent<SpriteRenderer>();
         if (_topPanel == null) _topPanel = GameObject.Find("ui_panel_top")?.GetComponent<RectTransform>();
         if (_bottomPanel == null) _bottomPanel = GameObject.Find("ui_panel_bottom")?.GetComponent<RectTransform>();
+        if (_settings == null) _settings = AutoRef.InScene<SettingsDropdownView>();
         
 #if UNITY_EDITOR
         if (_assets == null) _assets = AutoRef.Asset<GameAssets>();
@@ -110,6 +112,12 @@ public class BoardController : MonoBehaviour
             return;
         }
 
+        if (_settings != null && _settings.IsOpen)
+        {
+            _hasStart = false;
+            return;
+        }
+        
         if (!_turnPlayer.IsBusy && !_levelEnded && _hintView1 == null)
         {
             _idleTimer += Time.deltaTime;

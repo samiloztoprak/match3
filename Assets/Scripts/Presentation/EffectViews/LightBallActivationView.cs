@@ -12,7 +12,7 @@ public class LightBallActivationView : MonoBehaviour
         _animator.enabled = true;
         _animSprite.enabled = true;
         
-        _animator.Play(_stateName);
+        _animator.Play(_stateName, 0, 0f);
         _animSprite.sortingOrder = SortingOrders.Explosion;
         DOVirtual.DelayedCall(lifetime, () => onComplete?.Invoke());
     }

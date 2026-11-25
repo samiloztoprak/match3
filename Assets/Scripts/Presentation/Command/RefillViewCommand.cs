@@ -36,16 +36,13 @@ public class RefillViewCommand : IViewCommand
         foreach (var list in byColumn.Values)
         {
             list.Sort((a, b) => a.y.CompareTo(b.y));
-            int start = 0;
-            for (int i = 1; i <= list.Count; i++)
+            int count = list.Count;
+            for (int i = 0; i < count; i++)
             {
-                bool runEnds = i == list.Count || list[i].y != list[i - 1].y + 1;
-                if (!runEnds) continue;
-
-                int count = i - start;
-                for (int k = start; k < i; k++) _dropCells[list[k].id] = count;
-                maxCells = Mathf.Max(maxCells, count);
-                start = i;
+                int spawnY = i - count;
+                int cells = list[i].y - spawnY;
+                _dropCells[list[i].id] = cells;
+                maxCells = Mathf.Max(maxCells, cells);
             }
         }
         _duration = Mathf.Max(MinDuration, maxCells * secondsPerCell);

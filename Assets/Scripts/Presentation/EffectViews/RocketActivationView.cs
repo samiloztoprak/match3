@@ -32,7 +32,7 @@ public class RocketActivationView : MonoBehaviour
     public void Play(Vector3 direction, float chargeDuration, Vector3 targetA, float durationA, Vector3 targetB, float durationB,
         System.Action onComplete)
     {
-        transform.rotation = FaceDirection(direction);
+        transform.rotation = FaceDirection(direction, -90);
         ResetHead(_headA);
         ResetHead(_headB);
 
@@ -72,7 +72,7 @@ public class RocketActivationView : MonoBehaviour
 
         head.Root.gameObject.SetActive(true);
         head.Root.position = start;
-        head.Root.rotation = FaceDirection(dir);
+        head.Root.rotation = FaceDirection(dir, 0);
         head.Sprite.sortingOrder = SortingOrders.Flight;
 
         if (head.Anim != null)
@@ -102,9 +102,9 @@ public class RocketActivationView : MonoBehaviour
         }
     }
     
-    private static Quaternion FaceDirection(Vector3 dir)
+    private static Quaternion FaceDirection(Vector3 dir, float RotOffset)
     {
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + RotOffset;
         return Quaternion.Euler(0f, 0f, angle);
     }
 }

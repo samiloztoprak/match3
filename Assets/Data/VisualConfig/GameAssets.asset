@@ -24,6 +24,7 @@ MonoBehaviour:
   LightBeam: {fileID: 6678387600696547443, guid: 881b7086c8df30b479007379810ecd69, type: 3}
   LightBallActivation: {fileID: 2626565312509515975, guid: e64c942907194f14c981b7129f5728c7, type: 3}
   PropellerActivation: {fileID: 4182894333919953439, guid: 50b5c26630829044bb5464bb92e099e5, type: 3}
+  LightBallComboCharge: {fileID: 2626565312509515975, guid: c221b34e06d6d3e4fadd7ecbcf756371, type: 3}
   Hammer: {fileID: 4571388776048433953, guid: b8c44ce7ebde53a4aa5851469707ad9a, type: 3}
   HammerImpact: {fileID: 1317046582944282590, guid: b27424b493ee0994dbe8481e2c8a9ec0, type: 3}
   GoalSlot: {fileID: 6369549598773532538, guid: a9a4521856d51034cab8d8f5612ad3c0, type: 3}

@@ -18,6 +18,7 @@ public class TurnPlayer : MonoBehaviour
     public PropellerAnimationConfig PropellerConfig => _assets.PropellerAnimation;
     public ExplosionActivationView TntExplosionPrefab => _assets.TntExplosion;
     public LightBallActivationView LightBallActivationPrefab => _assets.LightBallActivation;
+    public LightBallActivationView LightBallComboChargePrefab => _assets.LightBallComboCharge;
     public SpriteRenderer HammerPrefab => _assets.Hammer;
     public SpriteRenderer HammerImpactPrefab => _assets.HammerImpact;
     public float PopDuration => _anim.PopDuration;

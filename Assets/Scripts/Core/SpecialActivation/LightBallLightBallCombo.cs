@@ -10,7 +10,7 @@ public sealed class LightBallLightBallCombo : IComboActivation
             for (int cy = 0; cy < board.Height; cy++)
             {
                 int ring = ActivationTiming.ChebyshevDistance(x, y, cx, cy);
-                timed.Add((cx, cy, ActivationTiming.LightBallWaveMsPerRing * ring));
+                timed.Add((cx, cy, ActivationTiming.LightBallComboChargeMs + ActivationTiming.LightBallWaveMsPerRing * ring));
             }
         }
         return new ComboEffect { TimedCells = timed };

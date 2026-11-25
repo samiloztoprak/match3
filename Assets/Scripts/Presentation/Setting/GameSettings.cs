@@ -5,7 +5,7 @@ public enum SettingType
 {
     Music = 0,
     Sound = 1,
-    Vibration = 2
+    Vibration = 2,
 }
 
 public static class GameSettings
