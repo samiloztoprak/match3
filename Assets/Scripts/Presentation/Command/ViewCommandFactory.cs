@@ -198,7 +198,7 @@ public static class ViewCommandFactory
                             ? RocketDirection.Horizontal
                             : RocketDirection.Vertical;
                         float launch = At(booster.TimeMs + ActivationTiming.BoosterLaunchMs);
-                        var fly = new RocketFlyViewCommand(direction, booster.X, booster.Y, player);
+                        var fly = new RocketFlyViewCommand(direction, booster.X, booster.Y, player, 0f);
                         result.Add((launch, fly));
                         MarkHit(launch + fly.Duration);
                     }

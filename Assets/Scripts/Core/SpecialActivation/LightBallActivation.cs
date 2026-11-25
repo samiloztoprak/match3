@@ -37,8 +37,7 @@ public sealed class LightBallActivation : ISpecialActivation
             return a.y.CompareTo(b.y);
         });
 
-        float revealMs = ActivationTiming.LightBallStartMs + ActivationTiming.LightBallStepMs * targets.Count;
-        float clearMs = revealMs + ActivationTiming.LightBallPulseMs;
+        float clearMs = ActivationTiming.LightBallTotalMs - ActivationTiming.LightBallPulseMs;
 
         foreach (var target in targets)
         {

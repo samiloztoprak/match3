@@ -125,7 +125,8 @@ public class PieceVisualConfig : ScriptableObject
     
     [SerializeField] 
     private CageVisualConfig _cageVisualConfig;
-
+    public CageVisualConfig Cage => _cageVisualConfig;
+    
     public Sprite GetCageSprite(Piece piece)
     {
         if (piece is CagePiece)

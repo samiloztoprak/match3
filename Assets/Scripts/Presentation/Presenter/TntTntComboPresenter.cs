@@ -9,7 +9,8 @@ public class TntTntComboPresenter : IActivationPresenter
         float delay = ActivationTiming.TntDelayMs / 1000f;
         float ring  = ActivationTiming.TntRingMs * Radius / 1000f;
 
-        timeline.Add((t, new TntChargeViewCommand(data.PieceId, player, delay)));
+        //DEPRECATED
+        //timeline.Add((t, new TntChargeViewCommand(data.PieceId, player, delay)));
         timeline.Add((t + delay, new TntExplosionViewCommand(data.X, data.Y, player, ring, Radius)));
         timeline.Add((t + delay, new ShakeViewCommand(player, 1f)));
 

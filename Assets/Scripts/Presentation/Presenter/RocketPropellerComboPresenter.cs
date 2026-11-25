@@ -11,10 +11,10 @@ public class RocketPropellerComboPresenter : IActivationPresenter
         Vector3 targetPos = player.CellToWorld(tx, ty);
         Sprite sprite = player.VisualConfig.GetSprite(new SpecialPiece(0, PieceKind.Propeller));
 
-        timeline.Add((t, new PropellerComboFlyViewCommand(sprite, origin, targetPos, player, flight)));
+        timeline.Add((t, new PropellerComboFlyViewCommand( origin, targetPos, player, flight)));
 
         RocketDirection direction = data.Direction ?? RocketDirection.Horizontal;
-        var fly = new RocketFlyViewCommand(direction, tx, ty, player);
+        var fly = new RocketFlyViewCommand(direction, tx, ty, player, ActivationTiming.RocketChargeMs / 1000f);
         timeline.Add((t + flight, fly));
 
         return t + flight + fly.Duration;

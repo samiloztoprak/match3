@@ -11,7 +11,7 @@ public class TntPropellerComboPresenter : IActivationPresenter
         Vector3 targetPos = player.CellToWorld(tx, ty);
         Sprite sprite = player.VisualConfig.GetSprite(new SpecialPiece(0, PieceKind.Propeller));
 
-        timeline.Add((t, new PropellerComboFlyViewCommand(sprite, origin, targetPos, player, flight)));
+        timeline.Add((t, new PropellerComboFlyViewCommand(origin, targetPos, player, flight)));
 
         float radius = ActivationArea.TntPropellerRadius;
         float ring = ActivationTiming.TntRingMs * radius / 1000f;

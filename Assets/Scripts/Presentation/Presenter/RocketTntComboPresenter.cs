@@ -12,7 +12,7 @@ public class RocketTntComboPresenter : IActivationPresenter
         {
             int ry = data.Y + oy;
             if (ry < 0 || ry >= player.BoardHeight) continue;
-            var fly = new RocketFlyViewCommand(RocketDirection.Horizontal, data.X, ry, player);
+            var fly = new RocketFlyViewCommand(RocketDirection.Horizontal, data.X, ry, player, ActivationTiming.RocketChargeMs / 1000f);
             timeline.Add((t, fly));
             maxDuration = Mathf.Max(maxDuration, fly.Duration);
         }
@@ -20,7 +20,7 @@ public class RocketTntComboPresenter : IActivationPresenter
         {
             int rx = data.X + ox;
             if (rx < 0 || rx >= player.BoardWidth) continue;
-            var fly = new RocketFlyViewCommand(RocketDirection.Vertical, rx, data.Y, player);
+            var fly = new RocketFlyViewCommand(RocketDirection.Vertical, rx, data.Y, player, ActivationTiming.RocketChargeMs / 1000f);
             timeline.Add((t, fly));
             maxDuration = Mathf.Max(maxDuration, fly.Duration);
         }

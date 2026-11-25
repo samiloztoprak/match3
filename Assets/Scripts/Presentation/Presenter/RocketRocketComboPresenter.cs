@@ -5,8 +5,8 @@ public class RocketRocketComboPresenter : IActivationPresenter
 {
     public float Present(SpecialActivationData data, float t, TurnPlayer player, List<(float, IViewCommand)> timeline)
     {
-        var flyH = new RocketFlyViewCommand(RocketDirection.Horizontal, data.X, data.Y, player);
-        var flyV = new RocketFlyViewCommand(RocketDirection.Vertical, data.X, data.Y, player);
+        var flyH = new RocketFlyViewCommand(RocketDirection.Horizontal, data.X, data.Y, player, ActivationTiming.RocketChargeMs / 1000f);
+        var flyV = new RocketFlyViewCommand(RocketDirection.Vertical, data.X, data.Y, player, ActivationTiming.RocketChargeMs / 1000f);
         timeline.Add((t, flyH));
         timeline.Add((t, flyV));
         return t + Mathf.Max(flyH.Duration, flyV.Duration);

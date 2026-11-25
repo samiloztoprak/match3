@@ -1,0 +1,1669 @@
+fileFormatVersion: 2
+guid: 0a929b5c263ead24c8138f47b5e5ac4c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2034989250225607067
+    second: Bomb_Explosion_6x6_Aligned_3072_0
+  - first:
+      213: 7528377444123455982
+    second: Bomb_Explosion_6x6_Aligned_3072_1
+  - first:
+      213: 7444402076813694386
+    second: Bomb_Explosion_6x6_Aligned_3072_2
+  - first:
+      213: 1474784150774024227
+    second: Bomb_Explosion_6x6_Aligned_3072_3
+  - first:
+      213: 2021096014343020321
+    second: Bomb_Explosion_6x6_Aligned_3072_4
+  - first:
+      213: -267148436240156379
+    second: Bomb_Explosion_6x6_Aligned_3072_5
+  - first:
+      213: 370510909685609926
+    second: Bomb_Explosion_6x6_Aligned_3072_6
+  - first:
+      213: -2380338195241571662
+    second: Bomb_Explosion_6x6_Aligned_3072_7
+  - first:
+      213: 3265177450920211249
+    second: Bomb_Explosion_6x6_Aligned_3072_8
+  - first:
+      213: 3154781902089218111
+    second: Bomb_Explosion_6x6_Aligned_3072_9
+  - first:
+      213: -3517742872832681079
+    second: Bomb_Explosion_6x6_Aligned_3072_10
+  - first:
+      213: 6121109237648298242
+    second: Bomb_Explosion_6x6_Aligned_3072_11
+  - first:
+      213: -8467259347833513314
+    second: Bomb_Explosion_6x6_Aligned_3072_12
+  - first:
+      213: -3040924592619181361
+    second: Bomb_Explosion_6x6_Aligned_3072_13
+  - first:
+      213: -6801788660759587238
+    second: Bomb_Explosion_6x6_Aligned_3072_14
+  - first:
+      213: 1444977149967898673
+    second: Bomb_Explosion_6x6_Aligned_3072_15
+  - first:
+      213: -4622052949514646171
+    second: Bomb_Explosion_6x6_Aligned_3072_16
+  - first:
+      213: -3940598493403363616
+    second: Bomb_Explosion_6x6_Aligned_3072_17
+  - first:
+      213: -8635007367020805481
+    second: Bomb_Explosion_6x6_Aligned_3072_18
+  - first:
+      213: 4624243336634858851
+    second: Bomb_Explosion_6x6_Aligned_3072_19
+  - first:
+      213: 5418629132800068255
+    second: Bomb_Explosion_6x6_Aligned_3072_20
+  - first:
+      213: -8298649327743752602
+    second: Bomb_Explosion_6x6_Aligned_3072_21
+  - first:
+      213: -7870334753996213407
+    second: Bomb_Explosion_6x6_Aligned_3072_22
+  - first:
+      213: 1905224362736251860
+    second: Bomb_Explosion_6x6_Aligned_3072_23
+  - first:
+      213: 7039403496943973457
+    second: Bomb_Explosion_6x6_Aligned_3072_24
+  - first:
+      213: -829340558595577946
+    second: Bomb_Explosion_6x6_Aligned_3072_25
+  - first:
+      213: -4557591870637604493
+    second: Bomb_Explosion_6x6_Aligned_3072_26
+  - first:
+      213: -8770968804095785000
+    second: Bomb_Explosion_6x6_Aligned_3072_27
+  - first:
+      213: -5266293439376695424
+    second: Bomb_Explosion_6x6_Aligned_3072_28
+  - first:
+      213: -7355996911145082068
+    second: Bomb_Explosion_6x6_Aligned_3072_29
+  - first:
+      213: -3182051630768946238
+    second: Bomb_Explosion_6x6_Aligned_3072_30
+  - first:
+      213: -3681862332886649504
+    second: Bomb_Explosion_6x6_Aligned_3072_31
+  - first:
+      213: -4341816147094958176
+    second: Bomb_Explosion_6x6_Aligned_3072_32
+  - first:
+      213: -3402287502758049406
+    second: Bomb_Explosion_6x6_Aligned_3072_33
+  - first:
+      213: -5800965924542731509
+    second: Bomb_Explosion_6x6_Aligned_3072_34
+  - first:
+      213: -2602356728624953733
+    second: Bomb_Explosion_6x6_Aligned_3072_35
+  - first:
+      213: 965862003878917610
+    second: Bomb_Explosion_6x6_Aligned_3072_36
+  - first:
+      213: 924506904012586644
+    second: Bomb_Explosion_6x6_Aligned_3072_37
+  - first:
+      213: -3613223302827932413
+    second: Bomb_Explosion_6x6_Aligned_3072_38
+  - first:
+      213: 1654639497107539618
+    second: Bomb_Explosion_6x6_Aligned_3072_39
+  - first:
+      213: 5954458275895395855
+    second: Bomb_Explosion_6x6_Aligned_3072_40
+  - first:
+      213: 6348938492278885609
+    second: Bomb_Explosion_6x6_Aligned_3072_41
+  - first:
+      213: 5782922702034632386
+    second: Bomb_Explosion_6x6_Aligned_3072_42
+  - first:
+      213: -1018564517934407133
+    second: Bomb_Explosion_6x6_Aligned_3072_43
+  - first:
+      213: -2193633744307143342
+    second: Bomb_Explosion_6x6_Aligned_3072_44
+  - first:
+      213: -3769875936534052796
+    second: Bomb_Explosion_6x6_Aligned_3072_45
+  - first:
+      213: -6110130263456508235
+    second: Bomb_Explosion_6x6_Aligned_3072_46
+  - first:
+      213: 2119833894670178845
+    second: Bomb_Explosion_6x6_Aligned_3072_47
+  - first:
+      213: 8318596959527285420
+    second: Bomb_Explosion_6x6_Aligned_3072_48
+  - first:
+      213: 1459744911350678091
+    second: Bomb_Explosion_6x6_Aligned_3072_49
+  - first:
+      213: 8599838615021697511
+    second: Bomb_Explosion_6x6_Aligned_3072_50
+  - first:
+      213: 6978508011300596609
+    second: Bomb_Explosion_6x6_Aligned_3072_51
+  - first:
+      213: -2279347181293563659
+    second: Bomb_Explosion_6x6_Aligned_3072_52
+  - first:
+      213: -505614729650383245
+    second: Bomb_Explosion_6x6_Aligned_3072_53
+  - first:
+      213: 5533054855470680604
+    second: Bomb_Explosion_6x6_Aligned_3072_54
+  - first:
+      213: 3097531907511392482
+    second: Bomb_Explosion_6x6_Aligned_3072_55
+  - first:
+      213: -6547193929285552786
+    second: Bomb_Explosion_6x6_Aligned_3072_56
+  - first:
+      213: -2724561919233782046
+    second: Bomb_Explosion_6x6_Aligned_3072_57
+  - first:
+      213: -2109845304213065080
+    second: Bomb_Explosion_6x6_Aligned_3072_58
+  - first:
+      213: 6207956933984426888
+    second: Bomb_Explosion_6x6_Aligned_3072_59
+  - first:
+      213: -3957750195544652123
+    second: Bomb_Explosion_6x6_Aligned_3072_60
+  - first:
+      213: -2016007090250320434
+    second: Bomb_Explosion_6x6_Aligned_3072_61
+  - first:
+      213: 8927768712596642523
+    second: Bomb_Explosion_6x6_Aligned_3072_62
+  - first:
+      213: 3777892893067505905
+    second: Bomb_Explosion_6x6_Aligned_3072_63
+  - first:
+      213: 7691246558492543840
+    second: Bomb_Explosion_6x6_Aligned_3072_64
+  - first:
+      213: -6042023744208008032
+    second: Bomb_Explosion_6x6_Aligned_3072_65
+  - first:
+      213: 3548317413232128309
+    second: Bomb_Explosion_6x6_Aligned_3072_66
+  - first:
+      213: 4026708215278058386
+    second: Bomb_Explosion_6x6_Aligned_3072_67
+  - first:
+      213: 3340886751021149909
+    second: Bomb_Explosion_6x6_Aligned_3072_68
+  - first:
+      213: -5377045525159655380
+    second: Bomb_Explosion_6x6_Aligned_3072_69
+  - first:
+      213: 4802391254406051826
+    second: Bomb_Explosion_6x6_Aligned_3072_70
+  - first:
+      213: -671594760847184960
+    second: Bomb_Explosion_6x6_Aligned_3072_71
+  - first:
+      213: 5560716053178157635
+    second: Bomb_Explosion_6x6_Aligned_3072_72
+  - first:
+      213: -8436474529459624730
+    second: Bomb_Explosion_6x6_Aligned_3072_73
+  - first:
+      213: -7547651602587558836
+    second: Bomb_Explosion_6x6_Aligned_3072_74
+  - first:
+      213: 5971597190032413665
+    second: Bomb_Explosion_6x6_Aligned_3072_75
+  - first:
+      213: 6938903620684677697
+    second: Bomb_Explosion_6x6_Aligned_3072_76
+  - first:
+      213: -270528466060308865
+    second: Bomb_Explosion_6x6_Aligned_3072_77
+  - first:
+      213: -3968328724243445471
+    second: Bomb_Explosion_6x6_Aligned_3072_78
+  - first:
+      213: -7809171993522420993
+    second: Bomb_Explosion_6x6_Aligned_3072_79
+  - first:
+      213: 5748332156971368891
+    second: Bomb_Explosion_6x6_Aligned_3072_80
+  - first:
+      213: -6313949482868697486
+    second: Bomb_Explosion_6x6_Aligned_3072_81
+  - first:
+      213: 3132194563533644451
+    second: Bomb_Explosion_6x6_Aligned_3072_82
+  - first:
+      213: -7038755428553156579
+    second: Bomb_Explosion_6x6_Aligned_3072_83
+  - first:
+      213: 4811936627456302903
+    second: Bomb_Explosion_6x6_Aligned_3072_84
+  - first:
+      213: 8551781952808627689
+    second: Bomb_Explosion_6x6_Aligned_3072_85
+  - first:
+      213: 4761077711504071707
+    second: Bomb_Explosion_6x6_Aligned_3072_86
+  - first:
+      213: -981204530723185534
+    second: Bomb_Explosion_6x6_Aligned_3072_87
+  - first:
+      213: 7796505083087095785
+    second: Bomb_Explosion_6x6_Aligned_3072_88
+  - first:
+      213: -5512326811457353811
+    second: Bomb_Explosion_6x6_Aligned_3072_89
+  - first:
+      213: 9064598289885674579
+    second: Bomb_Explosion_6x6_Aligned_3072_90
+  - first:
+      213: 2650306589702053038
+    second: Bomb_Explosion_6x6_Aligned_3072_91
+  - first:
+      213: 4672605189548871383
+    second: Bomb_Explosion_6x6_Aligned_3072_92
+  - first:
+      213: 2785202674879486221
+    second: Bomb_Explosion_6x6_Aligned_3072_93
+  - first:
+      213: 8297347214800299321
+    second: Bomb_Explosion_6x6_Aligned_3072_94
+  - first:
+      213: -3436836746151483176
+    second: Bomb_Explosion_6x6_Aligned_3072_95
+  - first:
+      213: 1728646492375696378
+    second: Bomb_Explosion_6x6_Aligned_3072_96
+  - first:
+      213: 7458393468842396705
+    second: Bomb_Explosion_6x6_Aligned_3072_97
+  - first:
+      213: 3156204349341856829
+    second: Bomb_Explosion_6x6_Aligned_3072_98
+  - first:
+      213: -4257844241482059866
+    second: Bomb_Explosion_6x6_Aligned_3072_99
+  - first:
+      213: 2046796582646963119
+    second: Bomb_Explosion_6x6_Aligned_3072_100
+  - first:
+      213: 285462641522822310
+    second: Bomb_Explosion_6x6_Aligned_3072_101
+  - first:
+      213: 4449581086625921572
+    second: Bomb_Explosion_6x6_Aligned_3072_102
+  - first:
+      213: 2272210293928906290
+    second: Bomb_Explosion_6x6_Aligned_3072_103
+  - first:
+      213: -6012674015049982917
+    second: Bomb_Explosion_6x6_Aligned_3072_104
+  - first:
+      213: 6800104440141959387
+    second: Bomb_Explosion_6x6_Aligned_3072_105
+  - first:
+      213: -5455519564049405311
+    second: Bomb_Explosion_6x6_Aligned_3072_106
+  - first:
+      213: 1405326553604152611
+    second: Bomb_Explosion_6x6_Aligned_3072_107
+  - first:
+      213: 6026096211599259543
+    second: Bomb_Explosion_6x6_Aligned_3072_108
+  - first:
+      213: -1163895902982083309
+    second: Bomb_Explosion_6x6_Aligned_3072_109
+  - first:
+      213: -6233631572897282313
+    second: Bomb_Explosion_6x6_Aligned_3072_110
+  - first:
+      213: -7265332874055569323
+    second: Bomb_Explosion_6x6_Aligned_3072_111
+  - first:
+      213: -2474952397047448342
+    second: Bomb_Explosion_6x6_Aligned_3072_112
+  - first:
+      213: -3006676825545117322
+    second: Bomb_Explosion_6x6_Aligned_3072_113
+  - first:
+      213: 6740759974070277252
+    second: Bomb_Explosion_6x6_Aligned_3072_114
+  - first:
+      213: -1332167187128516407
+    second: Bomb_Explosion_6x6_Aligned_3072_115
+  - first:
+      213: -3706144254686849409
+    second: Bomb_Explosion_6x6_Aligned_3072_116
+  - first:
+      213: 5824979015790898945
+    second: Bomb_Explosion_6x6_Aligned_3072_117
+  - first:
+      213: -6692258656576506947
+    second: Bomb_Explosion_6x6_Aligned_3072_118
+  - first:
+      213: -6212386057054359806
+    second: Bomb_Explosion_6x6_Aligned_3072_119
+  - first:
+      213: 7986147581255432453
+    second: Bomb_Explosion_6x6_Aligned_3072_120
+  - first:
+      213: 998483105184165902
+    second: Bomb_Explosion_6x6_Aligned_3072_121
+  - first:
+      213: 3528519790389424779
+    second: Bomb_Explosion_6x6_Aligned_3072_122
+  - first:
+      213: 7093345247952906549
+    second: Bomb_Explosion_6x6_Aligned_3072_123
+  - first:
+      213: 8942791581624693057
+    second: Bomb_Explosion_6x6_Aligned_3072_124
+  - first:
+      213: 406690393852828298
+    second: Bomb_Explosion_6x6_Aligned_3072_125
+  - first:
+      213: -3633877955442754642
+    second: Bomb_Explosion_6x6_Aligned_3072_126
+  - first:
+      213: 287881125226962355
+    second: Bomb_Explosion_6x6_Aligned_3072_127
+  - first:
+      213: 5826358924089951930
+    second: Bomb_Explosion_6x6_Aligned_3072_128
+  - first:
+      213: 5853083386165836151
+    second: Bomb_Explosion_6x6_Aligned_3072_129
+  - first:
+      213: 7060755319360148750
+    second: Bomb_Explosion_6x6_Aligned_3072_130
+  - first:
+      213: 3763751936686743114
+    second: Bomb_Explosion_6x6_Aligned_3072_131
+  - first:
+      213: 7749645387413383417
+    second: Bomb_Explosion_6x6_Aligned_3072_132
+  - first:
+      213: 3640828251172034680
+    second: Bomb_Explosion_6x6_Aligned_3072_133
+  - first:
+      213: 1738344590020071202
+    second: Bomb_Explosion_6x6_Aligned_3072_134
+  - first:
+      213: -9015769683022447454
+    second: Bomb_Explosion_6x6_Aligned_3072_135
+  - first:
+      213: 1621165054142001897
+    second: Bomb_Explosion_6x6_Aligned_3072_136
+  - first:
+      213: 8846161849592192807
+    second: Bomb_Explosion_6x6_Aligned_3072_137
+  - first:
+      213: 3203147469878194850
+    second: Bomb_Explosion_6x6_Aligned_3072_138
+  - first:
+      213: -1480615899636917339
+    second: Bomb_Explosion_6x6_Aligned_3072_139
+  - first:
+      213: -6268708128031685851
+    second: Bomb_Explosion_6x6_Aligned_3072_140
+  - first:
+      213: 7763495341629039632
+    second: Bomb_Explosion_6x6_Aligned_3072_141
+  - first:
+      213: -7965738093135245016
+    second: Bomb_Explosion_6x6_Aligned_3072_142
+  - first:
+      213: -1862625698455257823
+    second: Bomb_Explosion_6x6_Aligned_3072_143
+  - first:
+      213: -5002193205537389878
+    second: Bomb_Explosion_6x6_Aligned_3072_144
+  - first:
+      213: 8822195881039061841
+    second: Bomb_Explosion_6x6_Aligned_3072_145
+  - first:
+      213: -7829146484439013527
+    second: Bomb_Explosion_6x6_Aligned_3072_146
+  - first:
+      213: 7153758453261201691
+    second: Bomb_Explosion_6x6_Aligned_3072_147
+  - first:
+      213: 3297549664656117859
+    second: Bomb_Explosion_6x6_Aligned_3072_148
+  - first:
+      213: 2811886686344474275
+    second: Bomb_Explosion_6x6_Aligned_3072_149
+  - first:
+      213: 6564147646029943326
+    second: Bomb_Explosion_6x6_Aligned_3072_150
+  - first:
+      213: -7789067322352022344
+    second: Bomb_Explosion_6x6_Aligned_3072_151
+  - first:
+      213: -5825587429230748091
+    second: Bomb_Explosion_6x6_Aligned_3072_152
+  - first:
+      213: 2810052833996571899
+    second: Bomb_Explosion_6x6_Aligned_3072_153
+  - first:
+      213: 9208639379423030224
+    second: Bomb_Explosion_6x6_Aligned_3072_154
+  - first:
+      213: 7252114041868577412
+    second: Bomb_Explosion_6x6_Aligned_3072_155
+  - first:
+      213: -3470524387968619521
+    second: Bomb_Explosion_6x6_Aligned_3072_156
+  - first:
+      213: 2812138232210930536
+    second: Bomb_Explosion_6x6_Aligned_3072_157
+  - first:
+      213: -5513859500886640060
+    second: Bomb_Explosion_6x6_Aligned_3072_158
+  - first:
+      213: -211019825012134191
+    second: Bomb_Explosion_6x6_Aligned_3072_159
+  - first:
+      213: -6054846396859844411
+    second: Bomb_Explosion_6x6_Aligned_3072_160
+  - first:
+      213: 5163093197735421055
+    second: Bomb_Explosion_6x6_Aligned_3072_161
+  - first:
+      213: 5522623699135625670
+    second: Bomb_Explosion_6x6_Aligned_3072_162
+  - first:
+      213: 3951153348470758562
+    second: Bomb_Explosion_6x6_Aligned_3072_163
+  - first:
+      213: 1715784271075133552
+    second: Bomb_Explosion_6x6_Aligned_3072_164
+  - first:
+      213: 8135757682509176561
+    second: Bomb_Explosion_6x6_Aligned_3072_165
+  - first:
+      213: -6457830644434798957
+    second: Bomb_Explosion_6x6_Aligned_3072_166
+  - first:
+      213: -322578318871435729
+    second: Bomb_Explosion_6x6_Aligned_3072_167
+  - first:
+      213: 4052028364187397526
+    second: Bomb_Explosion_6x6_Aligned_3072_168
+  - first:
+      213: 2008053350396986478
+    second: Bomb_Explosion_6x6_Aligned_3072_169
+  - first:
+      213: -3230454678744070037
+    second: Bomb_Explosion_6x6_Aligned_3072_170
+  - first:
+      213: -3778394160618999347
+    second: Bomb_Explosion_6x6_Aligned_3072_171
+  - first:
+      213: 1191405927621819823
+    second: Bomb_Explosion_6x6_Aligned_3072_172
+  - first:
+      213: 8372142409368225983
+    second: Bomb_Explosion_6x6_Aligned_3072_173
+  - first:
+      213: -3245812133148504491
+    second: Bomb_Explosion_6x6_Aligned_3072_174
+  - first:
+      213: -3997074276071388730
+    second: Bomb_Explosion_6x6_Aligned_3072_175
+  - first:
+      213: 4737968194267440809
+    second: Bomb_Explosion_6x6_Aligned_3072_176
+  - first:
+      213: -2966767119851777407
+    second: Bomb_Explosion_6x6_Aligned_3072_177
+  - first:
+      213: -8112314897086012983
+    second: Bomb_Explosion_6x6_Aligned_3072_178
+  - first:
+      213: -8648205387844671890
+    second: Bomb_Explosion_6x6_Aligned_3072_179
+  - first:
+      213: 3419562986905525187
+    second: Bomb_Explosion_6x6_Aligned_3072_180
+  - first:
+      213: -6544255830566172193
+    second: Bomb_Explosion_6x6_Aligned_3072_181
+  - first:
+      213: 482995176937488757
+    second: Bomb_Explosion_6x6_Aligned_3072_182
+  - first:
+      213: -269016365413599816
+    second: Bomb_Explosion_6x6_Aligned_3072_183
+  - first:
+      213: -5900874422045325074
+    second: Bomb_Explosion_6x6_Aligned_3072_184
+  - first:
+      213: 2798832199431226086
+    second: Bomb_Explosion_6x6_Aligned_3072_185
+  - first:
+      213: -2348809310145610184
+    second: Bomb_Explosion_6x6_Aligned_3072_186
+  - first:
+      213: 8675919949664421861
+    second: Bomb_Explosion_6x6_Aligned_3072_187
+  - first:
+      213: 5633596828019633236
+    second: Bomb_Explosion_6x6_Aligned_3072_188
+  - first:
+      213: -4065054825261475457
+    second: Bomb_Explosion_6x6_Aligned_3072_189
+  - first:
+      213: -2427631129795625848
+    second: Bomb_Explosion_6x6_Aligned_3072_190
+  - first:
+      213: 5678686170581605636
+    second: Bomb_Explosion_6x6_Aligned_3072_191
+  - first:
+      213: 4368466186672043404
+    second: Bomb_Explosion_6x6_Aligned_3072_192
+  - first:
+      213: -7482007817256585243
+    second: Bomb_Explosion_6x6_Aligned_3072_193
+  - first:
+      213: 4294561822376072917
+    second: Bomb_Explosion_6x6_Aligned_3072_194
+  - first:
+      213: 7260806671043143825
+    second: Bomb_Explosion_6x6_Aligned_3072_195
+  - first:
+      213: 6368851315532963376
+    second: Bomb_Explosion_6x6_Aligned_3072_196
+  - first:
+      213: 6788842738927694199
+    second: Bomb_Explosion_6x6_Aligned_3072_197
+  - first:
+      213: -3460707825998094714
+    second: Bomb_Explosion_6x6_Aligned_3072_198
+  - first:
+      213: -7371539692140245437
+    second: Bomb_Explosion_6x6_Aligned_3072_199
+  - first:
+      213: 800499305437940660
+    second: Bomb_Explosion_6x6_Aligned_3072_200
+  - first:
+      213: 5088840745433982366
+    second: Bomb_Explosion_6x6_Aligned_3072_201
+  - first:
+      213: 7405785028192336974
+    second: Bomb_Explosion_6x6_Aligned_3072_202
+  - first:
+      213: -4279861563621054169
+    second: Bomb_Explosion_6x6_Aligned_3072_203
+  - first:
+      213: 1524185520470097284
+    second: Bomb_Explosion_6x6_Aligned_3072_204
+  - first:
+      213: -1022129252242676240
+    second: Bomb_Explosion_6x6_Aligned_3072_205
+  - first:
+      213: -113143969916617021
+    second: Bomb_Explosion_6x6_Aligned_3072_206
+  - first:
+      213: 7056674230353403379
+    second: Bomb_Explosion_6x6_Aligned_3072_207
+  - first:
+      213: -4909023321958492661
+    second: Bomb_Explosion_6x6_Aligned_3072_208
+  - first:
+      213: -6650177392843619899
+    second: Bomb_Explosion_6x6_Aligned_3072_209
+  - first:
+      213: 6790214698918700801
+    second: Bomb_Explosion_6x6_Aligned_3072_210
+  - first:
+      213: -5726089764554942942
+    second: Bomb_Explosion_6x6_Aligned_3072_211
+  - first:
+      213: 2144456954411434011
+    second: Bomb_Explosion_6x6_Aligned_3072_212
+  - first:
+      213: -1977264246273525699
+    second: Bomb_Explosion_6x6_Aligned_3072_213
+  - first:
+      213: -1949152629969091761
+    second: Bomb_Explosion_6x6_Aligned_3072_214
+  - first:
+      213: -880829874341761214
+    second: Bomb_Explosion_6x6_Aligned_3072_215
+  - first:
+      213: -6739863737359906958
+    second: Bomb_Explosion_6x6_Aligned_3072_216
+  - first:
+      213: 549143331373420724
+    second: Bomb_Explosion_6x6_Aligned_3072_217
+  - first:
+      213: 3662396556199355322
+    second: Bomb_Explosion_6x6_Aligned_3072_218
+  - first:
+      213: 2000755440776510413
+    second: Bomb_Explosion_6x6_Aligned_3072_219
+  - first:
+      213: 4111653441550942088
+    second: Bomb_Explosion_6x6_Aligned_3072_220
+  - first:
+      213: -1346945298356607927
+    second: Bomb_Explosion_6x6_Aligned_3072_221
+  - first:
+      213: 6658676051297911241
+    second: Bomb_Explosion_6x6_Aligned_3072_222
+  - first:
+      213: -3811522395655235135
+    second: Bomb_Explosion_6x6_Aligned_3072_223
+  - first:
+      213: 3494726523270094307
+    second: Bomb_Explosion_6x6_Aligned_3072_224
+  - first:
+      213: 4071639005303738939
+    second: Bomb_Explosion_6x6_Aligned_3072_225
+  - first:
+      213: 8771109708669300018
+    second: Bomb_Explosion_6x6_Aligned_3072_226
+  - first:
+      213: -5747283750752967812
+    second: Bomb_Explosion_6x6_Aligned_3072_227
+  - first:
+      213: 2487814895046670547
+    second: Bomb_Explosion_6x6_Aligned_3072_228
+  - first:
+      213: 2149937691560368201
+    second: Bomb_Explosion_6x6_Aligned_3072_229
+  - first:
+      213: 5562345045628125724
+    second: Bomb_Explosion_6x6_Aligned_3072_230
+  - first:
+      213: -4173024319490533182
+    second: Bomb_Explosion_6x6_Aligned_3072_231
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 300
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56e609a0f0442c3e0800000000000000
+      internalID: -2034989250225607067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_1
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee1ba0cf56b2a7860800000000000000
+      internalID: 7528377444123455982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_2
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b519a92f34df4760800000000000000
+      internalID: 7444402076813694386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_3
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32803431f5c777410800000000000000
+      internalID: 1474784150774024227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_4
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12f9fd7ed106c0c10800000000000000
+      internalID: 2021096014343020321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_5
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 529ba93a9e5ea4cf0800000000000000
+      internalID: -267148436240156379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c5b73595b1542500800000000000000
+      internalID: 370510909685609926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_7
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2bae453e50757fed0800000000000000
+      internalID: -2380338195241571662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_8
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 133f6ba879d305d20800000000000000
+      internalID: 3265177450920211249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_9
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f38ebd9dc6908cb20800000000000000
+      internalID: 3154781902089218111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_10
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98b55a5be777e2fc0800000000000000
+      internalID: -3517742872832681079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_11
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 201936dab6c82f450800000000000000
+      internalID: 6121109237648298242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9a174f0c704e7a80800000000000000
+      internalID: -8467259347833513314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_13
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fca2f2cc1377cc5d0800000000000000
+      internalID: -3040924592619181361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_14
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a56152e10413b91a0800000000000000
+      internalID: -6801788660759587238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_15
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1389464ef079d0410800000000000000
+      internalID: 1444977149967898673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_16
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56d0223c45b2bdfb0800000000000000
+      internalID: -4622052949514646171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_17
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e6c0466c8e2059c0800000000000000
+      internalID: -3940598493403363616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79208d7cc8a4a2880800000000000000
+      internalID: -8635007367020805481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_19
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36d761b70dc9c2040800000000000000
+      internalID: 4624243336634858851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_20
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9a8126bc76d23b40800000000000000
+      internalID: 5418629132800068255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_21
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 666ac40976645dc80800000000000000
+      internalID: -8298649327743752602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_22
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 163f4a47d34f6c290800000000000000
+      internalID: -7870334753996213407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_23
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d3705ea677b07a10800000000000000
+      internalID: 1905224362736251860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 154fcf12f2cf0b160800000000000000
+      internalID: 7039403496943973457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_25
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a7261fe7279d74f0800000000000000
+      internalID: -829340558595577946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_26
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 371007f375e20c0c0800000000000000
+      internalID: -4557591870637604493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_27
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d786dfd752474680800000000000000
+      internalID: -8770968804095785000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_28
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08f5bf6d40e5ae6b0800000000000000
+      internalID: -5266293439376695424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_29
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c23a35678cf3ae990800000000000000
+      internalID: -7355996911145082068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c3801ba6e417d3d0800000000000000
+      internalID: -3182051630768946238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_31
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 065766037b567ecc0800000000000000
+      internalID: -3681862332886649504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_32
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0af8958d735ceb3c0800000000000000
+      internalID: -4341816147094958176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_33
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2890b56da85a8c0d0800000000000000
+      internalID: -3402287502758049406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_34
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0b2c79f934de7fa0800000000000000
+      internalID: -5800965924542731509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomb_Explosion_6x6_Aligned_3072_35
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b76467bd75292ebd0800000000000000
+      internalID: -2602356728624953733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: ea14b7e80000615419a5feeede3a950f
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":6.0,"y":6.0},"gridSpriteSize":{"x":512.0,"y":512.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      Bomb_Explosion_6x6_Aligned_3072_0: -2034989250225607067
+      Bomb_Explosion_6x6_Aligned_3072_1: 7528377444123455982
+      Bomb_Explosion_6x6_Aligned_3072_10: -3517742872832681079
+      Bomb_Explosion_6x6_Aligned_3072_11: 6121109237648298242
+      Bomb_Explosion_6x6_Aligned_3072_12: -8467259347833513314
+      Bomb_Explosion_6x6_Aligned_3072_13: -3040924592619181361
+      Bomb_Explosion_6x6_Aligned_3072_14: -6801788660759587238
+      Bomb_Explosion_6x6_Aligned_3072_15: 1444977149967898673
+      Bomb_Explosion_6x6_Aligned_3072_16: -4622052949514646171
+      Bomb_Explosion_6x6_Aligned_3072_17: -3940598493403363616
+      Bomb_Explosion_6x6_Aligned_3072_18: -8635007367020805481
+      Bomb_Explosion_6x6_Aligned_3072_19: 4624243336634858851
+      Bomb_Explosion_6x6_Aligned_3072_2: 7444402076813694386
+      Bomb_Explosion_6x6_Aligned_3072_20: 5418629132800068255
+      Bomb_Explosion_6x6_Aligned_3072_21: -8298649327743752602
+      Bomb_Explosion_6x6_Aligned_3072_22: -7870334753996213407
+      Bomb_Explosion_6x6_Aligned_3072_23: 1905224362736251860
+      Bomb_Explosion_6x6_Aligned_3072_24: 7039403496943973457
+      Bomb_Explosion_6x6_Aligned_3072_25: -829340558595577946
+      Bomb_Explosion_6x6_Aligned_3072_26: -4557591870637604493
+      Bomb_Explosion_6x6_Aligned_3072_27: -8770968804095785000
+      Bomb_Explosion_6x6_Aligned_3072_28: -5266293439376695424
+      Bomb_Explosion_6x6_Aligned_3072_29: -7355996911145082068
+      Bomb_Explosion_6x6_Aligned_3072_3: 1474784150774024227
+      Bomb_Explosion_6x6_Aligned_3072_30: -3182051630768946238
+      Bomb_Explosion_6x6_Aligned_3072_31: -3681862332886649504
+      Bomb_Explosion_6x6_Aligned_3072_32: -4341816147094958176
+      Bomb_Explosion_6x6_Aligned_3072_33: -3402287502758049406
+      Bomb_Explosion_6x6_Aligned_3072_34: -5800965924542731509
+      Bomb_Explosion_6x6_Aligned_3072_35: -2602356728624953733
+      Bomb_Explosion_6x6_Aligned_3072_4: 2021096014343020321
+      Bomb_Explosion_6x6_Aligned_3072_5: -267148436240156379
+      Bomb_Explosion_6x6_Aligned_3072_6: 370510909685609926
+      Bomb_Explosion_6x6_Aligned_3072_7: -2380338195241571662
+      Bomb_Explosion_6x6_Aligned_3072_8: 3265177450920211249
+      Bomb_Explosion_6x6_Aligned_3072_9: 3154781902089218111
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

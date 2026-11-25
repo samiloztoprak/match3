@@ -8,7 +8,7 @@ public static class RaycastTargetCleaner
     private static void Clean()
     {
         int fixedCount = 0;
-        foreach (Graphic graphic in Object.FindObjectsByType<Graphic>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        foreach (Graphic graphic in Object.FindObjectsByType<Graphic>(FindObjectsInactive.Include))
         {
             if (!graphic.raycastTarget) continue;
 

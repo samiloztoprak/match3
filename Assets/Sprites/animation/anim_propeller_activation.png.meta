@@ -1,0 +1,1144 @@
+fileFormatVersion: 2
+guid: a5f2426b1dbe4c9489ef93674b237422
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4940492108541823418
+    second: propeller_activation_0
+  - first:
+      213: 6360630930479440028
+    second: propeller_activation_1
+  - first:
+      213: 8279322951989906717
+    second: propeller_activation_2
+  - first:
+      213: -8162856906236696214
+    second: propeller_activation_3
+  - first:
+      213: -4448363647726239754
+    second: propeller_activation_4
+  - first:
+      213: 2722692209385517348
+    second: propeller_activation_5
+  - first:
+      213: -1326315240267156499
+    second: propeller_activation_6
+  - first:
+      213: 4316910986990937258
+    second: propeller_activation_7
+  - first:
+      213: -1564162158983627884
+    second: propeller_activation_8
+  - first:
+      213: 6950826565677031636
+    second: propeller_activation_9
+  - first:
+      213: 6645038677523125302
+    second: propeller_activation_10
+  - first:
+      213: -7561064834776049429
+    second: propeller_activation_11
+  - first:
+      213: 1604821435120628215
+    second: propeller_activation_12
+  - first:
+      213: -2967644267952970482
+    second: propeller_activation_13
+  - first:
+      213: -4816555587244948095
+    second: propeller_activation_14
+  - first:
+      213: 1469206980163347023
+    second: propeller_activation_15
+  - first:
+      213: 2506658455826351735
+    second: propeller_activation_16
+  - first:
+      213: 5083213401917870938
+    second: propeller_activation_17
+  - first:
+      213: -2361285761037347459
+    second: propeller_activation_18
+  - first:
+      213: 7784669353294687058
+    second: propeller_activation_19
+  - first:
+      213: -7010102207170246061
+    second: propeller_activation_20
+  - first:
+      213: 8618842935003382181
+    second: propeller_activation_21
+  - first:
+      213: 1646073309692591779
+    second: propeller_activation_22
+  - first:
+      213: -5956829940281886355
+    second: propeller_activation_23
+  - first:
+      213: -6163802482281200349
+    second: propeller_activation_24
+  - first:
+      213: -3011292843053601275
+    second: propeller_activation_25
+  - first:
+      213: 5460171481976607712
+    second: propeller_activation_26
+  - first:
+      213: -1676422793395202573
+    second: propeller_activation_27
+  - first:
+      213: -8389601185235577411
+    second: propeller_activation_28
+  - first:
+      213: 6000717710097464655
+    second: propeller_activation_29
+  - first:
+      213: 6176180326094010606
+    second: propeller_activation_30
+  - first:
+      213: 754564707483140106
+    second: propeller_activation_31
+  - first:
+      213: 7393281645600958004
+    second: propeller_activation_32
+  - first:
+      213: 8278677731956874781
+    second: propeller_activation_33
+  - first:
+      213: -5655016875765491139
+    second: propeller_activation_34
+  - first:
+      213: 7552913108850257758
+    second: propeller_activation_35
+  - first:
+      213: -6062458648570709091
+    second: propeller_activation_36
+  - first:
+      213: 7655371454873644330
+    second: propeller_activation_37
+  - first:
+      213: 7205597423471646020
+    second: propeller_activation_38
+  - first:
+      213: -8763249899346738722
+    second: propeller_activation_39
+  - first:
+      213: 394053555615015158
+    second: propeller_activation_40
+  - first:
+      213: 7125017307180821838
+    second: propeller_activation_41
+  - first:
+      213: 4639581129893231002
+    second: propeller_activation_42
+  - first:
+      213: -9170058734451234095
+    second: propeller_activation_43
+  - first:
+      213: -6871923071076130611
+    second: propeller_activation_44
+  - first:
+      213: 1029272590008004664
+    second: propeller_activation_45
+  - first:
+      213: -1016411030984380764
+    second: propeller_activation_46
+  - first:
+      213: 4628591794674346564
+    second: propeller_activation_47
+  - first:
+      213: -2574485327443475489
+    second: propeller_activation_48
+  - first:
+      213: 458650864140264605
+    second: propeller_activation_49
+  - first:
+      213: -8963071541045230709
+    second: propeller_activation_50
+  - first:
+      213: 517713615664327479
+    second: propeller_activation_51
+  - first:
+      213: -7349098654004527366
+    second: propeller_activation_52
+  - first:
+      213: -6191806163178250599
+    second: propeller_activation_53
+  - first:
+      213: 6505473395957503052
+    second: propeller_activation_54
+  - first:
+      213: 5215957616037369843
+    second: propeller_activation_55
+  - first:
+      213: 1640834156371361798
+    second: propeller_activation_56
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 300
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: anim_propeller_activation_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3840
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21cfdf531eab46747a18583a60bb6863
+      internalID: 1044080782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_1
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 3840
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aea1db039cc670d4991a7e2fc8915aed
+      internalID: 1134801714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_2
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 3840
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a53c4c61414c669488a8c392cec9f6ca
+      internalID: 738253666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_3
+      rect:
+        serializedVersion: 2
+        x: 2304
+        y: 3840
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d17ce78b14fd6a47a1be8b168737caa
+      internalID: 1311802151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_4
+      rect:
+        serializedVersion: 2
+        x: 3072
+        y: 3840
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 106b37d6f4e59c3469706719a7ca4bf8
+      internalID: -191965274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_5
+      rect:
+        serializedVersion: 2
+        x: 3840
+        y: 3840
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9feb2b54c0fb10e4ba76c52008a205da
+      internalID: 2132648870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3072
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cefe6de583f4b84b837cf31bfc09a33
+      internalID: -1102239485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_7
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 3072
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c95f469e6546f50449daa528a874436c
+      internalID: 652872740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_8
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 3072
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20bb6532e2583ec449e7bc0bed983bdc
+      internalID: 1576145582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_9
+      rect:
+        serializedVersion: 2
+        x: 2304
+        y: 3072
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b454f2b117df194c92c38cf4b2e14e9
+      internalID: -2098005858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_10
+      rect:
+        serializedVersion: 2
+        x: 3072
+        y: 3072
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 185157c875210af4c9b4cb7bbd334b0d
+      internalID: 730775917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_11
+      rect:
+        serializedVersion: 2
+        x: 3840
+        y: 3072
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 130ef7cbef702ea48a660ec97c8fecc5
+      internalID: 1377926532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2304
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba92ba93862bb734aa3e7b528b5240cf
+      internalID: -1998495035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_13
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 2304
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21caa6fe977390444801c9f4d60ee83c
+      internalID: 1465944378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_14
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 2304
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: edec12f99b55a3143a8e5650336a03ae
+      internalID: -992347485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_15
+      rect:
+        serializedVersion: 2
+        x: 2304
+        y: 2304
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ca6295f4f5fea64a8ed7f654a801e1a
+      internalID: 650550463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_16
+      rect:
+        serializedVersion: 2
+        x: 3072
+        y: 2304
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52c7d93c696694d49bc46ec3184d4766
+      internalID: 1529971339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_17
+      rect:
+        serializedVersion: 2
+        x: 3840
+        y: 2304
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a39e66603ea4d81498f0b22d4c03d9c3
+      internalID: 187680000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1536
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fe96225e19e3064fb106d6127807217
+      internalID: -515959769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_19
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 1536
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9636b4d5e3b62a4e9251aefe4f45f7b
+      internalID: -1380322382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_20
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1536
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a79250f1d85e5f145b6f8eec895eb06d
+      internalID: -564431530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_21
+      rect:
+        serializedVersion: 2
+        x: 2304
+        y: 1536
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f410a674718af7488f969fdb24c8513
+      internalID: -70978353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_22
+      rect:
+        serializedVersion: 2
+        x: 3072
+        y: 1536
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3da957e1ec8d27448beeaf931a3fa483
+      internalID: -176958504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_23
+      rect:
+        serializedVersion: 2
+        x: 3840
+        y: 1536
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62cbd10273a0a0c408a02e171c3870e0
+      internalID: 1977742848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 768
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 047fe237008322b4ba80f3bda6710d28
+      internalID: 1246508549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_25
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 768
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: faf552b3eb42aac45bac80ceda4d9fca
+      internalID: -1181303759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_26
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 768
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9d0650bd3e5e464a9ffece243f8f604
+      internalID: 724890146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_27
+      rect:
+        serializedVersion: 2
+        x: 2304
+        y: 768
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71076e8afd8bdd047ab7f317c0a126bd
+      internalID: 1727919851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_28
+      rect:
+        serializedVersion: 2
+        x: 3072
+        y: 768
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d00c322fc369e4b42bf47ca7ba76a4d8
+      internalID: -504692500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_29
+      rect:
+        serializedVersion: 2
+        x: 3840
+        y: 768
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a08e0afa1f980c4cab4a2f5c80fbf1b
+      internalID: 1622132098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f23df0301a9e7c0439c188582982f1ad
+      internalID: 841434919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_31
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d247b738d289094fb38928b3d884f16
+      internalID: -2092865564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_32
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 0
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00041e0931dcc624da5fb5aec63501c5
+      internalID: 1534671486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_33
+      rect:
+        serializedVersion: 2
+        x: 2304
+        y: 0
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0de1b9b0006869042b6e3de5ad9dc757
+      internalID: -1825133408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_34
+      rect:
+        serializedVersion: 2
+        x: 3072
+        y: 0
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 079133003db62e744824738c8adc934c
+      internalID: -939082481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: anim_propeller_activation_35
+      rect:
+        serializedVersion: 2
+        x: 3840
+        y: 0
+        width: 768
+        height: 768
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8bd4c0d21efdab4e921ef8ffdb51e87
+      internalID: -389373737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: e5966b6b69ee21d47b45b1e47152991b
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":6.0,"y":6.0},"gridSpriteSize":{"x":768.0,"y":768.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      anim_propeller_activation_0: 1044080782
+      anim_propeller_activation_1: 1134801714
+      anim_propeller_activation_10: 730775917
+      anim_propeller_activation_11: 1377926532
+      anim_propeller_activation_12: -1998495035
+      anim_propeller_activation_13: 1465944378
+      anim_propeller_activation_14: -992347485
+      anim_propeller_activation_15: 650550463
+      anim_propeller_activation_16: 1529971339
+      anim_propeller_activation_17: 187680000
+      anim_propeller_activation_18: -515959769
+      anim_propeller_activation_19: -1380322382
+      anim_propeller_activation_2: 738253666
+      anim_propeller_activation_20: -564431530
+      anim_propeller_activation_21: -70978353
+      anim_propeller_activation_22: -176958504
+      anim_propeller_activation_23: 1977742848
+      anim_propeller_activation_24: 1246508549
+      anim_propeller_activation_25: -1181303759
+      anim_propeller_activation_26: 724890146
+      anim_propeller_activation_27: 1727919851
+      anim_propeller_activation_28: -504692500
+      anim_propeller_activation_29: 1622132098
+      anim_propeller_activation_3: 1311802151
+      anim_propeller_activation_30: 841434919
+      anim_propeller_activation_31: -2092865564
+      anim_propeller_activation_32: 1534671486
+      anim_propeller_activation_33: -1825133408
+      anim_propeller_activation_34: -939082481
+      anim_propeller_activation_35: -389373737
+      anim_propeller_activation_4: -191965274
+      anim_propeller_activation_5: 2132648870
+      anim_propeller_activation_6: -1102239485
+      anim_propeller_activation_7: 652872740
+      anim_propeller_activation_8: 1576145582
+      anim_propeller_activation_9: -2098005858
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

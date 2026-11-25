@@ -7,5 +7,6 @@ public static class SortingOrders
     public const int Floor           =  -1;
     public const int Piece           =   0;
     public const int Overlay         =   1;
+    public const int Explosion       =   5;
     public const int Flight          =  10;
 }

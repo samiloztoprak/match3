@@ -1,0 +1,976 @@
+fileFormatVersion: 2
+guid: d98cc8f13e6462146a187e39e67572a9
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 691269116142300152
+    second: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_0"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 190
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_0"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1045
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fb2cdf3991e79900800000000000000
+      internalID: 691269116142300152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_1"
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 1045
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12e9b74717e99ef419c483d33111fffc
+      internalID: 949669514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_2"
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 1045
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e310e7bc91fded04c8610a392d8a00b0
+      internalID: 2129793633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_3"
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 1045
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e668e33c1a16273438f3fd3cd4e2c5f0
+      internalID: -499992219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_4"
+      rect:
+        serializedVersion: 2
+        x: 836
+        y: 1045
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c4513fd805df5140807cf76b5aa2e7a
+      internalID: -518402352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_5"
+      rect:
+        serializedVersion: 2
+        x: 1045
+        y: 1045
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d786a0c7c6bf2545b98c7c3a1ff6c9e
+      internalID: 548248916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_6"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 836
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f61f3de06cc3b94999f8345ad5f754d
+      internalID: 1526178085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_7"
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 836
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36a1e204ded94db4ca94e9124d07484b
+      internalID: -2087919966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_8"
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 836
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6efd4c7372d8f6846a2f5706810604ae
+      internalID: -1132721361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_9"
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 836
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11fe7b7b88a7b344d822ae72e229bd9f
+      internalID: 1758552578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_10"
+      rect:
+        serializedVersion: 2
+        x: 836
+        y: 836
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a95ea21b925078d46a1c9d804b32358e
+      internalID: -1105340175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_11"
+      rect:
+        serializedVersion: 2
+        x: 1045
+        y: 836
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f47f63806fe7a749831fd917874189f
+      internalID: -818876817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_12"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 627
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1b4190d16981594294f97e63154e302
+      internalID: -309933263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_13"
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 627
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf7470cf53073d94aa8916378362662e
+      internalID: 622632699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_14"
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 627
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd2f091ae23503947b19c289372090c5
+      internalID: 689898399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_15"
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 627
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7dec3c4439cc4704c961d086db14b8e2
+      internalID: 2066683529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_16"
+      rect:
+        serializedVersion: 2
+        x: 836
+        y: 627
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e489fecb215126747b50b2053eccd72e
+      internalID: 1904287140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_17"
+      rect:
+        serializedVersion: 2
+        x: 1045
+        y: 627
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46d550ff0918464408f4529809c38673
+      internalID: -872561100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_18"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 418
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa6b9e517eaddff4bae39db6675fccf0
+      internalID: -130740123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_19"
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 418
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 053581d6bfca2c941a8b88b286cb8f45
+      internalID: -1452415458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_20"
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 418
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce4fa8259e1c709488473508660b2192
+      internalID: 1636002467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_21"
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 418
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3fe3938bc856874d835dba3819133f3
+      internalID: -1902991828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_22"
+      rect:
+        serializedVersion: 2
+        x: 836
+        y: 418
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5541bca834bc2d4b8bbcdbbde189ddb
+      internalID: 1528812152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_23"
+      rect:
+        serializedVersion: 2
+        x: 1045
+        y: 418
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5fe648b67536d7945b0e2c902f16447a
+      internalID: -339188883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_24"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 209
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b1479fd201a555438ce155166e2a053
+      internalID: -969042474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_25"
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 209
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b2efe09aad62f449a58e165ff530094
+      internalID: -1740953096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_26"
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 209
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7caa5bf8898c97b449ebc3d343859965
+      internalID: 1281600291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_27"
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 209
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2e9781fd702bf54380431e53975dce6
+      internalID: -1406941336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_28"
+      rect:
+        serializedVersion: 2
+        x: 836
+        y: 209
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90f52ebf1efc32f4bae15757ce875c47
+      internalID: -1660451953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_29"
+      rect:
+        serializedVersion: 2
+        x: 1045
+        y: 209
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4bda63cf8879534d9e3fa92b0d9bc77
+      internalID: 1100473138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_30"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92bc45f3ce7e9ad41b43365c19c51d2f
+      internalID: 87535509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_31"
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 0
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97d96428502f0a344ad1b8263f19416c
+      internalID: -1377879481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_32"
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 0
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fac08152efcfa5e4c8b45222748a5948
+      internalID: -2002770762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_33"
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 0
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8090ce76aff0cc4b9e15ece41523e35
+      internalID: -597520478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_34"
+      rect:
+        serializedVersion: 2
+        x: 836
+        y: 0
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 056f9e4b4fcb4c34b85d4a08b9f6e182
+      internalID: -266121848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_35"
+      rect:
+        serializedVersion: 2
+        x: 1045
+        y: 0
+        width: 209
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8552eddcce9514441a84791bed223098
+      internalID: 2031128767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5f6c981a37f8ef6458aefc53ae72d1b0
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":6.0,"y":6.0},"gridSpriteSize":{"x":209.0,"y":209.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_0": 691269116142300152
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_1": 949669514
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_10": -1105340175
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_11": -818876817
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_12": -309933263
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_13": 622632699
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_14": 689898399
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_15": 2066683529
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_16": 1904287140
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_17": -872561100
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_18": -130740123
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_19": -1452415458
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_2": 2129793633
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_20": 1636002467
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_21": -1902991828
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_22": 1528812152
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_23": -339188883
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_24": -969042474
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_25": -1740953096
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_26": 1281600291
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_27": -1406941336
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_28": -1660451953
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_29": 1100473138
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_3": -499992219
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_30": 87535509
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_31": -1377879481
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_32": -2002770762
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_33": -597520478
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_34": -266121848
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_35": 2031128767
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_4": -518402352
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_5": 548248916
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_6": 1526178085
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_7": -2087919966
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_8": -1132721361
+      "B\xFCy\xFCl\xFC K\xFCrenin Enerji Patlamas\u0131_9": 1758552578
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

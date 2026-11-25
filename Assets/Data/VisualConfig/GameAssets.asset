@@ -22,6 +22,7 @@ MonoBehaviour:
   RocketActivation: {fileID: 2151119278267167874, guid: 89f0e678dd15dc740b17efb4b64b5ee3, type: 3}
   TntExplosion: {fileID: 6683318824054819131, guid: 3f74d0a9958f84d4996f9b723f75322c, type: 3}
   LightBeam: {fileID: 6678387600696547443, guid: 881b7086c8df30b479007379810ecd69, type: 3}
+  LightBallActivation: {fileID: 2626565312509515975, guid: e64c942907194f14c981b7129f5728c7, type: 3}
   PropellerActivation: {fileID: 4182894333919953439, guid: 50b5c26630829044bb5464bb92e099e5, type: 3}
   Hammer: {fileID: 4571388776048433953, guid: b8c44ce7ebde53a4aa5851469707ad9a, type: 3}
   HammerImpact: {fileID: 1317046582944282590, guid: b27424b493ee0994dbe8481e2c8a9ec0, type: 3}

@@ -1,0 +1,1189 @@
+fileFormatVersion: 2
+guid: 5a0cf128f19d4ff47983043862fd95ba
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3053369202352998248
+    second: perde-sprite-sheet-6x6_0
+  - first:
+      213: 4281557233653182871
+    second: perde-sprite-sheet-6x6_1
+  - first:
+      213: 8606832609704388629
+    second: perde-sprite-sheet-6x6_2
+  - first:
+      213: 3747750231799911431
+    second: perde-sprite-sheet-6x6_3
+  - first:
+      213: -2864804539447800544
+    second: perde-sprite-sheet-6x6_4
+  - first:
+      213: 7160487358549315544
+    second: perde-sprite-sheet-6x6_5
+  - first:
+      213: -1554662911748233986
+    second: perde-sprite-sheet-6x6_6
+  - first:
+      213: 6997644940361004178
+    second: perde-sprite-sheet-6x6_7
+  - first:
+      213: -6180414902094496965
+    second: perde-sprite-sheet-6x6_8
+  - first:
+      213: -8844776723108526977
+    second: perde-sprite-sheet-6x6_9
+  - first:
+      213: 749234554680561330
+    second: perde-sprite-sheet-6x6_10
+  - first:
+      213: -3930812170366236811
+    second: perde-sprite-sheet-6x6_11
+  - first:
+      213: 1693452632766936487
+    second: perde-sprite-sheet-6x6_12
+  - first:
+      213: -1373603482838441466
+    second: perde-sprite-sheet-6x6_13
+  - first:
+      213: -5121059916475471521
+    second: perde-sprite-sheet-6x6_14
+  - first:
+      213: -1175563824967440298
+    second: perde-sprite-sheet-6x6_15
+  - first:
+      213: -7573024156947947602
+    second: perde-sprite-sheet-6x6_16
+  - first:
+      213: 7592272084167219375
+    second: perde-sprite-sheet-6x6_17
+  - first:
+      213: -4931096987589193991
+    second: perde-sprite-sheet-6x6_18
+  - first:
+      213: -2285332502849864167
+    second: perde-sprite-sheet-6x6_19
+  - first:
+      213: -2675586686445888502
+    second: perde-sprite-sheet-6x6_20
+  - first:
+      213: -4697705174944910225
+    second: perde-sprite-sheet-6x6_21
+  - first:
+      213: 6352580853212376326
+    second: perde-sprite-sheet-6x6_22
+  - first:
+      213: -1972059356345579043
+    second: perde-sprite-sheet-6x6_23
+  - first:
+      213: -8888134935189048103
+    second: perde-sprite-sheet-6x6_24
+  - first:
+      213: -7923691735979428575
+    second: perde-sprite-sheet-6x6_25
+  - first:
+      213: -3127348449436785407
+    second: perde-sprite-sheet-6x6_26
+  - first:
+      213: 1145741839044718485
+    second: perde-sprite-sheet-6x6_27
+  - first:
+      213: -415283613229994590
+    second: perde-sprite-sheet-6x6_28
+  - first:
+      213: 3997468151591498275
+    second: perde-sprite-sheet-6x6_29
+  - first:
+      213: 7332525207683697997
+    second: perde-sprite-sheet-6x6_30
+  - first:
+      213: -6823763279374300335
+    second: perde-sprite-sheet-6x6_31
+  - first:
+      213: 239863886484808625
+    second: perde-sprite-sheet-6x6_32
+  - first:
+      213: -3394459888898445600
+    second: perde-sprite-sheet-6x6_33
+  - first:
+      213: -954044637315543338
+    second: perde-sprite-sheet-6x6_34
+  - first:
+      213: 6765185377661475652
+    second: perde-sprite-sheet-6x6_35
+  - first:
+      213: 3455270410143555688
+    second: perde-sprite-sheet-6x6_36
+  - first:
+      213: 8124785630285041143
+    second: perde-sprite-sheet-6x6_37
+  - first:
+      213: 6168104091718940170
+    second: perde-sprite-sheet-6x6_38
+  - first:
+      213: -7071749208597683005
+    second: perde-sprite-sheet-6x6_39
+  - first:
+      213: -7770773311178868793
+    second: perde-sprite-sheet-6x6_40
+  - first:
+      213: -4785735143634045808
+    second: perde-sprite-sheet-6x6_41
+  - first:
+      213: -6405972298385397693
+    second: perde-sprite-sheet-6x6_42
+  - first:
+      213: -9031976749558055596
+    second: perde-sprite-sheet-6x6_43
+  - first:
+      213: -4295278328040032896
+    second: perde-sprite-sheet-6x6_44
+  - first:
+      213: 5515491918870391198
+    second: perde-sprite-sheet-6x6_45
+  - first:
+      213: -2037763121426058473
+    second: perde-sprite-sheet-6x6_46
+  - first:
+      213: -5344908465153304319
+    second: perde-sprite-sheet-6x6_47
+  - first:
+      213: -8651902600252153761
+    second: perde-sprite-sheet-6x6_48
+  - first:
+      213: -3104816157791620337
+    second: perde-sprite-sheet-6x6_49
+  - first:
+      213: 5846351520097867416
+    second: perde-sprite-sheet-6x6_50
+  - first:
+      213: -9086851047006975102
+    second: perde-sprite-sheet-6x6_51
+  - first:
+      213: -6216248680992729106
+    second: perde-sprite-sheet-6x6_52
+  - first:
+      213: 2830203269609740539
+    second: perde-sprite-sheet-6x6_53
+  - first:
+      213: 1170506578531917374
+    second: perde-sprite-sheet-6x6_54
+  - first:
+      213: 719641622875248529
+    second: perde-sprite-sheet-6x6_55
+  - first:
+      213: -1827934358509912363
+    second: perde-sprite-sheet-6x6_56
+  - first:
+      213: 4936085340742145239
+    second: perde-sprite-sheet-6x6_57
+  - first:
+      213: -4988976729723824117
+    second: perde-sprite-sheet-6x6_58
+  - first:
+      213: -3741412406488551710
+    second: perde-sprite-sheet-6x6_59
+  - first:
+      213: -6569513323946425377
+    second: perde-sprite-sheet-6x6_60
+  - first:
+      213: -3556602486929874090
+    second: perde-sprite-sheet-6x6_61
+  - first:
+      213: 7730391701480450264
+    second: perde-sprite-sheet-6x6_62
+  - first:
+      213: 331145325828898641
+    second: perde-sprite-sheet-6x6_63
+  - first:
+      213: 8476484418442715499
+    second: perde-sprite-sheet-6x6_64
+  - first:
+      213: 2520235023605574305
+    second: perde-sprite-sheet-6x6_65
+  - first:
+      213: 668384703708061512
+    second: perde-sprite-sheet-6x6_66
+  - first:
+      213: 3925476962676829801
+    second: perde-sprite-sheet-6x6_67
+  - first:
+      213: 4315029169010813932
+    second: perde-sprite-sheet-6x6_68
+  - first:
+      213: -2750510771957348622
+    second: perde-sprite-sheet-6x6_69
+  - first:
+      213: 5525243456342540278
+    second: perde-sprite-sheet-6x6_70
+  - first:
+      213: 3604459498159663275
+    second: perde-sprite-sheet-6x6_71
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 2000
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8674e52bc1fbf5a20800000000000000
+      internalID: 3053369202352998248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_1
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 791f66d8e952b6b30800000000000000
+      internalID: 4281557233653182871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_2
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 518ada658ac917770800000000000000
+      internalID: 8606832609704388629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_3
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7045259bafea20430800000000000000
+      internalID: 3747750231799911431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_4
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02d8943237b2e38d0800000000000000
+      internalID: -2864804539447800544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_5
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8dfc10190592f5360800000000000000
+      internalID: 7160487358549315544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef4a5c7915abc6ae0800000000000000
+      internalID: -1554662911748233986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_7
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 294f6868ff0ac1160800000000000000
+      internalID: 6997644940361004178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_8
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3b702c4461ca3aa0800000000000000
+      internalID: -6180414902094496965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_9
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7409759e6a014580800000000000000
+      internalID: -8844776723108526977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_10
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2bece2d9bd0d56a00800000000000000
+      internalID: 749234554680561330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_11
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 577c98a4823f279c0800000000000000
+      internalID: -3930812170366236811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a5f50c723a508710800000000000000
+      internalID: 1693452632766936487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_13
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 602ec27f8eaffece0800000000000000
+      internalID: -1373603482838441466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_14
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f59ecf473275ee8b0800000000000000
+      internalID: -5121059916475471521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_15
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 658240afdee8fafe0800000000000000
+      internalID: -1175563824967440298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_16
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eaf5aa127a637e690800000000000000
+      internalID: -7573024156947947602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_17
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa8d6e62c3b2d5960800000000000000
+      internalID: 7592272084167219375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fe4fb57a69319bb0800000000000000
+      internalID: -4931096987589193991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_19
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91ebaf5623ed840e0800000000000000
+      internalID: -2285332502849864167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_20
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0cd0a4a5186edad0800000000000000
+      internalID: -2675586686445888502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_21
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f64f4eb68066eceb0800000000000000
+      internalID: -4697705174944910225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_22
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60debaae0a6e82850800000000000000
+      internalID: 6352580853212376326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_23
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd9490db676d1a4e0800000000000000
+      internalID: -1972059356345579043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d431582e5007a480800000000000000
+      internalID: -8888134935189048103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_25
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1257f3ff854690290800000000000000
+      internalID: -7923691735979428575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_26
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 105a376972d6994d0800000000000000
+      internalID: -3127348449436785407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_27
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59f2098d12e76ef00800000000000000
+      internalID: 1145741839044718485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_28
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ada26801cd9c3af0800000000000000
+      internalID: -415283613229994590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_29
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3227c88ba1cd97730800000000000000
+      internalID: 3997468151591498275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4d8596b3dc52c560800000000000000
+      internalID: 7332525207683697997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_31
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15b4a85837f1d41a0800000000000000
+      internalID: -6823763279374300335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_32
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b32f541fea245300800000000000000
+      internalID: 239863886484808625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_33
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ee65e537b474e0d0800000000000000
+      internalID: -3394459888898445600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_34
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6dec0f4057d82c2f0800000000000000
+      internalID: -954044637315543338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perde-sprite-sheet-6x6_35
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44bdd2be144c2ed50800000000000000
+      internalID: 6765185377661475652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: dde01e67276c9d94691974739e805c97
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":6.0,"y":6.0},"gridSpriteSize":{"x":512.0,"y":512.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      perde-sprite-sheet-6x6_0: 3053369202352998248
+      perde-sprite-sheet-6x6_1: 4281557233653182871
+      perde-sprite-sheet-6x6_10: 749234554680561330
+      perde-sprite-sheet-6x6_11: -3930812170366236811
+      perde-sprite-sheet-6x6_12: 1693452632766936487
+      perde-sprite-sheet-6x6_13: -1373603482838441466
+      perde-sprite-sheet-6x6_14: -5121059916475471521
+      perde-sprite-sheet-6x6_15: -1175563824967440298
+      perde-sprite-sheet-6x6_16: -7573024156947947602
+      perde-sprite-sheet-6x6_17: 7592272084167219375
+      perde-sprite-sheet-6x6_18: -4931096987589193991
+      perde-sprite-sheet-6x6_19: -2285332502849864167
+      perde-sprite-sheet-6x6_2: 8606832609704388629
+      perde-sprite-sheet-6x6_20: -2675586686445888502
+      perde-sprite-sheet-6x6_21: -4697705174944910225
+      perde-sprite-sheet-6x6_22: 6352580853212376326
+      perde-sprite-sheet-6x6_23: -1972059356345579043
+      perde-sprite-sheet-6x6_24: -8888134935189048103
+      perde-sprite-sheet-6x6_25: -7923691735979428575
+      perde-sprite-sheet-6x6_26: -3127348449436785407
+      perde-sprite-sheet-6x6_27: 1145741839044718485
+      perde-sprite-sheet-6x6_28: -415283613229994590
+      perde-sprite-sheet-6x6_29: 3997468151591498275
+      perde-sprite-sheet-6x6_3: 3747750231799911431
+      perde-sprite-sheet-6x6_30: 7332525207683697997
+      perde-sprite-sheet-6x6_31: -6823763279374300335
+      perde-sprite-sheet-6x6_32: 239863886484808625
+      perde-sprite-sheet-6x6_33: -3394459888898445600
+      perde-sprite-sheet-6x6_34: -954044637315543338
+      perde-sprite-sheet-6x6_35: 6765185377661475652
+      perde-sprite-sheet-6x6_4: -2864804539447800544
+      perde-sprite-sheet-6x6_5: 7160487358549315544
+      perde-sprite-sheet-6x6_6: -1554662911748233986
+      perde-sprite-sheet-6x6_7: 6997644940361004178
+      perde-sprite-sheet-6x6_8: -6180414902094496965
+      perde-sprite-sheet-6x6_9: -8844776723108526977
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

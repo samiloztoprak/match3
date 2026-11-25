@@ -17,7 +17,7 @@ public sealed class TntActivation : ISpecialActivation
                     continue;
                 }
                 int ring = ActivationTiming.ChebyshevDistance(x, y, cx, cy);
-                float t = ActivationTiming.TntDelayMs + ActivationTiming.TntRingMs * ring;
+                float t = ActivationTiming.TntDelayMs + ActivationTiming.TntChargeMs + ActivationTiming.TntRingMs * ring;
                 cells.Add((cx, cy, t));
             }
         }

@@ -16,7 +16,7 @@ public class TntExplosionViewCommand : IViewCommand
     {
         AudioManager.Play(SoundId.Tnt);
         
-        ExplosionView fx = _player.Effects.Spawn(_player.TntExplosionPrefab, _player.CellToWorld(_x, _y));
-        fx.Play(_expand, (2f * _radius + 1f) * _player.CellSize, () => _player.Effects.Release(fx));
+        ExplosionActivationView fx = _player.Effects.Spawn(_player.TntExplosionPrefab, _player.CellToWorld(_x, _y));
+        fx.Play(_expand, (_radius + 1f) * _player.CellSize, () => _player.Effects.Release(fx));
     }
 }

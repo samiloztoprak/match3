@@ -116,11 +116,11 @@ public static class CellPatterns
         var map = new Dictionary<(int x, int y), float>();
         for (int cx = 0; cx < board.Width; cx++)
         {
-            map[(cx, y)] = ActivationTiming.RocketMsPerCell * System.Math.Abs(cx - x);
+            map[(cx, y)] = ActivationTiming.RocketChargeMs + ActivationTiming.RocketMsPerCell * System.Math.Abs(cx - x);
         }
         for (int cy = 0; cy < board.Height; cy++)
         {
-            float t = ActivationTiming.RocketMsPerCell * System.Math.Abs(cy - y);
+            float t = ActivationTiming.RocketChargeMs + ActivationTiming.RocketMsPerCell * System.Math.Abs(cy - y);
             if (!map.TryGetValue((x, cy), out float existing) || t < existing)
             {
                 map[(x, cy)] = t;
@@ -140,7 +140,7 @@ public static class CellPatterns
             if (ry < 0 || ry >= board.Height) continue;
             for (int cx = 0; cx < board.Width; cx++)
             {
-                float t = ActivationTiming.RocketMsPerCell * System.Math.Abs(cx - x);
+                float t = ActivationTiming.RocketChargeMs + ActivationTiming.RocketMsPerCell * System.Math.Abs(cx - x);
                 if (!map.TryGetValue((cx, ry), out float existing) || t < existing) map[(cx, ry)] = t;
             }
         }
@@ -150,7 +150,7 @@ public static class CellPatterns
             if (rx < 0 || rx >= board.Width) continue;
             for (int cy = 0; cy < board.Height; cy++)
             {
-                float t = ActivationTiming.RocketMsPerCell * System.Math.Abs(cy - y);
+                float t = ActivationTiming.RocketChargeMs + ActivationTiming.RocketMsPerCell * System.Math.Abs(cy - y);
                 if (!map.TryGetValue((rx, cy), out float existing) || t < existing) map[(rx, cy)] = t;
             }
         }

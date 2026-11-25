@@ -19,10 +19,12 @@ public class GameAssets : ScriptableObject
 
     [Header("Activation views")]
     public RocketActivationView RocketActivation;
-    public ExplosionView TntExplosion;
+    public ExplosionActivationView TntExplosion;
     public LightBeamView LightBeam;
+    public LightBallActivationView LightBallActivation; 
     public PropellerActivationView PropellerActivation;
-
+    
+    
     [Header("Boosters")]
     public SpriteRenderer Hammer;
     public SpriteRenderer HammerImpact;

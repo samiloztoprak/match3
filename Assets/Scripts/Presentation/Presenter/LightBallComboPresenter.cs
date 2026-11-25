@@ -3,31 +3,39 @@ using UnityEngine;
 
 public class LightBallComboPresenter : IActivationPresenter
 {
-    private static float TransformDuration => ActivationTiming.LightBallPulseMs / 1000f;
         
+    private const float RevealWindowMs = 900f;
+    private readonly IActivationPresenter _fallback = new FlashActivationPresenter();
+    
     public float Present(SpecialActivationData data, float t, TurnPlayer player,
         List<(float, IViewCommand)> timeline)
     {
+        if (data.Targets == null || data.Targets.Count == 0)
+        {
+            return _fallback.Present(data, t, player, timeline);
+        }
+
         var activeBeams = new List<LightBeamView>();
         Vector3 origin = player.CellToWorld(data.X, data.Y);
 
-        for (int i = 0; i < data.Targets.Count; i++)
+        int count = data.Targets.Count;
+        float available = Mathf.Max(0f, RevealWindowMs - ActivationTiming.LightBallStartMs);
+        float stepMs = Mathf.Min(ActivationTiming.LightBallStepMs, available / count);
+
+        for (int i = 0; i < count; i++)
         {
             var (x, y, _) = data.Targets[i];
             Vector3 targetPos = player.CellToWorld(x, y);
-            float beamTime = t + (ActivationTiming.LightBallStartMs + ActivationTiming.LightBallStepMs * i) / 1000f;
+            float beamTime = t + ActivationTiming.LightBallRevealMs(i, count) / 1000f;
             timeline.Add((beamTime, new LightBeamStartViewCommand(origin, targetPos, player, activeBeams)));
         }
 
-        float revealMs = ActivationTiming.LightBallStartMs + ActivationTiming.LightBallStepMs * data.Targets.Count;
-        float revealEnd = t + revealMs / 1000f;
+        float revealEnd = t + ActivationTiming.LightBallPulseAtMs / 1000f;
+        float pulseDuration = ActivationTiming.LightBallPulseMs / 1000f;
 
-        timeline.Add((revealEnd, new LightBeamStopViewCommand(player, activeBeams)));
-        
-        float fireStart = revealEnd + TransformDuration;
-        IActivationPresenter firePresenter = new FlashActivationPresenter();
-        float fireEnd = firePresenter.Present(data, fireStart, player, timeline);
-        
-        return fireEnd;
+        timeline.Add((revealEnd, new LightBallPulseViewCommand(data.PieceId, player, pulseDuration)));
+        timeline.Add((revealEnd + pulseDuration, new LightBeamStopViewCommand(player, activeBeams)));
+
+        return revealEnd + pulseDuration;
     }
 }

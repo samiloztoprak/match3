@@ -12,7 +12,7 @@ public sealed class TntPropellerCombo : IComboActivation
         var blast = new List<(int x, int y, float timeMs)>();
         foreach (var (cx, cy) in area)
         {
-            blast.Add((cx, cy, ActivationTiming.PropellerFlightMs));
+            blast.Add((cx, cy, ActivationTiming.PropellerFlightMs + ActivationTiming.TntChargeMs));
         }
 
         return new ComboEffect

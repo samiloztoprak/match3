@@ -11,6 +11,9 @@ public class PieceView : MonoBehaviour
     private Vector3 _preHintScale;
     private Tween _moveTween;
     private Tween _scaleTween;
+    private Tween _frameTween;
+    private int _frameIndex;
+    
     
     void Awake()
     {
@@ -21,6 +24,7 @@ public class PieceView : MonoBehaviour
     public void Setup(Piece piece, PieceVisualConfig visualConfig)
     {
         _piece = piece;
+        _frameIndex = 0;
         RefreshSprite(visualConfig);
     }
 
@@ -101,6 +105,41 @@ public class PieceView : MonoBehaviour
         _moveTween?.Kill();  _moveTween = null;
         _scaleTween?.Kill(); _scaleTween = null;
         _hintTween?.Kill();  _hintTween = null;
+        _frameTween?.Kill(); _frameTween = null;
         transform.DOKill();
+    }
+    
+    public void PlayFramesTo(Sprite[] frames, int targetFrame, float fps, float catchUpSpeed, System.Action onComplete)
+    {
+        bool wasPlaying = _frameTween != null && _frameTween.IsActive();
+        _frameTween?.Kill();
+
+        int from = _frameIndex;
+        int count = Mathf.Abs(targetFrame - from);
+        if (count == 0)
+        {
+            _frameTween = null;
+            onComplete?.Invoke();
+            return;
+        }
+
+        float speed = wasPlaying ? catchUpSpeed : 1f;
+        float duration = count / (fps * speed);
+        float f = from;
+
+        _frameTween = DOTween.To(() => f, v => { f = v; SetFrame(frames, (int)v); }, targetFrame, duration)
+            .SetEase(Ease.Linear)
+            .OnComplete(() =>
+            {
+                SetFrame(frames, targetFrame);
+                _frameTween = null;
+                onComplete?.Invoke();
+            });
+    }
+
+    private void SetFrame(Sprite[] frames, int index)
+    {
+        _frameIndex = Mathf.Clamp(index, 0, frames.Length - 1);
+        _spriteRenderer.sprite = frames[_frameIndex];
     }
 }

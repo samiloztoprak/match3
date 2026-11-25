@@ -113,14 +113,12 @@ public static class TurnResolver
                     var transformClear = new ClearPieceData();
                     ballTargets = new List<(int x, int y, float timeMs)>();
 
-                    float revealMs = ActivationTiming.LightBallStartMs + ActivationTiming.LightBallStepMs * comboEffect.Transformed.Count;
-                    comboFireMs = comboStartMs + revealMs + ActivationTiming.LightBallPulseMs;
+                    comboFireMs = comboStartMs + ActivationTiming.LightBallPulseAtMs;
 
                     for (int i = 0; i < comboEffect.Transformed.Count; i++)
                     {
                         var (oldPiece, newPiece, tx, ty) = comboEffect.Transformed[i];
-                        float transformTimeMs = comboStartMs + ActivationTiming.LightBallStartMs
-                                                            + ActivationTiming.LightBallStepMs * i; 
+                        float transformTimeMs = comboStartMs + ActivationTiming.LightBallRevealMs(i, comboEffect.Transformed.Count);
 
                         transformClear.Hits.Add(new HitData(oldPiece.Id, tx, ty, transformTimeMs));
                         if (oldPiece.VisualType == PieceVisualType.Standard)
@@ -270,6 +268,10 @@ public static class TurnResolver
             var effect = SpecialActivationLogic.GetAffectedCells(board, activation.Piece, activation.X, activation.Y, activation.Partner, random, targetPriority);
             var consumed = new HashSet<int> { activation.Piece.Id };
 
+            var selfClearData = new ClearPieceData();
+            selfClearData.Hits.Add(new HitData(activation.Piece.Id, activation.X, activation.Y, activation.TimeMs));
+            board.ClearCell(activation.X, activation.Y);
+            
             var chainDamageData = new DamagePieceData();
             var chainClearOverlayData = new ClearOverlayData();
             var chainClearData = ClearCellsAndEnqueueChains(board, effect.Cells, pending, consumed, chainDamageData, chainClearOverlayData, goalProgress, activation.TimeMs);
@@ -297,6 +299,7 @@ public static class TurnResolver
                 Direction = (activation.Piece as RocketPiece)?.Direction
             });
             
+            result.Add(selfClearData);
             result.Add(chainDamageData);
             result.Add(chainClearOverlayData);
             result.Add(chainClearData);
@@ -496,9 +499,16 @@ public static class TurnResolver
     {
         var clearPieceData = new ClearPieceData();
         var hitOverlays = new HashSet<OverlayPiece>();
+        var protectedCells = new HashSet<(int x, int y)>(); 
+        
         foreach (var (cx, cy, localTimeMs) in cells)
         {
             float absoluteTimeMs = baseTimeMs + localTimeMs;
+            
+            if (protectedCells.Contains((cx, cy)))
+            {
+                continue;
+            }
             
             Piece piece = board.GetCell(cx, cy);
             if (piece == null)
@@ -526,6 +536,11 @@ public static class TurnResolver
                 if (overlay.Flags.HasFlag(PieceFlags.DamageableBySpecial) && hitOverlays.Add(overlay))
                 {
                     TryBreakOverlay(board, overlay, cx, cy, absoluteTimeMs, clearOverlayData, damageData, goalProgress);
+                    
+                    if (board.GetOverlayPieceAt(cx, cy) == null)
+                    {
+                        protectedCells.UnionWith(overlay.CoveredCells);
+                    }
                 }
                 if (wasLocked)
                 {

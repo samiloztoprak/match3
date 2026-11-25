@@ -16,7 +16,8 @@ public class TurnPlayer : MonoBehaviour
     [SerializeField] private SpriteRenderer _targetReticle;
     
     public PropellerAnimationConfig PropellerConfig => _assets.PropellerAnimation;
-    public ExplosionView TntExplosionPrefab => _assets.TntExplosion;
+    public ExplosionActivationView TntExplosionPrefab => _assets.TntExplosion;
+    public LightBallActivationView LightBallActivationPrefab => _assets.LightBallActivation;
     public SpriteRenderer HammerPrefab => _assets.Hammer;
     public SpriteRenderer HammerImpactPrefab => _assets.HammerImpact;
     public float PopDuration => _anim.PopDuration;

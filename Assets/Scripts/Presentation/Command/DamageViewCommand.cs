@@ -23,7 +23,14 @@ public class DamageViewCommand : IViewCommand
         {
             PieceView view = _player.GetView(pieceId);
             if (view == null) continue;
-
+            
+            CageVisualConfig cage = _player.VisualConfig.Cage;
+            if (view.Piece is CagePiece && cage != null && cage.HasFrames)
+            {
+                view.PlayFramesTo(cage.Frames, cage.StopFrame(healthAfter), cage.Fps, cage.CatchUpSpeed, null);
+                continue;
+            }
+            
             _player.SpawnHitEffect(view.Piece, view.transform.position);
             view.RefreshSprite(_player.VisualConfig, healthAfter);
         }

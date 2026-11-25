@@ -3,51 +3,108 @@ using UnityEngine;
 
 public class RocketActivationView : MonoBehaviour
 {
-    [SerializeField] private SpriteRenderer _spriteRenderer;
-    [SerializeField] private ParticleSystem _trail;
+    [System.Serializable]
+    private class Head
+    {
+        public Transform Root;
+        public SpriteRenderer Sprite;
+        public Animator Anim;
+        public string StateName;
+    }
+    
+    [Header("Charge")]
+    [SerializeField] private Animator _animator;
+    [SerializeField] private SpriteRenderer _animSprite;
+    [SerializeField] private string _stateName;
+
+    [Header("Heads")]
+    [SerializeField] private Head _headA;
+    [SerializeField] private Head _headB;
     [SerializeField] private float _overshootDistance = 5f;
         
     private Vector3 _baseScale;
     void Awake()
     {
-        _baseScale = transform.localScale;
+        ResetHead(_headA);
+        ResetHead(_headB);
+    }
+
+    public void Play(Vector3 direction, float chargeDuration, Vector3 targetA, float durationA, Vector3 targetB, float durationB,
+        System.Action onComplete)
+    {
+        transform.rotation = FaceDirection(direction);
+        ResetHead(_headA);
+        ResetHead(_headB);
+
+        _animSprite.enabled = true;
+        _animSprite.sortingOrder = SortingOrders.Flight;
+        _animator.enabled = true;
+        _animator.Play(_stateName, 0, 0f);
+
+        float totalA = durationA > 0f ? FlightTime(targetA, durationA) : 0f;
+        float totalB = durationB > 0f ? FlightTime(targetB, durationB) : 0f;
+
+        Sequence seq = DOTween.Sequence().SetTarget(transform);
+        seq.InsertCallback(chargeDuration, () =>
+        {
+            _animator.enabled = false;
+            _animSprite.enabled = false;
+            if (durationA > 0f) Launch(_headA, targetA, durationA);
+            if (durationB > 0f) Launch(_headB, targetB, durationB);
+        });
+        seq.InsertCallback(chargeDuration + Mathf.Max(totalA, totalB), () => onComplete?.Invoke());
     }
     
-    public void SetSprite(Sprite sprite)
+    private float FlightTime(Vector3 target, float duration)
     {
-        _spriteRenderer.sprite = sprite;
+        float distance = (target - transform.position).magnitude;
+        return duration * (distance + _overshootDistance) / distance;
     }
-
-    public void SetDirection(Vector3 direction)
-    {
-        transform.rotation = Quaternion.FromToRotation(Vector3.up, direction);
-    }
-
-    public void Play(Vector3 target, float duration, System.Action onComplete)
+    
+    private void Launch(Head head, Vector3 target, float duration)
     {
         Vector3 start = transform.position;
         Vector3 toTarget = target - start;
         float distance = toTarget.magnitude;
-        float speed = distance / duration;                       
-        Vector3 end = start + toTarget / distance * (distance + _overshootDistance);
-        float totalDuration = (distance + _overshootDistance) / speed;
-        
-        if (_trail != null)
+        Vector3 dir = toTarget / distance;
+        Vector3 end = start + dir * (distance + _overshootDistance);
+        float total = duration * (distance + _overshootDistance) / distance;
+
+        head.Root.gameObject.SetActive(true);
+        head.Root.position = start;
+        head.Root.rotation = FaceDirection(dir);
+        head.Sprite.sortingOrder = SortingOrders.Flight;
+
+        if (head.Anim != null)
         {
-            _trail.Clear();
-            _trail.Play();
+            head.Anim.enabled = true;
+            head.Anim.Play(head.StateName, 0, 0f);
         }
-        _spriteRenderer.sortingOrder = SortingOrders.Flight;
-        
-        transform.localScale = _baseScale;
-        transform.DOScale(_baseScale * 1.2f, .1f).SetEase(Ease.InOutSine);
-        transform.DOMove(end, totalDuration).SetEase(Ease.Linear).OnComplete(() =>
+
+        head.Root.DOMove(end, total).SetEase(Ease.Linear).SetTarget(transform).OnComplete(() =>
         {
-            if (_trail != null)
+            if (head.Anim != null)
             {
-                _trail.Stop();
+                head.Anim.enabled = false;
             }
-            onComplete?.Invoke();
+            head.Root.gameObject.SetActive(false);
         });
+    }
+    
+    private static void ResetHead(Head head)
+    {
+        if (head?.Root == null) return;
+        head.Root.gameObject.SetActive(false);
+        head.Root.localPosition = Vector3.zero;
+        if (head.Anim != null)
+        {
+            head.Anim.enabled = false;
+        }
+    }
+    
+    private static Quaternion FaceDirection(Vector3 dir)
+    {
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
+        return Quaternion.Euler(0f, 0f, angle);
     }
 }

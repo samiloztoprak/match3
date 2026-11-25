@@ -1,0 +1,1168 @@
+fileFormatVersion: 2
+guid: bdd96e248befe0d4982ef3d9f695bea5
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4857011947962365959
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_0
+  - first:
+      213: -4523869722052663800
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_1
+  - first:
+      213: -5564080618638907989
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_2
+  - first:
+      213: -2913159368769972636
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_3
+  - first:
+      213: 9212820074478410262
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_4
+  - first:
+      213: 6279570123477262778
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_5
+  - first:
+      213: -2839590511093983187
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_6
+  - first:
+      213: 8569698051504246255
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_7
+  - first:
+      213: 6736338450361501012
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_8
+  - first:
+      213: -2366470627885850317
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_9
+  - first:
+      213: 5275505389188448662
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_10
+  - first:
+      213: -4285864414494640194
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_11
+  - first:
+      213: -5251309180814769727
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_12
+  - first:
+      213: 9191830423850968364
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_13
+  - first:
+      213: -3261315250181816602
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_14
+  - first:
+      213: 871327061446542137
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_15
+  - first:
+      213: -1867295402993193114
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_16
+  - first:
+      213: -6538245207522519654
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_17
+  - first:
+      213: 5680928190395118282
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_18
+  - first:
+      213: 3413106857452200805
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_19
+  - first:
+      213: 3923766384989703137
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_20
+  - first:
+      213: -1470884242030588313
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_21
+  - first:
+      213: -5429562677011730007
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_22
+  - first:
+      213: 1336916773689267544
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_23
+  - first:
+      213: -2249589905083445794
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_24
+  - first:
+      213: -5493239241555819195
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_25
+  - first:
+      213: -7901531083787320725
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_26
+  - first:
+      213: 8620639789551202690
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_27
+  - first:
+      213: 714211304596775179
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_28
+  - first:
+      213: -944620623997884913
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_29
+  - first:
+      213: 7905554829032127027
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_30
+  - first:
+      213: 8588793812524212154
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_31
+  - first:
+      213: 8894438403371440467
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_32
+  - first:
+      213: -6912834580537476866
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_33
+  - first:
+      213: 5987328303449389371
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_34
+  - first:
+      213: -8588434518861952172
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_35
+  - first:
+      213: 5862759486263532840
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_36
+  - first:
+      213: -1532724737465083491
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_37
+  - first:
+      213: 2970802356406022419
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_38
+  - first:
+      213: -688113388748236866
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_39
+  - first:
+      213: 2760831371383017950
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_40
+  - first:
+      213: 3065842861215200270
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_41
+  - first:
+      213: -7656911789344021909
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_42
+  - first:
+      213: -6596513446477013228
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_43
+  - first:
+      213: -3797908894497990472
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_44
+  - first:
+      213: -1341913562317186291
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_45
+  - first:
+      213: 7891582516212866372
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_46
+  - first:
+      213: -424745939666867355
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_47
+  - first:
+      213: -1175659523285915321
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_48
+  - first:
+      213: -2668511662439002273
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_49
+  - first:
+      213: 7062235679917593761
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_50
+  - first:
+      213: -8248641704962502306
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_51
+  - first:
+      213: -2813375164490601892
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_52
+  - first:
+      213: 8354688788871036745
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_53
+  - first:
+      213: -7857492086358593897
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_54
+  - first:
+      213: 6429753567720608847
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_55
+  - first:
+      213: 2767419832480406558
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_56
+  - first:
+      213: 5356653228950424932
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_57
+  - first:
+      213: 6094917462104011038
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_58
+  - first:
+      213: -1572436616969087732
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_59
+  - first:
+      213: -5823495981754943716
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_60
+  - first:
+      213: -460961206437452249
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_61
+  - first:
+      213: 6010992036377773191
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_62
+  - first:
+      213: 2554729061941824428
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_63
+  - first:
+      213: -8246208965534431747
+    second: kirmizi-perde-acilis-sprite-sheet-6x6_64
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 2000
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f700ebed5d689cb0800000000000000
+      internalID: -4857011947962365959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_1
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 806e7eec47cf731c0800000000000000
+      internalID: -4523869722052663800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_2
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba56468382a68c2b0800000000000000
+      internalID: -5564080618638907989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_3
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4665d5a1df06297d0800000000000000
+      internalID: -2913159368769972636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_4
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61a9fdecb038adf70800000000000000
+      internalID: 9212820074478410262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_5
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab1a408b1c3852750800000000000000
+      internalID: 6279570123477262778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d285ca6997fb798d0800000000000000
+      internalID: -2839590511093983187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_7
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fed844049feade670800000000000000
+      internalID: 8569698051504246255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_8
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4554a9441284c7d50800000000000000
+      internalID: 6736338450361501012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_9
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 331e775808b982fd0800000000000000
+      internalID: -2366470627885850317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_10
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6918c3d533c563940800000000000000
+      internalID: 5275505389188448662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_11
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb73f82c50d8584c0800000000000000
+      internalID: -4285864414494640194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c1c9c76f1a9f17b0800000000000000
+      internalID: -5251309180814769727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_13
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c25e341f111ff8f70800000000000000
+      internalID: 9191830423850968364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_14
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ee39542f0b7db2d0800000000000000
+      internalID: -3261315250181816602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_15
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 933c4bc8853971c00800000000000000
+      internalID: 871327061446542137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_16
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66feedd69b80616e0800000000000000
+      internalID: -1867295402993193114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_17
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a955837ff9c7345a0800000000000000
+      internalID: -6538245207522519654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac2f00f1716b6de40800000000000000
+      internalID: 5680928190395118282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_19
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56363ea7a9acd5f20800000000000000
+      internalID: 3413106857452200805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_20
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1eb0ee6fcb4047630800000000000000
+      internalID: 3923766384989703137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_21
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76e0c00339e569be0800000000000000
+      internalID: -1470884242030588313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_22
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a13ff6238156a4b0800000000000000
+      internalID: -5429562677011730007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_23
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 855920ee8bead8210800000000000000
+      internalID: 1336916773689267544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: edd423176e9d7c0e0800000000000000
+      internalID: -2249589905083445794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_25
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54544d4a30814c3b0800000000000000
+      internalID: -5493239241555819195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_26
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b624629e75f185290800000000000000
+      internalID: -7901531083787320725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_27
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2813cc8e63aa2a770800000000000000
+      internalID: 8620639789551202690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_28
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b012f01c56369e900800000000000000
+      internalID: 714211304596775179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_29
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f06291b1c8804e2f0800000000000000
+      internalID: -944620623997884913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33a75d84b3c26bd60800000000000000
+      internalID: 7905554829032127027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_31
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abf14949776813770800000000000000
+      internalID: 8588793812524212154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_32
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3591c856a946f6b70800000000000000
+      internalID: 8894438403371440467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_33
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef8f604239da010a0800000000000000
+      internalID: -6912834580537476866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_34
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b393eb8ae53471350800000000000000
+      internalID: 5987328303449389371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kirmizi-perde-acilis-sprite-sheet-6x6_35
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45bc78efe40cfc880800000000000000
+      internalID: -8588434518861952172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 70a538a1eeb90b84aaf6904634473523
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":6.0,"y":6.0},"gridSpriteSize":{"x":512.0,"y":512.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      kirmizi-perde-acilis-sprite-sheet-6x6_0: -4857011947962365959
+      kirmizi-perde-acilis-sprite-sheet-6x6_1: -4523869722052663800
+      kirmizi-perde-acilis-sprite-sheet-6x6_10: 5275505389188448662
+      kirmizi-perde-acilis-sprite-sheet-6x6_11: -4285864414494640194
+      kirmizi-perde-acilis-sprite-sheet-6x6_12: -5251309180814769727
+      kirmizi-perde-acilis-sprite-sheet-6x6_13: 9191830423850968364
+      kirmizi-perde-acilis-sprite-sheet-6x6_14: -3261315250181816602
+      kirmizi-perde-acilis-sprite-sheet-6x6_15: 871327061446542137
+      kirmizi-perde-acilis-sprite-sheet-6x6_16: -1867295402993193114
+      kirmizi-perde-acilis-sprite-sheet-6x6_17: -6538245207522519654
+      kirmizi-perde-acilis-sprite-sheet-6x6_18: 5680928190395118282
+      kirmizi-perde-acilis-sprite-sheet-6x6_19: 3413106857452200805
+      kirmizi-perde-acilis-sprite-sheet-6x6_2: -5564080618638907989
+      kirmizi-perde-acilis-sprite-sheet-6x6_20: 3923766384989703137
+      kirmizi-perde-acilis-sprite-sheet-6x6_21: -1470884242030588313
+      kirmizi-perde-acilis-sprite-sheet-6x6_22: -5429562677011730007
+      kirmizi-perde-acilis-sprite-sheet-6x6_23: 1336916773689267544
+      kirmizi-perde-acilis-sprite-sheet-6x6_24: -2249589905083445794
+      kirmizi-perde-acilis-sprite-sheet-6x6_25: -5493239241555819195
+      kirmizi-perde-acilis-sprite-sheet-6x6_26: -7901531083787320725
+      kirmizi-perde-acilis-sprite-sheet-6x6_27: 8620639789551202690
+      kirmizi-perde-acilis-sprite-sheet-6x6_28: 714211304596775179
+      kirmizi-perde-acilis-sprite-sheet-6x6_29: -944620623997884913
+      kirmizi-perde-acilis-sprite-sheet-6x6_3: -2913159368769972636
+      kirmizi-perde-acilis-sprite-sheet-6x6_30: 7905554829032127027
+      kirmizi-perde-acilis-sprite-sheet-6x6_31: 8588793812524212154
+      kirmizi-perde-acilis-sprite-sheet-6x6_32: 8894438403371440467
+      kirmizi-perde-acilis-sprite-sheet-6x6_33: -6912834580537476866
+      kirmizi-perde-acilis-sprite-sheet-6x6_34: 5987328303449389371
+      kirmizi-perde-acilis-sprite-sheet-6x6_35: -8588434518861952172
+      kirmizi-perde-acilis-sprite-sheet-6x6_4: 9212820074478410262
+      kirmizi-perde-acilis-sprite-sheet-6x6_5: 6279570123477262778
+      kirmizi-perde-acilis-sprite-sheet-6x6_6: -2839590511093983187
+      kirmizi-perde-acilis-sprite-sheet-6x6_7: 8569698051504246255
+      kirmizi-perde-acilis-sprite-sheet-6x6_8: 6736338450361501012
+      kirmizi-perde-acilis-sprite-sheet-6x6_9: -2366470627885850317
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

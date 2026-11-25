@@ -1,0 +1,82 @@
+[1mdiff --git a/Assets/Scripts/Core/TurnResolveSystem/TurnResolver.cs b/Assets/Scripts/Core/TurnResolveSystem/TurnResolver.cs[m
+[1mindex 2a55bea..2b882d8 100644[m
+[1m--- a/Assets/Scripts/Core/TurnResolveSystem/TurnResolver.cs[m
+[1m+++ b/Assets/Scripts/Core/TurnResolveSystem/TurnResolver.cs[m
+[36m@@ -113,14 +113,12 @@[m [mpublic static List<TurnStepData> Resolve(Board board, ICommand command, IRandom[m
+                     var transformClear = new ClearPieceData();[m
+                     ballTargets = new List<(int x, int y, float timeMs)>();[m
+ [m
+[31m-                    float revealMs = ActivationTiming.LightBallStartMs + ActivationTiming.LightBallStepMs * comboEffect.Transformed.Count;[m
+[31m-                    comboFireMs = comboStartMs + revealMs + ActivationTiming.LightBallPulseMs;[m
+[32m+[m[32m                    comboFireMs = comboStartMs + ActivationTiming.LightBallTotalMs;[m
+ [m
+                     for (int i = 0; i < comboEffect.Transformed.Count; i++)[m
+                     {[m
+                         var (oldPiece, newPiece, tx, ty) = comboEffect.Transformed[i];[m
+[31m-                        float transformTimeMs = comboStartMs + ActivationTiming.LightBallStartMs[m
+[31m-                                                            + ActivationTiming.LightBallStepMs * i; [m
+[32m+[m[32m                        float transformTimeMs = comboStartMs + ActivationTiming.LightBallRevealMs(i, comboEffect.Transformed.Count);[m
+ [m
+                         transformClear.Hits.Add(new HitData(oldPiece.Id, tx, ty, transformTimeMs));[m
+                         if (oldPiece.VisualType == PieceVisualType.Standard)[m
+[36m@@ -154,6 +152,16 @@[m [mpublic static List<TurnStepData> Resolve(Board board, ICommand command, IRandom[m
+                 result.Add(mergeClear);[m
+ [m
+                 var ownCellsTimed = new List<(int x, int y, float timeMs)>();[m
+[32m+[m[32m                var footprintCells = new List<(int x, int y, float timeMs)>(ownCellsTimed);[m
+[32m+[m[32m                if (comboEffect.LandingStrikes != null)[m
+[32m+[m[32m                {[m
+[32m+[m[32m                    foreach (var strike in comboEffect.LandingStrikes) footprintCells.AddRange(strike);[m
+[32m+[m[32m                }[m
+[32m+[m[32m                if (ballTargets != null)[m
+[32m+[m[32m                {[m
+[32m+[m[32m                    footprintCells.AddRange(ballTargets);[m
+[32m+[m[32m                }[m
+[32m+[m[41m                [m
+                 if (comboEffect.TimedCells != null)[m
+                 {[m
+                     ownCellsTimed.AddRange(comboEffect.TimedCells);[m
+[36m@@ -197,6 +205,8 @@[m [mpublic static List<TurnStepData> Resolve(Board board, ICommand command, IRandom[m
+ [m
+                 result.Add(new SpecialActivationData[m
+                 {[m
+[32m+[m[32m                    AffectedCells = CellsOf(footprintCells),[m
+[32m+[m[32m                    GlobalBarrier = comboEffect.GlobalBarrier,[m
+                     PieceId = atTarget.Id,[m
+                     Piece = comboVisualPiece,[m
+                     Kind = kindB,[m
+[36m@@ -285,6 +295,7 @@[m [mpublic static List<TurnStepData> Resolve(Board board, ICommand command, IRandom[m
+             [m
+             result.Add(new SpecialActivationData[m
+             {[m
+[32m+[m[32m                AffectedCells = CellsOf(effect.Cells, effect.LandingCells),[m
+                 PieceId = activation.Piece.Id,[m
+                 Kind = GetKind(activation.Piece),[m
+                 X = activation.X,[m
+[36m@@ -712,4 +723,26 @@[m [mprivate static bool TryCollectAtExits(Board board, GoalProgressData goalProgress[m
+         }[m
+         return collectStepData.Hits.Count > 0;[m
+     }[m
+[32m+[m[41m    [m
+[32m+[m[32m    private static List<(int x, int y)> CellsOf(params IEnumerable<(int x, int y, float timeMs)>[] groups)[m
+[32m+[m[32m    {[m
+[32m+[m[32m        var set = new HashSet<(int x, int y)>();[m
+[32m+[m[32m        foreach (var group in groups)[m
+[32m+[m[32m        {[m
+[32m+[m[32m            if (group == null)[m
+[32m+[m[32m            {[m
+[32m+[m[32m                continue;[m
+[32m+[m[32m            }[m
+[32m+[m[32m            foreach (var (x, y, _) in group)[m
+[32m+[m[32m            {[m
+[32m+[m[32m                set.Add((x, y));[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+[32m+[m[32m        return new List<(int x, int y)>(set);[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    private static List<(int x, int y)> CellsOf(List<(int x, int y, float timeMs)> group)[m
+[32m+[m[32m    {[m
+[32m+[m[32m        return CellsOf(new[] { group });[m
+[32m+[m[32m    }[m
+ }[m

@@ -5,13 +5,13 @@ public sealed class TntPresenter : IActivationPresenter
     public float Present(SpecialActivationData data, float t, TurnPlayer player, List<(float, IViewCommand)> timeline)
     {
         float radius = ActivationArea.TntRadius;
-        float delay = ActivationTiming.TntDelayMs / 1000f;
-        float ring  = ActivationTiming.TntRingMs * radius / 1000f;
-
-        timeline.Add((t, new TntChargeViewCommand(data.PieceId, player, delay)));
+        float delay  = ActivationTiming.TntDelayMs / 1000f;
+        float charge = ActivationTiming.TntChargeMs / 1000f;
+        float ring   = ActivationTiming.TntRingMs * radius / 1000f;
+        
         timeline.Add((t + delay, new TntExplosionViewCommand(data.X, data.Y, player, ring, radius)));
-        timeline.Add((t + delay, new ShakeViewCommand(player, 0.6f)));
+        timeline.Add((t + delay + charge, new ShakeViewCommand(player, 0.6f)));
 
-        return t + delay + ring;
+        return t + delay + charge + ring;
     }
 }

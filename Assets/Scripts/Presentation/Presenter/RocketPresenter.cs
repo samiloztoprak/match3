@@ -11,7 +11,7 @@ public class RocketPresenter : IActivationPresenter
         {
             return _fallback.Present(data, t, player, timeline);
         }
-        var fly = new RocketFlyViewCommand(data.Direction.Value, data.X, data.Y, player);
+        var fly = new RocketFlyViewCommand(data.Direction.Value, data.X, data.Y, player, ActivationTiming.RocketChargeMs / 1000f);
         timeline.Add((t, fly));
         return t + fly.Duration;
     }

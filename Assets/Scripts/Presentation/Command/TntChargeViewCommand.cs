@@ -1,5 +1,6 @@
 using DG.Tweening;
 
+//DEPRECATED
 public class TntChargeViewCommand : IViewCommand
 {
     private readonly int _pieceId;
@@ -16,6 +17,6 @@ public class TntChargeViewCommand : IViewCommand
     {
         PieceView view = _player.GetView(_pieceId);
         if (view == null) return;
-        view.transform.DOScale(view.transform.localScale * 1.3f, _duration).SetEase(Ease.OutQuad);
+        //view.transform.DOScale(view.transform.localScale * 1.3f, _duration).SetEase(Ease.OutQuad);
     }
 }

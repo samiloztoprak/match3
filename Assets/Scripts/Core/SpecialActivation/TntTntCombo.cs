@@ -12,7 +12,7 @@ public sealed class TntTntCombo : IComboActivation
             {
                 if (cx < 0 || cx >= board.Width || cy < 0 || cy >= board.Height) continue;
                 int ring = ActivationTiming.ChebyshevDistance(x, y, cx, cy);
-                float t = ActivationTiming.TntDelayMs + ActivationTiming.TntRingMs * ring;
+                float t = ActivationTiming.TntDelayMs + ActivationTiming.TntChargeMs + ActivationTiming.TntRingMs * ring;
                 timed.Add((cx, cy, t));
             }
         }
