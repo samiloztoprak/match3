@@ -1,0 +1,611 @@
+fileFormatVersion: 2
+guid: 9171087fc2002a148a037e20b0be87e3
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8440368378206996968
+    second: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_0"
+  - first:
+      213: -345775342696884820
+    second: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_1"
+  - first:
+      213: -4752805436865216904
+    second: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_2"
+  - first:
+      213: 4024269578083090450
+    second: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_3"
+  - first:
+      213: 2428602354174039013
+    second: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_4"
+  - first:
+      213: 503668864200922560
+    second: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_5"
+  - first:
+      213: -318138187984344257
+    second: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_6"
+  - first:
+      213: -2166316760673603224
+    second: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_7"
+  - first:
+      213: 5306140777149606739
+    second: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_8"
+  - first:
+      213: 1890231638097694129
+    second: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_9"
+  - first:
+      213: -769757835379721571
+    second: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_10"
+  - first:
+      213: -7711370153073132629
+    second: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_11"
+  - first:
+      213: 5320504134838581790
+    second: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_12"
+  - first:
+      213: -8688615835294930633
+    second: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_13"
+  - first:
+      213: 2234934012299707360
+    second: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_14"
+  - first:
+      213: 2994210568073988360
+    second: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_15"
+  - first:
+      213: 4118071161013183142
+    second: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_16"
+  - first:
+      213: -6974072546029507582
+    second: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_17"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_0"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 17
+        width: 1215
+        height: 1205
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e9c77c2256322570800000000000000
+      internalID: 8440368378206996968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_1"
+      rect:
+        serializedVersion: 2
+        x: 713
+        y: 1211
+        width: 20
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca59676682f833bf0800000000000000
+      internalID: -345775342696884820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_2"
+      rect:
+        serializedVersion: 2
+        x: 714
+        y: 1200
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87e7a19f2a4aa0eb0800000000000000
+      internalID: -4752805436865216904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_3"
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 1203
+        width: 13
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 210cd0a1cd319d730800000000000000
+      internalID: 4024269578083090450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_4"
+      rect:
+        serializedVersion: 2
+        x: 729
+        y: 1199
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e3983d49f024b120800000000000000
+      internalID: 2428602354174039013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_5"
+      rect:
+        serializedVersion: 2
+        x: 752
+        y: 1185
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c5de17d9246df600800000000000000
+      internalID: 503668864200922560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_6"
+      rect:
+        serializedVersion: 2
+        x: 754
+        y: 1173
+        width: 32
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3be4bbe00fb59bf0800000000000000
+      internalID: -318138187984344257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_7"
+      rect:
+        serializedVersion: 2
+        x: 804
+        y: 1152
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86133114262bfe1e0800000000000000
+      internalID: -2166316760673603224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_8"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 881
+        width: 116
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35ba7367ce233a940800000000000000
+      internalID: 5306140777149606739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_9"
+      rect:
+        serializedVersion: 2
+        x: 1172
+        y: 610
+        width: 33
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1bd8404f8a37b3a10800000000000000
+      internalID: 1890231638097694129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_10"
+      rect:
+        serializedVersion: 2
+        x: 1182
+        y: 537
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9a3e1bb3554155f0800000000000000
+      internalID: -769757835379721571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_11"
+      rect:
+        serializedVersion: 2
+        x: 1155
+        y: 511
+        width: 14
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: babb68ec3b5bbf490800000000000000
+      internalID: -7711370153073132629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_12"
+      rect:
+        serializedVersion: 2
+        x: 1157
+        y: 499
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1afc07425a36d940800000000000000
+      internalID: 5320504134838581790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_13"
+      rect:
+        serializedVersion: 2
+        x: 1160
+        y: 503
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 739696b9ee5db6780800000000000000
+      internalID: -8688615835294930633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_14"
+      rect:
+        serializedVersion: 2
+        x: 1149
+        y: 473
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e3009b94a4140f10800000000000000
+      internalID: 2234934012299707360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_15"
+      rect:
+        serializedVersion: 2
+        x: 1189
+        y: 354
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80945ccc5a29d8920800000000000000
+      internalID: 2994210568073988360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_16"
+      rect:
+        serializedVersion: 2
+        x: 946
+        y: 85
+        width: 16
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a2a8f707e3562930800000000000000
+      internalID: 4118071161013183142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_17"
+      rect:
+        serializedVersion: 2
+        x: 1015
+        y: 95
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20c6b1838fd173f90800000000000000
+      internalID: -6974072546029507582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_0": 8440368378206996968
+      "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_1": -345775342696884820
+      "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_10": -769757835379721571
+      "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_11": -7711370153073132629
+      "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_12": 5320504134838581790
+      "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_13": -8688615835294930633
+      "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_14": 2234934012299707360
+      "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_15": 2994210568073988360
+      "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_16": 4118071161013183142
+      "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_17": -6974072546029507582
+      "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_2": -4752805436865216904
+      "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_3": 4024269578083090450
+      "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_4": 2428602354174039013
+      "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_5": 503668864200922560
+      "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_6": -318138187984344257
+      "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_7": -2166316760673603224
+      "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_8": 5306140777149606739
+      "Mor saya\xE7tan \xE7\u0131kar\u0131lm\u0131\u015F sar\u0131 y\u0131ld\u0131z_9": 1890231638097694129
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

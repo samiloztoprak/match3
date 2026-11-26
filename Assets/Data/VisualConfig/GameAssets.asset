@@ -19,6 +19,7 @@ MonoBehaviour:
   BreakEffects: {fileID: 11400000, guid: be7e779628d2fd84f98f939e59e55b44, type: 2}
   PropellerAnimation: {fileID: 11400000, guid: bef7f603029ea74488ec9facf12fccdb, type: 2}
   GoalIcons: {fileID: 11400000, guid: bd216404b97167743bac1d081281ad5f, type: 2}
+  Wheel: {fileID: 11400000, guid: 5fc31a288f0ca0f4698c2d1a8e667dde, type: 2}
   RocketActivation: {fileID: 2151119278267167874, guid: 89f0e678dd15dc740b17efb4b64b5ee3, type: 3}
   TntExplosion: {fileID: 6683318824054819131, guid: 3f74d0a9958f84d4996f9b723f75322c, type: 3}
   LightBeam: {fileID: 6678387600696547443, guid: 881b7086c8df30b479007379810ecd69, type: 3}

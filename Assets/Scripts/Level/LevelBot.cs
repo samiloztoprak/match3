@@ -137,12 +137,8 @@ public static class LevelBot
             for (int y = 0; y < board.Height; y++)
             {
                 Piece piece = board.GetCell(x, y);
-                if (piece == null)
-                {
-                    continue;
-                }
-
-                if (piece.VisualType == PieceVisualType.Special && !BoardLogic.IsPieceLocked(piece))
+                
+                if (piece != null && piece.VisualType == PieceVisualType.Special && !BoardLogic.IsPieceLocked(piece))
                 {
                     yield return new Move(x, y, x, y, true);
                 }

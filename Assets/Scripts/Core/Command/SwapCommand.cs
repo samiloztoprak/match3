@@ -16,48 +16,35 @@ public class SwapCommand : ICommand, IUndoableCommand
 
     public bool Validate(Board board)
     {
-        if (!LogicLibrary.BoardLogic.IsValidIndex(_x1, _y1, board))
-        {
-            return false;
-        }
-        if (!LogicLibrary.BoardLogic.IsValidIndex(_x2, _y2, board))
-        {
-            return false;
-        }
-        if (!LogicLibrary.BoardLogic.IsSwappableIndexes(_x1, _y1, _x2, _y2))
+        if (!LogicLibrary.BoardLogic.IsValidIndex(_x1, _y1, board)
+            || !LogicLibrary.BoardLogic.IsValidIndex(_x2, _y2, board)
+            || !LogicLibrary.BoardLogic.IsSwappableIndexes(_x1, _y1, _x2, _y2))
         {
             return false;
         }
 
-        Piece piece1 = board.GetCell(_x1, _y1);
-        if (piece1 == null)
-        {
-            return false;
-        }
-        Piece piece2 = board.GetCell(_x2, _y2);
-        if (piece2 == null)
+        Piece first = board.GetCell(_x1, _y1);
+        Piece second = board.GetCell(_x2, _y2);
+
+        if (first == null && second == null)
         {
             return false;
         }
 
-        if (LogicLibrary.BoardLogic.IsCellSwapBlocked(board, _x1, _y1))
+        return CanUseCell(board, _x1, _y1, first)
+               && CanUseCell(board, _x2, _y2, second);
+    }
+    
+    private static bool CanUseCell(Board board, int x, int y, Piece piece)
+    {
+        if (piece == null)
         {
-            return false;
-        }
-        if (LogicLibrary.BoardLogic.IsCellSwapBlocked(board, _x2, _y2))
-        {
-            return false;
-        }
-        if (!LogicLibrary.BoardLogic.IsPieceMoveable(piece1))
-        {
-            return false;
-        }
-        if (!LogicLibrary.BoardLogic.IsPieceMoveable(piece2))
-        {
-            return false;
+            return board.GetOverlayPieceAt(x, y) == null;
         }
 
-        return true;
+        return !LogicLibrary.BoardLogic.IsVoid(piece)
+               && !LogicLibrary.BoardLogic.IsCellSwapBlocked(board, x, y)
+               && LogicLibrary.BoardLogic.IsPieceMoveable(piece);
     }
     
     public void Execute()

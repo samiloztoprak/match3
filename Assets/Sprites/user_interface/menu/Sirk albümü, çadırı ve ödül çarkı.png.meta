@@ -1,0 +1,256 @@
+fileFormatVersion: 2
+guid: 39eb2c607433f9e45b3660348824e12c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -926137554129431875
+    second: "Sirk alb\xFCm\xFC, \xE7ad\u0131r\u0131 ve \xF6d\xFCl \xE7ark\u0131_0"
+  - first:
+      213: -4542429064814417988
+    second: "Sirk alb\xFCm\xFC, \xE7ad\u0131r\u0131 ve \xF6d\xFCl \xE7ark\u0131_1"
+  - first:
+      213: -1055560734835437563
+    second: "Sirk alb\xFCm\xFC, \xE7ad\u0131r\u0131 ve \xF6d\xFCl \xE7ark\u0131_2"
+  - first:
+      213: -4159915704741956821
+    second: "Sirk alb\xFCm\xFC, \xE7ad\u0131r\u0131 ve \xF6d\xFCl \xE7ark\u0131_3"
+  - first:
+      213: 4960325293036252346
+    second: "Sirk alb\xFCm\xFC, \xE7ad\u0131r\u0131 ve \xF6d\xFCl \xE7ark\u0131_4"
+  - first:
+      213: 5723677210610659182
+    second: "Sirk alb\xFCm\xFC, \xE7ad\u0131r\u0131 ve \xF6d\xFCl \xE7ark\u0131_5"
+  - first:
+      213: -3786267495904351224
+    second: "Sirk alb\xFCm\xFC, \xE7ad\u0131r\u0131 ve \xF6d\xFCl \xE7ark\u0131_6"
+  - first:
+      213: 2739871648960758800
+    second: "Sirk alb\xFCm\xFC, \xE7ad\u0131r\u0131 ve \xF6d\xFCl \xE7ark\u0131_7"
+  - first:
+      213: 978206453850790850
+    second: "Sirk alb\xFCm\xFC, \xE7ad\u0131r\u0131 ve \xF6d\xFCl \xE7ark\u0131_8"
+  - first:
+      213: 5793659371115696091
+    second: "Sirk alb\xFCm\xFC, \xE7ad\u0131r\u0131 ve \xF6d\xFCl \xE7ark\u0131_9"
+  - first:
+      213: -4381958390749692382
+    second: "Sirk alb\xFCm\xFC, \xE7ad\u0131r\u0131 ve \xF6d\xFCl \xE7ark\u0131_10"
+  - first:
+      213: 1931527836511114842
+    second: "Sirk alb\xFCm\xFC, \xE7ad\u0131r\u0131 ve \xF6d\xFCl \xE7ark\u0131_11"
+  - first:
+      213: -4614028975875360171
+    second: "Sirk alb\xFCm\xFC, \xE7ad\u0131r\u0131 ve \xF6d\xFCl \xE7ark\u0131_12"
+  - first:
+      213: 3996127090248225337
+    second: "Sirk alb\xFCm\xFC, \xE7ad\u0131r\u0131 ve \xF6d\xFCl \xE7ark\u0131_13"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "Sirk alb\xFCm\xFC, \xE7ad\u0131r\u0131 ve \xF6d\xFCl \xE7ark\u0131_0"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 724
+        height: 724
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db257f82dc2b523f0800000000000000
+      internalID: -926137554129431875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Sirk alb\xFCm\xFC, \xE7ad\u0131r\u0131 ve \xF6d\xFCl \xE7ark\u0131_1"
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 0
+        width: 724
+        height: 724
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb7a35615dc06f0c0800000000000000
+      internalID: -4542429064814417988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Sirk alb\xFCm\xFC, \xE7ad\u0131r\u0131 ve \xF6d\xFCl \xE7ark\u0131_2"
+      rect:
+        serializedVersion: 2
+        x: 1448
+        y: 0
+        width: 708
+        height: 724
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5009841ba15e951f0800000000000000
+      internalID: -1055560734835437563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: f2924793dd93a7c4592a90e3d989ec4b
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":3.0,"y":1.0},"gridSpriteSize":{"x":724.0,"y":724.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      "Sirk alb\xFCm\xFC, \xE7ad\u0131r\u0131 ve \xF6d\xFCl \xE7ark\u0131_0": -926137554129431875
+      "Sirk alb\xFCm\xFC, \xE7ad\u0131r\u0131 ve \xF6d\xFCl \xE7ark\u0131_1": -4542429064814417988
+      "Sirk alb\xFCm\xFC, \xE7ad\u0131r\u0131 ve \xF6d\xFCl \xE7ark\u0131_2": -1055560734835437563
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

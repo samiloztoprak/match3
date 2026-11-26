@@ -17,6 +17,9 @@ public class GameAssets : ScriptableObject
     public PropellerAnimationConfig PropellerAnimation;
     public GoalIconConfig GoalIcons;
 
+    [Header("Meta")]
+    public WheelConfig Wheel;
+    
     [Header("Activation views")]
     public RocketActivationView RocketActivation;
     public ExplosionActivationView TntExplosion;

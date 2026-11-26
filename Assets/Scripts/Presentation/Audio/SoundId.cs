@@ -17,5 +17,8 @@ public enum SoundId
     ToyCollect = 14,
     StarPop = 15,
     Win = 16,
-    Lose = 17
+    Lose = 17,
+    WheelTick = 18,
+    RewardReveal = 19,
+    RewardArrive = 20
 }

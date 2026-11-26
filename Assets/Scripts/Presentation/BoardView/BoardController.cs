@@ -320,7 +320,8 @@ public class BoardController : MonoBehaviour
             LevelEnded?.Invoke(true);
 
             int stars = CalculateStars();
-            LevelProgress.SaveStars(_levelIndex, stars);
+            int gained = LevelProgress.SaveStars(_levelIndex, stars);
+            WheelProgress.AddStars(gained, _assets.Wheel.StarsPerSpin);
             _popups.Show<WinPopup>().Setup(_levelIndex + 1, stars);
         }
         else if (_movesRemaining <= 0)
@@ -400,21 +401,15 @@ public class BoardController : MonoBehaviour
             return;
         }
        
+        var command = new SwapCommand(_board, x1, y1, x2, y2);
+        if (!command.Validate(_board))
+        {
+            return;
+        }
+
         Piece piece1 = _board.GetCell(x1, y1);
         Piece piece2 = _board.GetCell(x2, y2);
-        if (piece1 == null || piece2 == null) return;
 
-        if (BoardLogic.IsCellSwapBlocked(_board, x1, y1) || BoardLogic.IsCellSwapBlocked(_board, x2, y2))
-        {
-            return;
-        }
-        
-        if (!BoardLogic.IsPieceMoveable(piece1) || !BoardLogic.IsPieceMoveable(piece2))
-        {
-            return;
-        }
-
-        var command = new SwapCommand(_board, x1, y1, x2, y2);
         var result = TurnResolver.Resolve(_board, command, targetPriority: _goalTracker);
         bool isCombo = false;
         foreach (var step in result)
@@ -433,7 +428,7 @@ public class BoardController : MonoBehaviour
         
         ApplyTurnResult(result, true);
         TurnStarted?.Invoke(TurnSummary.From(result));
-        StartCoroutine(PlayTurnAndCheckShuffle(lockedCells, _turnPlayer.PlaySwapTurn(piece1.Id, piece2.Id, x1, y1, x2, y2, result, isCombo)));
+        StartCoroutine(PlayTurnAndCheckShuffle(lockedCells, _turnPlayer.PlaySwapTurn(piece1?.Id, piece2?.Id, x1, y1, x2, y2, result, isCombo)));
     }
     
     public void TryActivate(int x, int y)
@@ -541,10 +536,12 @@ public class BoardController : MonoBehaviour
         {
             return;
         }
-
+        
         var (x1, y1, x2, y2) = move.Value;
-        _hintView1 = _turnPlayer.GetView(_board.GetCell(x1, y1).Id);
-        _hintView2 = _turnPlayer.GetView(_board.GetCell(x2, y2).Id);
+        Piece first = _board.GetCell(x1, y1);
+        Piece second = _board.GetCell(x2, y2);
+        _hintView1 = first == null ? null : _turnPlayer.GetView(first.Id);
+        _hintView2 = second == null ? null : _turnPlayer.GetView(second.Id);
         _hintView1?.PlayHintPulse();
         _hintView2?.PlayHintPulse();
         HintShown?.Invoke();

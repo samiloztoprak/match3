@@ -728,40 +728,31 @@ namespace LogicLibrary
 
         public static bool IsValidSwap(Board board, int x1, int y1, int x2, int y2)
         {
-            if (!BoardLogic.IsValidIndex(x2, y2, board))
+            var command = new SwapCommand(board, x1, y1, x2, y2);
+            if (!command.Validate(board))
             {
                 return false;
             }
 
-            Piece p1 = board.GetCell(x1, y1);
-            Piece p2 = board.GetCell(x2, y2);
-            if (p1 == null || p2 == null)
-            {
-                return false;
-            }
-            if (BoardLogic.IsCellSwapBlocked(board, x1, y1) || BoardLogic.IsCellSwapBlocked(board, x2, y2))
-            {
-                return false;
-            }
-            if (!BoardLogic.IsPieceMoveable(p1) || !BoardLogic.IsPieceMoveable(p2))
-            {
-                return false;
-            }
+            Piece first = board.GetCell(x1, y1);
+            Piece second = board.GetCell(x2, y2);
 
-            if (p1.VisualType == PieceVisualType.Special || p2.VisualType == PieceVisualType.Special)
+            if (first != null && second != null
+                              && (first.VisualType == PieceVisualType.Special
+                                  || second.VisualType == PieceVisualType.Special))
             {
                 return true;
             }
 
-            board.SetCell(x1, y1, p2);
-            board.SetCell(x2, y2, p1);
-
-            bool producesMatch = MatchLogic.FindMatches(board).Count > 0;
-
-            board.SetCell(x1, y1, p1);
-            board.SetCell(x2, y2, p2);
-
-            return producesMatch;
+            command.Execute();
+            try
+            {
+                return MatchLogic.FindMatches(board).Count > 0;
+            }
+            finally
+            {
+                command.Undo();
+            }
         }
     }
     

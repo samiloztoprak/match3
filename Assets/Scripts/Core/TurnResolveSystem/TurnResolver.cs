@@ -51,6 +51,11 @@ public static class TurnResolver
         var result = new List<TurnStepData>();
         var goalProgress = new GoalProgressData();
         
+        bool isSlide = command is SwapCommand slide
+                       && (board.GetCell(slide.SourcePosition.x, slide.SourcePosition.y) == null
+                           || board.GetCell(slide.TargetPosition.x, slide.TargetPosition.y) == null);
+
+        
         if (command is SwapCommand swapCmd0 && !swapCmd0.Validate(board))
         {
             return result;
@@ -67,7 +72,7 @@ public static class TurnResolver
         bool specialActivated = false;
         var pending = new Queue<PendingActivation>();
 
-        if (command is SwapCommand swapCmd)
+        if (command is SwapCommand swapCmd && !isSlide)
         {
             Piece atSource = board.GetCell(swapCmd.SourcePosition.x, swapCmd.SourcePosition.y);
             Piece atTarget = board.GetCell(swapCmd.TargetPosition.x, swapCmd.TargetPosition.y);
@@ -319,8 +324,8 @@ public static class TurnResolver
             List<(ShapeTemplate template, HashSet<(int, int)> cells)> matches = MatchLogic.FindMatches(board);
             if (matches.Count == 0)
             {
-                bool skipBreakForActivation = specialActivated && iteration == 0;
-                if (!skipBreakForActivation)
+                bool shouldSettleBoard = iteration == 0 && specialActivated;
+                if (!shouldSettleBoard)
                 {
                     if (iteration == 0 && command is IUndoableCommand undoable)
                     {

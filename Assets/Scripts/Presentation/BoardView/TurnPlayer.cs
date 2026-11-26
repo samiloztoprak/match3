@@ -206,18 +206,19 @@ public class TurnPlayer : MonoBehaviour
         _effects.Release(effect);
     }
     
-    public IEnumerator PlaySwapTurn(int piece1Id, int piece2Id, int x1, int y1, int x2, int y2, List<TurnStepData> steps, bool isCombo = false)
+    public IEnumerator PlaySwapTurn(int? piece1Id, int? piece2Id, int x1, int y1, int x2, int y2, List<TurnStepData> steps, bool isCombo = false)
     {
         AudioManager.Play(SoundId.Swap);
         
         Vector3 targetWorldPos = CellToWorld(x2, y2);
         Vector3 sourceWorldPos = CellToWorld(x1, y1);
 
-        if (_pieceById.TryGetValue(piece1Id, out PieceView view1))
+        if (piece1Id.HasValue && _pieceById.TryGetValue(piece1Id.Value, out PieceView view1))
         {
             view1.MoveTo(targetWorldPos, _anim.SwapDuration);
         }
-        if (_pieceById.TryGetValue(piece2Id, out PieceView view2))
+
+        if (piece2Id.HasValue && _pieceById.TryGetValue(piece2Id.Value, out PieceView view2))
         {
             view2.MoveTo(isCombo ? targetWorldPos : sourceWorldPos, _anim.SwapDuration);
         }
@@ -229,14 +230,14 @@ public class TurnPlayer : MonoBehaviour
 
         List<(float startTime, IViewCommand command)> commands = ViewCommandFactory.Build(steps, this);
 
-        if (commands.Count == 0)
+        if (steps.Count == 0)
         {
             AudioManager.Play(SoundId.SwapBack);
-            if (_pieceById.TryGetValue(piece1Id, out PieceView backView1))
+            if (piece1Id.HasValue && _pieceById.TryGetValue(piece1Id.Value, out PieceView backView1))
             {
                 backView1.MoveTo(sourceWorldPos, _anim.SwapDuration);
             }
-            if (_pieceById.TryGetValue(piece2Id, out PieceView backView2))
+            if (piece2Id.HasValue && _pieceById.TryGetValue(piece2Id.Value, out PieceView backView2))
             {
                 backView2.MoveTo(targetWorldPos, _anim.SwapDuration);
             }

@@ -1,0 +1,237 @@
+fileFormatVersion: 2
+guid: a3aa489ee9dfb3a4d8c6e8ea15122812
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6373823417130943020
+    second: "Y\u0131ld\u0131zs\u0131z alt\u0131n \u0131\u015F\u0131k halkas\u0131_0"
+  - first:
+      213: -1259313163797904674
+    second: "Y\u0131ld\u0131zs\u0131z alt\u0131n \u0131\u015F\u0131k halkas\u0131_1"
+  - first:
+      213: 6562862297999860145
+    second: "Y\u0131ld\u0131zs\u0131z alt\u0131n \u0131\u015F\u0131k halkas\u0131_2"
+  - first:
+      213: -8207010732274336131
+    second: "Y\u0131ld\u0131zs\u0131z alt\u0131n \u0131\u015F\u0131k halkas\u0131_3"
+  - first:
+      213: 7556276906115100877
+    second: "Y\u0131ld\u0131zs\u0131z alt\u0131n \u0131\u015F\u0131k halkas\u0131_4"
+  - first:
+      213: 7462852676630469138
+    second: "Y\u0131ld\u0131zs\u0131z alt\u0131n \u0131\u015F\u0131k halkas\u0131_5"
+  - first:
+      213: -1499301153660061643
+    second: "Y\u0131ld\u0131zs\u0131z alt\u0131n \u0131\u015F\u0131k halkas\u0131_6"
+  - first:
+      213: -2165373698904142679
+    second: "Y\u0131ld\u0131zs\u0131z alt\u0131n \u0131\u015F\u0131k halkas\u0131_7"
+  - first:
+      213: -1365305594317062093
+    second: "Y\u0131ld\u0131zs\u0131z alt\u0131n \u0131\u015F\u0131k halkas\u0131_8"
+  - first:
+      213: 2853269188368823203
+    second: "Y\u0131ld\u0131zs\u0131z alt\u0131n \u0131\u015F\u0131k halkas\u0131_9"
+  - first:
+      213: 537623655774004877
+    second: "Y\u0131ld\u0131zs\u0131z alt\u0131n \u0131\u015F\u0131k halkas\u0131_10"
+  - first:
+      213: -2516951772104419732
+    second: "Y\u0131ld\u0131zs\u0131z alt\u0131n \u0131\u015F\u0131k halkas\u0131_11"
+  - first:
+      213: 264916969466679238
+    second: "Y\u0131ld\u0131zs\u0131z alt\u0131n \u0131\u015F\u0131k halkas\u0131_12"
+  - first:
+      213: -8481126936202187560
+    second: "Y\u0131ld\u0131zs\u0131z alt\u0131n \u0131\u015F\u0131k halkas\u0131_13"
+  - first:
+      213: 6395276143539011042
+    second: "Y\u0131ld\u0131zs\u0131z alt\u0131n \u0131\u015F\u0131k halkas\u0131_14"
+  - first:
+      213: 6392380485172695968
+    second: "Y\u0131ld\u0131zs\u0131z alt\u0131n \u0131\u015F\u0131k halkas\u0131_15"
+  - first:
+      213: -2614690249654859339
+    second: "Y\u0131ld\u0131zs\u0131z alt\u0131n \u0131\u015F\u0131k halkas\u0131_16"
+  - first:
+      213: -4570764939470100877
+    second: "Y\u0131ld\u0131zs\u0131z alt\u0131n \u0131\u015F\u0131k halkas\u0131_17"
+  - first:
+      213: -1431218812618376367
+    second: "Y\u0131ld\u0131zs\u0131z alt\u0131n \u0131\u015F\u0131k halkas\u0131_18"
+  - first:
+      213: 5773706468632884220
+    second: "Y\u0131ld\u0131zs\u0131z alt\u0131n \u0131\u015F\u0131k halkas\u0131_19"
+  - first:
+      213: 7826518214685509754
+    second: "Y\u0131ld\u0131zs\u0131z alt\u0131n \u0131\u015F\u0131k halkas\u0131_20"
+  - first:
+      213: 8936535216254251692
+    second: "Y\u0131ld\u0131zs\u0131z alt\u0131n \u0131\u015F\u0131k halkas\u0131_21"
+  - first:
+      213: 7535329453291859223
+    second: "Y\u0131ld\u0131zs\u0131z alt\u0131n \u0131\u015F\u0131k halkas\u0131_22"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "Y\u0131ld\u0131zs\u0131z alt\u0131n \u0131\u015F\u0131k halkas\u0131_0"
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 38
+        width: 957
+        height: 1099
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c22082fb0ae547850800000000000000
+      internalID: 6373823417130943020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":1254.0,"y":1254.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      "Y\u0131ld\u0131zs\u0131z alt\u0131n \u0131\u015F\u0131k halkas\u0131_0": 6373823417130943020
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

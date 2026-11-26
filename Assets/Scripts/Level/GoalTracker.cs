@@ -118,35 +118,53 @@ public class GoalTracker : ITargetPriority
     public int GetPriority(Board board, int x, int y)
     {
         Piece piece = board.GetCell(x, y);
-        
-        if (piece != null && BoardLogic.IsPieceTargetableByPropeller(piece) && piece.GoalKind.HasValue && IsGoalActive(piece.GoalKind.Value, null))
+        if (piece != null && BoardLogic.IsVoid(piece))
         {
-            return 2;
+            return 0;
         }
 
-        Piece above = y > 0 ? board.GetCell(x, y - 1) : null;
-        if (above != null && piece != null && BoardLogic.IsPieceTargetableByPropeller(above) 
-                          && BoardLogic.IsPieceCollectable(piece)
-                          && !BoardLogic.IsPieceLocked(above)
-                          && above.GoalKind.HasValue && IsGoalActive(above.GoalKind.Value, null))
+        bool isLocked = piece != null && BoardLogic.IsPieceLocked(piece);
+        bool triggersSpecial = piece != null
+                               && piece.VisualType == PieceVisualType.Special && !isLocked;
+
+        OverlayPiece overlay = board.GetOverlayPieceAt(x, y);
+        if (overlay != null)
+        {
+            if (piece != null && !triggersSpecial
+                              && overlay.Flags.HasFlag(PieceFlags.DamageableBySpecial)
+                              && overlay.GoalKind.HasValue
+                              && IsGoalActive(overlay.GoalKind.Value, null))
+            {
+                return 3;
+            }
+
+            if (isLocked)
+            {
+                return 0;
+            }
+        }
+
+        bool takesDamage = piece != null
+                           && piece.Flags.HasFlag(PieceFlags.DamageableByNeighbor);
+
+        if (takesDamage && piece.GoalKind.HasValue
+                        && IsGoalActive(piece.GoalKind.Value, null))
         {
             return 3;
         }
-        
-        OverlayPiece overlay = board.GetOverlayPieceAt(x, y);
-        if (overlay != null && overlay.GoalKind.HasValue && IsGoalActive(overlay.GoalKind.Value, null))
-        {
-            bool specialOnly = overlay.Flags.HasFlag(PieceFlags.DamageableBySpecial) && !overlay.Flags.HasFlag(PieceFlags.DamageableByNeighbor);
-            return specialOnly ? 3 : 2;
-        }
 
         FloorPiece floor = board.GetFloor(x, y);
-        if (floor != null && floor.GoalKind.HasValue && IsGoalActive(floor.GoalKind.Value, null))
+        if (overlay == null && !triggersSpecial
+                            && (!takesDamage || piece.Health <= 1)
+                            && floor != null && !BoardLogic.IsPieceLocked(floor)
+                            && floor.GoalKind.HasValue
+                            && IsGoalActive(floor.GoalKind.Value, null))
         {
             return 2;
         }
-        
-        if (piece != null && piece.VisualType == PieceVisualType.Standard && IsGoalActive(GoalType.CollectColor, piece.Color))
+
+        if (piece != null && piece.VisualType == PieceVisualType.Standard
+                          && IsGoalActive(GoalType.CollectColor, piece.Color))
         {
             return 1;
         }

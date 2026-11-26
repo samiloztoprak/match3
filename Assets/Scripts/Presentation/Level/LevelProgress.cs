@@ -15,12 +15,16 @@ public static class LevelProgress
         return PlayerPrefs.GetInt("Stars_" + levelIndex, 0);
     }
 
-    public static void SaveStars(int levelIndex, int stars)
+    public static int SaveStars(int levelIndex, int stars)
     {
-        if (stars > GetStars(levelIndex))
+        int previous = GetStars(levelIndex);
+        if (stars <= previous) 
         {
-            PlayerPrefs.SetInt("Stars_" + levelIndex, stars);
-            PlayerPrefs.Save();
+            return 0;
         }
+
+        PlayerPrefs.SetInt("Stars_" + levelIndex, stars);
+        PlayerPrefs.Save();
+        return stars - previous;
     }
 }
