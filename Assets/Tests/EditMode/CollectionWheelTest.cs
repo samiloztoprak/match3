@@ -35,7 +35,7 @@ namespace Tests.EditMode
             var config = new SerializedObject(wheel);
             SerializedProperty segments = config.FindProperty("_segments");
             int packRoll = 0;
-            bool hasPack = false;
+            int packIndex = -1;
             for (int i = 0; i < segments.arraySize; i++)
             {
                 SerializedProperty segment = segments.GetArrayElementAtIndex(i);
@@ -44,12 +44,12 @@ namespace Tests.EditMode
                 {
                     var icon = segment.FindPropertyRelative("Icon").objectReferenceValue as Sprite;
                     Assert.IsNotNull(icon);
-                    hasPack = true;
+                    packIndex = i;
                     break;
                 }
                 packRoll += Math.Max(0, weight);
             }
-            Assert.IsTrue(hasPack);
+            Assert.GreaterOrEqual(packIndex, 0);
 
             var catalogAsset = config.FindProperty("_collection").objectReferenceValue;
             Assert.IsNotNull(catalogAsset);
@@ -71,13 +71,21 @@ namespace Tests.EditMode
             FieldInfo stateField = presentation.GetType("MetaProgress")
                 .GetField("_state", BindingFlags.NonPublic | BindingFlags.Static);
             MethodInfo trySpin = presentation.GetType("WheelService").GetMethod("TrySpin");
+            MethodInfo rewardAt = presentation.GetType("WheelService").GetMethod("RewardAt");
             object cached = stateField.GetValue(null);
             bool hadSave = PlayerPrefs.HasKey(SaveKey);
             string previous = PlayerPrefs.GetString(SaveKey);
+            const string levelKey = "CurrentLevelIndex";
+            bool hadLevel = PlayerPrefs.HasKey(levelKey);
+            int previousLevel = PlayerPrefs.GetInt(levelKey);
 
             try
             {
                 stateField.SetValue(null, initial);
+                PlayerPrefs.SetInt(levelKey, 9);
+                object lockedReward = rewardAt.Invoke(null, new object[] { wheel, packIndex });
+                Assert.AreEqual("Stars", lockedReward.GetType().GetField("Type").GetValue(lockedReward).ToString());
+                PlayerPrefs.SetInt(levelKey, 10);
                 var args = new object[] { wheel, new PackRandom(packRoll), null };
                 Assert.IsTrue((bool)trySpin.Invoke(null, args));
                 var saved = JsonUtility.FromJson<MetaProgressState>(PlayerPrefs.GetString(SaveKey));
@@ -101,6 +109,8 @@ namespace Tests.EditMode
                 stateField.SetValue(null, cached);
                 if (hadSave) PlayerPrefs.SetString(SaveKey, previous);
                 else PlayerPrefs.DeleteKey(SaveKey);
+                if (hadLevel) PlayerPrefs.SetInt(levelKey, previousLevel);
+                else PlayerPrefs.DeleteKey(levelKey);
                 PlayerPrefs.Save();
             }
         }

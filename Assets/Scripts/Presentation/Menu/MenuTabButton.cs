@@ -52,6 +52,11 @@ public class MenuTabButton : MonoBehaviour
         if (_selectedVisual != null) _selectedVisual.SetActive(selected);
     }
 
+    public void SetLocked(bool locked)
+    {
+        if (_lockVisual != null) _lockVisual.SetActive(locked);
+    }
+
     private GameObject FindChild(string childName)
     {
         foreach (Transform t in GetComponentsInChildren<Transform>(true))

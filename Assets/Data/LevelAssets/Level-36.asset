@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ba80a4ecab8545429a806682e3a6cd8, type: 3}
+  m_Name: Level-36
+  m_EditorClassIdentifier: LevelAssembly::LevelAsset
+  Data:
+    version: 1
+    width: 8
+    height: 8
+    moves: 12
+    colors:
+    - 'Red'
+    - 'Yellow'
+    - 'Blue'
+    stars:
+      two: 4
+      three: 7
+    cells:
+    - '...B....'
+    - '.B.....B'
+    - '.....BB.'
+    - '.......B'
+    - '.......B'
+    - '........'
+    - '........'
+    - '.B......'
+    overlays:
+    - '........'
+    - '........'
+    - '.C......'
+    - '...C....'
+    - '........'
+    - '........'
+    - '........'
+    - '........'
+    floors:
+    - '........'
+    - '........'
+    - '........'
+    - '........'
+    - '........'
+    - '........'
+    - '........'
+    - '........'
+    goals:
+    - type: ClearBox
+      color: ''
+      count: 8
+    - type: CollectColor
+      color: 'Yellow'
+      count: 24

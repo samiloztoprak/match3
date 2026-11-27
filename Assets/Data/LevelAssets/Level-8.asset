@@ -22,8 +22,8 @@ MonoBehaviour:
     - Yellow
     - Blue
     stars:
-      two: 2
-      three: 5
+      two: 3
+      three: 6
     cells:
     - ....B....
     - ..#.B.#..

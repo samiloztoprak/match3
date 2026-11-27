@@ -23,8 +23,8 @@ MonoBehaviour:
     - Blue
     - Green
     stars:
-      two: 0
-      three: 0
+      two: 20
+      three: 21
     cells:
     - '#..OO..#'
     - ........

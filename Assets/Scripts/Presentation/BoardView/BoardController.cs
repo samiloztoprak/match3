@@ -499,10 +499,11 @@ public class BoardController : MonoBehaviour
 
         ClearHint();
         _idleTimer = 0f;
-        var steps = TurnResolver.ResolveShuffle(_board, new SystemRandom());
+        var steps = TurnResolver.ResolveShuffle(_board, new SystemRandom(), _goalTracker);
         
         var allCells = AllCells();
         _turnPlayer.LockCells(allCells);
+        ApplyTurnResult(steps, false);
         StartCoroutine(PlayTurnAndCheckShuffle(allCells, _turnPlayer.PlayShuffleTurn(steps)));
     }
     
@@ -519,11 +520,13 @@ public class BoardController : MonoBehaviour
         
         if (!_turnPlayer.IsBusy && !MoveLogic.HasAvailableMove(_board))
         {
-            var shuffleSteps = TurnResolver.ResolveShuffle(_board, new SystemRandom());
+            var shuffleSteps = TurnResolver.ResolveShuffle(_board, new SystemRandom(), _goalTracker);
             var allCells = AllCells();
             _turnPlayer.LockCells(allCells);
+            ApplyTurnResult(shuffleSteps, false);
             yield return StartCoroutine(_turnPlayer.PlayShuffleTurn(shuffleSteps));
             _turnPlayer.UnlockCells(allCells);
+            yield return StartCoroutine(FinishTurn());
         }
     }
     

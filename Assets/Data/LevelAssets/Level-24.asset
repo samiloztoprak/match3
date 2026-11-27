@@ -16,7 +16,7 @@ MonoBehaviour:
     version: 1
     width: 10
     height: 10
-    moves: 16
+    moves: 14
     colors:
     - Red
     - Yellow

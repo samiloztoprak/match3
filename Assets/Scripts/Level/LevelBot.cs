@@ -77,7 +77,14 @@ public static class LevelBot
         {
             if (!MoveLogic.HasAvailableMove(board))
             {
-                TurnResolver.ResolveShuffle(board, random);
+                List<string> openBeforeShuffle = OpenGoals(goals);
+                ApplyProgress(TurnResolver.ResolveShuffle(board, random, goals), goals);
+                if (goals.IsComplete())
+                {
+                    result.MovesNeeded = move - 1;
+                    result.LastGoal = openBeforeShuffle.FirstOrDefault();
+                    return result;
+                }
                 if (!MoveLogic.HasAvailableMove(board))
                 {
                     break;

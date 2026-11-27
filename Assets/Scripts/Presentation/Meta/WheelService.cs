@@ -46,7 +46,8 @@ public static class WheelService
     {
         var reward = config.Segments[index];
         if (reward.Type == WheelRewardType.CardPack
-            && (config.Collection == null || !config.Collection.HasIncompleteSet(MetaProgress.State)))
+            && (!LevelProgress.IsCollectionUnlocked || config.Collection == null
+                || !config.Collection.HasIncompleteSet(MetaProgress.State)))
         {
             reward.Type = WheelRewardType.Stars;
             reward.Amount = 5;

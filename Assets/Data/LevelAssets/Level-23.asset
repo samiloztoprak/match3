@@ -22,8 +22,8 @@ MonoBehaviour:
     - Yellow
     - Blue
     stars:
-      two: 7
-      three: 13
+      two: 3
+      three: 11
     cells:
     - ..BB..BB..
     - B#..BB...B
@@ -44,8 +44,8 @@ MonoBehaviour:
     - ..........
     - ..C...C...
     - ..........
-    - C...C...C.
-    - ..........
+    - ....C.....
+    - L........L
     floors:
     - g...gg...g
     - g........g
@@ -64,3 +64,6 @@ MonoBehaviour:
     - type: ClearGrass
       color: 
       count: 20
+    - type: ClearLock
+      color: 
+      count: 2

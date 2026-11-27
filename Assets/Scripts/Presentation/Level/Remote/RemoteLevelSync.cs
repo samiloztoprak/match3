@@ -23,28 +23,33 @@ using UnityEngine.Networking;
 
 public class RemoteLevelSync : MonoBehaviour
 {
-    private const string BaseUrl = "https://circus-royale-levels-host.web.app/levels/v1/";
-    private static string CacheDir => Path.Combine(Application.persistentDataPath, "levels");
+    private const string BaseUrl = "https://circus-royale-levels-host.web.app/levels/v2/";
+    private static string CacheDir => Path.Combine(Application.persistentDataPath, "levels-v2");
+    internal static string IndexPath => Path.Combine(CacheDir, "index.json");
+    internal static int CacheGeneration { get; private set; }
 
     public IEnumerator SyncLevels(Action onDone)
+    {
+        try
+        {
+            yield return DownloadCampaign();
+        }
+        finally
+        {
+            onDone?.Invoke();
+        }
+    }
+
+    private static IEnumerator DownloadCampaign()
     {
         Directory.CreateDirectory(CacheDir);
 
         byte[] indexBytes = null;
         yield return Get(BaseUrl + "index.json", data => indexBytes = data);
-        if (indexBytes == null)
-        {
-            onDone?.Invoke();
-            yield break;
-        }
+        if (indexBytes == null) yield break;
 
-        File.WriteAllBytes(Path.Combine(CacheDir, "index.json"), indexBytes);
         RemoteIndex index = JsonUtility.FromJson<RemoteIndex>(System.Text.Encoding.UTF8.GetString(indexBytes));
-        if (index == null || index.levels == null)
-        {
-            onDone?.Invoke();
-            yield break;
-        }
+        if (index?.schemaVersion != 1 || index.levels == null) yield break;
 
         foreach (RemoteLevelEntry entry in index.levels)
         {
@@ -53,9 +58,10 @@ public class RemoteLevelSync : MonoBehaviour
 
             byte[] data = null;
             yield return Get(BaseUrl + entry.file, d => data = d);
-            if (data == null) continue;
-
-            if (!string.Equals(Sha256Hex(data), entry.sha256, StringComparison.OrdinalIgnoreCase)) continue;
+            if (data == null || !string.Equals(Sha256Hex(data), entry.sha256, StringComparison.OrdinalIgnoreCase))
+            {
+                yield break;
+            }
 
             string tmp = cachePath + ".tmp";
             File.WriteAllBytes(tmp, data);
@@ -63,7 +69,12 @@ public class RemoteLevelSync : MonoBehaviour
             File.Move(tmp, cachePath);
         }
 
-        onDone?.Invoke();
+        string pendingIndex = IndexPath + ".tmp";
+        File.WriteAllBytes(pendingIndex, indexBytes);
+        if (File.Exists(IndexPath)) File.Replace(pendingIndex, IndexPath, null);
+        else File.Move(pendingIndex, IndexPath);
+
+        CacheGeneration++;
     }
 
     public static string TryReadCachedLevelJson(int levelId, int contentRevision)

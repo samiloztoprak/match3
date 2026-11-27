@@ -11,6 +11,7 @@ public static class ActivationTiming
     public const float TntChargeMs = 250f;
     
     public const float ChainDelayMs = 50f;
+    public const float PostActivationMatchDelayMs = 100f;
 
     public const float PropellerFlightMs = 1000f;
 

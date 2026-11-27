@@ -63,12 +63,14 @@ public class RewardFlyer : MonoBehaviour
         _active.Clear();
     }
     
-    public void Fly(Sprite icon, Vector3 from, RectTransform target, int count, Action onEachArrive, Action onAllArrived)
+    public void Fly(Sprite icon, Vector3 from, RectTransform target, int count, Action onEachArrive, Action onAllArrived,
+        bool unscaledTime = false)
     {
-        Fly(icon, from, 0f, target, count, onEachArrive, onAllArrived);
+        Fly(icon, from, 0f, target, count, onEachArrive, onAllArrived, unscaledTime);
     }
     
-    public void Fly(Sprite icon, Vector3 from, float startScale, RectTransform target, int count, Action onEachArrive, Action onAllArrived)
+    public void Fly(Sprite icon, Vector3 from, float startScale, RectTransform target, int count, Action onEachArrive, Action onAllArrived,
+        bool unscaledTime = false)
     {
         count = Mathf.Max(1, count);
         float unit = _layer.lossyScale.y;
@@ -89,7 +91,7 @@ public class RewardFlyer : MonoBehaviour
             float spread = count > 1 ? _spread * unit : 0f;
             Vector3 burst = from + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0f) * spread;
 
-            Sequence seq = DOTween.Sequence().SetTarget(rt);
+            Sequence seq = DOTween.Sequence().SetTarget(rt).SetUpdate(unscaledTime);
             seq.Append(rt.DOScale(_popScale, _popDuration).SetEase(Ease.OutBack));
             seq.Join(rt.DOMove(burst, _popDuration).SetEase(Ease.OutCubic));
             seq.AppendInterval(_holdDuration + i * _stagger);

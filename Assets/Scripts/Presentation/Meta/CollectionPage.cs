@@ -12,10 +12,11 @@ public sealed class CollectionPage : MonoBehaviour
     {
         if (_sets != null) return;
 
-        _sets = new CollectionSetView[_catalog.Sets.Count];
+        CollectionCatalog catalog = CollectionCatalogSource.Get(_catalog);
+        _sets = new CollectionSetView[catalog.Sets.Count];
         for (int index = 0; index < _sets.Length; index++)
         {
-            CollectionCatalog.Set set = _catalog.Sets[index];
+            CollectionCatalog.Set set = catalog.Sets[index];
             CollectionSetView view = Instantiate(_setPrefab, _content);
             view.name = "ui_collection_set_" + set.Id;
             view.Build(set);

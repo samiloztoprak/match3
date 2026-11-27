@@ -33,8 +33,11 @@ public class Boot : MonoBehaviour
             yield break;
         }
 #endif
+        yield return CollectionCatalogSource.Load();
+
         RemoteLevelSync sync = gameObject.AddComponent<RemoteLevelSync>();
-        StartCoroutine(sync.SyncLevels(null));
+        DontDestroyOnLoad(gameObject);
+        StartCoroutine(sync.SyncLevels(() => Destroy(gameObject)));
         SceneLoader.LoadMenu();
     }
 }

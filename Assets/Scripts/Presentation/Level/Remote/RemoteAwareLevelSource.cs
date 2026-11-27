@@ -7,16 +7,23 @@ public class RemoteAwareLevelSource : ILevelSource
     private readonly ILevelSource _bundled;
     private readonly Dictionary<int, int> _revisions = new Dictionary<int, int>();
     private int _maxLevelId;
+    private int _cacheGeneration = -1;
     
     public RemoteAwareLevelSource(ILevelSource bundled)
     {
         _bundled = bundled;
+    }
 
-        string indexPath = Path.Combine(Application.persistentDataPath, "levels", "index.json");
+    private void RefreshIndex()
+    {
+        if (_cacheGeneration == RemoteLevelSync.CacheGeneration) return;
+        _cacheGeneration = RemoteLevelSync.CacheGeneration;
+        _revisions.Clear();
+        _maxLevelId = 0;
+        string indexPath = RemoteLevelSync.IndexPath;
         if (!File.Exists(indexPath)) return;
 
         RemoteIndex index = JsonUtility.FromJson<RemoteIndex>(File.ReadAllText(indexPath));
-        //Debug.Log($"[LevelDebug] indexExists={File.Exists(indexPath)} path={indexPath}");
         if (index?.levels == null) return;
         
         foreach (RemoteLevelEntry entry in index.levels)
@@ -26,10 +33,18 @@ public class RemoteAwareLevelSource : ILevelSource
         }
     }
 
-    public int Count => Mathf.Max(_bundled.Count, _maxLevelId);
+    public int Count
+    {
+        get
+        {
+            RefreshIndex();
+            return Mathf.Max(_bundled.Count, _maxLevelId);
+        }
+    }
 
     public LevelData Get(int index)
     {
+        RefreshIndex();
         int levelId = index + 1;
 
         if (_revisions.TryGetValue(levelId, out int revision))

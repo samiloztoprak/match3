@@ -30,7 +30,7 @@ public class WheelConfig : ScriptableObject
 
     public int StarsPerSpin => _starsPerSpin;
     public Segment[] Segments => _segments;
-    public CollectionCatalog Collection => _collection;
+    public CollectionCatalog Collection => CollectionCatalogSource.Get(_collection);
     public Sprite FallbackStarIcon => _fallbackStarIcon;
 
     public int[] Weights()

@@ -12,7 +12,7 @@ In this project, that paper is a `List<TurnStepData>`: an ordered list of everyt
 
 This split gives three benefits:
 
-- **Testable.** Core never touches Unity, so it can be tested without opening a scene. This is why the 70 tests run in a few seconds.
+- **Testable.** Core never touches Unity, so it can be tested without opening a scene.
 - **Animations can't break the rules.** Making an animation faster or adding an effect can't change the result of the game.
 - **Repeatable.** All randomness goes through `IRandom`. With the same seed, the same move always gives the same result. This makes bot testing possible.
 
@@ -108,7 +108,7 @@ All code is under `Assets/Scripts`, in three folders: `Core` (rules), `Level` (l
 | `EffectViews`, `Effects` | Rocket, light beam, explosion, spark, camera shake | `EffectSpawner.cs` |
 | `Level` | Level catalog and progress, goal tracking, HUD, flying icons | `LevelCatalog.cs`, `GoalTracker.cs` |
 | `Booster` | Booster buttons and inventory | `BoosterBarController.cs` |
-| `Mascot` | Bobo's mood | `MascotView.cs` |
+| `Mascot` | Mascot reactions | `MascotView.cs` |
 | `Popups` | Win and lose windows | `PopupManager.cs` |
 | `Menu`, `Scene` | Main menu, boot, scene change, loading screen | `Boot.cs`, `SceneLoader.cs`, `LoadingScreen.cs` |
 | `Setting`, `Audio` | Settings, vibration, sounds | `GameSettings.cs`, `AudioManager.cs` |
@@ -117,10 +117,10 @@ All code is under `Assets/Scripts`, in three folders: `Core` (rules), `Level` (l
 
 **Important folders outside the code**
 
-- `Assets/Data/LevelAssets`: the 20 level files (`LevelAsset` assets).
+- `Assets/Data/LevelAssets`: 50 bundled level files (`LevelAsset` assets).
 - `Assets/Data/VisualConfig`, `AnimationConfig`: visual and timing settings.
 - `Assets/Resources`: files the code loads by name. Only `AudioConfig` is here now. The folder name must be exactly `Resources`.
-- `Assets/Sprites`: sprites sorted by where they are used (`boards`, `particule`, `user_interface/common`, `user_interface/game`, `bobo_sprites`, `backgrounds`) and the sprite atlases (section 9).
+- `Assets/Sprites`: sprites sorted by where they are used (`boards`, `particule`, `user_interface/common`, `user_interface/game`, `ringo_sprites`, `backgrounds`) and the sprite atlases (section 9).
 - `Assets/AddressableAssetsData`: Addressables settings and groups (section 9).
 - `Assets/Prefabs`: piece, cell, effect and UI prefabs.
 - `Assets/Scenes`: `Boot` (the only scene in the build list), plus `Menu` and `Game`, which load through Addressables.
@@ -409,11 +409,18 @@ Goal types (`GoalType`): `CollectColor` (collect a color), `ClearBox` (break box
 | `RemoteLevelSync` | Presentation | Downloads `index.json` and new level files in the background, checks their sha256 and saves them to the cache |
 | `RemoteAwareLevelSource` | Presentation | An `ILevelSource` that uses cached remote levels first and falls back to the bundled ones |
 
-### Online levels
+### Online levels and editor tools
 
-Levels can change without an app update. When the app starts, `Boot` adds a `RemoteLevelSync` and starts it. It downloads `index.json` from the hosting server. For each level in the index that isn't cached yet, it downloads the file, checks its sha256 and saves it to `persistentDataPath/levels` as `{levelId:000}_r{contentRevision}.json`. The index itself is also saved there.
+The local [LevelCatalog](../Assets/Data/VisualConfig/LevelCatalog.asset) contains levels 1–50 in numeric order. Firebase Hosting serves levels 51–100 from [the v2 manifest](../firebase-hosting/public/levels/v2/index.json). Each manifest entry includes a level ID, revision, file and SHA-256 hash. The older v1 files remain in a separate path.
 
-`GameAssets.Levels` returns a `RemoteAwareLevelSource` that wraps the bundled `LevelCatalog`. When a cached remote file exists for a level, that file is used. Otherwise the bundled level is used. The sync doesn't block the menu, so on the first launch the bundled levels may still be in use. If the phone is offline, the bundled levels still play.
+`RemoteLevelSync` runs in the background from Boot. It downloads missing revisions into `Application.persistentDataPath/levels-v2`, checks their hashes and publishes the new local index only after all required files are present. `RemoteAwareLevelSource` reloads its index when the cache generation changes. It uses the indexed cached level when available, then the bundled catalog. A fresh offline installation can play levels 1–50. A device with the complete cached campaign can also play levels 51–100 offline.
+
+| Editor tool | Workflow |
+| --- | --- |
+| **Match3 → Level Editor** | Create, duplicate and edit `LevelAsset` files. Paint the cell, overlay and floor layers, adjust sizes, colors, moves and star thresholds, and add color goals. Validate before saving or exporting and use **Play** to launch the selected board through Boot. |
+| **Match3 → Level Generator** | Choose dimensions, colors, piece counts, a color goal, mirroring, seed and target difficulty. Validate a generated board, create an asset and open it in the editor for bot tuning. |
+| **Bot panel** | Run seeded playtests in the background. The bot scores legal candidates on board copies, favors goal progress and useful specials, and reports win rate, suggested moves and stars, and the most persistent goal. Review the result before applying it. |
+| **Export JSON** | Write a validated, standalone level file. For a remote release, add it to the manifest, increment its content revision when replacing published content, and update its SHA-256. |
 
 ### Elements: one class for each thing
 
@@ -474,7 +481,7 @@ Then `BoardController.SpawnBoardViews()` creates visuals for whatever is on the 
 
 ### The mascot: `MascotView`
 
-Bobo listens to `BoardController`'s events and changes his mood. Nobody tells him "cheer now". He decides by himself.
+Ringo listens to `BoardController`'s events and changes his mood. Nobody tells him "cheer now". He decides by himself.
 
 - **Huge turn** (light ball combo or 25+ pieces) → cheers a lot. **Good turn** (combo, special piece, toy collected or 10+ pieces) → cheers.
 - **3 moves left** → worried. **1 move left** → sad.
@@ -532,90 +539,65 @@ If the player used +5 moves, the level always gets 1 star.
   - `UIButtonSound` plays a click sound when added to a button.
 - **`Haptics.Vibrate()`** vibrates the phone if vibration is on. It is used for combo merges, the light ball and winning.
 
-### Saved data
+### Progress, reward wheel and collections
 
-Everything is saved in `PlayerPrefs`, so it stays when the app closes and opens again:
+`MetaProgress` stores a versioned JSON snapshot in `PlayerPrefs`. It keeps the best star count per level, total stars, wheel bank, spins, pending menu star flights, booster balances, owned card IDs and claimed set IDs. It retains legacy keys for compatibility. Level progress and audio settings also use `PlayerPrefs`. Improving a level's best score adds only the new stars. The menu waits for the loading transition before playing queued star flights.
 
-| Data | Who keeps it |
-| --- | --- |
-| Current level | `LevelProgress.CurrentIndex` |
-| Level stars | `LevelProgress.GetStars` / `SaveStars` |
-| Booster counts | `BoosterInventory` |
-| Music, sound, vibration | `GameSettings` |
+`WheelService` selects a weighted segment and commits its reward with the consumed spin. The configured star threshold grants additional spins. Boosters go to the same inventory used in gameplay. The collection tab and card packs unlock after level 10. A pack draws three distinct cards with rarity weights. An already owned card awards one star. Completing a set grants three of each booster once per set ID. While the collection is locked or all sets are complete, a card-pack segment pays five stars.
+
+`CollectionCatalogSource` loads `collection/catalog` during Boot and retains the successful Addressables handle for the session. An unavailable or invalid remote catalog falls back to the bundled `CollectionCatalog`. The wheel and collection page read the same selected catalog. The grid uses `CollectionSetView`, `CollectionCardView` and a two-column layout. Unknown cards show the locked artwork. `CardPackReveal` reuses one scene-placed prefab. New cards fly to the collection tab and duplicates turn into stars that fly to the wheel bar. Keep card and set IDs stable across updates.
 
 ## 9. Assets and memory: atlases and Addressables
 
-The menu loads only what the menu needs. Game graphics load when a level opens and leave memory when the player goes back to the menu.
-
-### Addressables groups
-
-| Group | Contents | Bundle mode | Why |
-| --- | --- | --- | --- |
-| `Scenes` | `Menu`, `Game` (addresses `Menu`, `Game`) | Pack Separately | Each scene and the assets only it uses go into their own bundle |
-| `UI` | `LoadingScreen` prefab | Pack Together | Loaded once by `Boot`, lives for the whole session |
-| `Shared` | `atlas_ui_common`, `bobo_juggle`, `menu-background` | Pack Together | Used by the menu, the loading screen and the game. Without this group each bundle gets its own copy |
-
-Prefabs, sprites and ScriptableObjects are not added to groups one by one. Addressables pulls them in as dependencies of the scene that uses them.
+| Group | Location | Contents |
+| --- | --- | --- |
+| `Scenes` | Local | `Menu` and `Game` in the same scene group, using Pack Together |
+| `UI` | Local | `LoadingScreen` |
+| `Shared` | Local | `atlas_ui_common` |
+| `Collection Remote` | Firebase Hosting | `CollectionCatalogRemote` at `collection/catalog`, with its referenced card sprites |
 
 ### Sprite atlases
 
-| Atlas | Folder | Loaded |
-| --- | --- | --- |
-| `atlas_board` | `Sprites/boards` | In a level |
-| `atlas_ui_game` | `Sprites/user_interface/game` | In a level |
-| `atlas_ui_common` | `Sprites/user_interface/common` | Always (Shared group) |
-| `bobo_sprite_atlas` | `Sprites/bobo_sprites` | In a level (`bobo_juggle` stays outside it, because the loading screen uses it) |
+- `atlas_ui_common` has explicitly selected shared UI sprites, including stars and the shuffle icon.
+- `atlas_ui_game` has explicitly selected gameplay UI.
+- `atlas_ui_menu` has explicitly selected menu, wheel and collection UI.
+- `atlas_board` uses the board and particle folders as packables. `ringo_sprite_atlas` packs the mascot's sprite group.
+- Keep large standalone backgrounds and remote card artwork outside the local UI atlases. Check the build report for actual dependencies and duplication, including artwork shared by the bundled and remote catalogs.
 
-Atlases pack whole folders, so a new sprite joins the right atlas when you put it in the right folder. Backgrounds and the logo are not in an atlas: they are big and used alone. Particle textures (`Sprites/particule`) are not in an atlas either, because particle materials use the texture directly.
+### Content build and publishing
 
-### Rules that keep memory low
+1. For regular editor work, open `Boot.unity` and use **Use Asset Database**. For **Use Existing Build**, use bundles built for the test platform. Android shaders may render pink in the Windows editor, so validate Android bundles on a device.
+2. For an Android release, activate the Android Build Profile and set its **Player Settings → Version**. The Addressables override reads `PlayerSettings.bundleVersion`. The project's build script refreshes the value for a full build. A shipped catalog must match the local bundles in its APK.
+3. Build via **Build Profiles → Build And Run** or **Addressables Groups → Build → New Build → Default Build Script** for content only. Android player builds build Addressables automatically. Check the build report and keep the corresponding `addressables_content_state.bin` for content updates.
+4. Stage the matching catalog, hash and remote bundles from `ServerData/Android` in `firebase-hosting/public/addressables/Android`. Keep the catalog and required remote bundles for any Android release that is still supported.
+5. From `firebase-hosting`, run `firebase.cmd deploy --only hosting --project circus-royale-levels-host`. This publishes both the levels and Addressables staged in `public`. For a card-only change to a shipped build, use **Update a Previous Build** with that build's content state and publish the matching output.
+6. Check the new catalog and bundle URLs. Test on Android with a fresh online install, a cached launch and a fresh offline launch. For collection checks, use a save that has completed level 10.
 
-- **The menu must not reference game assets.** `MenuController` uses `LevelCatalog` (level data only), not `GameAssets`. One reference to `GameAssets` would load every game graphic in the menu.
-- **An asset used in more than one place goes to the `Shared` group.** Otherwise Addressables copies it into every bundle that uses it.
-- **`LevelDebugger` runs only in the editor.** Its `OnGUI` text made Unity create text materials that stayed in memory, which spoiled device measurements.
-- **URP: HDR and MSAA are off.** A 2D sprite game doesn't need them, and they doubled the size of the render textures.
+### Performance checks before the Android release build
 
-### Measured on a phone (Memory Profiler)
+Earlier Android captures are archived in [docs/images](images). Repeat the measurements with the current content and record the phone model, resolution, build version, graphics settings and profiler options. Use a Development Build connected to the device.
 
-| | Menu | Level | Menu after a level |
-| --- | --- | --- | --- |
-| Textures | 19.9 MB | 33.8 MB | 22.9 MB (the extra 3 MB is URP 2D lighting tables, created once) |
-| Render textures | 21.1 MB | 23.8 MB | 21.3 MB |
+| Scenario | What to record |
+| --- | --- |
+| Cold boot, cached boot and offline boot | Time to usable menu and level or catalog availability |
+| Menu → Game → Menu, repeated | Texture and render texture memory, retained objects, frame-time spikes |
+| Cascades, combos and repeated pooled effects | CPU/GPU frame time, GC Alloc, draw calls and visual reset state |
+| Wheel, pack reveal and collection scroll | Frame time, allocations and the first load of sprites |
+| Android Addressables content build | Bundle sizes and duplicate dependencies |
 
-Other results: the shared group removed 5.7 MB of duplicated assets from the build, and turning off HDR and MSAA cut render textures from 51.3 MB to 21.1 MB.
-
-### How to check it
-
-- **Analyze** (Window → Asset Management → Addressables → Analyze): run *Check Duplicate Bundle Dependencies*. Only TextMesh Pro's default font is expected there.
-- **Build Report** (Window → Asset Management → Addressables → Build Reports, needs *Debug Build Layout* in Preferences): see which assets are in which bundle.
-- **Memory Profiler on the phone**: editor numbers include the editor's own memory and are not reliable. Use a development build connected to the device.
-
-### Working in the editor
-
-- **Press Play from the `Boot` scene.** Starting from Game or Menu fails, because the loading screen is registered by Boot.
-- **Play Mode Script → Use Asset Database** for daily work (fastest). Use **Use Existing Build** to test real bundles, after Build → New Build → Default Build Script.
-- Player builds also build the Addressables content (*Build Addressables on Player Build* is on).
+Use the Unity Profiler, Memory Profiler, Frame Debugger where available, and Addressables Build Report. Results from the current version are pending.
 
 ## 10. Tests
 
-There are 70 tests in 12 files under `Assets/Tests/EditMode`. They test Core and Level, don't open a scene, and finish in a few seconds.
+Run the Edit Mode suite in Unity Test Runner. Core tests run without scene dependencies. Integration checks can use Unity assets and scenes.
 
 **To run them:** Window → General → Test Runner → EditMode tab → Run All.
 
-| File | Tests | What it checks |
-| --- | --- | --- |
-| `CoreCommandTests` | 11 | Swap, finding matches (line, L, T, 5 in a row), no match for a staircase shape, neighbor damage given only once |
-| `SpecialActivationTest` | 10 | Rocket, TNT, combos, chain explosions, tap to activate, same propeller target with the same seed |
-| `BoosterTest` | 6 | Hammer, row, column; hitting a cage, not destroying a toy, rejected on a hole |
-| `TimingAndFixesTest` | 5 | Blast times grow with distance, chain delay, a swap with no match returns empty |
-| `FloorPieceTest` | 4 | Grass breaks with a match on top of it, doesn't break with a match next to it |
-| `ToyPieceTest` | 5 | Toy is collected at the bottom, not affected by a rocket, not collected inside a cage, exit moves up if there's a hole under it |
-| `BoardColorsTest` | 2 | New pieces only use the board's colors |
-| `LevelBoardBuilderTest` | 8 | Letters become the right pieces, only the level's colors are used, locks and cages lock pieces, floors, goals; the validator rejects a lock on a box and too many goals, and accepts a good level |
-| `LevelJsonTest` | 2 | A level written to JSON and read back is the same; empty text gives no level |
-| `LevelBotTest` | 5 | The bot finishes an easy level; the same seed gives the same result; a board copy is independent of the original; moves are taken from percentiles; win rate maps to difficulty |
-| `LevelEditingTest` | 8 | A lock on a box is refused with a reason; erasing a cage removes the whole cage; resizing keeps content; color goals follow the board |
-| `LevelGeneratorTest` | 4 | A generated level is valid and has the requested pieces; the same seed gives the same level; mirror mode is symmetric; moves follow the difficulty |
+| Area | Coverage |
+| --- | --- |
+| Core | Swaps, match shapes, special activation and timing, boosters, floor damage and toy collection |
+| Level | JSON round-trip, board construction and validation, editing, generation and deterministic bot simulations |
+| Meta | Card ownership and duplicates, set completion, wheel rewards and saved progression |
 
 ### How to read a test
 
@@ -669,7 +651,7 @@ If you pick the right flags, the rules for matching, damage, falling and shuffli
 ### A new sprite
 
 1. Put it in the folder for where it is used: `Sprites/boards` (on the board), `Sprites/user_interface/game` (game UI), `Sprites/user_interface/common` (menu and game), `Sprites/backgrounds` (big single images).
-2. The atlas of that folder picks it up by itself. Nothing to add by hand.
+2. For UI sprites, add the asset to the matching common, game or menu atlas. Board sprites are packed from the atlas folders.
 3. If the menu and the game both use it, it must be in `common`. Then run Analyze to check for duplicates.
 
 ### A new scene

@@ -28,14 +28,14 @@ public class MenuTabBar : MonoBehaviour
 
     private void Awake()
     {
-        Current = _defaultPage;
+        Current = IsPageLocked(_defaultPage) ? MenuPage.Home : _defaultPage;
         foreach (PageRoot p in _pages)
         {
             if (p.Root == null) continue;
-            if (p.Root.TryGetComponent(out CollectionPage collection)) collection.Prepare();
+            if (!IsPageLocked(p.Page) && p.Root.TryGetComponent(out CollectionPage collection)) collection.Prepare();
             if (p.Root.TryGetComponent(out WheelPage wheel)) wheel.Prepare();
             p.Root.anchoredPosition = Vector2.zero;
-            p.Root.gameObject.SetActive(p.Page == _defaultPage);
+            p.Root.gameObject.SetActive(p.Page == Current);
         }
         RefreshButtons();
     }
@@ -50,7 +50,7 @@ public class MenuTabBar : MonoBehaviour
 
     public void Select(MenuPage page)
     {
-        if (Locked || page == Current) return;
+        if (Locked || page == Current || IsPageLocked(page)) return;
         
         RectTransform from = GetRoot(Current);
         RectTransform to = GetRoot(page);
@@ -90,9 +90,13 @@ public class MenuTabBar : MonoBehaviour
     {
         foreach (MenuTabButton button in _buttons)
         {
+            if (button.Page == MenuPage.Collection) button.SetLocked(IsPageLocked(button.Page));
             button.SetSelected(button.Page == Current);
         }
     }
+
+    private static bool IsPageLocked(MenuPage page) =>
+        page == MenuPage.Collection && !LevelProgress.IsCollectionUnlocked;
     
     private RectTransform GetRoot(MenuPage page)
     {

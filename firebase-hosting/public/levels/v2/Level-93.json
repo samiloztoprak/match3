@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "width": 9,
+  "height": 7,
+  "moves": 12,
+  "colors": [
+    "Red",
+    "Yellow",
+    "Blue",
+    "Green"
+  ],
+  "stars": {
+    "two": 3,
+    "three": 4
+  },
+  "cells": [
+    ".........",
+    "V.......V",
+    ".........",
+    ".........",
+    ".........",
+    ".........",
+    "........."
+  ],
+  "overlays": [
+    ".........",
+    ".L..L....",
+    ".........",
+    "LL..L..LL",
+    "L..LLL..L",
+    "...LLL...",
+    "........."
+  ],
+  "floors": [
+    "....g....",
+    "gg..g..gg",
+    "gg.....gg",
+    ".g..g..g.",
+    "gg.gg..gg",
+    "....g....",
+    "...g.g..."
+  ],
+  "goals": [
+    {
+      "type": "ClearGrass",
+      "color": null,
+      "count": 22
+    },
+    {
+      "type": "ClearLock",
+      "color": null,
+      "count": 15
+    }
+  ]
+}

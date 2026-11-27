@@ -3,6 +3,9 @@ using UnityEngine;
 public static class LevelProgress
 {
     private const string Key = "CurrentLevelIndex";
+    private const int CollectionUnlockIndex = 10;
+
+    public static bool IsCollectionUnlocked => CurrentIndex >= CollectionUnlockIndex;
 
     public static int CurrentIndex
     {

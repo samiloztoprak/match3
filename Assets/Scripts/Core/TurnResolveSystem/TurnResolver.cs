@@ -25,7 +25,7 @@ public static class TurnResolver
         }
     }
     
-    public static List<TurnStepData> ResolveShuffle(Board board, IRandom random = null)
+    public static List<TurnStepData> ResolveShuffle(Board board, IRandom random = null, ITargetPriority targetPriority = null)
     {
         if (random == null)
         {
@@ -37,7 +37,9 @@ public static class TurnResolver
         var shuffleStepData = new ShuffleStepData();
         shuffleStepData.Moves.AddRange(moves);
 
-        return new List<TurnStepData> { shuffleStepData };
+        var steps = new List<TurnStepData> { shuffleStepData };
+        steps.AddRange(Resolve(board, null, random, targetPriority));
+        return steps;
     }
     
     private static readonly int MaxIteration = 100;
@@ -335,6 +337,10 @@ public static class TurnResolver
                 }
             }
 
+            float matchTimeMs = iteration == 0 && specialActivated && matches.Count > 0
+                ? LastActivationImpactMs(result) + ActivationTiming.PostActivationMatchDelayMs
+                : 0f;
+
             HashSet<(int, int)> matchSet = new HashSet<(int, int)>();
             foreach (var (template, cells) in matches)
             foreach (var cell in cells)
@@ -348,13 +354,13 @@ public static class TurnResolver
                 bool broken = piece.ApplyDamage(1);
                 if (broken)
                 {
-                    clearStepData.Hits.Add(new HitData(piece.Id, x, y, 0f));
+                    clearStepData.Hits.Add(new HitData(piece.Id, x, y, matchTimeMs));
                     board.ClearCell(x, y);
                     goalProgress.Increment(piece.GoalKind);
                 }
                 else
                 {
-                    damageData.Hits.Add((piece.Id, piece.Health, 0f));
+                    damageData.Hits.Add((piece.Id, piece.Health, matchTimeMs));
                 }
             }
             
@@ -367,7 +373,7 @@ public static class TurnResolver
                 {
                     overlayX = cell.x; overlayY = cell.y; break;
                 }
-                TryBreakOverlay(board, overlay, overlayX, overlayY, 0f, clearOverlayData, damageData, goalProgress);
+                TryBreakOverlay(board, overlay, overlayX, overlayY, matchTimeMs, clearOverlayData, damageData, goalProgress);
             }
             
             result.Add(damageData);
@@ -388,13 +394,13 @@ public static class TurnResolver
                     foreach (var cell in cells)
                     {
                         Piece piece = board.GetCell(cell.Item1, cell.Item2);
-                        clearStepData.Hits.Add(new HitData(piece.Id, cell.Item1, cell.Item2, 0f));
+                        clearStepData.Hits.Add(new HitData(piece.Id, cell.Item1, cell.Item2, matchTimeMs));
                         if (piece.VisualType == PieceVisualType.Standard)
                         {
                             goalProgress.ClearedColors.Add(piece.Color);
                         }
                         board.ClearCell(cell.Item1, cell.Item2);
-                        TryBreakFloor(board, cell.Item1, cell.Item2, 0f, clearOverlayData, damageData, goalProgress);
+                        TryBreakFloor(board, cell.Item1, cell.Item2, matchTimeMs, clearOverlayData, damageData, goalProgress);
                     }
                 }
                 else
@@ -416,15 +422,15 @@ public static class TurnResolver
                         if(cell == anchor)
                             continue;
                         
-                        clearStepData.Hits.Add(new HitData(piece.Id, cell.Item1, cell.Item2, 0f));
+                        clearStepData.Hits.Add(new HitData(piece.Id, cell.Item1, cell.Item2, matchTimeMs));
                         board.ClearCell(cell.Item1, cell.Item2);
-                        TryBreakFloor(board, cell.Item1, cell.Item2, 0f, clearOverlayData, damageData, goalProgress);
+                        TryBreakFloor(board, cell.Item1, cell.Item2, matchTimeMs, clearOverlayData, damageData, goalProgress);
                     }
                     
                     Piece anchorPiece = board.GetCell(anchor.Item1, anchor.Item2);
-                    clearStepData.Hits.Add(new HitData(anchorPiece.Id, anchor.Item1, anchor.Item2, 0f));
+                    clearStepData.Hits.Add(new HitData(anchorPiece.Id, anchor.Item1, anchor.Item2, matchTimeMs));
                     board.ClearCell(anchor.Item1, anchor.Item2);
-                    TryBreakFloor(board, anchor.Item1, anchor.Item2, 0f, clearOverlayData, damageData, goalProgress);
+                    TryBreakFloor(board, anchor.Item1, anchor.Item2, matchTimeMs, clearOverlayData, damageData, goalProgress);
                     
                     Piece newSpecial;
                     if (template.Produces == PieceKind.Rocket)
@@ -444,7 +450,8 @@ public static class TurnResolver
                         Kind = template.Produces,
                         X = anchor.Item1,
                         Y = anchor.Item2,
-                        MergedIds = mergedIds
+                        MergedIds = mergedIds,
+                        TimeMs = matchTimeMs
                     });
                 }
             }
@@ -471,6 +478,31 @@ public static class TurnResolver
         return  result;
     }
     
+    private static float LastActivationImpactMs(List<TurnStepData> steps)
+    {
+        float last = 0f;
+        foreach (TurnStepData step in steps)
+        {
+            switch (step)
+            {
+                case ClearPieceData clear:
+                    foreach (HitData hit in clear.Hits) last = System.Math.Max(last, hit.TimeMs);
+                    break;
+                case ClearOverlayData overlay:
+                    foreach (HitData hit in overlay.Hits) last = System.Math.Max(last, hit.TimeMs);
+                    break;
+                case DamagePieceData damage:
+                    foreach (var hit in damage.Hits) last = System.Math.Max(last, hit.timeMs);
+                    break;
+                case SpecialActivationData { IsCombo: false, Targets: not null } activation:
+                    foreach (var target in activation.Targets)
+                        last = System.Math.Max(last, activation.TimeMs + target.timeMs);
+                    break;
+            }
+        }
+        return last;
+    }
+
     private static void RecordFallMove(FallStepData fallStepData, RefillStepData refillStepData, HashSet<int> refilledThisTurn, (int pieceId, int toX, int toY, int fromY) move)
     {
         if (refilledThisTurn.Contains(move.pieceId))

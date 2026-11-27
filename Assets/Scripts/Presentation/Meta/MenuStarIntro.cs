@@ -19,14 +19,17 @@ public class MenuStarIntro : MonoBehaviour
     {
         if (MetaProgress.State.PendingFly <= 0) yield break;
 
-        yield return new WaitForSeconds(_startDelay);
+        while (LoadingScreen.IsLoading) yield return null;
+        yield return new WaitForSecondsRealtime(_startDelay);
 
         MenuTabButton target = _tabBar == null ? null : _tabBar.GetButton(MenuPage.Wheel);
         if (target == null || _flyer == null || _starSprite == null) yield break;
 
-        int stars = WheelProgress.ConsumePendingFly();
+        int stars = MetaProgress.State.PendingFly;
         if (stars <= 0) yield break;
 
-        _flyer.Fly(_starSprite, _flyer.Center, target.Rect, Mathf.Min(stars, _maxIcons), target.Punch, null);
+        _flyer.transform.SetAsLastSibling();
+        _flyer.Fly(_starSprite, _flyer.Center, target.Rect, Mathf.Min(stars, _maxIcons), target.Punch,
+            () => WheelProgress.CompletePendingFly(stars), unscaledTime: true);
     }
 }

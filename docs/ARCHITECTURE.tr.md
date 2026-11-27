@@ -12,7 +12,7 @@ Bu projede o kâğıdın adı `List<TurnStepData>`'dır: bir hamlede olan her ş
 
 Bu ayrımın üç faydası var:
 
-- **Test edilebilir.** Core, Unity'ye hiç dokunmadığı için sahne açmadan test edilir. 70 test bu yüzden saniyeler içinde çalışır.
+- **Test edilebilir.** Core, Unity'ye hiç dokunmadığı için sahne açmadan test edilir.
 - **Animasyon kuralları bozmaz.** Bir animasyonu hızlandırmak ya da efekt eklemek, oyunun sonucunu değiştiremez.
 - **Tekrarlanabilir.** Rastgelelik `IRandom` üzerinden gelir. Aynı tohum (seed) verilirse aynı hamle her seferinde aynı sonucu üretir. Bot testleri bu sayede mümkün.
 
@@ -84,13 +84,12 @@ Kodun tamamı `Assets/Scripts` altında, iki ana klasörde durur: `Core` (kurall
 | Klasör | İçinde ne var | En önemli dosya |
 | --- | --- | --- |
 | `BoardView` | Tahtayı kuran, girdiyi alan, turu oynatan ana sınıflar | `BoardController.cs`, `TurnPlayer.cs` |
-| `BoardView/ObstacleSpawners` | Level başında engelleri yerleştirenler | `ObstacleSpawnerRegistry.cs` |
 | `Command` | Adımları animasyon komutlarına çeviren fabrika ve komutlar | `ViewCommandFactory.cs` |
 | `Presenter` | Her özel taşın ve kombonun animasyon tarifi | `ActivationPresenterRegistry.cs` |
 | `EffectViews`, `Effects` | Roket, ışın, patlama, kıvılcım, kamera sarsıntısı | `EffectSpawner.cs` |
 | `Level` | Level verisi, hedef takibi, HUD, uçan ikonlar | `GoalTracker.cs`, `GoalFlyer.cs` |
 | `Booster` | Booster butonları ve envanteri | `BoosterBarController.cs` |
-| `Mascot` | Bobo'nun ruh hali | `MascotView.cs` |
+| `Mascot` | Maskot tepkileri | `MascotView.cs` |
 | `Popups` | Kazanma ve kaybetme pencereleri | `PopupManager.cs` |
 | `Menu`, `Scene` | Ana menü, açılış (Boot), sahne geçişi, yükleme ekranı | `Boot.cs`, `SceneLoader.cs`, `LoadingScreen.cs` |
 | `Setting`, `Audio` | Ayarlar, titreşim, sesler | `GameSettings.cs`, `AudioManager.cs` |
@@ -99,10 +98,10 @@ Kodun tamamı `Assets/Scripts` altında, iki ana klasörde durur: `Core` (kurall
 
 **Kod dışındaki önemli klasörler**
 
-- `Assets/Data/LevelAssets`: 20 level dosyası (`LevelAsset` asset'leri, her biri bir `LevelData` tutar).
+- `Assets/Data/LevelAssets`: 50 yerel level dosyası (`LevelAsset` asset'leri, her biri bir `LevelData` tutar).
 - `Assets/Data/VisualConfig`, `AnimationConfig`: görsel ve zamanlama ayar dosyaları.
 - `Assets/Resources`: kodun adıyla yüklediği dosyalar. Şu an sadece `AudioConfig` burada. Klasör adı birebir `Resources` olmalı.
-- `Assets/Sprites`: kullanıldıkları yere göre ayrılmış sprite'lar (`boards`, `particule`, `user_interface/common`, `user_interface/game`, `bobo_sprites`, `backgrounds`) ve sprite atlasları (bölüm 9).
+- `Assets/Sprites`: kullanıldıkları yere göre ayrılmış sprite'lar (`boards`, `particule`, `user_interface/common`, `user_interface/game`, `ringo_sprites`, `backgrounds`) ve sprite atlasları (bölüm 9).
 - `Assets/AddressableAssetsData`: Addressables ayarları ve grupları (bölüm 9).
 - `Assets/Prefabs`: taş, hücre, efekt ve UI prefab'ları.
 - `Assets/Scenes`: `Boot` (build listesindeki tek sahne), ayrıca Addressables ile yüklenen `Menu` ve `Game`.
@@ -238,7 +237,6 @@ Bir restoranın menüsü gibi düşün. Garson (`TurnResolver`) yemeğin nasıl 
 | `BoosterRegistry` | `BoosterType` | Booster'ın vurduğu hücreler (`IBoosterEffect`) | `Core/Booster` |
 | `ActivationPresenterRegistry` | `PieceKind` | Patlamanın animasyon tarifi (`IActivationPresenter`) | `Presentation/Presenter` |
 | `ComboPresenterRegistry` | İki `PieceKind` | Kombonun animasyon tarifi | `Presentation/Presenter` |
-| `ObstacleSpawnerRegistry` | `ObstacleType` | Engeli level başında yerleştiren sınıf | `Presentation/BoardView/ObstacleSpawners` |
 
 **Her özel taşın iki yarısı vardır.** Core yarısı (`RocketActivation`) "hangi hücreler, hangi zamanda vurulur" sorusunu cevaplar. Presentation yarısı (`RocketPresenter`) "bu ekranda nasıl görünür" sorusunu. İkisi birbirini tanımaz, aralarında sadece `SpecialActivationData` adımı gider.
 
@@ -325,64 +323,28 @@ Her komutun iki üyesi vardır: `Execute()` (animasyonu başlat) ve `Duration` (
 - **`*VisualConfig`**: taş, kutu, kafes, kilit, çimen sprite'ları ve kırılma efektleri.
 - **`AutoRef`**: sınıflar `OnValidate` içinde çocuklarını isimle (`AutoRef.Child<T>(this, "ui_text_moves")`), sahnedeki nesneleri (`AutoRef.InScene<T>()`) ve asset'leri (`AutoRef.Asset<T>()`) kendileri bulur. Inspector'da elle sürükleme neredeyse yok. Bu yüzden **obje isimleri önemli**: bir objeyi yeniden adlandırırsan referans kopar ve Console'da `[AutoRef] ... not found` uyarısı çıkar.
 
-## 7. Level, hedefler ve HUD
+## 7. Level verisi, editör araçları ve HUD
 
-Bir level, tahtanın boyutunu, hamle sayısını, hedefleri ve engellerin yerini tutan bir ScriptableObject'tir. Hedeflerin takibi veride anında, ekranda ise ikonlar yerine vardıkça güncellenir.
+`LevelData` tahta boyutunu, renkleri, hamle bütçesini, yıldız eşiklerini, hedefleri ve üç katmanın karakter satırlarını içerir. `LevelAsset` bu veriyi Unity asset'i olarak saklar. `LevelJson` aynı veriyi yayınlanabilir JSON'a dönüştürür. `LevelElements` her karakteri katmanıyla birlikte tanımlar. Örneğin `#` delik, `B` kutu, `O` oyuncak, `L` kilit, `C` kafes ve floor katmanında `g` çimendir. `LevelValidator` satır boyutlarını, yerleşimi ve hedefleri denetler. `LevelBoardBuilder` geçerli veriden Core tahtasını kurar.
 
-### Level verisi
+### Yerel ve uzak level'lar
 
-| Dosya | Ne tutar |
+Yerel [LevelCatalog](../Assets/Data/VisualConfig/LevelCatalog.asset), 1–50 aralığını sayısal sırayla tutar. Firebase Hosting, 51–100 aralığını [v2 manifesti](../firebase-hosting/public/levels/v2/index.json) üzerinden sunar. Her kayıtta level kimliği, içerik revizyonu, dosya adı ve SHA-256 bulunur.
+
+`RemoteLevelSync` Boot'tan arka planda çalışır. Eksik revizyonları `Application.persistentDataPath/levels-v2` dizinine indirir, hash'leri doğrular ve gerekli dosyalar tamamlanınca yerel manifesti değiştirir. `RemoteAwareLevelSource` önbellek güncellendiğinde yeni manifesti okur. Temiz çevrimdışı kurulumda ilk 50 level, kampanya önceden indirilmişse 51–100 aralığı da oynanabilir.
+
+### Level Editor, Level Generator ve bot
+
+| Araç | İş akışı |
 | --- | --- |
-| `LevelData` | Level'ın düz veri hali: boyut, hamle, renkler, hedefler ve her katman için harf satırları. JSON'a yazılabilir |
-| `LevelAsset` | Bir `LevelData` tutan ScriptableObject. Level'ın projede saklandığı yer |
-| `ILevelSource` | "N numaralı level'ı ver" arayüzü. Oyun level'ın nereden geldiğini bilmez |
-| `LevelJson` | `LevelData` ↔ JSON metni. Online level'lar için |
-| `LevelBoardBuilder` | `LevelData`'dan `Board` ve hedef listesi kurar |
-| `LevelValidator` | Level kaydedilmeden ya da oynatılmadan önce kontrol eder |
-| `LevelGoal` | Oyunun kullandığı hedef: tür, renk, hedef sayısı |
-| `LevelCatalog` | Build'deki level'lar, sırayla. `Data/LevelAssets` klasöründen kendini doldurur |
-| `LevelProgress` | Oyuncunun hangi level'da olduğu (`CurrentIndex`) ve yıldızları (`PlayerPrefs`) |
-| `LevelBot`, `LevelGenerator`, `LevelEditing` | Bot testi, rastgele level üretimi ve editör işlemleri |
-| `LevelEditorWindow` | `Match3 > Level Editor` penceresi. Export JSON ve bot buradan çalışır |
-| `RemoteLevelSync` | `index.json` ve yeni level dosyalarını arka planda indirir, sha256 kontrolü yapar, cache'e yazar |
-| `RemoteAwareLevelSource` | Önce cache'deki online level'ı, yoksa build'deki level'ı verir |
+| **Match3 → Level Editor** | Level oluştur, kopyala, üç katmanı boyayarak düzenle. Boyut, renk, hamle, yıldız eşiği ve hedefleri ayarla. Kaydetmeden veya dışa aktarmadan önce doğrula. **Play** ile seçili leveli Boot üzerinden aç. |
+| **Match3 → Level Generator** | Boyutları, renkleri, taş adetlerini, renk hedefini, simetriyi, seed'i ve hedef zorluğu seç. Geçerli tahtayı asset olarak kaydet ve bot ayarı için editörde aç. |
+| **Bot paneli** | Sabit seed'lerle arka planda denemeler yap. Bot, tahta kopyalarında geçerli hamleleri puanlar. Kazanma oranı, hamle ve yıldız önerileri ile en çok geride kalan hedefi raporlar. Uygulamadan önce sonucu incele. |
+| **Export JSON** | Doğrulanmış tek bir level dosyası üret. Uzak yayın için manifest kaydını ekle. Yayındaki bir level değişiyorsa içerik revizyonunu ve SHA-256 değerini güncelle. |
 
-**Online level'lar:** Level'lar uygulama güncellemesi olmadan değişebilir. Uygulama açılınca `Boot` bir `RemoteLevelSync` ekleyip çalıştırır. Sunucudan `index.json` iner. Index'teki ve cache'de olmayan her level dosyası indirilir, sha256'sı kontrol edilir ve `persistentDataPath/levels` içine `{levelId:000}_r{contentRevision}.json` adıyla yazılır.
+### Hedefler ve arayüz
 
-`GameAssets.Levels`, build'deki `LevelCatalog`'u saran bir `RemoteAwareLevelSource` döndürür. Level için cache'de dosya varsa o kullanılır, yoksa build'deki level. Sync menüyü beklemez; bu yüzden ilk açılışta build'deki level'lar kullanılabilir. Telefon çevrimdışıysa build'deki level'lar yine oynanır.
-
-Hedef türleri (`GoalType`): `CollectColor` (renk topla), `ClearBox` (kutu kır), `ClearLock` (kilit kır), `ClearGrass` (çimen temizle), `CollectToy` (top topla).
-
-Level başında engeller `ObstacleSpawnerRegistry` ile yerleştirilir. Delik, kutu ve top taşlardan önce konur (hücrenin kendisini doldururlar). Kilit, kafes ve çimen taşlardan sonra konur (taşın üstüne ya da altına eklenirler). Bu sırayı `ObstacleSpawnPhase` belirler.
-
-### `GoalTracker`: hedef muhasebecisi
-
-- Her turun sonundaki `GoalProgressData`'yı alır (`ApplyProgress`) ve kalan sayıları düşer. `IsComplete()` bütün hedefler bitti mi diye cevap verir.
-- Ayrıca Core'a **hedef önceliği** verir (`ITargetPriority.GetPriority`). Pervane nereye uçacağını seçerken bunu kullanır. Core `GoalTracker`'ı tanımaz, sadece `ITargetPriority` arayüzünü tanır.
-
-| Öncelik | Hücre |
-| --- | --- |
-| 3 | Altı açılınca topu düşürecek hücre; sadece özel taşla kırılan overlay |
-| 2 | Hedef olan kutu, kilit ya da çimen |
-| 1 | Toplanacak renkteki taş |
-| 0 | Hedefle ilgisi olmayan hücre (topun kendisi de 0'dır, çünkü kırılamaz) |
-
-### HUD ve uçan ikonlar
-
-- `HudController` üst paneldeki level numarasını, kalan hamleyi ve hedef kutucuklarını (`GoalSlotView`) yönetir.
-- Bir hedef taşı silinince `GoalFlyer.TryFly()` onun ikonunu taşın yerinden kendi kutucuğuna uçurur. Kilit ve çimen gibi overlay'ler ikon yerine bir kıvılcım (`GoalSpark`) gönderir. Hangisinin ne göndereceğini `GoalIconConfig` söyler.
-- Kutucuktaki sayı ikon **vardığında** azalır (`OnIconArrived`). Oyuncu böylece sayının ikonla birlikte düştüğünü görür.
-- Level biterken `WaitForFlights()` havadaki tüm ikonların inmesini bekler (en fazla 2 sn). Sonra `SyncGoals()` sayıları veriyle eşitler ve popup açılır.
-- Uçan ikonlar UI'ın önünde görünsün diye Canvas "Screen Space - Camera" modundadır ve uçanlar `SortingOrders.Flight` sırasında çizilir.
-
-### Maskot: `MascotView`
-
-Bobo, `BoardController`'ın event'lerini dinleyip ruh hali değiştirir. Kimse ona "sevin" demez, kendi karar verir.
-
-- **Büyük tur** (ışık topu kombosu ya da 25+ taş) → çok sevinir. **İyi tur** (kombo, özel taş, top toplama ya da 10+ taş) → sevinir.
-- **3 hamle kaldı** → endişeli. **1 hamle kaldı** → üzgün.
-- Kazanınca şapka çıkarır, kaybedince üzülür. İpucu gösterildiğinde tepki verir. Uzun süre bir şey olmazsa kendi kendine hareket eder.
-- Tüm eşikler ve sprite'lar `MascotConfig`'te durur.
+`GoalTracker`, `GoalProgressData` üzerinden kalan hedefleri günceller. Ayrıca `ITargetPriority` üzerinden pervane gibi hedef seçen taşlara öncelik verir. `HudController` level numarasını, hamleleri ve hedef kutularını gösterir. Hedef ikonları `GoalFlyer` ile uçar. Kutudaki sayı ikon varınca güncellenir. Win veya Lose ekranı açılmadan önce kalan uçuşlar beklenir ve HUD sayıları kayıtla eşitlenir. Maskot tepkileri `MascotView` ve `MascotConfig` üzerinden yönetilir.
 
 ## 8. Oyun akışı ve ekranlar
 
@@ -431,90 +393,64 @@ Oyun üç sahneden oluşur: **Boot**, **Menu** ve **Game**. Boot sadece oyunu ba
   - `UIButtonSound` bir butona eklenince tıklama sesi çalar.
 - **`Haptics.Vibrate()`** titreşim ayarı açıksa telefonu titretir. Kombo birleşmesi, ışık topu ve kazanma anında kullanılır.
 
-### Kaydedilen veriler
+### İlerleme, ödül çarkı ve koleksiyon
 
-Hepsi `PlayerPrefs`'te tutulur, uygulama kapanıp açılınca kaybolmaz:
+`MetaProgress`, her levelin yıldız rekorunu, toplam yıldızı, çark birikimini ve haklarını, bekleyen yıldız uçuşlarını, booster bakiyelerini, sahip olunan kart kimliklerini ve ödülü alınan setleri sürümlü JSON olarak `PlayerPrefs`'te saklar. Eski kayıt anahtarları uyumluluk için korunur. Level ilerlemesi ve ses ayarları da `PlayerPrefs` kullanır. Bir levelin yıldız rekoru yükseldiğinde yalnızca fark eklenir. Yıldız uçuşu menü geçişi tamamlanınca başlar.
 
-| Veri | Kim tutar |
-| --- | --- |
-| Şu anki level | `LevelProgress.CurrentIndex` |
-| Level yıldızları | `LevelProgress.GetStars` / `SaveStars` |
-| Booster sayıları | `BoosterInventory` |
-| Müzik, ses, titreşim | `GameSettings` |
+`WheelService` ağırlıklı bir dilim seçer ve ödülü harcanan çevirme hakkıyla aynı güncellemede kaydeder. Yıldız eşiği yeni çevirme hakkı verir. Booster ödülleri oyun içi envantere eklenir. Koleksiyon sekmesi ve kart paketleri 10. level bitince açılır. Bir paket nadirlik ağırlıklarıyla üç farklı kart çeker. Tekrar eden kart bir yıldız, seti tamamlamak her boosterdan üç tane verir. Set ödülü her set kimliği için bir kez verilir. Koleksiyon kilitliyken veya tüm setler tamamlandığında paket dilimi beş yıldız verir.
+
+`CollectionCatalogSource`, Boot sırasında `collection/catalog` adresini yükler ve başarılı Addressables handle'ını oturum boyunca tutar. Uzak katalog yüklenemezse veya geçersizse gömülü `CollectionCatalog` kullanılır. Çark ve koleksiyon ekranı aynı kataloğu okur. Grid, `CollectionSetView` ve `CollectionCardView` ile iki sütun halinde kurulur. Bulunmamış kartlar kilitli kart görselini kullanır. `CardPackReveal` sahnedeki tek prefab örneğini yeniden kullanır. Yeni kartlar koleksiyon düğmesine, yıldız olan tekrar kartları çark barına uçar. Güncellemelerde kart ve set kimliklerini koru.
 
 ## 9. Asset'ler ve bellek: atlaslar ve Addressables
 
-Menü sadece menünün ihtiyacı olanı yükler. Oyun görselleri bir level açılınca yüklenir, oyuncu menüye dönünce bellekten çıkar.
-
-### Addressables grupları
-
-| Grup | İçerik | Bundle Mode | Neden |
-| --- | --- | --- | --- |
-| `Scenes` | `Menu`, `Game` (adresler `Menu`, `Game`) | Pack Separately | Her sahne ve sadece onun kullandığı asset'ler ayrı bir pakete girer |
-| `UI` | `LoadingScreen` prefab'ı | Pack Together | `Boot` bir kez yükler, oturum boyunca yaşar |
-| `Shared` | `atlas_ui_common`, `bobo_juggle`, `menu-background` | Pack Together | Menü, yükleme ekranı ve oyun ortak kullanıyor. Bu grup olmazsa her paket kendi kopyasını alır |
-
-Prefab, sprite ve ScriptableObject'ler gruplara tek tek eklenmez. Addressables onları kullanan sahnenin bağımlılığı olarak kendisi paketler.
+| Grup | Konum | İçerik |
+| --- | --- | --- |
+| `Scenes` | Yerel | `Menu` ve `Game` aynı sahne grubunda, Pack Together |
+| `UI` | Yerel | `LoadingScreen` |
+| `Shared` | Yerel | `atlas_ui_common` |
+| `Collection Remote` | Firebase Hosting | `collection/catalog` adresindeki `CollectionCatalogRemote` ve bağlı kart sprite'ları |
 
 ### Sprite atlasları
 
-| Atlas | Klasör | Ne zaman yüklü |
-| --- | --- | --- |
-| `atlas_board` | `Sprites/boards` | Level'da |
-| `atlas_ui_game` | `Sprites/user_interface/game` | Level'da |
-| `atlas_ui_common` | `Sprites/user_interface/common` | Her zaman (Shared grubu) |
-| `bobo_sprite_atlas` | `Sprites/bobo_sprites` | Level'da (`bobo_juggle` atlasın dışında, çünkü yükleme ekranı kullanıyor) |
+- `atlas_ui_common` ortak UI görsellerini, yıldızı ve karıştırma ikonunu içerir.
+- `atlas_ui_game` oyun ekranı, `atlas_ui_menu` menü, çark ve koleksiyon için seçilmiş görselleri içerir. Bu üç atlasın packable listesi elle yönetilir.
+- `atlas_board` tahta ve partikül klasörlerini, `ringo_sprite_atlas` maskotun sprite grubunu paketler.
+- Büyük arka planları ve uzak kart çizimlerini yerel UI atlaslarının dışında tut. Gerçek bağımlılıkları ve tekrarlı asset'leri Build Report'tan kontrol et. Yerel ve uzak katalogların ortak kart görsellerini de incele.
 
-Atlaslar klasörün tamamını paketler. Yeni bir sprite'ı doğru klasöre koyarsan doğru atlasa kendiliğinden girer. Arkaplanlar ve logo atlasta değil: büyükler ve tek başlarına kullanılıyorlar. Particle texture'ları (`Sprites/particule`) da atlasta değil, çünkü particle materyalleri texture'ı doğrudan kullanıyor.
+### Build ve yayın
 
-### Belleği düşük tutan kurallar
+1. Günlük geliştirmede `Boot.unity` ve **Use Asset Database** kullan. **Use Existing Build** ile test etmek için test platformuna uygun paket oluştur. Android shader'ları Windows Editör'de pembe görünebilir. Android paketini telefonda doğrula.
+2. Android Build Profile'ı etkinleştir ve sürümü profilin **Player Settings → Version** alanından ayarla. Addressables bu değeri kullanır. Projedeki build script'i tam build sırasında sürümü yeniden okur. APK'daki yerel paketler ve yayınlanan katalog aynı build'e ait olmalı.
+3. Android için **Build Profiles → Build And Run** kullan. Sadece içerik üretmek için **Addressables Groups → Build → New Build → Default Build Script** çalıştır. Player build'inde Addressables otomatik derlenir. Build raporunu kontrol et ve o build'in `addressables_content_state.bin` dosyasını sakla.
+4. `ServerData/Android` çıktısındaki katalog, hash ve uzak bundle'ları `firebase-hosting/public/addressables/Android` altına ekle. Desteklenen eski sürümlerin katalog ve gerekli bundle dosyalarını koru.
+5. `firebase-hosting` içinde `firebase.cmd deploy --only hosting --project circus-royale-levels-host` çalıştır. Komut `public` içindeki level ve Addressables dosyalarını birlikte yayınlar. Mevcut sürüme yalnızca kart içeriği güncellemesi için o sürümün içerik durumuyla **Update a Previous Build** kullan.
+6. Yeni katalog ve bundle URL'lerini kontrol et. Telefonda temiz online kurulum, önbellekli ve temiz çevrimdışı açılışları dene. Koleksiyon testi için 10. leveli bitirmiş bir kayıt kullan.
 
-- **Menü oyun asset'lerine referans vermemeli.** `MenuController`, `GameAssets` değil `LevelCatalog` kullanır (sadece level verisi). `GameAssets`'e tek bir referans, menüde bütün oyun görsellerini yükler.
-- **Birden fazla yerde kullanılan asset `Shared` grubuna gider.** Yoksa Addressables onu kullanan her pakete kopyalar.
-- **`LevelDebugger` sadece editörde çalışır.** `OnGUI` yazısı Unity'nin bellekte kalan yazı materyalleri oluşturmasına yol açıyor ve cihaz ölçümlerini bozuyordu.
-- **URP'de HDR ve MSAA kapalı.** 2D sprite oyununun bunlara ihtiyacı yok, render texture'ların boyutunu iki katına çıkarıyorlardı.
+### Android yayın build'i öncesi performans ölçümü
 
-### Telefonda ölçülen değerler (Memory Profiler)
+Eski Android ölçümleri [docs/images](images) altında duruyor. Güncel ölçümü fiziksel cihazda Development Build ile tekrarla. Telefon modeli, çözünürlük, sürüm, grafik ayarları ve Profiler seçeneklerini sonuçlarla birlikte kaydet.
 
-| | Menü | Level | Level'dan sonra menü |
-| --- | --- | --- | --- |
-| Texture'lar | 19.9 MB | 33.8 MB | 22.9 MB (fazladan 3 MB, bir kez oluşturulan URP 2D ışık tabloları) |
-| Render texture'lar | 21.1 MB | 23.8 MB | 21.3 MB |
+| Senaryo | Ölçümler |
+| --- | --- |
+| Temiz açılış, önbellekli açılış ve çevrimdışı açılış | Menünün hazır olma süresi, level ve katalog erişimi |
+| Tekrarlanan Menu → Game → Menu geçişleri | Texture ve render texture belleği, elde kalan nesneler ve kare süresi sıçramaları |
+| Kaskadlar, kombolar ve art arda kullanılan efektler | CPU/GPU kare süresi, GC Alloc, draw call ve efektin sıfırlanması |
+| Çark, paket açılışı ve Collection kaydırma | Kare süresi, tahsisler ve ilk sprite yükleme maliyeti |
+| Android Addressables build'i | Bundle boyutları ve tekrarlı bağımlılıklar |
 
-Diğer sonuçlar: Shared grubu build'den 5.7 MB'lık kopya asset'i kaldırdı. HDR ve MSAA'yı kapatmak render texture'ları 51.3 MB'tan 21.1 MB'a indirdi.
-
-### Nasıl kontrol edilir
-
-- **Analyze** (Window → Asset Management → Addressables → Analyze): *Check Duplicate Bundle Dependencies* kuralını çalıştır. Orada sadece TextMesh Pro'nun varsayılan fontu kalmalı.
-- **Build Report** (Window → Asset Management → Addressables → Build Reports, Preferences'ta *Debug Build Layout* açık olmalı): hangi asset'in hangi pakette olduğunu gösterir.
-- **Telefonda Memory Profiler**: editördeki sayılar editörün kendi belleğini de içeriyor, güvenilir değil. Telefona bağlı bir Development Build kullan.
-
-### Editörde çalışırken
-
-- **Play'e `Boot` sahnesinden bas.** Game ya da Menu'den başlatırsan hata alırsın, çünkü yükleme ekranını Boot kaydediyor.
-- Günlük çalışmada **Play Mode Script → Use Asset Database** (en hızlısı). Gerçek paketleri denemek için önce Build → New Build → Default Build Script, sonra **Use Existing Build**.
-- Player build'i Addressables içeriğini de derler (*Build Addressables on Player Build* açık).
+Unity Profiler, Memory Profiler, uygun olduğunda Frame Debugger ve Addressables Build Report kullan. Güncel sürümün ölçümleri henüz alınmadı.
 
 ## 10. Testler
 
-Projede `Assets/Tests/EditMode` altında 12 dosyada 70 test var. Hepsi sadece Core'u test eder, sahne açmaz, saniyeler içinde biter.
+Edit Mode testlerini Unity Test Runner üzerinden çalıştır. Core testleri sahneye ihtiyaç duymaz. Entegrasyon kontrolleri Unity asset ve sahnelerini kullanabilir.
 
 **Çalıştırmak için:** Window → General → Test Runner → EditMode sekmesi → Run All.
 
-| Dosya | Test | Neyi kontrol eder |
-| --- | --- | --- |
-| `CoreCommandTests` | 11 | Swap, eşleşme bulma (düz, L, T, 5'li), merdiven şeklinin eşleşmemesi, komşu hasarının bir kez verilmesi |
-| `SpecialActivationTest` | 10 | Roket, TNT, kombolar, zincirleme patlama, tap ile patlatma, aynı tohumla aynı pervane hedefi |
-| `BoosterTest` | 6 | Çekiç, satır, sütun; kafese vurma, topu yok etmeme, delikte reddedilme |
-| `TimingAndFixesTest` | 5 | Patlama zamanlarının mesafeyle artması, zincir gecikmesi, eşleşmeyen swap'ın boş dönmesi |
-| `FloorPieceTest` | 4 | Çimenin üstündeki eşleşmeyle kırılması, yanındaki eşleşmeyle kırılmaması |
-| `ToyPieceTest` | 5 | Topun dipte toplanması, roketten etkilenmemesi, kafes içindeyken toplanmaması, altı delikse çıkışın yukarı kayması |
-| `LevelBoardBuilderTest` | 8 | Harflerin doğru parçalara dönüşmesi, sadece level renklerinin kullanılması, kilit ve kafesin taşı kilitlemesi, çimen, hedefler; doğrulayıcının kutuda kilidi ve fazla hedefi reddetmesi |
-| `LevelJsonTest` | 2 | JSON'a yazılıp okunan level'ın aynı kalması; boş metinden level çıkmaması |
-| `BoardColorsTest` | 2 | Yeni taşların sadece tahtanın renklerini kullanması |
-| `LevelBotTest` | 5 | Bot kolay bir level'ı bitirir; aynı tohum aynı sonucu verir; tahta kopyası orijinalden bağımsızdır; hamle yüzdelikleri; kazanma oranı zorluğa çevrilir |
-| `LevelEditingTest` | 8 | Kutuya kilit koymak gerekçesiyle reddedilir; kafesi silmek tüm kafesi kaldırır; boyutlandırma içeriği korur; renk hedefleri tahtayı izler |
-| `LevelGeneratorTest` | 4 | Üretilen level geçerlidir ve istenen taşları içerir; aynı tohum aynı level'ı verir; ayna modu simetriktir; hamle zorluğa göre seçilir |
+| Alan | Kapsam |
+| --- | --- |
+| Core | Swap, eşleşme şekilleri, özel taş tetikleme ve zamanlama, booster, zemin hasarı ve oyuncak toplama |
+| Level | JSON okuma ve yazma, tahta kurma ve doğrulama, düzenleme, üretim ve deterministik bot simülasyonları |
+| Meta | Kart sahipliği ve tekrarlar, set tamamlama, çark ödülleri ve kayıtlı ilerleme |
 
 ### Bir test nasıl okunur
 
@@ -544,7 +480,7 @@ Level Editor penceresi (`Match3 > Level Editor`) 1 ve 2. adımları yapabilir: l
 1. **Core:** `Core/Pieces` altına yeni bir sınıf yaz. Doğru katmandan türet: hücrede duruyorsa `Piece`, üste kapanıyorsa `OverlayPiece`, altta duruyorsa `FloorPiece`. Bayraklarını, canını ve (hedefse) `GoalKind`'ını ver.
 2. `PieceVisualType`'a yeni bir değer ekle. Hedef olacaksa `GoalType`'a da ekle.
 3. **Test:** davranışını kontrol eden bir test yaz (örneğin "roket hasar veriyor mu").
-4. **Yerleştirme:** `ObstacleType`'a değer ekle, `IObstacleSpawner`'dan yeni bir spawner yaz, `ObstacleSpawnerRegistry`'e kaydet.
+4. **Yerleştirme.** Yeni öğeyi `ILevelElement` ile tanımla. `CanPlace`, `Place` ve `AutoGoal` davranışlarını belirt ve öğeyi `LevelElements` kaydına ekle.
 5. **Görüntü:** sprite'ları için bir `VisualConfig` ekle ya da mevcut olanı genişlet. Hedefse `GoalIconConfig`'e ikonunu ekle.
 
 Bayrakları doğru seçersen eşleşme, hasar, düşme ve karıştırma kuralları yeni engele kendiliğinden uygulanır.
@@ -568,7 +504,7 @@ Bayrakları doğru seçersen eşleşme, hasar, düşme ve karıştırma kurallar
 ### Yeni bir sprite
 
 1. Kullanıldığı yere göre doğru klasöre koy: `Sprites/boards` (tahtada), `Sprites/user_interface/game` (oyun arayüzü), `Sprites/user_interface/common` (menü ve oyun), `Sprites/backgrounds` (büyük tek görseller).
-2. O klasörün atlası onu kendiliğinden alır, elle eklemen gerekmez.
+2. UI görselini ilgili common, game veya menu atlasına elle ekle. Tahta atlası klasör üzerinden paketlenir.
 3. Menü ve oyun ikisi de kullanıyorsa `common` klasöründe olmalı. Sonra Analyze ile kopya kontrolü yap.
 
 ### Yeni bir sahne

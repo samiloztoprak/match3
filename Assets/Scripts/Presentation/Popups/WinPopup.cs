@@ -10,6 +10,7 @@ public class WinPopup : PopupView
     [SerializeField] private Button _continueButton;
 
     private int _starCount;
+    private int _completedLevelNumber;
 
     protected override void OnValidate()
     {
@@ -43,6 +44,7 @@ public class WinPopup : PopupView
         Haptics.Vibrate();
         
         _levelText.text = "LEVEL " + levelNumber;
+        _completedLevelNumber = levelNumber;
         _starCount = stars;
         foreach (Image star in _stars)
         {
@@ -63,7 +65,7 @@ public class WinPopup : PopupView
 
     private void OnContinue()
     {
-        LevelProgress.CurrentIndex++;
+        LevelProgress.CurrentIndex = Mathf.Max(LevelProgress.CurrentIndex, _completedLevelNumber);
         SceneLoader.LoadMenu();
     }
 }

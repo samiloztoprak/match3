@@ -27,14 +27,12 @@ public static class WheelProgress
         return true;
     }
 
-    public static int ConsumePendingFly()
+    internal static void CompletePendingFly(int stars)
     {
-        int stars = MetaProgress.State.PendingFly;
-        if (stars <= 0) return 0;
+        if (stars <= 0 || MetaProgress.State.PendingFly <= 0) return;
 
         MetaProgressState next = MetaProgress.BeginUpdate();
-        next.PendingFly = 0;
+        next.PendingFly = Math.Max(0, next.PendingFly - stars);
         MetaProgress.Commit(next);
-        return stars;
     }
 }

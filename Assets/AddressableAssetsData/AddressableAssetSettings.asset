@@ -15,9 +15,9 @@ MonoBehaviour:
   m_DefaultGroup: 4762fb152dbdefe4389195f2b2db09ce
   m_currentHash:
     serializedVersion: 2
-    Hash: 0efa1d0bf6423675941da150b306c242
+    Hash: 29bbe04340cbf5d79dc53469d19f95bf
   m_OptimizeCatalogSize: 0
-  m_BuildRemoteCatalog: 0
+  m_BuildRemoteCatalog: 1
   m_CatalogRequestsTimeout: 0
   m_DisableCatalogUpdateOnStart: 0
   m_InternalIdNamingMode: 0
@@ -64,6 +64,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8c11143c18126f145a5c7114dd3c37ce, type: 2}
   - {fileID: 11400000, guid: 8e6e3223d2eaa2549ac054cfa32a1c7e, type: 2}
   - {fileID: 11400000, guid: a4f0454502382244aa74d47384ed12ac, type: 2}
+  - {fileID: 11400000, guid: 3a024c1312bc80746ae502bed0a5daea, type: 2}
   - {fileID: 11400000, guid: b3716a778f284e24999904cce813b378, type: 2}
   m_BuildSettings:
     m_LogResourceManagerExceptions: 1
@@ -79,7 +80,7 @@ MonoBehaviour:
       - m_Id: 30689afeb4d20be4d8e7fe2f752370bd
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
       - m_Id: 438edfff5fe5a9e4494cedbb157c4147
-        m_Value: <undefined>
+        m_Value: 'https://circus-royale-levels-host.web.app/addressables/[BuildTarget]'
       - m_Id: 55deca02261e0bd438ed1e482c816ddd
         m_Value: 'ServerData/[BuildTarget]'
       - m_Id: 98dad1ea62e6c6d4db36b734ebd1d513

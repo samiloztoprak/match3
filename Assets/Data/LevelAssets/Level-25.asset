@@ -16,7 +16,7 @@ MonoBehaviour:
     version: 1
     width: 10
     height: 10
-    moves: 60
+    moves: 9
     colors:
     - Yellow
     - Blue
