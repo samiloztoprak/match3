@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3896e09124af4913a2e2d41f827ea3c1, type: 3}
+  m_Name: CollectionCatalog
+  m_EditorClassIdentifier: Assembly-CSharp::CollectionCatalog
+  _sets:
+  - Id: first-scene
+    Title: "Büyük Sirk Gösterisi"
+    Cards:
+    - Id: entering
+      Title: "Sahne Işıkları"
+      Tier: 0
+      Art: {fileID: 21300000, guid: ae9fbb29972d8cb4188520cb1eaf4758, type: 3}
+    - Id: lion
+      Title: "Büyük Gösteri"
+      Tier: 0
+      Art: {fileID: 21300000, guid: 667bec0311ea9034b8c11f33850374da, type: 3}
+    - Id: wrong-hat
+      Title: "Şapkadaki Tavşan"
+      Tier: 1
+      Art: {fileID: 21300000, guid: 64478e777d2ce044db218b2515245922, type: 3}
+    - Id: oh-no
+      Title: "Kükreyen Kaos"
+      Tier: 1
+      Art: {fileID: 21300000, guid: d06aeaaed49dc54439fae1ecce6c5aea, type: 3}
+    - Id: big-final
+      Title: "Sirk Topuyla Kaos"
+      Tier: 2
+      Art: {fileID: 21300000, guid: b7d72a7b12a7d324a837f7dfe836b5bb, type: 3}
+    - Id: roaring-lion
+      Title: "Aslanın Kükreyişi"
+      Tier: 1
+      Art: {fileID: 21300000, guid: 60ebdacbcc853724f9def4e43f950db2, type: 3}
+    - Id: balancing-pole
+      Title: "Sırık Üstünde Denge"
+      Tier: 0
+      Art: {fileID: 21300000, guid: 03dab434b61ce9f488a4d725d8cae59d, type: 3}
+    - Id: lion-finale
+      Title: "Aslanlı Final"
+      Tier: 2
+      Art: {fileID: 21300000, guid: 4d58fcc99df98374b9872328056ee81e, type: 3}
+  _regularWeight: 6
+  _epicWeight: 4
+  _legendaryWeight: 2

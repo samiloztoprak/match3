@@ -32,6 +32,8 @@ public class MenuTabBar : MonoBehaviour
         foreach (PageRoot p in _pages)
         {
             if (p.Root == null) continue;
+            if (p.Root.TryGetComponent(out CollectionPage collection)) collection.Prepare();
+            if (p.Root.TryGetComponent(out WheelPage wheel)) wheel.Prepare();
             p.Root.anchoredPosition = Vector2.zero;
             p.Root.gameObject.SetActive(p.Page == _defaultPage);
         }

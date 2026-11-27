@@ -49,8 +49,10 @@ MonoBehaviour:
     Amount: 1
     Weight: 1
     Icon: {fileID: 21300000, guid: 1bedd991ea2669441b4af82f635eecf2, type: 3}
-  - Type: 2
-    Booster: 3
-    Amount: 5
-    Weight: 6
-    Icon: {fileID: 2713618171904010154, guid: bfb5b4a08149d834fb92d258f7024daa, type: 3}
+  - Type: 1
+    Booster: 0
+    Amount: 1
+    Weight: 16
+    Icon: {fileID: 6084307209596148100, guid: 9ecb9ca4004121e46bd51ea6f5d6e4eb, type: 3}
+  _collection: {fileID: 11400000, guid: a7b477df28fa43b4a010a5d9bc6f3236, type: 2}
+  _fallbackStarIcon: {fileID: 2713618171904010154, guid: bfb5b4a08149d834fb92d258f7024daa, type: 3}

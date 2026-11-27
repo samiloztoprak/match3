@@ -25,9 +25,13 @@ public class WheelConfig : ScriptableObject
 
     [SerializeField] private int _starsPerSpin = 10;
     [SerializeField] private Segment[] _segments = new Segment[8];
+    [SerializeField] private CollectionCatalog _collection;
+    [SerializeField] private Sprite _fallbackStarIcon;
 
     public int StarsPerSpin => _starsPerSpin;
     public Segment[] Segments => _segments;
+    public CollectionCatalog Collection => _collection;
+    public Sprite FallbackStarIcon => _fallbackStarIcon;
 
     public int[] Weights()
     {

@@ -43,10 +43,11 @@ namespace Tests.EditMode
 
             Assert.AreEqual(5, byX.Count);
             Assert.AreEqual(ActivationTiming.TapActivationMs, byX[2], 0.01f, "rocket's own cell");
-            Assert.AreEqual(ActivationTiming.TapActivationMs + ActivationTiming.RocketMsPerCell, byX[1], 0.01f);
-            Assert.AreEqual(ActivationTiming.TapActivationMs + ActivationTiming.RocketMsPerCell, byX[3], 0.01f);
-            Assert.AreEqual(ActivationTiming.TapActivationMs + ActivationTiming.RocketMsPerCell * 2, byX[0], 0.01f);
-            Assert.AreEqual(ActivationTiming.TapActivationMs + ActivationTiming.RocketMsPerCell * 2, byX[4], 0.01f);
+            float rocketStart = ActivationTiming.TapActivationMs + ActivationTiming.RocketChargeMs;
+            Assert.AreEqual(rocketStart + ActivationTiming.RocketMsPerCell, byX[1], 0.01f);
+            Assert.AreEqual(rocketStart + ActivationTiming.RocketMsPerCell, byX[3], 0.01f);
+            Assert.AreEqual(rocketStart + ActivationTiming.RocketMsPerCell * 2, byX[0], 0.01f);
+            Assert.AreEqual(rocketStart + ActivationTiming.RocketMsPerCell * 2, byX[4], 0.01f);
         }
 
         [Test]
@@ -74,10 +75,14 @@ namespace Tests.EditMode
                 else if (hit.X == 1 && hit.Y == 0) edge = hit.TimeMs;
             }
 
-            float baseMs = ActivationTiming.TapActivationMs + ActivationTiming.TntDelayMs;
-            Assert.AreEqual(baseMs, center, 0.01f, "center is ring 0");
-            Assert.AreEqual(baseMs + ActivationTiming.TntRingMs, edge, 0.01f, "edge is ring 1");
-            Assert.AreEqual(baseMs + ActivationTiming.TntRingMs, corner, 0.01f, "Chebyshev distance: corner is also ring 1, not ring 2");
+            float blastStart = ActivationTiming.TapActivationMs
+                               + ActivationTiming.TntDelayMs
+                               + ActivationTiming.TntChargeMs;
+            Assert.AreEqual(ActivationTiming.TapActivationMs, center, 0.01f,
+                "TNT's own piece clears when activation begins");
+            Assert.AreEqual(blastStart + ActivationTiming.TntRingMs, edge, 0.01f, "edge is ring 1");
+            Assert.AreEqual(blastStart + ActivationTiming.TntRingMs, corner, 0.01f,
+                "Chebyshev distance: corner is also ring 1, not ring 2");
         }
 
         [Test]
@@ -146,7 +151,9 @@ namespace Tests.EditMode
             Assert.IsNotNull(rocketActivation);
             Assert.IsNotNull(tntActivation);
 
-            float rocketHitAtTnt = ActivationTiming.TapActivationMs + ActivationTiming.RocketMsPerCell * 4;
+            float rocketHitAtTnt = ActivationTiming.TapActivationMs
+                                    + ActivationTiming.RocketChargeMs
+                                    + ActivationTiming.RocketMsPerCell * 4;
             float expectedTntStart = rocketHitAtTnt + ActivationTiming.ChainDelayMs;
             Assert.AreEqual(expectedTntStart, tntActivation.TimeMs, 0.01f);
         }

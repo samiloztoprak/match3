@@ -96,11 +96,17 @@ public class WheelView : MonoBehaviour
             slot.anchoredPosition = new Vector2(Mathf.Sin(rad), Mathf.Cos(rad)) * _iconRadius;
             slot.localRotation = Quaternion.Euler(0f, 0f, -angle);
 
-            slot.GetComponent<Image>().sprite = segments[i].Icon;
-            slot.GetComponentInChildren<TMP_Text>().text = segments[i].AmountLabel;
+            SetSegment(i, segments[i]);
         }
 
         _lastSegment = SegmentAt(_angle);
+    }
+
+    public void SetSegment(int index, WheelConfig.Segment segment)
+    {
+        RectTransform slot = _slots[index];
+        slot.GetComponent<Image>().sprite = segment.Icon;
+        slot.GetComponentInChildren<TMP_Text>().text = segment.AmountLabel;
     }
 
     public void SpinTo(int index, Action onComplete)

@@ -1,66 +1,40 @@
 using System;
-using UnityEngine;
 
 public static class WheelProgress
 {
-    private const string BankKey = "Wheel_StarBank";
-    private const string SpinsKey = "Wheel_Spins";
-    private const string TotalKey = "Wheel_TotalStars";
-    private const string PendingFlyKey = "Wheel_PendingFly";
-    private const int StartSpins = 1;
-
     public static event Action Changed;
 
-    public static int StarBank => PlayerPrefs.GetInt(BankKey, 0);
-    public static int Spins => PlayerPrefs.GetInt(SpinsKey, StartSpins);
-    public static int TotalStars => PlayerPrefs.GetInt(TotalKey, 0);
+    public static int StarBank => MetaProgress.State.StarBank;
+    public static int Spins => MetaProgress.State.Spins;
+    public static int TotalStars => MetaProgress.State.TotalStars;
 
-    static WheelProgress()
-    {
-        PlayerPrefs.SetInt(SpinsKey, 2);
-    }
-    
+    internal static void NotifyChanged() => Changed?.Invoke();
+
     public static void AddStars(int stars, int starsPerSpin, bool queueMenuFly = true)
     {
-        Debug.Log($"Adding stars for {stars} stars {BankKey}");
-
         if (stars <= 0) return;
-        
-        if (queueMenuFly)
-        {
-            PlayerPrefs.SetInt(PendingFlyKey, PlayerPrefs.GetInt(PendingFlyKey, 0) + stars);
-        }
-        var (bank, gained) = WheelLogic.AddStars(StarBank, stars, starsPerSpin);
-        Debug.Log($"Adding stars for {stars} stars {BankKey}");
-
-        PlayerPrefs.SetInt(BankKey, bank);
-        PlayerPrefs.SetInt(SpinsKey, Spins + gained);
-        PlayerPrefs.SetInt(TotalKey, TotalStars + stars);
-        Debug.Log($"Adding stars for {stars} stars {BankKey}");
-
-        PlayerPrefs.Save();
-        Changed?.Invoke();
+        MetaProgressState next = MetaProgress.BeginUpdate();
+        next.AddStars(stars, starsPerSpin, queueMenuFly);
+        MetaProgress.Commit(next);
     }
 
     public static bool TryUseSpin()
     {
-        int spins = Spins;
-        if (spins <= 0) return false;
-
-        PlayerPrefs.SetInt(SpinsKey, spins - 1);
-        PlayerPrefs.Save();
-        Changed?.Invoke();
+        if (Spins <= 0) return false;
+        MetaProgressState next = MetaProgress.BeginUpdate();
+        next.Spins--;
+        MetaProgress.Commit(next);
         return true;
     }
-    
+
     public static int ConsumePendingFly()
     {
-        int stars = PlayerPrefs.GetInt(PendingFlyKey, 0);
-        if (stars > 0)
-        {
-            PlayerPrefs.DeleteKey(PendingFlyKey);
-            PlayerPrefs.Save();
-        }
+        int stars = MetaProgress.State.PendingFly;
+        if (stars <= 0) return 0;
+
+        MetaProgressState next = MetaProgress.BeginUpdate();
+        next.PendingFly = 0;
+        MetaProgress.Commit(next);
         return stars;
     }
 }

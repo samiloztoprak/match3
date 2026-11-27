@@ -320,8 +320,7 @@ public class BoardController : MonoBehaviour
             LevelEnded?.Invoke(true);
 
             int stars = CalculateStars();
-            int gained = LevelProgress.SaveStars(_levelIndex, stars);
-            WheelProgress.AddStars(gained, _assets.Wheel.StarsPerSpin);
+            LevelProgress.SaveStars(_levelIndex, stars, _assets.Wheel.StarsPerSpin);
             _popups.Show<WinPopup>().Setup(_levelIndex + 1, stars);
         }
         else if (_movesRemaining <= 0)

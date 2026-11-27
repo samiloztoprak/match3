@@ -1,5 +1,5 @@
+using System;
 using System.Collections.Generic;
-using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,11 +12,15 @@ public class WheelPage : MonoBehaviour
     [SerializeField] private MenuTabBar _tabBar;
     [SerializeField] private Button _spinButton;
     [SerializeField] private TMP_Text _spinsText;
+    [SerializeField] private CardPackReveal _packReveal;
     
     private readonly Dictionary<WheelRewardType, IRewardPresenter> _presenters = new Dictionary<WheelRewardType, IRewardPresenter>();
     private readonly IRandom _random = new SystemRandom();
     private bool _built;
     private bool _busy;
+    private Action _finishReward;
+    private Action _presentSpin;
+    private WheelSpinResult _pendingSpin;
     
     private void OnValidate()
     {
@@ -25,6 +29,7 @@ public class WheelPage : MonoBehaviour
         if (_tabBar == null) _tabBar = AutoRef.InScene<MenuTabBar>();
         if (_spinButton == null) _spinButton = AutoRef.Child<Button>(this, "ui_button_spin");
         if (_spinsText == null) _spinsText = AutoRef.Child<TMP_Text>(this, "ui_text_spins_count");
+        if (_packReveal == null) _packReveal = GetComponentInChildren<CardPackReveal>(true);
 #if UNITY_EDITOR
         if (_assets == null) _assets = AutoRef.Asset<GameAssets>();
 #endif
@@ -32,24 +37,25 @@ public class WheelPage : MonoBehaviour
 
     private void Awake()
     {
+        _finishReward = Finish;
+        _presentSpin = PresentSpin;
         foreach (IRewardPresenter presenter in GetComponentsInChildren<IRewardPresenter>(true))
         {
-            if (_presenters.ContainsKey(presenter.Type))
-            {
-                continue;
-            }
-            _presenters.Add(presenter.Type, presenter);
+            _presenters.TryAdd(presenter.Type, presenter);
         }
     }
     
+    internal void Prepare()
+    {
+        if (_built) return;
+
+        _wheel.Build(_assets.Wheel.Segments);
+        _built = true;
+    }
+
     private void OnEnable()
     {
-        if (!_built)
-        {
-            _wheel.Build(_assets.Wheel.Segments);
-            _built = true;
-        }
-
+        Prepare();
         _spinButton.onClick.AddListener(OnSpin);
         WheelProgress.Changed += OnProgressChanged;
         Refresh(true);
@@ -59,6 +65,8 @@ public class WheelPage : MonoBehaviour
     {
         _spinButton.onClick.RemoveListener(OnSpin);
         WheelProgress.Changed -= OnProgressChanged;
+        if (_packReveal != null) _packReveal.Hide();
+        _pendingSpin = default;
         _busy = false;
         _tabBar.Locked = false;
     }
@@ -70,6 +78,9 @@ public class WheelPage : MonoBehaviour
     
     private void Refresh(bool animate)
     {
+        for (int i = 0; i < _assets.Wheel.Segments.Length; i++)
+            _wheel.SetSegment(i, WheelService.RewardAt(_assets.Wheel, i));
+
         int spins = WheelProgress.Spins;
         _progressBar.Show(WheelProgress.StarBank, _assets.Wheel.StarsPerSpin, animate);
         _spinsText.text = "x" + spins;
@@ -93,20 +104,33 @@ public class WheelPage : MonoBehaviour
         _spinButton.interactable = false;
         _spinsText.text = "x" + (spinsBefore - 1);
         AudioManager.Play(SoundId.ButtonClick);
-        _wheel.SpinTo(result.SegmentIndex, () => Present(result));
+        _pendingSpin = result;
+        _wheel.SpinTo(result.SegmentIndex, _presentSpin);
     }
 
-    private void Present(WheelSpinResult result)
+    private void PresentSpin()
     {
+        WheelSpinResult result = _pendingSpin;
+        _pendingSpin = default;
+        Vector3 from = _wheel.SlotPosition(result.SegmentIndex);
+        if (result.Reward.Type == WheelRewardType.CardPack)
+        {
+            if (_packReveal != null)
+                _packReveal.Play(result.Pack, from, _tabBar.GetButton(MenuPage.Collection), _progressBar, _finishReward);
+            else
+                Finish();
+            return;
+        }
+
         if (!_presenters.TryGetValue(result.Reward.Type, out IRewardPresenter presenter))
         {
             Finish();
             return;
         }
 
-        presenter.Present(new RewardContext(result.Reward, _wheel.SlotPosition(result.SegmentIndex)), Finish);
+        presenter.Present(new RewardContext(result.Reward, from), _finishReward);
     }
-    
+
     private void Finish()
     {
         _busy = false;
